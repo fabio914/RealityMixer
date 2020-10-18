@@ -4,13 +4,12 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MixedRealityViewController" customModule="MRTest2" customModuleProvider="target">
             <connections>
-                <outlet property="imageView" destination="uT6-mx-sok" id="Fvl-LN-Vme"/>
+                <outlet property="sceneView" destination="2ar-Bw-mm2" id="qUN-my-w4z"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,24 +18,33 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uT6-mx-sok">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A6F-W1-rXL">
+                    <rect key="frame" x="10" y="342" width="394" height="222"/>
+                    <subviews>
+                        <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ar-Bw-mm2">
+                            <rect key="frame" x="0.0" y="0.0" width="394" height="222"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </arscnView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="2ar-Bw-mm2" firstAttribute="leading" secondItem="A6F-W1-rXL" secondAttribute="leading" id="1yB-GU-8A7"/>
+                        <constraint firstAttribute="width" secondItem="A6F-W1-rXL" secondAttribute="height" multiplier="16:9" id="Eh3-kx-aej"/>
+                        <constraint firstItem="2ar-Bw-mm2" firstAttribute="top" secondItem="A6F-W1-rXL" secondAttribute="top" id="GVh-fC-zlD"/>
+                        <constraint firstAttribute="bottom" secondItem="2ar-Bw-mm2" secondAttribute="bottom" id="X83-9Y-Wow"/>
+                        <constraint firstAttribute="trailing" secondItem="2ar-Bw-mm2" secondAttribute="trailing" id="sB4-Hk-ahf"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="uT6-mx-sok" secondAttribute="bottom" id="Anf-TM-DOo"/>
-                <constraint firstItem="uT6-mx-sok" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="BUf-jo-2Mt"/>
-                <constraint firstItem="uT6-mx-sok" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="YOg-Ws-fh6"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="uT6-mx-sok" secondAttribute="trailing" id="jvG-Ei-nd1"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="A6F-W1-rXL" secondAttribute="trailing" constant="10" id="BVL-up-gSb"/>
+                <constraint firstItem="A6F-W1-rXL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="Mfl-En-31R"/>
+                <constraint firstItem="A6F-W1-rXL" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="qa6-gq-bPJ"/>
+                <constraint firstItem="A6F-W1-rXL" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="s5b-T7-ReI"/>
             </constraints>
             <point key="canvasLocation" x="139" y="89"/>
         </view>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

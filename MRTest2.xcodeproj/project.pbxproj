@@ -30,6 +30,8 @@
 		A328D979253CE54E00B90E62 /* ConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D978253CE54E00B90E62 /* ConnectionViewController.xib */; };
 		A328D97F253CE63B00B90E62 /* MixedRealityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D97D253CE63B00B90E62 /* MixedRealityViewController.swift */; };
 		A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */; };
+		A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98D253CF2EE00B90E62 /* ARKit.framework */; };
+		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -174,6 +176,8 @@
 		A328D978253CE54E00B90E62 /* ConnectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConnectionViewController.xib; sourceTree = "<group>"; };
 		A328D97D253CE63B00B90E62 /* MixedRealityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixedRealityViewController.swift; sourceTree = "<group>"; };
 		A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MixedRealityViewController.xib; sourceTree = "<group>"; };
+		A328D98D253CF2EE00B90E62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		A328D98F253CF2F400B90E62 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,8 @@
 				A328D960253C959500B90E62 /* libbz2.tbd in Frameworks */,
 				A328D957253C954600B90E62 /* libavfilter.a in Frameworks */,
 				A328D956253C954600B90E62 /* libavutil.a in Frameworks */,
+				A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */,
+				A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */,
 				A328D8C5253C8CD600B90E62 /* SwiftSocket.framework in Frameworks */,
 				A328D959253C954600B90E62 /* libavformat.a in Frameworks */,
 				A328D96B253C95BD00B90E62 /* AudioToolbox.framework in Frameworks */,
@@ -447,6 +453,8 @@
 		A328D95E253C958D00B90E62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A328D98F253CF2F400B90E62 /* SceneKit.framework */,
+				A328D98D253CF2EE00B90E62 /* ARKit.framework */,
 				A328D96C253C95C200B90E62 /* CoreMedia.framework */,
 				A328D96A253C95BD00B90E62 /* AudioToolbox.framework */,
 				A328D968253C95B700B90E62 /* VideoToolbox.framework */,

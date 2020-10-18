@@ -283,9 +283,12 @@ std::string GetAvErrorString(int errNum) {
                         stride);
 
                     UIImage * image = [self imageFromData:data[0] lineSize:stride width:picture->width height:picture->height];
+                    UIImage * backgroundImage = [self backgroundImageFrom:image];
 
-                    if (image) {
-                        [_delegate oculusMRC:self didReceiveNewFrame:image];
+                    // TODO: Return foreground image
+
+                    if (backgroundImage) {
+                        [_delegate oculusMRC:self didReceiveNewFrame:backgroundImage];
                     }
 
                     delete data[0];
@@ -345,6 +348,14 @@ std::string GetAvErrorString(int errNum) {
     CFRelease(copy);
 
     return image;
+}
+
+- (UIImage *)backgroundImageFrom:(UIImage *)image {
+    CGRect cropRect = CGRectMake(0, 0, image.size.width/2.0, image.size.height);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+    UIImage * result = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDownMirrored];
+    CGImageRelease(imageRef);
+    return result;
 }
 
 - (void)dealloc {
