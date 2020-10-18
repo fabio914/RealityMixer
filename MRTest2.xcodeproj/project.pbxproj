@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A328D8B0253C8C4000B90E62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D8AF253C8C4000B90E62 /* AppDelegate.swift */; };
-		A328D8B2253C8C4000B90E62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D8B1253C8C4000B90E62 /* SceneDelegate.swift */; };
-		A328D8B4253C8C4000B90E62 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D8B3253C8C4000B90E62 /* ViewController.swift */; };
-		A328D8B7253C8C4000B90E62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A328D8B5253C8C4000B90E62 /* Main.storyboard */; };
+		A328D8B4253C8C4000B90E62 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D8B3253C8C4000B90E62 /* ConnectionViewController.swift */; };
 		A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A328D8B8253C8C4300B90E62 /* Assets.xcassets */; };
 		A328D8BC253C8C4300B90E62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */; };
 		A328D8C5253C8CD600B90E62 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D8C4253C8CD600B90E62 /* SwiftSocket.framework */; };
@@ -29,14 +27,15 @@
 		A328D969253C95B700B90E62 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D968253C95B700B90E62 /* VideoToolbox.framework */; };
 		A328D96B253C95BD00B90E62 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D96A253C95BD00B90E62 /* AudioToolbox.framework */; };
 		A328D96D253C95C300B90E62 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D96C253C95C200B90E62 /* CoreMedia.framework */; };
+		A328D979253CE54E00B90E62 /* ConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D978253CE54E00B90E62 /* ConnectionViewController.xib */; };
+		A328D97F253CE63B00B90E62 /* MixedRealityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D97D253CE63B00B90E62 /* MixedRealityViewController.swift */; };
+		A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A328D8AC253C8C4000B90E62 /* MRTest2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MRTest2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A328D8AF253C8C4000B90E62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A328D8B1253C8C4000B90E62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A328D8B3253C8C4000B90E62 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A328D8B6253C8C4000B90E62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A328D8B3253C8C4000B90E62 /* ConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionViewController.swift; sourceTree = "<group>"; };
 		A328D8B8253C8C4300B90E62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A328D8BB253C8C4300B90E62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A328D8BD253C8C4300B90E62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -172,6 +171,9 @@
 		A328D968253C95B700B90E62 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		A328D96A253C95BD00B90E62 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		A328D96C253C95C200B90E62 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		A328D978253CE54E00B90E62 /* ConnectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConnectionViewController.xib; sourceTree = "<group>"; };
+		A328D97D253CE63B00B90E62 /* MixedRealityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixedRealityViewController.swift; sourceTree = "<group>"; };
+		A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MixedRealityViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,14 +221,12 @@
 		A328D8AE253C8C4000B90E62 /* MRTest2 */ = {
 			isa = PBXGroup;
 			children = (
+				A328D971253CE4AA00B90E62 /* ViewControllers */,
 				A328D8C9253C914400B90E62 /* MRTest2-Bridging-Header.h */,
 				A328D8D4253C954500B90E62 /* FFmpeg-iOS */,
 				A328D8C8253C912E00B90E62 /* oculus-mrc */,
 				A328D8C4253C8CD600B90E62 /* SwiftSocket.framework */,
 				A328D8AF253C8C4000B90E62 /* AppDelegate.swift */,
-				A328D8B1253C8C4000B90E62 /* SceneDelegate.swift */,
-				A328D8B3253C8C4000B90E62 /* ViewController.swift */,
-				A328D8B5253C8C4000B90E62 /* Main.storyboard */,
 				A328D8B8253C8C4300B90E62 /* Assets.xcassets */,
 				A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */,
 				A328D8BD253C8C4300B90E62 /* Info.plist */,
@@ -457,6 +457,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A328D971253CE4AA00B90E62 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A328D8B3253C8C4000B90E62 /* ConnectionViewController.swift */,
+				A328D978253CE54E00B90E62 /* ConnectionViewController.xib */,
+				A328D97D253CE63B00B90E62 /* MixedRealityViewController.swift */,
+				A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -518,7 +529,8 @@
 			files = (
 				A328D8BC253C8C4300B90E62 /* LaunchScreen.storyboard in Resources */,
 				A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */,
-				A328D8B7253C8C4000B90E62 /* Main.storyboard in Resources */,
+				A328D979253CE54E00B90E62 /* ConnectionViewController.xib in Resources */,
+				A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,25 +562,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A328D8B4253C8C4000B90E62 /* ViewController.swift in Sources */,
+				A328D8B4253C8C4000B90E62 /* ConnectionViewController.swift in Sources */,
 				A328D8D1253C917300B90E62 /* OculusMRC.mm in Sources */,
+				A328D97F253CE63B00B90E62 /* MixedRealityViewController.swift in Sources */,
 				A328D8CC253C914500B90E62 /* frame.cpp in Sources */,
 				A328D8B0253C8C4000B90E62 /* AppDelegate.swift in Sources */,
-				A328D8B2253C8C4000B90E62 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A328D8B5253C8C4000B90E62 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A328D8B6253C8C4000B90E62 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
