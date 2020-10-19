@@ -38,6 +38,8 @@ final class MixedRealityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        UIApplication.shared.isIdleTimerDisabled = true
+
         let displayLink = CADisplayLink(target: self, selector: #selector(update(with:)))
         displayLink.add(to: .main, forMode: .default)
         self.displayLink = displayLink
@@ -84,30 +86,15 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func updateScenePlane() {
-//        let depth: Float = 0.9
-//
-//        let width = Float(sceneView.frame.width)
-//        let height = sceneView.frame.height
-//
-//        var origin = sceneView.unprojectPoint(SCNVector3(0, 0, depth))
-//        let topRight = sceneView.unprojectPoint(SCNVector3(width, 0, depth))
-//        let scale = 2.0 * (topRight.x - origin.x) / width
-//
-//        origin.z *= -1
-//        origin.x = -2 * topRight.x
-//        origin.y = -2 * topRight.y
-
-//        let plane = SCNPlane(width: CGFloat(width), height: height)
-        let plane = SCNPlane(width: 0.5, height: 0.5)
+        // Assuming a 16:9 aspect ratio
+        let plane = SCNPlane(width: 1.77777777778, height: 1)
 
         plane.cornerRadius = 0
         plane.firstMaterial?.lightingModel = .constant
         plane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
 
         let planeNode = SCNNode(geometry: plane)
-
-        planeNode.position = .init(0, 0, -1) //origin
-//        planeNode.scale = SCNVector3(scale, -scale, scale)
+        planeNode.position = .init(0, 0, -1)
 
         // Flipping image
         planeNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)

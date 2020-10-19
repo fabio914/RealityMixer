@@ -18,31 +18,18 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A6F-W1-rXL">
-                    <rect key="frame" x="10" y="342" width="394" height="222"/>
-                    <subviews>
-                        <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ar-Bw-mm2">
-                            <rect key="frame" x="0.0" y="0.0" width="394" height="222"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </arscnView>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstItem="2ar-Bw-mm2" firstAttribute="leading" secondItem="A6F-W1-rXL" secondAttribute="leading" id="1yB-GU-8A7"/>
-                        <constraint firstAttribute="width" secondItem="A6F-W1-rXL" secondAttribute="height" multiplier="16:9" id="Eh3-kx-aej"/>
-                        <constraint firstItem="2ar-Bw-mm2" firstAttribute="top" secondItem="A6F-W1-rXL" secondAttribute="top" id="GVh-fC-zlD"/>
-                        <constraint firstAttribute="bottom" secondItem="2ar-Bw-mm2" secondAttribute="bottom" id="X83-9Y-Wow"/>
-                        <constraint firstAttribute="trailing" secondItem="2ar-Bw-mm2" secondAttribute="trailing" id="sB4-Hk-ahf"/>
-                    </constraints>
-                </view>
+                <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ar-Bw-mm2">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </arscnView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="A6F-W1-rXL" secondAttribute="trailing" constant="10" id="BVL-up-gSb"/>
-                <constraint firstItem="A6F-W1-rXL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="Mfl-En-31R"/>
-                <constraint firstItem="A6F-W1-rXL" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="qa6-gq-bPJ"/>
-                <constraint firstItem="A6F-W1-rXL" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="s5b-T7-ReI"/>
+                <constraint firstItem="2ar-Bw-mm2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0tP-QG-61G"/>
+                <constraint firstAttribute="bottom" secondItem="2ar-Bw-mm2" secondAttribute="bottom" id="MrF-4C-i8c"/>
+                <constraint firstItem="2ar-Bw-mm2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="eOM-Bh-ili"/>
+                <constraint firstAttribute="trailing" secondItem="2ar-Bw-mm2" secondAttribute="trailing" id="mAO-gu-kie"/>
             </constraints>
             <point key="canvasLocation" x="139" y="89"/>
         </view>
