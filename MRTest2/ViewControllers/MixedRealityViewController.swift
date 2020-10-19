@@ -87,14 +87,14 @@ final class MixedRealityViewController: UIViewController {
 
     private func updateScenePlane() {
         // Assuming a 16:9 aspect ratio
-        let plane = SCNPlane(width: 1.77777777778, height: 1)
+        let plane = SCNPlane(width: 177.777777778, height: 100)
 
         plane.cornerRadius = 0
         plane.firstMaterial?.lightingModel = .constant
         plane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
 
         let planeNode = SCNNode(geometry: plane)
-        planeNode.position = .init(0, 0, -1)
+        planeNode.position = .init(0, 0, -100)
 
         // Flipping image
         planeNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
