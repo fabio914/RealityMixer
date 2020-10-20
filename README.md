@@ -1,6 +1,4 @@
-# Reality Mixer For iOS
-
-## Oculus Quest Mixed Reality For iOS
+# Reality Mixer <br/> *Oculus Quest Mixed Reality For iOS*
 
 This is a standalone Oculus Quest Mixed Reality app for iOS that doesn't require a PC for generating Mixed Reality content.
 
