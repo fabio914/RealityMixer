@@ -17,6 +17,7 @@ final class MixedRealityViewController: UIViewController {
     @IBOutlet private weak var sceneView: ARSCNView!
 
     private var backgroundNode: SCNNode?
+    private var foregroundNode: SCNNode?
 
     override var prefersStatusBarHidden: Bool {
         true
@@ -86,23 +87,36 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func updateScenePlane() {
-        // Assuming a 16:9 aspect ratio
-        let plane = SCNPlane(width: 177.777777778, height: 100)
+        // Background plane
+        let backgroundPlane = SCNPlane(width: 177.777777778, height: 100) // Assuming a 16:9 aspect ratio
+        backgroundPlane.cornerRadius = 0
+        backgroundPlane.firstMaterial?.lightingModel = .constant
+        backgroundPlane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
 
-        plane.cornerRadius = 0
-        plane.firstMaterial?.lightingModel = .constant
-        plane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
-
-        let planeNode = SCNNode(geometry: plane)
-        planeNode.position = .init(0, 0, -100)
+        let backgroundPlaneNode = SCNNode(geometry: backgroundPlane)
+        backgroundPlaneNode.position = .init(0, 0, -100)
 
         // Flipping image
-        planeNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+        backgroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+
+        // Foreground plane
+        let foregroundPlane = SCNPlane(width: 0.177777777778, height: 0.1) // Assuming a 16:9 aspect ratio
+        foregroundPlane.cornerRadius = 0
+        foregroundPlane.firstMaterial?.lightingModel = .constant
+        foregroundPlane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
+
+        let foregroundPlaneNode = SCNNode(geometry: foregroundPlane)
+        foregroundPlaneNode.position = .init(0, 0, -0.1)
+
+        // Flipping image
+        foregroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
 
         sceneView.pointOfView?.childNodes.forEach({ $0.removeFromParentNode() })
-        sceneView.pointOfView?.addChildNode(planeNode)
+        sceneView.pointOfView?.addChildNode(backgroundPlaneNode)
+        sceneView.pointOfView?.addChildNode(foregroundPlaneNode)
 
-        self.backgroundNode = planeNode
+        self.backgroundNode = backgroundPlaneNode
+        self.foregroundNode = foregroundPlaneNode
     }
 
     @objc func update(with sender: CADisplayLink) {
@@ -119,8 +133,12 @@ final class MixedRealityViewController: UIViewController {
 }
 
 extension MixedRealityViewController: OculusMRCDelegate {
-
-    func oculusMRC(_ oculusMRC: OculusMRC, didReceiveNewFrame frame: UIImage) {
-        backgroundNode?.geometry?.firstMaterial?.diffuse.contents = frame
+    func oculusMRC(
+        _ oculusMRC: OculusMRC,
+        didReceiveBackground background: UIImage,
+        andForeground foreground: UIImage
+    ) {
+        backgroundNode?.geometry?.firstMaterial?.diffuse.contents = background
+        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = foreground
     }
 }

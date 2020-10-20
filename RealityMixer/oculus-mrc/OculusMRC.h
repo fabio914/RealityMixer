@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class OculusMRC;
 
 @protocol OculusMRCDelegate <NSObject>
-- (void)oculusMRC:(OculusMRC *)oculusMRC didReceiveNewFrame:(UIImage *)frame;
+- (void)oculusMRC:(OculusMRC *)oculusMRC didReceiveBackground:(UIImage *)background andForeground:(UIImage *)foreground;
 @end
 
 @interface OculusMRC : NSObject

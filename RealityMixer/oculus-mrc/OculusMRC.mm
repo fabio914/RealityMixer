@@ -284,14 +284,13 @@ std::string GetAvErrorString(int errNum) {
 
                     UIImage * image = [self imageFromData:data[0] lineSize:stride width:picture->width height:picture->height];
                     UIImage * backgroundImage = [self backgroundImageFrom:image];
-
-                    // TODO: Return foreground image
-
-                    if (backgroundImage) {
-                        [_delegate oculusMRC:self didReceiveNewFrame:backgroundImage];
-                    }
+                    UIImage * foregroundImage = [self foregroundImageFrom:image];
 
                     delete data[0];
+
+                    if (backgroundImage != nil && foregroundImage != nil) {
+                        [_delegate oculusMRC:self didReceiveBackground:backgroundImage andForeground:foregroundImage];
+                    }
                 }
             }
 
@@ -324,22 +323,24 @@ std::string GetAvErrorString(int errNum) {
 
     CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
     CFDataRef data = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, dt, lineSize[0]*height,kCFAllocatorNull);
-
     CFDataRef copy = CFDataCreateCopy(kCFAllocatorDefault, data);
-
     CGDataProviderRef provider = CGDataProviderCreateWithCFData(copy);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGImageRef cgImage = CGImageCreate(width,
-                                       height,
-                                       8,
-                                       24,
-                                       lineSize[0],
-                                       colorSpace,
-                                       bitmapInfo,
-                                       provider,
-                                       NULL,
-                                       NO,
-                                       kCGRenderingIntentDefault);
+
+    CGImageRef cgImage = CGImageCreate(
+        width,
+        height,
+        8,
+        24,
+        lineSize[0],
+        colorSpace,
+        bitmapInfo,
+        provider,
+        NULL,
+        NO,
+        kCGRenderingIntentDefault
+    );
+
     CGColorSpaceRelease(colorSpace);
     UIImage *image = [UIImage imageWithCGImage:cgImage scale:1.0 orientation:UIImageOrientationDownMirrored];
     CGImageRelease(cgImage);
@@ -352,6 +353,14 @@ std::string GetAvErrorString(int errNum) {
 
 - (UIImage *)backgroundImageFrom:(UIImage *)image {
     CGRect cropRect = CGRectMake(0, 0, image.size.width/2.0, image.size.height);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+    UIImage * result = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDownMirrored];
+    CGImageRelease(imageRef);
+    return result;
+}
+
+- (UIImage *)foregroundImageFrom:(UIImage *)image {
+    CGRect cropRect = CGRectMake(image.size.width/2.0, 0, image.size.width/2.0, image.size.height);
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
     UIImage * result = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDownMirrored];
     CGImageRelease(imageRef);
