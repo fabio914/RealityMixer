@@ -35,14 +35,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A328D8AC253C8C4000B90E62 /* MRTest2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MRTest2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A328D8AC253C8C4000B90E62 /* RealityMixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealityMixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A328D8AF253C8C4000B90E62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A328D8B3253C8C4000B90E62 /* ConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionViewController.swift; sourceTree = "<group>"; };
 		A328D8B8253C8C4300B90E62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A328D8BB253C8C4300B90E62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A328D8BD253C8C4300B90E62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A328D8C4253C8CD600B90E62 /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSocket.framework; path = Carthage/Build/iOS/SwiftSocket.framework; sourceTree = SOURCE_ROOT; };
-		A328D8C9253C914400B90E62 /* MRTest2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MRTest2-Bridging-Header.h"; sourceTree = "<group>"; };
+		A328D8C9253C914400B90E62 /* RealityMixer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RealityMixer-Bridging-Header.h"; sourceTree = "<group>"; };
 		A328D8CA253C914500B90E62 /* frame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = frame.cpp; sourceTree = "<group>"; };
 		A328D8CB253C914500B90E62 /* frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = frame.h; sourceTree = "<group>"; };
 		A328D8CF253C917300B90E62 /* OculusMRC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OculusMRC.h; sourceTree = "<group>"; };
@@ -210,7 +210,7 @@
 		A328D8A3253C8C4000B90E62 = {
 			isa = PBXGroup;
 			children = (
-				A328D8AE253C8C4000B90E62 /* MRTest2 */,
+				A328D8AE253C8C4000B90E62 /* RealityMixer */,
 				A328D8AD253C8C4000B90E62 /* Products */,
 				A328D95E253C958D00B90E62 /* Frameworks */,
 			);
@@ -219,16 +219,16 @@
 		A328D8AD253C8C4000B90E62 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A328D8AC253C8C4000B90E62 /* MRTest2.app */,
+				A328D8AC253C8C4000B90E62 /* RealityMixer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A328D8AE253C8C4000B90E62 /* MRTest2 */ = {
+		A328D8AE253C8C4000B90E62 /* RealityMixer */ = {
 			isa = PBXGroup;
 			children = (
 				A328D971253CE4AA00B90E62 /* ViewControllers */,
-				A328D8C9253C914400B90E62 /* MRTest2-Bridging-Header.h */,
+				A328D8C9253C914400B90E62 /* RealityMixer-Bridging-Header.h */,
 				A328D8D4253C954500B90E62 /* FFmpeg-iOS */,
 				A328D8C8253C912E00B90E62 /* oculus-mrc */,
 				A328D8C4253C8CD600B90E62 /* SwiftSocket.framework */,
@@ -237,7 +237,7 @@
 				A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */,
 				A328D8BD253C8C4300B90E62 /* Info.plist */,
 			);
-			path = MRTest2;
+			path = RealityMixer;
 			sourceTree = "<group>";
 		};
 		A328D8C8253C912E00B90E62 /* oculus-mrc */ = {
@@ -479,9 +479,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A328D8AB253C8C4000B90E62 /* MRTest2 */ = {
+		A328D8AB253C8C4000B90E62 /* RealityMixer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A328D8C0253C8C4300B90E62 /* Build configuration list for PBXNativeTarget "MRTest2" */;
+			buildConfigurationList = A328D8C0253C8C4300B90E62 /* Build configuration list for PBXNativeTarget "RealityMixer" */;
 			buildPhases = (
 				A328D8A8253C8C4000B90E62 /* Sources */,
 				A328D8A9253C8C4000B90E62 /* Frameworks */,
@@ -492,9 +492,9 @@
 			);
 			dependencies = (
 			);
-			name = MRTest2;
+			name = RealityMixer;
 			productName = MRTest2;
-			productReference = A328D8AC253C8C4000B90E62 /* MRTest2.app */;
+			productReference = A328D8AC253C8C4000B90E62 /* RealityMixer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -512,7 +512,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A328D8A7253C8C4000B90E62 /* Build configuration list for PBXProject "MRTest2" */;
+			buildConfigurationList = A328D8A7253C8C4000B90E62 /* Build configuration list for PBXProject "RealityMixer" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -525,7 +525,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A328D8AB253C8C4000B90E62 /* MRTest2 */,
+				A328D8AB253C8C4000B90E62 /* RealityMixer */,
 			);
 		};
 /* End PBXProject section */
@@ -720,19 +720,19 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MRTest2/FFmpeg-iOS/**";
-				INFOPLIST_FILE = MRTest2/Info.plist;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/**";
+				INFOPLIST_FILE = "$(SRCROOT)/RealityMixer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/MRTest2/FFmpeg-iOS/lib",
+					"$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.MRTest2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.RealityMixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "MRTest2/MRTest2-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -751,19 +751,19 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MRTest2/FFmpeg-iOS/**";
-				INFOPLIST_FILE = MRTest2/Info.plist;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/**";
+				INFOPLIST_FILE = "$(SRCROOT)/RealityMixer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/MRTest2/FFmpeg-iOS/lib",
+					"$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.MRTest2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.RealityMixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "MRTest2/MRTest2-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -772,7 +772,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A328D8A7253C8C4000B90E62 /* Build configuration list for PBXProject "MRTest2" */ = {
+		A328D8A7253C8C4000B90E62 /* Build configuration list for PBXProject "RealityMixer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A328D8BE253C8C4300B90E62 /* Debug */,
@@ -781,7 +781,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A328D8C0253C8C4300B90E62 /* Build configuration list for PBXNativeTarget "MRTest2" */ = {
+		A328D8C0253C8C4300B90E62 /* Build configuration list for PBXNativeTarget "RealityMixer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A328D8C1253C8C4300B90E62 /* Debug */,

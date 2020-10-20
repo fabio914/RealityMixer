@@ -1,6 +1,6 @@
 //
 //  MixedRealityViewController.swift
-//  MRTest2
+//  RealityMixer
 //
 //  Created by Fabio de Albuquerque Dela Antonio on 10/18/20.
 //
