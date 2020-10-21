@@ -290,6 +290,10 @@ std::string GetAvErrorString(int errNum) {
 
                         delete data[0];
 
+                        if (image != nil) {
+                            [_delegate oculusMRC:self didReceiveImage:image];
+                        }
+
                         if (backgroundImage != nil && foregroundColorImage != nil && foregroundAlphaImage != nil) {
                             [_delegate oculusMRC:self didReceiveBackground:backgroundImage foregroundColor:foregroundColorImage foregroundAlpha:foregroundAlphaImage];
                         }
@@ -357,7 +361,7 @@ std::string GetAvErrorString(int errNum) {
 - (UIImage *)backgroundImageFrom:(UIImage *)image {
     CGRect cropRect = CGRectMake(0, 0, image.size.width/2.0, image.size.height);
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
-    UIImage * result = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDownMirrored];
+    UIImage * result = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
     return result;
 }
@@ -365,7 +369,7 @@ std::string GetAvErrorString(int errNum) {
 - (UIImage *)foregroundColorImageFrom:(UIImage *)image {
     CGRect cropRect = CGRectMake(image.size.width/2.0, 0, image.size.width/4.0, image.size.height);
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
-    UIImage * result = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDownMirrored];
+    UIImage * result = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
     return result;
 }
@@ -373,7 +377,7 @@ std::string GetAvErrorString(int errNum) {
 - (UIImage *)foregroundAlphaImageFrom:(UIImage *)image {
     CGRect cropRect = CGRectMake(image.size.width * 0.75, 0, image.size.width/4.0, image.size.height);
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
-    UIImage * result = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDownMirrored];
+    UIImage * result = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
     return result;
 }

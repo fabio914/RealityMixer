@@ -14,6 +14,7 @@ final class MixedRealityViewController: UIViewController {
     private var displayLink: CADisplayLink?
     private var oculusMRC: OculusMRC?
 
+    @IBOutlet private weak var debugView: UIImageView!
     @IBOutlet private weak var sceneView: ARSCNView!
     private var backgroundNode: SCNNode?
     private var foregroundNode: SCNNode?
@@ -46,6 +47,10 @@ final class MixedRealityViewController: UIViewController {
         self.oculusMRC = OculusMRC()
         oculusMRC?.delegate = self
 
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showHideDebug)))
+
+        let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+
         // Background scene
         let backgroundScene = SCNScene()
         sceneView.scene = backgroundScene
@@ -59,7 +64,7 @@ final class MixedRealityViewController: UIViewController {
         backgroundPlaneNode.position = .init(0, 0, -100)
 
         // Flipping image
-        backgroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+        backgroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = flipTransform
 
         sceneView.pointOfView?.addChildNode(backgroundPlaneNode)
         self.backgroundNode = backgroundPlaneNode
@@ -73,39 +78,21 @@ final class MixedRealityViewController: UIViewController {
         foregroundPlaneNode.position = .init(0, 0, -0.1)
 
         // Flipping image
-        foregroundPlane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+        foregroundPlane.firstMaterial?.diffuse.contentsTransform = flipTransform
+        foregroundPlane.firstMaterial?.transparent.contentsTransform = flipTransform
 
         foregroundPlane.firstMaterial?.transparencyMode = .rgbZero
 
+        // Shader to invert the colors from the transparent texture
         foregroundPlane.firstMaterial?.shaderModifiers = [
-////            .surface: """
-////            #pragma transparent
-////            vec2 texCoord = _surface.diffuseTexcoord;
-////            vec2 colorCoord = vec2((texCoord.x * 0.5), texCoord.y);
-////            vec2 alphaCoord = vec2((colorCoord.x + 0.5), texCoord.y);
-////
-////            float alpha = texture2D(u_diffuseTexture, alphaCoord).r;
-////            vec3 color = texture2D(u_diffuseTexture, colorCoord).rgb;
-////
-////            vec4 finalColor = vec4(color.r, color.g, color.b, 1.0) * alpha;
-////            _surface.diffuse = finalColor;
-////            """
-//            .surface: """
-//            #pragma transparent
-//            #pragma body
-//            float alpha = 0.5;
-//            if (_surface.diffuseTexcoord.x < 0.5) {
-//                _surface.diffuse = vec4(0, 0, 0, 0);
-//            } else {
-//                _surface.diffuse = vec4(1, 0, 0, 1.0) * alpha;
-//            }
-//            _surface.transparent = vec4(0, 0, 0, 0);
-//            """
             .surface: """
             float value = (1.0 - texture2D(u_transparentTexture, _surface.transparentTexcoord).r);
             _surface.transparent = vec4(value, value, value, 1.0);
             """
         ]
+
+        // FIXME: Semi-transparent textures won't work with person segmentation. They'll
+        // blend with the background instead of blending with the segmented image of the person.
 
         sceneView.pointOfView?.addChildNode(foregroundPlaneNode)
         self.foregroundNode = foregroundPlaneNode
@@ -151,6 +138,10 @@ final class MixedRealityViewController: UIViewController {
         oculusMRC.addData(data, length: Int32(data.count))
         oculusMRC.update()
     }
+
+    @objc func showHideDebug() {
+        debugView.isHidden = !debugView.isHidden
+    }
 }
 
 extension MixedRealityViewController: OculusMRCDelegate {
@@ -163,5 +154,9 @@ extension MixedRealityViewController: OculusMRCDelegate {
         backgroundNode?.geometry?.firstMaterial?.diffuse.contents = background
         foregroundNode?.geometry?.firstMaterial?.diffuse.contents = foregroundColor
         foregroundNode?.geometry?.firstMaterial?.transparent.contents = foregroundAlpha
+    }
+
+    func oculusMRC(_ oculusMRC: OculusMRC, didReceive image: UIImage) {
+        debugView.image = image
     }
 }
