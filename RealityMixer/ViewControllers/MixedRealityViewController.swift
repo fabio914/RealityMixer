@@ -19,6 +19,8 @@ final class MixedRealityViewController: UIViewController {
     private var backgroundNode: SCNNode?
     private var foregroundNode: SCNNode?
 
+    private let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+
     override var prefersStatusBarHidden: Bool {
         true
     }
@@ -38,44 +40,56 @@ final class MixedRealityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureDisplay()
+        configureDisplayLink()
+        configureOculusMRC()
+        configureBackground()
+        configureForeground()
+        registerGestureRecognizer()
+    }
 
+    private func configureDisplay() {
         UIApplication.shared.isIdleTimerDisabled = true
+    }
 
+    private func configureDisplayLink() {
         let displayLink = CADisplayLink(target: self, selector: #selector(update(with:)))
         displayLink.add(to: .main, forMode: .default)
         self.displayLink = displayLink
+    }
+
+    private func configureOculusMRC() {
         self.oculusMRC = OculusMRC()
         oculusMRC?.delegate = self
+    }
 
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showHideDebug)))
-
-        let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-
-        // Background scene
+    private func configureBackground() {
         let backgroundScene = SCNScene()
         sceneView.scene = backgroundScene
 
-        let backgroundPlane = SCNPlane(width: 177.777777778, height: 100) // Assuming a 16:9 aspect ratio
+        let backgroundPlane = SCNPlane(width: 160, height: 90) // Assuming a 16:9 aspect ratio
         backgroundPlane.cornerRadius = 0
         backgroundPlane.firstMaterial?.lightingModel = .constant
         backgroundPlane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
 
         let backgroundPlaneNode = SCNNode(geometry: backgroundPlane)
-        backgroundPlaneNode.position = .init(0, 0, -100)
+        backgroundPlaneNode.position = .init(0, 0, -90)
 
         // Flipping image
         backgroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = flipTransform
 
         sceneView.pointOfView?.addChildNode(backgroundPlaneNode)
         self.backgroundNode = backgroundPlaneNode
+    }
 
-        let foregroundPlane = SCNPlane(width: 0.177777777778, height: 0.1) // Assuming a 16:9 aspect ratio
+    private func configureForeground() {
+        let foregroundPlane = SCNPlane(width: 0.16, height: 0.09) // Assuming a 16:9 aspect ratio
         foregroundPlane.cornerRadius = 0
         foregroundPlane.firstMaterial?.lightingModel = .constant
         foregroundPlane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
 
         let foregroundPlaneNode = SCNNode(geometry: foregroundPlane)
-        foregroundPlaneNode.position = .init(0, 0, -0.1)
+        foregroundPlaneNode.position = .init(0, 0, -0.09)
 
         // Flipping image
         foregroundPlane.firstMaterial?.diffuse.contentsTransform = flipTransform
@@ -96,6 +110,10 @@ final class MixedRealityViewController: UIViewController {
 
         sceneView.pointOfView?.addChildNode(foregroundPlaneNode)
         self.foregroundNode = foregroundPlaneNode
+    }
+
+    private func registerGestureRecognizer() {
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showHideDebug)))
     }
 
     override func viewWillAppear(_ animated: Bool) {
