@@ -282,14 +282,16 @@ std::string GetAvErrorString(int errNum) {
                         data,
                         stride);
 
-                    UIImage * image = [self imageFromData:data[0] lineSize:stride width:picture->width height:picture->height];
-                    UIImage * backgroundImage = [self backgroundImageFrom:image];
-                    UIImage * foregroundImage = [self foregroundImageFrom:image];
+                    @autoreleasepool {
+                        UIImage * image = [self imageFromData:data[0] lineSize:stride width:picture->width height:picture->height];
+                        UIImage * backgroundImage = [self backgroundImageFrom:image];
+                        UIImage * foregroundImage = [self foregroundImageFrom:image];
 
-                    delete data[0];
+                        delete data[0];
 
-                    if (backgroundImage != nil && foregroundImage != nil) {
-                        [_delegate oculusMRC:self didReceiveBackground:backgroundImage andForeground:foregroundImage];
+                        if (backgroundImage != nil && foregroundImage != nil) {
+                            [_delegate oculusMRC:self didReceiveBackground:backgroundImage andForeground:foregroundImage];
+                        }
                     }
                 }
             }

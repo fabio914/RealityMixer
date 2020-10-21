@@ -111,6 +111,27 @@ final class MixedRealityViewController: UIViewController {
         // Flipping image
         foregroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
 
+        foregroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
+            .surface: """
+            #pragma transparent
+            vec2 texCoord = _surface.diffuseTexcoord;
+            vec2 colorCoord = vec2((texCoord.x * 0.5), texCoord.y);
+            vec2 alphaCoord = vec2((colorCoord.x + 0.5), texCoord.y);
+
+            float alpha = texture2D(u_diffuseTexture, alphaCoord).r;
+            vec3 color = texture2D(u_diffuseTexture, colorCoord).rgb;
+
+            vec4 finalColor = vec4(color.r, color.g, color.b, 1.0) * alpha;
+            _surface.diffuse = finalColor;
+            """
+//            .surface: """
+//            #pragma transparent
+//            float alpha = 0.5;
+//            vec4 finalColor = vec4(1, 0, 0, 1.0) * alpha;
+//            _surface.diffuse = finalColor;
+//            """
+        ]
+
         sceneView.pointOfView?.childNodes.forEach({ $0.removeFromParentNode() })
         sceneView.pointOfView?.addChildNode(backgroundPlaneNode)
         sceneView.pointOfView?.addChildNode(foregroundPlaneNode)
