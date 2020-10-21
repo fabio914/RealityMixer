@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="landscape" appearance="light"/>
+    <device id="ipad11_0rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -10,23 +10,27 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MixedRealityViewController" customModule="RealityMixer" customModuleProvider="target">
             <connections>
                 <outlet property="debugView" destination="rou-Hq-oeP" id="8zj-sX-nYa"/>
+                <outlet property="foregroundSceneView" destination="lBY-h1-OGc" id="IX1-uN-OJ2"/>
                 <outlet property="sceneView" destination="2ar-Bw-mm2" id="qUN-my-w4z"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+            <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ar-Bw-mm2">
-                    <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                    <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </arscnView>
+                <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lBY-h1-OGc">
+                    <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </sceneKitView>
                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rou-Hq-oeP">
-                    <rect key="frame" x="387" y="255" width="455" height="128"/>
+                    <rect key="frame" x="706.5" y="669.5" width="477.5" height="134.5"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="128" id="4jq-gg-TcK"/>
                         <constraint firstAttribute="width" secondItem="rou-Hq-oeP" secondAttribute="height" multiplier="32:9" id="90Q-b8-udo"/>
                     </constraints>
                 </imageView>
@@ -34,12 +38,17 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="2ar-Bw-mm2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0tP-QG-61G"/>
+                <constraint firstAttribute="trailing" secondItem="2ar-Bw-mm2" secondAttribute="trailing" id="47x-DC-Qcf"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rou-Hq-oeP" secondAttribute="trailing" constant="10" id="692-7p-Wae"/>
-                <constraint firstAttribute="bottom" secondItem="2ar-Bw-mm2" secondAttribute="bottom" id="MrF-4C-i8c"/>
+                <constraint firstItem="lBY-h1-OGc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9W8-U7-tqn"/>
+                <constraint firstItem="rou-Hq-oeP" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.4" id="MFl-Kl-WJk"/>
+                <constraint firstAttribute="bottom" secondItem="2ar-Bw-mm2" secondAttribute="bottom" id="PUu-Gj-nUB"/>
+                <constraint firstItem="2ar-Bw-mm2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Pvc-jf-gor"/>
+                <constraint firstAttribute="bottom" secondItem="lBY-h1-OGc" secondAttribute="bottom" id="USd-fX-hhM"/>
+                <constraint firstItem="2ar-Bw-mm2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="V0N-N6-2Ja"/>
+                <constraint firstAttribute="trailing" secondItem="lBY-h1-OGc" secondAttribute="trailing" id="Wsc-vv-0DB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="rou-Hq-oeP" secondAttribute="bottom" constant="10" id="Ynh-OC-IDg"/>
-                <constraint firstItem="2ar-Bw-mm2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="eOM-Bh-ili"/>
-                <constraint firstAttribute="trailing" secondItem="2ar-Bw-mm2" secondAttribute="trailing" id="mAO-gu-kie"/>
+                <constraint firstItem="lBY-h1-OGc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qGL-wX-jra"/>
             </constraints>
             <point key="canvasLocation" x="139" y="89"/>
         </view>
