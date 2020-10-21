@@ -69,32 +69,43 @@ final class MixedRealityViewController: UIViewController {
         foregroundPlane.firstMaterial?.lightingModel = .constant
         foregroundPlane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
 
-//        foregroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-//            .surface: """
-//            #pragma transparent
-//            vec2 texCoord = _surface.diffuseTexcoord;
-//            vec2 colorCoord = vec2((texCoord.x * 0.5), texCoord.y);
-//            vec2 alphaCoord = vec2((colorCoord.x + 0.5), texCoord.y);
-//
-//            float alpha = texture2D(u_diffuseTexture, alphaCoord).r;
-//            vec3 color = texture2D(u_diffuseTexture, colorCoord).rgb;
-//
-//            vec4 finalColor = vec4(color.r, color.g, color.b, 1.0) * alpha;
-//            _surface.diffuse = finalColor;
-//            """
-//            .surface: """
-//            #pragma transparent
-//            float alpha = 0.5;
-//            vec4 finalColor = vec4(1, 0, 0, 1.0) * alpha;
-//            _surface.diffuse = finalColor;
-//            """
-//        ]
-
         let foregroundPlaneNode = SCNNode(geometry: foregroundPlane)
         foregroundPlaneNode.position = .init(0, 0, -0.1)
 
-//        // Flipping image
-//        foregroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+        // Flipping image
+        foregroundPlane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+
+        foregroundPlane.firstMaterial?.transparencyMode = .rgbZero
+
+        foregroundPlane.firstMaterial?.shaderModifiers = [
+////            .surface: """
+////            #pragma transparent
+////            vec2 texCoord = _surface.diffuseTexcoord;
+////            vec2 colorCoord = vec2((texCoord.x * 0.5), texCoord.y);
+////            vec2 alphaCoord = vec2((colorCoord.x + 0.5), texCoord.y);
+////
+////            float alpha = texture2D(u_diffuseTexture, alphaCoord).r;
+////            vec3 color = texture2D(u_diffuseTexture, colorCoord).rgb;
+////
+////            vec4 finalColor = vec4(color.r, color.g, color.b, 1.0) * alpha;
+////            _surface.diffuse = finalColor;
+////            """
+//            .surface: """
+//            #pragma transparent
+//            #pragma body
+//            float alpha = 0.5;
+//            if (_surface.diffuseTexcoord.x < 0.5) {
+//                _surface.diffuse = vec4(0, 0, 0, 0);
+//            } else {
+//                _surface.diffuse = vec4(1, 0, 0, 1.0) * alpha;
+//            }
+//            _surface.transparent = vec4(0, 0, 0, 0);
+//            """
+            .surface: """
+            float value = (1.0 - texture2D(u_transparentTexture, _surface.transparentTexcoord).r);
+            _surface.transparent = vec4(value, value, value, 1.0);
+            """
+        ]
 
         sceneView.pointOfView?.addChildNode(foregroundPlaneNode)
         self.foregroundNode = foregroundPlaneNode
@@ -146,10 +157,11 @@ extension MixedRealityViewController: OculusMRCDelegate {
     func oculusMRC(
         _ oculusMRC: OculusMRC,
         didReceiveBackground background: UIImage,
-        andForeground foreground: UIImage
+        foregroundColor: UIImage,
+        foregroundAlpha: UIImage
     ) {
         backgroundNode?.geometry?.firstMaterial?.diffuse.contents = background
-//        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = foreground
-        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "test")
+        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = foregroundColor
+        foregroundNode?.geometry?.firstMaterial?.transparent.contents = foregroundAlpha
     }
 }

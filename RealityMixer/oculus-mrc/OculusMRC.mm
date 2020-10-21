@@ -285,12 +285,13 @@ std::string GetAvErrorString(int errNum) {
                     @autoreleasepool {
                         UIImage * image = [self imageFromData:data[0] lineSize:stride width:picture->width height:picture->height];
                         UIImage * backgroundImage = [self backgroundImageFrom:image];
-                        UIImage * foregroundImage = [self foregroundImageFrom:image];
+                        UIImage * foregroundColorImage = [self foregroundColorImageFrom:image];
+                        UIImage * foregroundAlphaImage = [self foregroundAlphaImageFrom:image];
 
                         delete data[0];
 
-                        if (backgroundImage != nil && foregroundImage != nil) {
-                            [_delegate oculusMRC:self didReceiveBackground:backgroundImage andForeground:foregroundImage];
+                        if (backgroundImage != nil && foregroundColorImage != nil && foregroundAlphaImage != nil) {
+                            [_delegate oculusMRC:self didReceiveBackground:backgroundImage foregroundColor:foregroundColorImage foregroundAlpha:foregroundAlphaImage];
                         }
                     }
                 }
@@ -361,8 +362,16 @@ std::string GetAvErrorString(int errNum) {
     return result;
 }
 
-- (UIImage *)foregroundImageFrom:(UIImage *)image {
-    CGRect cropRect = CGRectMake(image.size.width/2.0, 0, image.size.width/2.0, image.size.height);
+- (UIImage *)foregroundColorImageFrom:(UIImage *)image {
+    CGRect cropRect = CGRectMake(image.size.width/2.0, 0, image.size.width/4.0, image.size.height);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+    UIImage * result = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDownMirrored];
+    CGImageRelease(imageRef);
+    return result;
+}
+
+- (UIImage *)foregroundAlphaImageFrom:(UIImage *)image {
+    CGRect cropRect = CGRectMake(image.size.width * 0.75, 0, image.size.width/4.0, image.size.height);
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
     UIImage * result = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDownMirrored];
     CGImageRelease(imageRef);
