@@ -21,6 +21,8 @@ final class MixedRealityViewController: UIViewController {
     private var backgroundNode: SCNNode?
     private var foregroundNode: SCNNode?
 
+    private var firstFrame = true
+
     private let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
 
     override var prefersStatusBarHidden: Bool {
@@ -45,8 +47,7 @@ final class MixedRealityViewController: UIViewController {
         configureDisplay()
         configureDisplayLink()
         configureOculusMRC()
-        configureBackground()
-        configureForeground()
+        configureBackgroundScene()
         registerGestureRecognizer()
     }
 
@@ -65,10 +66,13 @@ final class MixedRealityViewController: UIViewController {
         oculusMRC?.delegate = self
     }
 
-    private func configureBackground() {
+    private func configureBackgroundScene() {
         let backgroundScene = SCNScene()
         sceneView.scene = backgroundScene
+        sceneView.session.delegate = self
+    }
 
+    private func configureBackground(with frame: ARFrame) {
         let backgroundPlane = SCNPlane(width: 16, height: 9) // Assuming a 16:9 aspect ratio
         backgroundPlane.cornerRadius = 0
         backgroundPlane.firstMaterial?.lightingModel = .constant
@@ -84,14 +88,15 @@ final class MixedRealityViewController: UIViewController {
         self.backgroundNode = backgroundPlaneNode
     }
 
-    private func configureForeground() {
+    private func configureForeground(with frame: ARFrame) {
         let foregroundScene = SCNScene()
-
-        let camera = SCNCamera()
-        let cameraNode = SCNNode()
 
         // FIXME: Make the camera FOV match that of the AR camera
         // https://stackoverflow.com/questions/47536580/get-camera-field-of-view-in-ios-11-arkit
+        let camera = SCNCamera()
+        camera.projectionTransform = SCNMatrix4(frame.camera.projectionMatrix)
+
+        let cameraNode = SCNNode()
         cameraNode.camera = camera
         cameraNode.position = .init(0, 0, 1.0)
         foregroundScene.rootNode.addChildNode(cameraNode)
@@ -191,5 +196,15 @@ extension MixedRealityViewController: OculusMRCDelegate {
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceive image: UIImage) {
         debugView.image = image
+    }
+}
+
+extension MixedRealityViewController: ARSessionDelegate {
+
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        guard firstFrame else { return }
+        firstFrame = false
+        configureBackground(with: frame)
+        configureForeground(with: frame)
     }
 }
