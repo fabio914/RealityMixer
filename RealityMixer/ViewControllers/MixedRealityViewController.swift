@@ -11,6 +11,7 @@ import SwiftSocket
 
 final class MixedRealityViewController: UIViewController {
     private let client: TCPClient
+    private let shouldShowDebug: Bool
     private var displayLink: CADisplayLink?
     private var oculusMRC: OculusMRC?
 
@@ -29,8 +30,9 @@ final class MixedRealityViewController: UIViewController {
         true
     }
 
-    init(client: TCPClient) {
+    init(client: TCPClient, shouldShowDebug: Bool) {
         self.client = client
+        self.shouldShowDebug = shouldShowDebug
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -45,7 +47,7 @@ final class MixedRealityViewController: UIViewController {
         configureOculusMRC()
         configureBackground()
         configureForeground()
-        registerGestureRecognizer()
+        configureDebugView()
     }
 
     private func configureDisplay() {
@@ -112,8 +114,8 @@ final class MixedRealityViewController: UIViewController {
         self.foregroundNode = foregroundPlaneNode
     }
 
-    private func registerGestureRecognizer() {
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showHideDebug)))
+    private func configureDebugView() {
+        debugView.isHidden = !shouldShowDebug
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -155,10 +157,6 @@ final class MixedRealityViewController: UIViewController {
 
         oculusMRC.addData(data, length: Int32(data.count))
         oculusMRC.update()
-    }
-
-    @objc func showHideDebug() {
-        debugView.isHidden = !debugView.isHidden
     }
 }
 
