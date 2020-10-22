@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="landscape" appearance="light"/>
+    <device id="retina6_5" orientation="landscape" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -19,10 +19,23 @@
             <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ar-Bw-mm2">
-                    <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </arscnView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4me-SU-Ovp">
+                    <rect key="frame" x="98.666666666666686" y="0.0" width="698.66666666666652" height="393"/>
+                    <subviews>
+                        <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ar-Bw-mm2">
+                            <rect key="frame" x="0.0" y="0.0" width="698.66666666666663" height="393"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </arscnView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="2ar-Bw-mm2" secondAttribute="bottom" id="VmF-gZ-K3A"/>
+                        <constraint firstAttribute="width" secondItem="4me-SU-Ovp" secondAttribute="height" multiplier="16:9" id="Z9x-1K-RpB"/>
+                        <constraint firstItem="2ar-Bw-mm2" firstAttribute="top" secondItem="4me-SU-Ovp" secondAttribute="top" id="bFt-Va-q6E"/>
+                        <constraint firstItem="2ar-Bw-mm2" firstAttribute="leading" secondItem="4me-SU-Ovp" secondAttribute="leading" id="h1z-N3-zMp"/>
+                        <constraint firstAttribute="trailing" secondItem="2ar-Bw-mm2" secondAttribute="trailing" id="nwe-VG-GIF"/>
+                    </constraints>
+                </view>
                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rou-Hq-oeP">
                     <rect key="frame" x="387" y="255" width="455" height="128"/>
                     <constraints>
@@ -34,12 +47,16 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="2ar-Bw-mm2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0tP-QG-61G"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rou-Hq-oeP" secondAttribute="trailing" constant="10" id="692-7p-Wae"/>
-                <constraint firstAttribute="bottom" secondItem="2ar-Bw-mm2" secondAttribute="bottom" id="MrF-4C-i8c"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4me-SU-Ovp" secondAttribute="trailing" id="EfT-tv-P2P"/>
+                <constraint firstItem="4me-SU-Ovp" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="HLd-yM-D77"/>
+                <constraint firstItem="4me-SU-Ovp" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="IAS-Om-kW5"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="4me-SU-Ovp" secondAttribute="bottom" id="SIe-Tn-ApM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="rou-Hq-oeP" secondAttribute="bottom" constant="10" id="Ynh-OC-IDg"/>
-                <constraint firstItem="2ar-Bw-mm2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="eOM-Bh-ili"/>
-                <constraint firstAttribute="trailing" secondItem="2ar-Bw-mm2" secondAttribute="trailing" id="mAO-gu-kie"/>
+                <constraint firstItem="4me-SU-Ovp" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" priority="750" id="bGn-Ia-2AL"/>
+                <constraint firstItem="4me-SU-Ovp" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" priority="750" id="bHd-3z-mHX"/>
+                <constraint firstItem="4me-SU-Ovp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="e0M-lc-YE7"/>
+                <constraint firstItem="4me-SU-Ovp" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="top" id="y3Q-ZF-gjc"/>
             </constraints>
             <point key="canvasLocation" x="139" y="89"/>
         </view>

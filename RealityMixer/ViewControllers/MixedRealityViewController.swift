@@ -118,8 +118,8 @@ final class MixedRealityViewController: UIViewController {
         debugView.isHidden = !shouldShowDebug
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
@@ -136,10 +136,6 @@ final class MixedRealityViewController: UIViewController {
         }
 
         sceneView.session.run(configuration)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
