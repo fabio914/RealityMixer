@@ -12,6 +12,7 @@ final class ConnectionViewController: UIViewController {
 
     @IBOutlet private weak var addressTextField: UITextField!
     @IBOutlet private weak var portTextField: UITextField!
+    @IBOutlet private weak var showDebugSwitch: UISwitch!
 
     @IBOutlet private weak var overlayView: UIView!
     private let storage = AddressPortPreferenceStorage()
@@ -26,6 +27,7 @@ final class ConnectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Reality Mixer"
         overlayView.isHidden = true
 
         if let preferences = storage.preference {
@@ -62,7 +64,11 @@ final class ConnectionViewController: UIViewController {
         case .success:
             try? storage.save(preference: .init(address: address, port: port))
 
-            let viewController = MixedRealityViewController(client: client)
+            let viewController = MixedRealityViewController(
+                client: client,
+                shouldShowDebug: showDebugSwitch.isOn
+            )
+
             viewController.modalPresentationStyle = .overFullScreen
             present(viewController, animated: true, completion: nil)
         }

@@ -14,8 +14,6 @@ This is still a work in progress and it has only been tested on the Oculus Quest
 
 ## TO-DOs
 
-- [ ] Add the foreground image;
-
 - [ ] Implement the calibration mechanism;
 
 - [ ] Optimize the video decoding with VideoToolbox (hardware decoding);

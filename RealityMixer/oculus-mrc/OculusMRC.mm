@@ -282,16 +282,22 @@ std::string GetAvErrorString(int errNum) {
                         data,
                         stride);
 
-                    UIImage * image = [self imageFromData:data[0] lineSize:stride width:picture->width height:picture->height];
-                    UIImage * backgroundImage = [self backgroundImageFrom:image];
+                    @autoreleasepool {
+                        UIImage * image = [self imageFromData:data[0] lineSize:stride width:picture->width height:picture->height];
+                        UIImage * backgroundImage = [self backgroundImageFrom:image];
+                        UIImage * foregroundColorImage = [self foregroundColorImageFrom:image];
+                        UIImage * foregroundAlphaImage = [self foregroundAlphaImageFrom:image];
 
-                    // TODO: Return foreground image
+                        delete data[0];
 
-                    if (backgroundImage) {
-                        [_delegate oculusMRC:self didReceiveNewFrame:backgroundImage];
+                        if (image != nil) {
+                            [_delegate oculusMRC:self didReceiveImage:image];
+                        }
+
+                        if (backgroundImage != nil && foregroundColorImage != nil && foregroundAlphaImage != nil) {
+                            [_delegate oculusMRC:self didReceiveBackground:backgroundImage foregroundColor:foregroundColorImage foregroundAlpha:foregroundAlphaImage];
+                        }
                     }
-
-                    delete data[0];
                 }
             }
 
@@ -324,22 +330,24 @@ std::string GetAvErrorString(int errNum) {
 
     CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
     CFDataRef data = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, dt, lineSize[0]*height,kCFAllocatorNull);
-
     CFDataRef copy = CFDataCreateCopy(kCFAllocatorDefault, data);
-
     CGDataProviderRef provider = CGDataProviderCreateWithCFData(copy);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGImageRef cgImage = CGImageCreate(width,
-                                       height,
-                                       8,
-                                       24,
-                                       lineSize[0],
-                                       colorSpace,
-                                       bitmapInfo,
-                                       provider,
-                                       NULL,
-                                       NO,
-                                       kCGRenderingIntentDefault);
+
+    CGImageRef cgImage = CGImageCreate(
+        width,
+        height,
+        8,
+        24,
+        lineSize[0],
+        colorSpace,
+        bitmapInfo,
+        provider,
+        NULL,
+        NO,
+        kCGRenderingIntentDefault
+    );
+
     CGColorSpaceRelease(colorSpace);
     UIImage *image = [UIImage imageWithCGImage:cgImage scale:1.0 orientation:UIImageOrientationDownMirrored];
     CGImageRelease(cgImage);
@@ -353,7 +361,23 @@ std::string GetAvErrorString(int errNum) {
 - (UIImage *)backgroundImageFrom:(UIImage *)image {
     CGRect cropRect = CGRectMake(0, 0, image.size.width/2.0, image.size.height);
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
-    UIImage * result = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDownMirrored];
+    UIImage * result = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    return result;
+}
+
+- (UIImage *)foregroundColorImageFrom:(UIImage *)image {
+    CGRect cropRect = CGRectMake(image.size.width/2.0, 0, image.size.width/4.0, image.size.height);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+    UIImage * result = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    return result;
+}
+
+- (UIImage *)foregroundAlphaImageFrom:(UIImage *)image {
+    CGRect cropRect = CGRectMake(image.size.width * 0.75, 0, image.size.width/4.0, image.size.height);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+    UIImage * result = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
     return result;
 }
