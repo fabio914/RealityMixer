@@ -8,9 +8,9 @@ This is still a work in progress and it has only been tested on the Oculus Quest
 
 [YouTube video](https://www.youtube.com/watch?v=JL5e_moZ7XM)
 
-![1](Images/Screenshots/1.jpg)
+![1](Images/beatsaber/1.jpg)
 
-![2](Images/Screenshots/2.jpg)
+![2](Images/beatsaber/2.jpg)
 
 ## TO-DOs
 
