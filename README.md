@@ -4,13 +4,14 @@ This is a standalone Oculus Quest Mixed Reality app for iOS that doesn't require
 
 This project is based on the [Oculus MRC plugin for OBS](https://github.com/facebookincubator/obs-plugins/tree/master/oculus-mrc), it uses [SwiftSocket](https://github.com/swiftsocket/SwiftSocket) to handle the TCP connection with the Oculus Quest, FFMPEG ~with Apple's VideoToolbox~ to decode the stream, and ARKit for the "virtual green screen". It also requires [Carthage](https://github.com/Carthage/Carthage).
 
-This is still a work in progress and it has only been tested on the Oculus Quest 2 with Beat Saber. 
+This is app is still a prototype and it requires an iPhone/iPad with an A12 chip or newer. A device with LiDAR is recommended for better results.
 
-[YouTube video](https://www.youtube.com/watch?v=JL5e_moZ7XM)
+## Examples
 
-![1](Images/beatsaber/1.jpg)
-
-![2](Images/beatsaber/2.jpg)
+| Game | YouTube video | Photos |
+|------|---------------|--------|
+| Beat Saber | [Link](https://www.youtube.com/watch?v=JL5e_moZ7XM) | <img src="Images/beatsaber/1.jpg" width="300" /> <img src="Images/beatsaber/2.jpg" width="300" /> |
+| SUPERHOT | [Link](https://youtu.be/ZnOY8juMw4k) | <img src="Images/superhot/1.jpg" width="300" /> <img src="Images/superhot/2.jpg" width="300" /> |
 
 ## TO-DOs
 
