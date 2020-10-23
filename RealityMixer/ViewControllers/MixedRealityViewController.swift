@@ -70,32 +70,34 @@ final class MixedRealityViewController: UIViewController {
         let scene = SCNScene()
         sceneView.scene = scene
         sceneView.session.delegate = self
+
+        scene.rootNode.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
     }
 
-    private func cameraYScale(from frame: ARFrame) -> Double {
+    private func planeSizeForDistance(_ distance: Float, frame: ARFrame) -> CGSize {
         let projection = frame.camera.projectionMatrix
         let yScale = projection[1,1]
-        return Double(yScale)
-    }
-
-    private func planeSizeForDistance(_ distance: Double, frame: ARFrame) -> CGSize {
-        let height = (2.0 * distance)/cameraYScale(from: frame)
+        let imageResolution = frame.camera.imageResolution
+        let width = (2.0 * distance) * tan(atan(1/yScale) * Float(imageResolution.width / imageResolution.height))
 
         // 16:9 aspect ratio
-        let width = (16.0 * height)/9.0
-        return CGSize(width: width, height: height)
+        let height = (9.0 * width)/16.0
+        return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
 
-    private func makePlaneNodeForDistance(_ distance: Double, frame: ARFrame) -> SCNNode {
-        let size = planeSizeForDistance(distance, frame: frame)
+    private func makePlane(size: CGSize, distance: Float) -> SCNNode {
         let plane = SCNPlane(width: size.width, height: size.height)
         plane.cornerRadius = 0
         plane.firstMaterial?.lightingModel = .constant
-        plane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
+        plane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
 
         let planeNode = SCNNode(geometry: plane)
         planeNode.position = .init(0, 0, -distance)
         return planeNode
+    }
+
+    private func makePlaneNodeForDistance(_ distance: Float, frame: ARFrame) -> SCNNode {
+        makePlane(size: planeSizeForDistance(distance, frame: frame), distance: distance)
     }
 
     private func configureBackground(with frame: ARFrame) {
