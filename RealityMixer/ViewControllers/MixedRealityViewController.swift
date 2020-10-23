@@ -89,15 +89,6 @@ final class MixedRealityViewController: UIViewController {
         cameraNode.position = .init(0, 0, 1)
         scene.rootNode.addChildNode(cameraNode)
 
-//        let backgroundPlane = SCNPlane(width: 200, height: 200)
-//        backgroundPlane.firstMaterial?.diffuse.contents =
-//        backgroundPlane.firstMaterial?.lightingModel = .constant
-//
-//        let backgroundNode = SCNNode()
-//        backgroundNode.geometry = backgroundPlane
-//        backgroundNode.position = .init(0, 0, -10)
-//        scene.rootNode.addChildNode(backgroundNode)
-
         self.scene = scene
         sceneView.scene = scene
     }
@@ -239,10 +230,10 @@ extension MixedRealityViewController: OculusMRCDelegate {
 extension MixedRealityViewController: ARSessionDelegate {
 
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        if firstFrame {
-            configurePerson(with: frame)
-            firstFrame = false
-        }
+//        if firstFrame {
+//            configurePerson(with: frame)
+//            firstFrame = false
+//        }
 
         // TODO
 //        if let matteGenerator = matteGenerator,
