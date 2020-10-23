@@ -16,9 +16,18 @@ final class MixedRealityViewController: UIViewController {
     private var oculusMRC: OculusMRC?
 
     @IBOutlet private weak var debugView: UIImageView!
-    @IBOutlet private weak var sceneView: ARSCNView!
+    @IBOutlet private weak var sceneView: SCNView!
+
+    private var session: ARSession?
+    private var scene: SCNScene?
+    private var matteGenerator: ARMatteGenerator?
+
     private var backgroundNode: SCNNode?
+    private var personNode: SCNNode?
     private var foregroundNode: SCNNode?
+
+    var first = true
+    var firstFrame = true
 
     private let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
 
@@ -45,8 +54,6 @@ final class MixedRealityViewController: UIViewController {
         configureDisplay()
         configureDisplayLink()
         configureOculusMRC()
-        configureBackground()
-        configureForeground()
         configureDebugView()
     }
 
@@ -65,33 +72,79 @@ final class MixedRealityViewController: UIViewController {
         oculusMRC?.delegate = self
     }
 
-    private func configureBackground() {
-        let backgroundScene = SCNScene()
-        sceneView.scene = backgroundScene
+    private func configureDebugView() {
+        debugView.isHidden = !shouldShowDebug
+    }
 
-        let backgroundPlane = SCNPlane(width: 160, height: 90) // Assuming a 16:9 aspect ratio
+    private func configureScene() {
+        let width = Double(sceneView.frame.size.width)
+        let scene = SCNScene()
+
+        let camera = SCNCamera()
+        camera.usesOrthographicProjection = true
+        camera.orthographicScale = width/4.0
+
+        let cameraNode = SCNNode()
+        cameraNode.camera = camera
+        cameraNode.position = .init(0, 0, 1)
+        scene.rootNode.addChildNode(cameraNode)
+
+//        let backgroundPlane = SCNPlane(width: 200, height: 200)
+//        backgroundPlane.firstMaterial?.diffuse.contents =
+//        backgroundPlane.firstMaterial?.lightingModel = .constant
+//
+//        let backgroundNode = SCNNode()
+//        backgroundNode.geometry = backgroundPlane
+//        backgroundNode.position = .init(0, 0, -10)
+//        scene.rootNode.addChildNode(backgroundNode)
+
+        self.scene = scene
+        sceneView.scene = scene
+    }
+
+    private func configureBackground() {
+        let imageSize = sceneView.frame.size // 16:9
+
+        let backgroundPlane = SCNPlane(width: imageSize.width, height: imageSize.height)
         backgroundPlane.cornerRadius = 0
         backgroundPlane.firstMaterial?.lightingModel = .constant
-        backgroundPlane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
+        backgroundPlane.firstMaterial?.diffuse.contents = UIColor.green
 
         let backgroundPlaneNode = SCNNode(geometry: backgroundPlane)
-        backgroundPlaneNode.position = .init(0, 0, -90)
+        backgroundPlaneNode.position = .init(0, 0, -10)
 
         // Flipping image
         backgroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = flipTransform
 
-        sceneView.pointOfView?.addChildNode(backgroundPlaneNode)
+        scene?.rootNode.addChildNode(backgroundPlaneNode)
         self.backgroundNode = backgroundPlaneNode
     }
 
+    private func configurePerson(with frame: ARFrame) {
+        let imageSize = frame.camera.imageResolution
+
+        let personPlane = SCNPlane(width: imageSize.width, height: imageSize.height)
+        personPlane.cornerRadius = 0
+        personPlane.firstMaterial?.lightingModel = .constant
+        personPlane.firstMaterial?.diffuse.contents = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
+
+        let personPlaneNode = SCNNode(geometry: personPlane)
+        personPlaneNode.position = .init(0, 0, -5)
+
+        scene?.rootNode.addChildNode(personPlaneNode)
+        self.personNode = personPlaneNode
+    }
+
     private func configureForeground() {
-        let foregroundPlane = SCNPlane(width: 0.16, height: 0.09) // Assuming a 16:9 aspect ratio
+        let imageSize = sceneView.frame.size // 16:9
+
+        let foregroundPlane = SCNPlane(width: imageSize.width, height: imageSize.height)
         foregroundPlane.cornerRadius = 0
         foregroundPlane.firstMaterial?.lightingModel = .constant
         foregroundPlane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
 
         let foregroundPlaneNode = SCNNode(geometry: foregroundPlane)
-        foregroundPlaneNode.position = .init(0, 0, -0.09)
+        foregroundPlaneNode.position = .init(0, 0, -1)
 
         // Flipping image
         foregroundPlane.firstMaterial?.diffuse.contentsTransform = flipTransform
@@ -107,20 +160,11 @@ final class MixedRealityViewController: UIViewController {
             """
         ]
 
-        // FIXME: Semi-transparent textures won't work with person segmentation. They'll
-        // blend with the background instead of blending with the segmented image of the person.
-
-        sceneView.pointOfView?.addChildNode(foregroundPlaneNode)
+        scene?.rootNode.addChildNode(foregroundPlaneNode)
         self.foregroundNode = foregroundPlaneNode
     }
 
-    private func configureDebugView() {
-        debugView.isHidden = !shouldShowDebug
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
+    private func configureAR() {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
         configuration.environmentTexturing = .automatic
@@ -135,16 +179,31 @@ final class MixedRealityViewController: UIViewController {
             fatalError("Person Segmentation not available")
         }
 
-        sceneView.session.run(configuration)
+        let session = ARSession()
+        session.run(configuration)
+        session.delegate = self
+        self.session = session
+
+        if let device = sceneView.device {
+            self.matteGenerator = ARMatteGenerator(device: device, matteResolution: .full)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        if first {
+            configureAR()
+            configureScene()
+            configureBackground()
+            configureForeground()
+            first = false
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        sceneView.session.pause()
+        session?.pause()
     }
 
     @objc func update(with sender: CADisplayLink) {
@@ -174,5 +233,24 @@ extension MixedRealityViewController: OculusMRCDelegate {
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceive image: UIImage) {
         debugView.image = image
+    }
+}
+
+extension MixedRealityViewController: ARSessionDelegate {
+
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        if firstFrame {
+            configurePerson(with: frame)
+            firstFrame = false
+        }
+
+        // TODO
+//        if let matteGenerator = matteGenerator,
+//           let commandBuffer = sceneView.commandQueue?.makeCommandBuffer() {
+//            let alpha = matteGenerator.generateMatte(from: frame, commandBuffer: commandBuffer)
+//            let dilatedDepthTexture = matteGenerator.generateDilatedDepth(from: frame, commandBuffer: commandBuffer)
+//
+//
+//        }
     }
 }
