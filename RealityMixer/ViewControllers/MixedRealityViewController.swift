@@ -74,22 +74,18 @@ final class MixedRealityViewController: UIViewController {
         scene.rootNode.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
     }
 
-    private func planeSizeForDistance(_ distance: Double, frame: ARFrame) -> CGSize {
+    private func planeSizeForDistance(_ distance: Float, frame: ARFrame) -> CGSize {
         let projection = frame.camera.projectionMatrix
         let yScale = projection[1,1]
-        let yFov = 2 * atan(1/yScale) // in radians
-
         let imageResolution = frame.camera.imageResolution
-        let xFov = yFov * Float(imageResolution.width / imageResolution.height)
-
-        let width = (2.0 * distance) * tan(Double(xFov) * 0.5)
+        let width = (2.0 * distance) * tan(atan(1/yScale) * Float(imageResolution.width / imageResolution.height))
 
         // 16:9 aspect ratio
         let height = (9.0 * width)/16.0
-        return CGSize(width: width, height: height)
+        return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
 
-    private func makePlane(size: CGSize, distance: Double) -> SCNNode {
+    private func makePlane(size: CGSize, distance: Float) -> SCNNode {
         let plane = SCNPlane(width: size.width, height: size.height)
         plane.cornerRadius = 0
         plane.firstMaterial?.lightingModel = .constant
@@ -100,7 +96,7 @@ final class MixedRealityViewController: UIViewController {
         return planeNode
     }
 
-    private func makePlaneNodeForDistance(_ distance: Double, frame: ARFrame) -> SCNNode {
+    private func makePlaneNodeForDistance(_ distance: Float, frame: ARFrame) -> SCNNode {
         makePlane(size: planeSizeForDistance(distance, frame: frame), distance: distance)
     }
 
