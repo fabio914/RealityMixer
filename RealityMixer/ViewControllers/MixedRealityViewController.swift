@@ -22,6 +22,8 @@ final class MixedRealityViewController: UIViewController {
 
     private let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
 
+    var first = true
+
     override var prefersStatusBarHidden: Bool {
         true
     }
@@ -45,8 +47,7 @@ final class MixedRealityViewController: UIViewController {
         configureDisplay()
         configureDisplayLink()
         configureOculusMRC()
-        configureBackground()
-        configureForeground()
+        configureScene()
         configureDebugView()
     }
 
@@ -65,17 +66,40 @@ final class MixedRealityViewController: UIViewController {
         oculusMRC?.delegate = self
     }
 
-    private func configureBackground() {
-        let backgroundScene = SCNScene()
-        sceneView.scene = backgroundScene
+    private func configureScene() {
+        let scene = SCNScene()
+        sceneView.scene = scene
+        sceneView.session.delegate = self
+    }
 
-        let backgroundPlane = SCNPlane(width: 160, height: 90) // Assuming a 16:9 aspect ratio
-        backgroundPlane.cornerRadius = 0
-        backgroundPlane.firstMaterial?.lightingModel = .constant
-        backgroundPlane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
+    private func cameraYScale(from frame: ARFrame) -> Double {
+        let projection = frame.camera.projectionMatrix
+        let yScale = projection[1,1]
+        return Double(yScale)
+    }
 
-        let backgroundPlaneNode = SCNNode(geometry: backgroundPlane)
-        backgroundPlaneNode.position = .init(0, 0, -90)
+    private func planeSizeForDistance(_ distance: Double, frame: ARFrame) -> CGSize {
+        let height = (2.0 * distance)/cameraYScale(from: frame)
+
+        // 16:9 aspect ratio
+        let width = (16.0 * height)/9.0
+        return CGSize(width: width, height: height)
+    }
+
+    private func makePlaneNodeForDistance(_ distance: Double, frame: ARFrame) -> SCNNode {
+        let size = planeSizeForDistance(distance, frame: frame)
+        let plane = SCNPlane(width: size.width, height: size.height)
+        plane.cornerRadius = 0
+        plane.firstMaterial?.lightingModel = .constant
+        plane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
+
+        let planeNode = SCNNode(geometry: plane)
+        planeNode.position = .init(0, 0, -distance)
+        return planeNode
+    }
+
+    private func configureBackground(with frame: ARFrame) {
+        let backgroundPlaneNode = makePlaneNodeForDistance(100.0, frame: frame)
 
         // Flipping image
         backgroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = flipTransform
@@ -84,23 +108,17 @@ final class MixedRealityViewController: UIViewController {
         self.backgroundNode = backgroundPlaneNode
     }
 
-    private func configureForeground() {
-        let foregroundPlane = SCNPlane(width: 0.16, height: 0.09) // Assuming a 16:9 aspect ratio
-        foregroundPlane.cornerRadius = 0
-        foregroundPlane.firstMaterial?.lightingModel = .constant
-        foregroundPlane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
-
-        let foregroundPlaneNode = SCNNode(geometry: foregroundPlane)
-        foregroundPlaneNode.position = .init(0, 0, -0.09)
+    private func configureForeground(with frame: ARFrame) {
+        let foregroundPlaneNode = makePlaneNodeForDistance(0.1, frame: frame)
 
         // Flipping image
-        foregroundPlane.firstMaterial?.diffuse.contentsTransform = flipTransform
-        foregroundPlane.firstMaterial?.transparent.contentsTransform = flipTransform
+        foregroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = flipTransform
+        foregroundPlaneNode.geometry?.firstMaterial?.transparent.contentsTransform = flipTransform
 
-        foregroundPlane.firstMaterial?.transparencyMode = .rgbZero
+        foregroundPlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 
         // Shader to invert the colors from the transparent texture
-        foregroundPlane.firstMaterial?.shaderModifiers = [
+        foregroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
             .surface: """
             float value = (1.0 - texture2D(u_transparentTexture, _surface.transparentTexcoord).r);
             _surface.transparent = vec4(value, value, value, 1.0);
@@ -174,5 +192,16 @@ extension MixedRealityViewController: OculusMRCDelegate {
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceive image: UIImage) {
         debugView.image = image
+    }
+}
+
+extension MixedRealityViewController: ARSessionDelegate {
+
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        if first {
+            configureBackground(with: frame)
+            configureForeground(with: frame)
+            first = false
+        }
     }
 }
