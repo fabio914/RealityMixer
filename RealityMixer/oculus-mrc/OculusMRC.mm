@@ -44,7 +44,7 @@ extern "C" {
 #define OM_DEFAULT_HEIGHT 1080
 #define OM_DEFAULT_AUDIO_SAMPLERATE 48000
 
-//// https://medium.com/liveop-x-team/accelerating-h264-decoding-on-ios-with-ffmpeg-and-videotoolbox-1f000cb6c549
+// https://medium.com/liveop-x-team/accelerating-h264-decoding-on-ios-with-ffmpeg-and-videotoolbox-1f000cb6c549
 static enum AVPixelFormat negotiate_pixel_format(struct AVCodecContext *s, const enum AVPixelFormat *fmt) {
     while (*fmt != AV_PIX_FMT_NONE) {
         if (*fmt == AV_PIX_FMT_VIDEOTOOLBOX) {
@@ -82,8 +82,6 @@ std::string GetAvErrorString(int errNum) {
     std::vector<std::pair<int, std::shared_ptr<Frame>>> m_cachedAudioFrames;
     int m_audioFrameIndex;
     int m_videoFrameIndex;
-
-//    AVVideotoolboxContext * m_videotoolboxContext;
 }
 
 @end
@@ -217,9 +215,8 @@ std::string GetAvErrorString(int errNum) {
 
                     @autoreleasepool {
                         // Assuming that the VideoToolbox integration is working and that this pixel buffer is available.
-                        CVPixelBufferRef pixelBuf = (CVPixelBufferRef)picture->data[3];
-                        CIImage * ciImage = [CIImage imageWithCVImageBuffer:pixelBuf];
-                        UIImage * image = [UIImage imageWithCIImage:ciImage];
+                        CVPixelBufferRef pixelBuffer = (CVPixelBufferRef)picture->data[3];
+                        UIImage * image = [self imageFromCVPixelBuffer:pixelBuffer];
 
                         if (image != nil) {
                             [_delegate oculusMRC:self didReceiveImage:image];
@@ -252,37 +249,15 @@ std::string GetAvErrorString(int errNum) {
     }
 }
 
-// https://stackoverflow.com/questions/33345897/how-to-decode-an-h264-byte-stream-on-ios-6
-- (UIImage *)imageFromData:(uint8_t *)dt lineSize:(int *)lineSize width:(int)width height:(int)height {
-
-    CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
-    CFDataRef data = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, dt, lineSize[0]*height,kCFAllocatorNull);
-    CFDataRef copy = CFDataCreateCopy(kCFAllocatorDefault, data);
-    CGDataProviderRef provider = CGDataProviderCreateWithCFData(copy);
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-
-    CGImageRef cgImage = CGImageCreate(
-        width,
-        height,
-        8,
-        24,
-        lineSize[0],
-        colorSpace,
-        bitmapInfo,
-        provider,
-        NULL,
-        NO,
-        kCGRenderingIntentDefault
-    );
-
-    CGColorSpaceRelease(colorSpace);
-    UIImage *image = [UIImage imageWithCGImage:cgImage scale:1.0 orientation:UIImageOrientationDownMirrored];
-    CGImageRelease(cgImage);
-    CGDataProviderRelease(provider);
-    CFRelease(data);
-    CFRelease(copy);
-
-    return image;
+// https://stackoverflow.com/questions/8072208/how-to-turn-a-cvpixelbuffer-into-a-uiimage
+- (UIImage *)imageFromCVPixelBuffer:(CVPixelBufferRef)pixelBuffer {
+    CIImage * ciImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
+    CIContext * temporaryContext = [CIContext contextWithOptions:nil];
+    CGRect rect = CGRectMake(0, 0, CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer));
+    CGImageRef videoImage = [temporaryContext createCGImage:ciImage fromRect:rect];
+    UIImage * uiImage = [UIImage imageWithCGImage:videoImage scale:1.0 orientation:UIImageOrientationDownMirrored];
+    CGImageRelease(videoImage);
+    return uiImage;
 }
 
 - (void)dealloc {

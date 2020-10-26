@@ -4,7 +4,7 @@
 
 This is a standalone Oculus Quest Mixed Reality app for iOS that doesn't require a PC for generating Mixed Reality content.
 
-This project is based on the [Oculus MRC plugin for OBS](https://github.com/facebookincubator/obs-plugins/tree/master/oculus-mrc), it uses [SwiftSocket](https://github.com/swiftsocket/SwiftSocket) to handle the TCP connection with the Oculus Quest, FFMPEG ~with Apple's VideoToolbox~ to decode the stream, and ARKit for the "virtual green screen". It also requires [Carthage](https://github.com/Carthage/Carthage).
+This project is based on the [Oculus MRC plugin for OBS](https://github.com/facebookincubator/obs-plugins/tree/master/oculus-mrc), it uses [SwiftSocket](https://github.com/swiftsocket/SwiftSocket) to handle the TCP connection with the Oculus Quest, FFMPEG with Apple's VideoToolbox to decode the stream, and ARKit for the "virtual green screen". It also requires [Carthage](https://github.com/Carthage/Carthage).
 
 This is app is still a prototype and it requires an iPhone/iPad with an A12 chip or newer. A device with LiDAR is recommended for better results.
 
@@ -18,8 +18,6 @@ This is app is still a prototype and it requires an iPhone/iPad with an A12 chip
 ## TO-DOs
 
 - [ ] Implement the calibration mechanism;
-
-- [ ] Optimize the video decoding with VideoToolbox (hardware decoding);
 
 - [ ] Add audio (if possible);
 
