@@ -45,22 +45,21 @@ extern "C" {
 #define OM_DEFAULT_AUDIO_SAMPLERATE 48000
 
 //// https://medium.com/liveop-x-team/accelerating-h264-decoding-on-ios-with-ffmpeg-and-videotoolbox-1f000cb6c549
-//static enum AVPixelFormat negotiate_pixel_format(struct AVCodecContext *s, struct AVVideotoolboxContext *v, const enum AVPixelFormat *fmt) {
-//    while (*fmt != AV_PIX_FMT_NONE) {
-//        if (*fmt == AV_PIX_FMT_VIDEOTOOLBOX) {
-//            if (s->hwaccel_context == NULL) {
-////                int result = av_videotoolbox_default_init(s);
-//                int result = av_videotoolbox_default_init2(s, v);
-//                if (result < 0) {
-//                    return s->pix_fmt;
-//                }
-//            }
-//            return *fmt;
-//        }
-//        ++fmt;
-//    }
-//    return s->pix_fmt;
-//}
+static enum AVPixelFormat negotiate_pixel_format(struct AVCodecContext *s, const enum AVPixelFormat *fmt) {
+    while (*fmt != AV_PIX_FMT_NONE) {
+        if (*fmt == AV_PIX_FMT_VIDEOTOOLBOX) {
+            if (s->hwaccel_context == NULL) {
+                int result = av_videotoolbox_default_init(s);
+                if (result < 0) {
+                    return s->pix_fmt;
+                }
+            }
+            return *fmt;
+        }
+        ++fmt;
+    }
+    return s->pix_fmt;
+}
 
 std::string GetAvErrorString(int errNum) {
     char buf[1024];
@@ -80,7 +79,7 @@ std::string GetAvErrorString(int errNum) {
 
     FrameCollection m_frameCollection;
 
-    SwsContext * m_swsContext;
+//    SwsContext * m_swsContext;
     int m_swsContext_SrcWidth;
     int m_swsContext_SrcHeight;
     AVPixelFormat m_swsContext_SrcPixelFormat;
@@ -108,6 +107,7 @@ std::string GetAvErrorString(int errNum) {
 //        m_swsContext_SrcPixelFormat = AV_PIX_FMT_VIDEOTOOLBOX;
 
         m_codec = avcodec_find_decoder(AV_CODEC_ID_H264);
+
         if (!m_codec)
         {
             fprintf(stderr, "Unable to find decoder\n");
@@ -146,6 +146,8 @@ std::string GetAvErrorString(int errNum) {
         return;
     }
 
+    m_codecContext->get_format = negotiate_pixel_format;
+
     AVDictionary * dict = nullptr;
     int ret = avcodec_open2(m_codecContext, m_codec, &dict);
     av_dict_free(&dict);
@@ -166,6 +168,15 @@ std::string GetAvErrorString(int errNum) {
 //        return;
 //    }
 //
+//    m_videotoolboxContext->cv_pix_fmt_type = kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange;
+//    m_codecContext->hwaccel_context = m_videotoolboxContext;
+
+//    if(av_videotoolbox_default_init(m_codecContext) < 0) {
+//        fprintf(stderr, "Unable to initialize videotoolbox context\n");
+//        avcodec_free_context(&m_codecContext);
+//        return;
+//    }
+
 //    // https://medium.com/liveop-x-team/accelerating-h264-decoding-on-ios-with-ffmpeg-and-videotoolbox-1f000cb6c549
 //    if(negotiate_pixel_format(m_codecContext, m_videotoolboxContext, &m_swsContext_SrcPixelFormat) != AV_PIX_FMT_VIDEOTOOLBOX) {
 //        fprintf(stderr, "Unable to negociate Videotoolbox pixel format\n");
@@ -177,11 +188,11 @@ std::string GetAvErrorString(int errNum) {
 - (void)stopDecoder {
     if (m_codecContext) {
 
-//        // https://medium.com/liveop-x-team/accelerating-h264-decoding-on-ios-with-ffmpeg-and-videotoolbox-1f000cb6c549
-//        if (m_codecContext->hwaccel_context != NULL) {
-//            av_videotoolbox_default_free(m_codecContext);
+        // https://medium.com/liveop-x-team/accelerating-h264-decoding-on-ios-with-ffmpeg-and-videotoolbox-1f000cb6c549
+        if (m_codecContext->hwaccel_context != NULL) {
+            av_videotoolbox_default_free(m_codecContext);
 //            av_free(m_videotoolboxContext);
-//        }
+        }
 
         avcodec_close(m_codecContext);
         avcodec_free_context(&m_codecContext);
@@ -238,57 +249,62 @@ std::string GetAvErrorString(int errNum) {
 
                     ++m_videoFrameIndex;
 
-                    if (m_swsContext != nullptr)
-                    {
-                        if (m_swsContext_SrcWidth != m_codecContext->width ||
-                            m_swsContext_SrcHeight != m_codecContext->height ||
-                            m_swsContext_SrcPixelFormat != m_codecContext->pix_fmt ||
-                            m_swsContext_DestWidth != m_codecContext->width ||
-                            m_swsContext_DestHeight != m_codecContext->height)
-                        {
-                            fprintf(stdout, "Need recreate m_swsContext\n");
-                            sws_freeContext(m_swsContext);
-                            m_swsContext = nullptr;
-                        }
-                    }
+//                    if (m_swsContext != nullptr)
+//                    {
+//                        if (m_swsContext_SrcWidth != m_codecContext->width ||
+//                            m_swsContext_SrcHeight != m_codecContext->height ||
+//                            m_swsContext_SrcPixelFormat != m_codecContext->pix_fmt ||
+//                            m_swsContext_DestWidth != m_codecContext->width ||
+//                            m_swsContext_DestHeight != m_codecContext->height)
+//                        {
+//                            fprintf(stdout, "Need recreate m_swsContext\n");
+//                            sws_freeContext(m_swsContext);
+//                            m_swsContext = nullptr;
+//                        }
+//                    }
+//
+//                    if (m_swsContext == nullptr)
+//                    {
+//                        m_swsContext = sws_getContext(
+//                            m_codecContext->width,
+//                            m_codecContext->height,
+//                            m_codecContext->pix_fmt,
+//                            m_codecContext->width,
+//                            m_codecContext->height,
+//                            AV_PIX_FMT_RGB24,
+//                            SWS_POINT,
+//                            nullptr, nullptr, nullptr
+//                        );
+//                        m_swsContext_SrcWidth = m_codecContext->width;
+//                        m_swsContext_SrcHeight = m_codecContext->height;
+//                        m_swsContext_SrcPixelFormat = m_codecContext->pix_fmt;
+//                        m_swsContext_DestWidth = m_codecContext->width;
+//                        m_swsContext_DestHeight = m_codecContext->height;
+//                        fprintf(stdout, "sws_getContext(%d, %d, %d)\n", m_codecContext->width, m_codecContext->height, m_codecContext->pix_fmt);
+//                    }
 
-                    if (m_swsContext == nullptr)
-                    {
-                        m_swsContext = sws_getContext(
-                            m_codecContext->width,
-                            m_codecContext->height,
-                            m_codecContext->pix_fmt,
-                            m_codecContext->width,
-                            m_codecContext->height,
-                            AV_PIX_FMT_RGB24,
-                            SWS_POINT,
-                            nullptr, nullptr, nullptr
-                        );
-                        m_swsContext_SrcWidth = m_codecContext->width;
-                        m_swsContext_SrcHeight = m_codecContext->height;
-                        m_swsContext_SrcPixelFormat = m_codecContext->pix_fmt;
-                        m_swsContext_DestWidth = m_codecContext->width;
-                        m_swsContext_DestHeight = m_codecContext->height;
-                        fprintf(stdout, "sws_getContext(%d, %d, %d)\n", m_codecContext->width, m_codecContext->height, m_codecContext->pix_fmt);
-                    }
-
-                    assert(m_swsContext);
-                    uint8_t* data[1] = { new uint8_t[m_codecContext->width * m_codecContext->height * 3] };
-                    int stride[1] = { (int)m_codecContext->width * 3 };
-                    sws_scale(m_swsContext, picture->data,
-                        picture->linesize,
-                        0,
-                        picture->height,
-                        data,
-                        stride);
+//                    assert(m_swsContext);
+//                    uint8_t* data[1] = { new uint8_t[m_codecContext->width * m_codecContext->height * 3] };
+//                    int stride[1] = { (int)m_codecContext->width * 3 };
+//                    sws_scale(m_swsContext, picture->data,
+//                        picture->linesize,
+//                        0,
+//                        picture->height,
+//                        data,
+//                        stride);
 
                     @autoreleasepool {
-                        UIImage * image = [self imageFromData:data[0] lineSize:stride width:picture->width height:picture->height];
+//                        UIImage * image = [self imageFromData:data[0] lineSize:stride width:picture->width height:picture->height];
+
+                        CVPixelBufferRef pixelBuf = (CVPixelBufferRef)picture->data[3];
+                        CIImage * ciImage = [CIImage imageWithCVImageBuffer:pixelBuf];
+                        UIImage * image = [UIImage imageWithCIImage:ciImage];
+
                         UIImage * backgroundImage = [self backgroundImageFrom:image];
                         UIImage * foregroundColorImage = [self foregroundColorImageFrom:image];
                         UIImage * foregroundAlphaImage = [self foregroundAlphaImageFrom:image];
 
-                        delete data[0];
+//                        delete data[0];
 
                         if (image != nil) {
                             [_delegate oculusMRC:self didReceiveImage:image];
@@ -385,10 +401,10 @@ std::string GetAvErrorString(int errNum) {
 - (void)dealloc {
     [self stopDecoder];
 
-    if (m_swsContext) {
-        sws_freeContext(m_swsContext);
-        m_swsContext = nullptr;
-    }
+//    if (m_swsContext) {
+//        sws_freeContext(m_swsContext);
+//        m_swsContext = nullptr;
+//    }
 }
 
 @end
