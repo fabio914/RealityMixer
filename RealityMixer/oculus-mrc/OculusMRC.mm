@@ -79,13 +79,6 @@ std::string GetAvErrorString(int errNum) {
 
     FrameCollection m_frameCollection;
 
-//    SwsContext * m_swsContext;
-    int m_swsContext_SrcWidth;
-    int m_swsContext_SrcHeight;
-    AVPixelFormat m_swsContext_SrcPixelFormat;
-    int m_swsContext_DestWidth;
-    int m_swsContext_DestHeight;
-
     std::vector<std::pair<int, std::shared_ptr<Frame>>> m_cachedAudioFrames;
     int m_audioFrameIndex;
     int m_videoFrameIndex;
@@ -103,8 +96,6 @@ std::string GetAvErrorString(int errNum) {
         m_width = OM_DEFAULT_WIDTH;
         m_height = OM_DEFAULT_HEIGHT;
         m_audioSampleRate = OM_DEFAULT_AUDIO_SAMPLERATE;
-        m_swsContext_SrcPixelFormat = AV_PIX_FMT_NONE;
-//        m_swsContext_SrcPixelFormat = AV_PIX_FMT_VIDEOTOOLBOX;
 
         m_codec = avcodec_find_decoder(AV_CODEC_ID_H264);
 
@@ -159,30 +150,6 @@ std::string GetAvErrorString(int errNum) {
     }
 
     fprintf(stdout, "m_codecContext constructed and opened\n");
-
-//    m_videotoolboxContext = av_videotoolbox_alloc_context();
-//
-//    if(!m_videotoolboxContext) {
-//        fprintf(stderr, "Unable to allocate videotoolbox context\n");
-//        avcodec_free_context(&m_codecContext);
-//        return;
-//    }
-//
-//    m_videotoolboxContext->cv_pix_fmt_type = kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange;
-//    m_codecContext->hwaccel_context = m_videotoolboxContext;
-
-//    if(av_videotoolbox_default_init(m_codecContext) < 0) {
-//        fprintf(stderr, "Unable to initialize videotoolbox context\n");
-//        avcodec_free_context(&m_codecContext);
-//        return;
-//    }
-
-//    // https://medium.com/liveop-x-team/accelerating-h264-decoding-on-ios-with-ffmpeg-and-videotoolbox-1f000cb6c549
-//    if(negotiate_pixel_format(m_codecContext, m_videotoolboxContext, &m_swsContext_SrcPixelFormat) != AV_PIX_FMT_VIDEOTOOLBOX) {
-//        fprintf(stderr, "Unable to negociate Videotoolbox pixel format\n");
-//        avcodec_free_context(&m_codecContext);
-//        return;
-//    }
 }
 
 - (void)stopDecoder {
@@ -191,7 +158,6 @@ std::string GetAvErrorString(int errNum) {
         // https://medium.com/liveop-x-team/accelerating-h264-decoding-on-ios-with-ffmpeg-and-videotoolbox-1f000cb6c549
         if (m_codecContext->hwaccel_context != NULL) {
             av_videotoolbox_default_free(m_codecContext);
-//            av_free(m_videotoolboxContext);
         }
 
         avcodec_close(m_codecContext);
@@ -249,69 +215,14 @@ std::string GetAvErrorString(int errNum) {
 
                     ++m_videoFrameIndex;
 
-//                    if (m_swsContext != nullptr)
-//                    {
-//                        if (m_swsContext_SrcWidth != m_codecContext->width ||
-//                            m_swsContext_SrcHeight != m_codecContext->height ||
-//                            m_swsContext_SrcPixelFormat != m_codecContext->pix_fmt ||
-//                            m_swsContext_DestWidth != m_codecContext->width ||
-//                            m_swsContext_DestHeight != m_codecContext->height)
-//                        {
-//                            fprintf(stdout, "Need recreate m_swsContext\n");
-//                            sws_freeContext(m_swsContext);
-//                            m_swsContext = nullptr;
-//                        }
-//                    }
-//
-//                    if (m_swsContext == nullptr)
-//                    {
-//                        m_swsContext = sws_getContext(
-//                            m_codecContext->width,
-//                            m_codecContext->height,
-//                            m_codecContext->pix_fmt,
-//                            m_codecContext->width,
-//                            m_codecContext->height,
-//                            AV_PIX_FMT_RGB24,
-//                            SWS_POINT,
-//                            nullptr, nullptr, nullptr
-//                        );
-//                        m_swsContext_SrcWidth = m_codecContext->width;
-//                        m_swsContext_SrcHeight = m_codecContext->height;
-//                        m_swsContext_SrcPixelFormat = m_codecContext->pix_fmt;
-//                        m_swsContext_DestWidth = m_codecContext->width;
-//                        m_swsContext_DestHeight = m_codecContext->height;
-//                        fprintf(stdout, "sws_getContext(%d, %d, %d)\n", m_codecContext->width, m_codecContext->height, m_codecContext->pix_fmt);
-//                    }
-
-//                    assert(m_swsContext);
-//                    uint8_t* data[1] = { new uint8_t[m_codecContext->width * m_codecContext->height * 3] };
-//                    int stride[1] = { (int)m_codecContext->width * 3 };
-//                    sws_scale(m_swsContext, picture->data,
-//                        picture->linesize,
-//                        0,
-//                        picture->height,
-//                        data,
-//                        stride);
-
                     @autoreleasepool {
-//                        UIImage * image = [self imageFromData:data[0] lineSize:stride width:picture->width height:picture->height];
-
+                        // Assuming that the VideoToolbox integration is working and that this pixel buffer is available.
                         CVPixelBufferRef pixelBuf = (CVPixelBufferRef)picture->data[3];
                         CIImage * ciImage = [CIImage imageWithCVImageBuffer:pixelBuf];
                         UIImage * image = [UIImage imageWithCIImage:ciImage];
 
-                        UIImage * backgroundImage = [self backgroundImageFrom:image];
-                        UIImage * foregroundColorImage = [self foregroundColorImageFrom:image];
-                        UIImage * foregroundAlphaImage = [self foregroundAlphaImageFrom:image];
-
-//                        delete data[0];
-
                         if (image != nil) {
                             [_delegate oculusMRC:self didReceiveImage:image];
-                        }
-
-                        if (backgroundImage != nil && foregroundColorImage != nil && foregroundAlphaImage != nil) {
-                            [_delegate oculusMRC:self didReceiveBackground:backgroundImage foregroundColor:foregroundColorImage foregroundAlpha:foregroundAlphaImage];
                         }
                     }
                 }
@@ -374,37 +285,8 @@ std::string GetAvErrorString(int errNum) {
     return image;
 }
 
-- (UIImage *)backgroundImageFrom:(UIImage *)image {
-    CGRect cropRect = CGRectMake(0, 0, image.size.width/2.0, image.size.height);
-    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
-    UIImage * result = [UIImage imageWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    return result;
-}
-
-- (UIImage *)foregroundColorImageFrom:(UIImage *)image {
-    CGRect cropRect = CGRectMake(image.size.width/2.0, 0, image.size.width/4.0, image.size.height);
-    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
-    UIImage * result = [UIImage imageWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    return result;
-}
-
-- (UIImage *)foregroundAlphaImageFrom:(UIImage *)image {
-    CGRect cropRect = CGRectMake(image.size.width * 0.75, 0, image.size.width/4.0, image.size.height);
-    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
-    UIImage * result = [UIImage imageWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    return result;
-}
-
 - (void)dealloc {
     [self stopDecoder];
-
-//    if (m_swsContext) {
-//        sws_freeContext(m_swsContext);
-//        m_swsContext = nullptr;
-//    }
 }
 
 @end
