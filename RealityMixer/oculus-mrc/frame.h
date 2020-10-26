@@ -49,8 +49,6 @@ struct Frame
 	std::vector<uint8_t> m_payload;
 };
 
-//typedef std::vector<uint8_t> Frame;
-
 class FrameCollection
 {
 public:

@@ -18,19 +18,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #import "OculusMRC.h"
 #include "frame.h"
 
-#include <fcntl.h>
-#include <errno.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-#include <netdb.h>
 #include <stdio.h>
-#include <stdint.h>
-
 #include <string>
-#include <mutex>
 
 extern "C" {
 #include "libavcodec/avcodec.h"
@@ -71,8 +60,6 @@ std::string GetAvErrorString(int errNum) {
     uint32_t m_width;
     uint32_t m_height;
     uint32_t m_audioSampleRate;
-
-    std::mutex m_updateMutex;
 
     AVCodec * m_codec;
     AVCodecContext * m_codecContext;
