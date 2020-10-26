@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<OculusMRCDelegate> delegate;
 
-- (instancetype)init;
+- (instancetype)initWithHardwareDecoder:(BOOL)useHardwareDecoder;
 - (void)addData:(const uint8_t *)data length:(int32_t)length;
 - (void)update;
 

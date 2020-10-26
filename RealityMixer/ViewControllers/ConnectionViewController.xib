@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConnectionViewController" customModule="RealityMixer" customModuleProvider="target">
             <connections>
                 <outlet property="addressTextField" destination="DZi-cu-2ge" id="Klz-WA-Xd6"/>
+                <outlet property="hardwareDecoderSwitch" destination="643-QK-mrc" id="P2Q-qj-X4l"/>
                 <outlet property="overlayView" destination="PfG-yH-roU" id="pDa-hn-h39"/>
                 <outlet property="portTextField" destination="Lky-ae-zSD" id="2KE-UZ-PBo"/>
                 <outlet property="showDebugSwitch" destination="PnQ-MP-mA0" id="WiD-Hs-OuN"/>
@@ -23,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ThD-0e-MfL">
-                    <rect key="frame" x="57" y="40" width="300" height="159"/>
+                    <rect key="frame" x="57" y="40" width="300" height="200"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="192.168.0.1" borderStyle="roundedRect" placeholder="IP" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DZi-cu-2ge">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="34"/>
@@ -49,8 +50,22 @@
                                 </switch>
                             </subviews>
                         </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8V6-6t-1dA">
+                            <rect key="frame" x="0.0" y="129" width="300" height="31"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Hardware Decoder (beta)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EsT-lI-NCf">
+                                    <rect key="frame" x="0.0" y="0.0" width="251" height="31"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="643-QK-mrc">
+                                    <rect key="frame" x="251" y="0.0" width="51" height="31"/>
+                                </switch>
+                            </subviews>
+                        </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r2g-AA-pGA">
-                            <rect key="frame" x="0.0" y="129" width="300" height="30"/>
+                            <rect key="frame" x="0.0" y="170" width="300" height="30"/>
                             <state key="normal" title="Connect"/>
                             <connections>
                                 <action selector="connectAction:" destination="-1" eventType="touchUpInside" id="qtt-zz-eKk"/>
@@ -62,7 +77,7 @@
                     </constraints>
                 </stackView>
                 <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfG-yH-roU">
-                    <rect key="frame" x="57" y="33.5" width="300" height="172"/>
+                    <rect key="frame" x="57" y="31.5" width="300" height="217"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>

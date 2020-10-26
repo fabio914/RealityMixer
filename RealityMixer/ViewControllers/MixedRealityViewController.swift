@@ -12,6 +12,7 @@ import SwiftSocket
 final class MixedRealityViewController: UIViewController {
     private let client: TCPClient
     private let shouldShowDebug: Bool
+    private let shouldUseHardwareDecoder: Bool
     private var displayLink: CADisplayLink?
     private var oculusMRC: OculusMRC?
 
@@ -32,9 +33,14 @@ final class MixedRealityViewController: UIViewController {
         true
     }
 
-    init(client: TCPClient, shouldShowDebug: Bool) {
+    init(
+        client: TCPClient,
+        shouldShowDebug: Bool,
+        shouldUseHardwareDecoder: Bool
+    ) {
         self.client = client
         self.shouldShowDebug = shouldShowDebug
+        self.shouldUseHardwareDecoder = shouldUseHardwareDecoder
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -62,7 +68,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureOculusMRC() {
-        self.oculusMRC = OculusMRC()
+        self.oculusMRC = OculusMRC(hardwareDecoder: shouldUseHardwareDecoder)
         oculusMRC?.delegate = self
     }
 
@@ -132,7 +138,13 @@ final class MixedRealityViewController: UIViewController {
             _surface.diffuse = texture2D(u_diffuseTexture, foregroundCoords);
 
             vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.75, _surface.transparentTexcoord.y);
-            float value = (1.0 - texture2D(u_transparentTexture, alphaCoords).r);
+            float alpha = texture2D(u_transparentTexture, alphaCoords).r;
+
+            // Threshold to prevent glitches because of the video compression.
+            float threshold = 0.25;
+            float correctedAlpha = step(threshold, alpha) * alpha;
+
+            float value = (1.0 - correctedAlpha);
             _surface.transparent = vec4(value, value, value, 1.0);
             """
         ]
