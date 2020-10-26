@@ -1,3 +1,5 @@
+<img src="Images/rounded.png" width="100" />
+
 # Reality Mixer <br/> *Oculus Quest Mixed Reality For iOS*
 
 This is a standalone Oculus Quest Mixed Reality app for iOS that doesn't require a PC for generating Mixed Reality content.
