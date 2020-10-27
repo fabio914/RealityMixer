@@ -144,9 +144,10 @@ final class MixedRealityViewController: UIViewController {
                 _surface.diffuse = texture2D(u_diffuseTexture, foregroundCoords);
 
                 vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.5, _surface.transparentTexcoord.y);
+                vec3 color = texture2D(u_diffuseTexture, alphaCoords).rgb;
 
                 // TODO: Add some threshold to prevent glitches because of the video compression
-                if (texture2D(u_transparentTexture, alphaCoords).rgb == vec3(1.0, 0.0, 1.0)) {
+                if (color.r == 1.0 && color.g == 0.0 && color.b == 1.0) {
                     _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
                 } else {
                     _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
