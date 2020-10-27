@@ -77,7 +77,7 @@ final class MixedRealityViewController: UIViewController {
         sceneView.scene = scene
         sceneView.session.delegate = self
 
-        scene.rootNode.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
+        sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
     }
 
     private func planeSizeForDistance(_ distance: Float, frame: ARFrame) -> CGSize {
