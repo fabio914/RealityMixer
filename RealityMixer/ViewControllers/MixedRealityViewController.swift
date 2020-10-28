@@ -9,10 +9,17 @@ import UIKit
 import ARKit
 import SwiftSocket
 
+struct MixedRealityConfiguration {
+    let shouldShowDebug: Bool
+    let shouldUseHardwareDecoder: Bool
+
+    // Use magenta as the transparency color for the foreground plane
+    let shouldUseMagentaAsTransparency: Bool
+}
+
 final class MixedRealityViewController: UIViewController {
     private let client: TCPClient
-    private let shouldShowDebug: Bool
-    private let shouldUseHardwareDecoder: Bool
+    private let configuration: MixedRealityConfiguration
     private var displayLink: CADisplayLink?
     private var oculusMRC: OculusMRC?
 
@@ -35,12 +42,10 @@ final class MixedRealityViewController: UIViewController {
 
     init(
         client: TCPClient,
-        shouldShowDebug: Bool,
-        shouldUseHardwareDecoder: Bool
+        configuration: MixedRealityConfiguration
     ) {
         self.client = client
-        self.shouldShowDebug = shouldShowDebug
-        self.shouldUseHardwareDecoder = shouldUseHardwareDecoder
+        self.configuration = configuration
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -68,7 +73,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureOculusMRC() {
-        self.oculusMRC = OculusMRC(hardwareDecoder: shouldUseHardwareDecoder)
+        self.oculusMRC = OculusMRC(hardwareDecoder: configuration.shouldUseHardwareDecoder)
         oculusMRC?.delegate = self
     }
 
@@ -132,22 +137,47 @@ final class MixedRealityViewController: UIViewController {
 
         foregroundPlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 
-        foregroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: """
-            vec2 foregroundCoords = vec2((_surface.diffuseTexcoord.x * 0.25) + 0.5, _surface.diffuseTexcoord.y);
-            _surface.diffuse = texture2D(u_diffuseTexture, foregroundCoords);
+        if configuration.shouldUseMagentaAsTransparency {
+            foregroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
+                .surface: """
+                vec2 foregroundCoords = vec2((_surface.diffuseTexcoord.x * 0.25) + 0.5, _surface.diffuseTexcoord.y);
+                _surface.diffuse = texture2D(u_diffuseTexture, foregroundCoords);
 
-            vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.75, _surface.transparentTexcoord.y);
-            float alpha = texture2D(u_transparentTexture, alphaCoords).r;
+                vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.5, _surface.transparentTexcoord.y);
+                vec3 color = texture2D(u_diffuseTexture, alphaCoords).rgb;
+                vec3 magenta = vec3(1.0, 0.0, 1.0);
+                float threshold = 0.10;
 
-            // Threshold to prevent glitches because of the video compression.
-            float threshold = 0.25;
-            float correctedAlpha = step(threshold, alpha) * alpha;
+                bool checkRed = (color.r >= (magenta.r - threshold));
+                bool checkGreen = (color.g >= (magenta.g - threshold) && color.g <= (magenta.g + threshold));
+                bool checkBlue = (color.b >= (magenta.b - threshold));
 
-            float value = (1.0 - correctedAlpha);
-            _surface.transparent = vec4(value, value, value, 1.0);
-            """
-        ]
+                if (checkRed && checkGreen && checkBlue) {
+                    // FIXME: This is not ideal, this is ignoring semi-transparent pixels
+                    _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
+                } else {
+                    _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
+                }
+                """
+            ]
+        } else {
+            foregroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
+                .surface: """
+                vec2 foregroundCoords = vec2((_surface.diffuseTexcoord.x * 0.25) + 0.5, _surface.diffuseTexcoord.y);
+                _surface.diffuse = texture2D(u_diffuseTexture, foregroundCoords);
+
+                vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.75, _surface.transparentTexcoord.y);
+                float alpha = texture2D(u_transparentTexture, alphaCoords).r;
+
+                // Threshold to prevent glitches because of the video compression.
+                float threshold = 0.25;
+                float correctedAlpha = step(threshold, alpha) * alpha;
+
+                float value = (1.0 - correctedAlpha);
+                _surface.transparent = vec4(value, value, value, 1.0);
+                """
+            ]
+        }
 
         // FIXME: Semi-transparent textures won't work with person segmentation. They'll
         // blend with the background instead of blending with the segmented image of the person.
@@ -157,7 +187,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureDebugView() {
-        debugView.isHidden = !shouldShowDebug
+        debugView.isHidden = !configuration.shouldShowDebug
     }
 
     override func viewWillAppear(_ animated: Bool) {
