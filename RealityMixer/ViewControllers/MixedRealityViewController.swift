@@ -145,17 +145,18 @@ final class MixedRealityViewController: UIViewController {
 
                 vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.5, _surface.transparentTexcoord.y);
                 vec3 color = texture2D(u_diffuseTexture, alphaCoords).rgb;
-                vec3 magenta = vec3(1.0, 0.172, 1.0);
-                float threshold = 0.1;
+                vec3 magenta = vec3(1.0, 0.0, 1.0);
+                float threshold = 0.05;
 
                 bool checkRed = (color.r >= (magenta.r - threshold));
                 bool checkGreen = (color.g >= (magenta.g - threshold) && color.g <= (magenta.g + threshold));
                 bool checkBlue = (color.b >= (magenta.b - threshold));
 
                 if (checkRed && checkGreen && checkBlue) {
-                    _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
-                } else {
+                    // FIXME: This is not ideal, this is ignoring semi-transparent pixels
                     _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
+                } else {
+                    _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
                 }
                 """
             ]
