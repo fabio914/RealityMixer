@@ -13,7 +13,7 @@ This project is based on the [Oculus MRC plugin for OBS](https://github.com/face
  - 5 Ghz WiFi network.
  - A compatible VR game (check this [page](https://creator.oculus.com/mrc/) for a list of the officially supported games).
 
-Note that this is app is still just a prototype, use at your own risk.
+Note that this is app is still just a prototype and it's still being developed, use at your own risk.
 
 ## Examples
 
@@ -22,6 +22,15 @@ Note that this is app is still just a prototype, use at your own risk.
 | Beat Saber | [Link](https://www.youtube.com/watch?v=JL5e_moZ7XM) | <img src="Images/beatsaber/1.jpg" width="300" /> <img src="Images/beatsaber/2.jpg" width="300" /> |
 | SUPERHOT | [Link](https://youtu.be/ZnOY8juMw4k) | <img src="Images/superhot/1.jpg" width="300" /> <img src="Images/superhot/2.jpg" width="300" /> |
 | The Thrill of the Fight | [Link](https://youtu.be/aPSBmej4ppc) | <img src="Images/the_thrill_of_the_fight/1.jpg" width="300" /> <img src="Images/the_thrill_of_the_fight/2.jpg" width="300" /> |
+| Space Pirate Trainer | [Link](https://youtu.be/44Nmv7Es5yI) | <img src="Images/space_pirate_trainer/1.jpg" width="300" /> <img src="Images/space_pirate_trainer/2.jpg" width="300" /> |
+
+## Installation
+
+*Coming soon*
+
+## Instructions
+
+*Coming soon*
 
 ## TO-DOs
 
