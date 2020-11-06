@@ -28,7 +28,7 @@ extension CalibrationResult {
                 <rows>3</rows>
                 <cols>3</cols>
                 <dt>d</dt>
-                <data>\(camera.m11) \(camera.m21) \(camera.m31) \(camera.m12) \(camera.m22) \(camera.m32) \(camera.m13) \(camera.m23) \(camera.m33)</data>
+                <data>\(camera.m11.scientific) \(camera.m21.scientific) \(camera.m31.scientific) \(camera.m12.scientific) \(camera.m22.scientific) \(camera.m32.scientific) \(camera.m13.scientific) \(camera.m23.scientific) \(camera.m33.scientific)</data>
             </camera_matrix>
             <distortion_coefficients type_id="opencv-matrix">
                 <rows>8</rows>
@@ -40,13 +40,13 @@ extension CalibrationResult {
                 <rows>3</rows>
                 <cols>1</cols>
                 <dt>d</dt>
-                <data>\(pose.position.x) \(pose.position.y) \(pose.position.z)</data>
+                <data>\(pose.position.x.scientific) \(pose.position.y.scientific) \(pose.position.z.scientific)</data>
             </translation>
             <rotation type_id="opencv-matrix">
                 <rows>4</rows>
                 <cols>1</cols>
                 <dt>d</dt>
-                <data>\(pose.rotation.x) \(pose.rotation.y) \(pose.rotation.z) \(pose.rotation.w)</data>
+                <data>\(pose.rotation.x.scientific) \(pose.rotation.y.scientific) \(pose.rotation.z.scientific) \(pose.rotation.w.scientific)</data>
             </rotation>
             <attachedDevice>3</attachedDevice>
             <camDelayMs>0</camDelayMs>
@@ -60,19 +60,19 @@ extension CalibrationResult {
                 <rows>3</rows>
                 <cols>1</cols>
                 <dt>d</dt>
-                <data>\(rawPose.position.x) \(rawPose.position.y) \(rawPose.position.z)</data>
+                <data>\(rawPose.position.x.scientific) \(rawPose.position.y.scientific) \(rawPose.position.z.scientific)</data>
             </raw_translation>
             <raw_rotation type_id="opencv-matrix">
                 <rows>4</rows>
                 <cols>1</cols>
                 <dt>d</dt>
-                <data>\(rawPose.rotation.x) \(rawPose.rotation.y) \(rawPose.rotation.z) \(rawPose.rotation.w)</data>
+                <data>\(rawPose.rotation.x.scientific) \(rawPose.rotation.y.scientific) \(rawPose.rotation.z.scientific) \(rawPose.rotation.w.scientific)</data>
             </raw_rotation>
         </opencv_storage>
         """
     }
 
     func toFrame() -> CalibrationFrame? {
-        xmlString.data(using: .utf8).flatMap({ CalibrationFrame(payloadType: 36, data: $0) })
+        xmlString.data(using: .utf8).flatMap({ CalibrationFrame(payloadType: PayloadType.calibrationData.rawValue, data: $0) })
     }
 }

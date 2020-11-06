@@ -26,6 +26,7 @@
 		A32416362554E41E008D4B90 /* ProjectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A32416342554E41E008D4B90 /* ProjectionViewController.xib */; };
 		A324163A2554E4F5008D4B90 /* Vector3+SceneKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416392554E4F5008D4B90 /* Vector3+SceneKit.swift */; };
 		A324163D2554E520008D4B90 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A324163C2554E51F008D4B90 /* CGPoint+Extensions.swift */; };
+		A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A324163F2555DBA9008D4B90 /* Double+ScientificString.swift */; };
 		A328D8B0253C8C4000B90E62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D8AF253C8C4000B90E62 /* AppDelegate.swift */; };
 		A328D8B4253C8C4000B90E62 /* MixedRealityConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D8B3253C8C4000B90E62 /* MixedRealityConnectionViewController.swift */; };
 		A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A328D8B8253C8C4300B90E62 /* Assets.xcassets */; };
@@ -74,6 +75,7 @@
 		A32416342554E41E008D4B90 /* ProjectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectionViewController.xib; sourceTree = "<group>"; };
 		A32416392554E4F5008D4B90 /* Vector3+SceneKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vector3+SceneKit.swift"; sourceTree = "<group>"; };
 		A324163C2554E51F008D4B90 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
+		A324163F2555DBA9008D4B90 /* Double+ScientificString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+ScientificString.swift"; sourceTree = "<group>"; };
 		A328D8AC253C8C4000B90E62 /* RealityMixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealityMixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A328D8AF253C8C4000B90E62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A328D8B3253C8C4000B90E62 /* MixedRealityConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixedRealityConnectionViewController.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 			children = (
 				A32416392554E4F5008D4B90 /* Vector3+SceneKit.swift */,
 				A324163C2554E51F008D4B90 /* CGPoint+Extensions.swift */,
+				A324163F2555DBA9008D4B90 /* Double+ScientificString.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -718,6 +721,7 @@
 				A328D8D1253C917300B90E62 /* OculusMRC.mm in Sources */,
 				A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */,
 				A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */,
+				A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */,
 				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
 				A324163D2554E520008D4B90 /* CGPoint+Extensions.swift in Sources */,
 				A32416022554D296008D4B90 /* Math.swift in Sources */,
