@@ -157,7 +157,8 @@ struct CalibrationBuilder {
             CalibrationResult(
                 imageSize: imageSize * scaleFactor,
                 camera: makeCameraMatrix(yFov: Double(yFov), imageSize: imageSize, scaleFactor: scaleFactor),
-                pose: (centerPose.inverse * cameraPose)
+                pose: (centerPose.inverse * cameraPose),
+                rawPose: centerPose
             )
         )
     }

@@ -11,6 +11,7 @@ struct CalibrationResult {
     let imageSize: Size
     let camera: Matrix3
     let pose: Pose
+    let rawPose: Pose
 }
 
 extension CalibrationResult {
@@ -59,13 +60,13 @@ extension CalibrationResult {
                 <rows>3</rows>
                 <cols>1</cols>
                 <dt>d</dt>
-                <data>0 0 0</data>
+                <data>\(rawPose.position.x) \(rawPose.position.y) \(rawPose.position.z)</data>
             </raw_translation>
             <raw_rotation type_id="opencv-matrix">
                 <rows>4</rows>
                 <cols>1</cols>
                 <dt>d</dt>
-                <data>0 0 0 1.0</data>
+                <data>\(rawPose.rotation.x) \(rawPose.rotation.y) \(rawPose.rotation.z) \(rawPose.rotation.w)</data>
             </raw_rotation>
         </opencv_storage>
         """
