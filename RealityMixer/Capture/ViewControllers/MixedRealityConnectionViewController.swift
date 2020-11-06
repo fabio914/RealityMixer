@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MixedRealityConnectionViewController.swift
 //  RealityMixer
 //
 //  Created by Fabio de Albuquerque Dela Antonio on 10/18/20.
@@ -8,7 +8,7 @@
 import UIKit
 import SwiftSocket
 
-final class ConnectionViewController: UIViewController {
+final class MixedRealityConnectionViewController: UIViewController {
 
     @IBOutlet private weak var addressTextField: UITextField!
     @IBOutlet private weak var portTextField: UITextField!
@@ -17,7 +17,7 @@ final class ConnectionViewController: UIViewController {
     @IBOutlet private weak var magentaSwitch: UISwitch!
 
     @IBOutlet private weak var overlayView: UIView!
-    private let storage = AddressPortPreferenceStorage()
+    private let storage = PreferenceStorage()
 
     init() {
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
@@ -29,12 +29,11 @@ final class ConnectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Reality Mixer"
+        title = "Mixed Reality"
         overlayView.isHidden = true
 
         if let preferences = storage.preference {
             addressTextField.text = preferences.address
-            portTextField.text = "\(preferences.port)"
         }
     }
 
@@ -64,7 +63,7 @@ final class ConnectionViewController: UIViewController {
 
             present(alert, animated: true, completion: nil)
         case .success:
-            try? storage.save(preference: .init(address: address, port: port))
+            try? storage.save(preference: .init(address: address))
 
             let configuration = MixedRealityConfiguration(
                 shouldShowDebug: showDebugSwitch.isOn,
@@ -80,31 +79,5 @@ final class ConnectionViewController: UIViewController {
             viewController.modalPresentationStyle = .overFullScreen
             present(viewController, animated: true, completion: nil)
         }
-    }
-}
-
-struct AddressPortPreference: Codable {
-    let address: String
-    let port: Int32
-}
-
-final class AddressPortPreferenceStorage {
-    private let defaults: UserDefaults
-    private let key = "preference"
-
-    init(defaults: UserDefaults = .standard) {
-        self.defaults = defaults
-    }
-
-    func save(preference: AddressPortPreference) throws {
-        let data = try JSONEncoder().encode(preference)
-        let string = data.base64EncodedString()
-        defaults.setValue(string, forKey: key)
-    }
-
-    var preference: AddressPortPreference? {
-        defaults.string(forKey: key)
-            .flatMap({ Data(base64Encoded: $0) })
-            .flatMap({ try? JSONDecoder().decode(AddressPortPreference.self, from: $0) })
     }
 }

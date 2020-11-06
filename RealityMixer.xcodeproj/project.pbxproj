@@ -7,8 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32415FD2554D24B008D4B90 /* CalibrationFrame.swift */; };
+		A32416022554D296008D4B90 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416012554D296008D4B90 /* Math.swift */; };
+		A32416052554D2FE008D4B90 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416042554D2FE008D4B90 /* Parser.swift */; };
+		A32416082554D326008D4B90 /* CalibrationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416072554D326008D4B90 /* CalibrationPayload.swift */; };
+		A324160B2554D3AB008D4B90 /* CalibrationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A324160A2554D3AB008D4B90 /* CalibrationResult.swift */; };
+		A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A324160E2554D4AD008D4B90 /* CalibrationBuilder.swift */; };
+		A32416182554DA24008D4B90 /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416172554DA24008D4B90 /* Preference.swift */; };
+		A324161E2554DABE008D4B90 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A324161C2554DABE008D4B90 /* InitialViewController.swift */; };
+		A324161F2554DABE008D4B90 /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A324161D2554DABE008D4B90 /* InitialViewController.xib */; };
+		A32416252554DFD4008D4B90 /* CalibrationConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416232554DFD3008D4B90 /* CalibrationConnectionViewController.swift */; };
+		A32416262554DFD4008D4B90 /* CalibrationConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A32416242554DFD3008D4B90 /* CalibrationConnectionViewController.xib */; };
+		A324162A2554E1B8008D4B90 /* CalibrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416282554E1B8008D4B90 /* CalibrationViewController.swift */; };
+		A324162B2554E1B8008D4B90 /* CalibrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A32416292554E1B8008D4B90 /* CalibrationViewController.xib */; };
+		A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A324162D2554E213008D4B90 /* OculusCalibration.swift */; };
+		A32416312554E340008D4B90 /* CalibrationSceneNodeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416302554E340008D4B90 /* CalibrationSceneNodeBuilder.swift */; };
+		A32416352554E41E008D4B90 /* ProjectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416332554E41E008D4B90 /* ProjectionViewController.swift */; };
+		A32416362554E41E008D4B90 /* ProjectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A32416342554E41E008D4B90 /* ProjectionViewController.xib */; };
+		A324163A2554E4F5008D4B90 /* Vector3+SceneKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416392554E4F5008D4B90 /* Vector3+SceneKit.swift */; };
+		A324163D2554E520008D4B90 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A324163C2554E51F008D4B90 /* CGPoint+Extensions.swift */; };
+		A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A324163F2555DBA9008D4B90 /* Double+ScientificString.swift */; };
 		A328D8B0253C8C4000B90E62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D8AF253C8C4000B90E62 /* AppDelegate.swift */; };
-		A328D8B4253C8C4000B90E62 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D8B3253C8C4000B90E62 /* ConnectionViewController.swift */; };
+		A328D8B4253C8C4000B90E62 /* MixedRealityConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D8B3253C8C4000B90E62 /* MixedRealityConnectionViewController.swift */; };
 		A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A328D8B8253C8C4300B90E62 /* Assets.xcassets */; };
 		A328D8BC253C8C4300B90E62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */; };
 		A328D8C5253C8CD600B90E62 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D8C4253C8CD600B90E62 /* SwiftSocket.framework */; };
@@ -27,7 +47,7 @@
 		A328D969253C95B700B90E62 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D968253C95B700B90E62 /* VideoToolbox.framework */; };
 		A328D96B253C95BD00B90E62 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D96A253C95BD00B90E62 /* AudioToolbox.framework */; };
 		A328D96D253C95C300B90E62 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D96C253C95C200B90E62 /* CoreMedia.framework */; };
-		A328D979253CE54E00B90E62 /* ConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D978253CE54E00B90E62 /* ConnectionViewController.xib */; };
+		A328D979253CE54E00B90E62 /* MixedRealityConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D978253CE54E00B90E62 /* MixedRealityConnectionViewController.xib */; };
 		A328D97F253CE63B00B90E62 /* MixedRealityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D97D253CE63B00B90E62 /* MixedRealityViewController.swift */; };
 		A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */; };
 		A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98D253CF2EE00B90E62 /* ARKit.framework */; };
@@ -35,9 +55,30 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A32415FD2554D24B008D4B90 /* CalibrationFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationFrame.swift; sourceTree = "<group>"; };
+		A32416012554D296008D4B90 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		A32416042554D2FE008D4B90 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		A32416072554D326008D4B90 /* CalibrationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationPayload.swift; sourceTree = "<group>"; };
+		A324160A2554D3AB008D4B90 /* CalibrationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationResult.swift; sourceTree = "<group>"; };
+		A324160E2554D4AD008D4B90 /* CalibrationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationBuilder.swift; sourceTree = "<group>"; };
+		A32416152554D939008D4B90 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A32416172554DA24008D4B90 /* Preference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
+		A324161C2554DABE008D4B90 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		A324161D2554DABE008D4B90 /* InitialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
+		A32416232554DFD3008D4B90 /* CalibrationConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationConnectionViewController.swift; sourceTree = "<group>"; };
+		A32416242554DFD3008D4B90 /* CalibrationConnectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalibrationConnectionViewController.xib; sourceTree = "<group>"; };
+		A32416282554E1B8008D4B90 /* CalibrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationViewController.swift; sourceTree = "<group>"; };
+		A32416292554E1B8008D4B90 /* CalibrationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalibrationViewController.xib; sourceTree = "<group>"; };
+		A324162D2554E213008D4B90 /* OculusCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OculusCalibration.swift; sourceTree = "<group>"; };
+		A32416302554E340008D4B90 /* CalibrationSceneNodeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationSceneNodeBuilder.swift; sourceTree = "<group>"; };
+		A32416332554E41E008D4B90 /* ProjectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectionViewController.swift; sourceTree = "<group>"; };
+		A32416342554E41E008D4B90 /* ProjectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectionViewController.xib; sourceTree = "<group>"; };
+		A32416392554E4F5008D4B90 /* Vector3+SceneKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vector3+SceneKit.swift"; sourceTree = "<group>"; };
+		A324163C2554E51F008D4B90 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
+		A324163F2555DBA9008D4B90 /* Double+ScientificString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+ScientificString.swift"; sourceTree = "<group>"; };
 		A328D8AC253C8C4000B90E62 /* RealityMixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealityMixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A328D8AF253C8C4000B90E62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A328D8B3253C8C4000B90E62 /* ConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionViewController.swift; sourceTree = "<group>"; };
+		A328D8B3253C8C4000B90E62 /* MixedRealityConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixedRealityConnectionViewController.swift; sourceTree = "<group>"; };
 		A328D8B8253C8C4300B90E62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A328D8BB253C8C4300B90E62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A328D8BD253C8C4300B90E62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -173,7 +214,7 @@
 		A328D968253C95B700B90E62 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		A328D96A253C95BD00B90E62 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		A328D96C253C95C200B90E62 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		A328D978253CE54E00B90E62 /* ConnectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConnectionViewController.xib; sourceTree = "<group>"; };
+		A328D978253CE54E00B90E62 /* MixedRealityConnectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MixedRealityConnectionViewController.xib; sourceTree = "<group>"; };
 		A328D97D253CE63B00B90E62 /* MixedRealityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixedRealityViewController.swift; sourceTree = "<group>"; };
 		A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MixedRealityViewController.xib; sourceTree = "<group>"; };
 		A328D98D253CF2EE00B90E62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
@@ -207,9 +248,109 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A32415FA2554D1FB008D4B90 /* Calibration */ = {
+			isa = PBXGroup;
+			children = (
+				A32416382554E4E6008D4B90 /* Extensions */,
+				A32416112554D7D3008D4B90 /* ViewControllers */,
+				A324160D2554D493008D4B90 /* Builders */,
+				A32415FC2554D20C008D4B90 /* Network */,
+				A32415FB2554D202008D4B90 /* Model */,
+			);
+			path = Calibration;
+			sourceTree = "<group>";
+		};
+		A32415FB2554D202008D4B90 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A32416012554D296008D4B90 /* Math.swift */,
+				A324160A2554D3AB008D4B90 /* CalibrationResult.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A32415FC2554D20C008D4B90 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A32415FD2554D24B008D4B90 /* CalibrationFrame.swift */,
+				A32416042554D2FE008D4B90 /* Parser.swift */,
+				A32416072554D326008D4B90 /* CalibrationPayload.swift */,
+				A324162D2554E213008D4B90 /* OculusCalibration.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		A324160D2554D493008D4B90 /* Builders */ = {
+			isa = PBXGroup;
+			children = (
+				A324160E2554D4AD008D4B90 /* CalibrationBuilder.swift */,
+				A32416302554E340008D4B90 /* CalibrationSceneNodeBuilder.swift */,
+			);
+			path = Builders;
+			sourceTree = "<group>";
+		};
+		A32416112554D7D3008D4B90 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A32416232554DFD3008D4B90 /* CalibrationConnectionViewController.swift */,
+				A32416242554DFD3008D4B90 /* CalibrationConnectionViewController.xib */,
+				A32416282554E1B8008D4B90 /* CalibrationViewController.swift */,
+				A32416292554E1B8008D4B90 /* CalibrationViewController.xib */,
+				A32416332554E41E008D4B90 /* ProjectionViewController.swift */,
+				A32416342554E41E008D4B90 /* ProjectionViewController.xib */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		A32416122554D7F5008D4B90 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				A32416162554DA18008D4B90 /* Model */,
+				A328D8C8253C912E00B90E62 /* oculus-mrc */,
+				A328D971253CE4AA00B90E62 /* ViewControllers */,
+			);
+			path = Capture;
+			sourceTree = "<group>";
+		};
+		A32416162554DA18008D4B90 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A32416172554DA24008D4B90 /* Preference.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A324161A2554DAA1008D4B90 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				A324161B2554DAA7008D4B90 /* ViewControllers */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		A324161B2554DAA7008D4B90 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A324161C2554DABE008D4B90 /* InitialViewController.swift */,
+				A324161D2554DABE008D4B90 /* InitialViewController.xib */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		A32416382554E4E6008D4B90 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A32416392554E4F5008D4B90 /* Vector3+SceneKit.swift */,
+				A324163C2554E51F008D4B90 /* CGPoint+Extensions.swift */,
+				A324163F2555DBA9008D4B90 /* Double+ScientificString.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		A328D8A3253C8C4000B90E62 = {
 			isa = PBXGroup;
 			children = (
+				A32416152554D939008D4B90 /* README.md */,
 				A328D8AE253C8C4000B90E62 /* RealityMixer */,
 				A328D8AD253C8C4000B90E62 /* Products */,
 				A328D95E253C958D00B90E62 /* Frameworks */,
@@ -227,10 +368,11 @@
 		A328D8AE253C8C4000B90E62 /* RealityMixer */ = {
 			isa = PBXGroup;
 			children = (
-				A328D971253CE4AA00B90E62 /* ViewControllers */,
+				A324161A2554DAA1008D4B90 /* Main */,
+				A32416122554D7F5008D4B90 /* Capture */,
+				A32415FA2554D1FB008D4B90 /* Calibration */,
 				A328D8C9253C914400B90E62 /* RealityMixer-Bridging-Header.h */,
 				A328D8D4253C954500B90E62 /* FFmpeg-iOS */,
-				A328D8C8253C912E00B90E62 /* oculus-mrc */,
 				A328D8C4253C8CD600B90E62 /* SwiftSocket.framework */,
 				A328D8AF253C8C4000B90E62 /* AppDelegate.swift */,
 				A328D8B8253C8C4300B90E62 /* Assets.xcassets */,
@@ -468,8 +610,8 @@
 		A328D971253CE4AA00B90E62 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				A328D8B3253C8C4000B90E62 /* ConnectionViewController.swift */,
-				A328D978253CE54E00B90E62 /* ConnectionViewController.xib */,
+				A328D8B3253C8C4000B90E62 /* MixedRealityConnectionViewController.swift */,
+				A328D978253CE54E00B90E62 /* MixedRealityConnectionViewController.xib */,
 				A328D97D253CE63B00B90E62 /* MixedRealityViewController.swift */,
 				A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */,
 			);
@@ -536,8 +678,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A328D8BC253C8C4300B90E62 /* LaunchScreen.storyboard in Resources */,
+				A32416362554E41E008D4B90 /* ProjectionViewController.xib in Resources */,
+				A32416262554DFD4008D4B90 /* CalibrationConnectionViewController.xib in Resources */,
 				A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */,
-				A328D979253CE54E00B90E62 /* ConnectionViewController.xib in Resources */,
+				A324162B2554E1B8008D4B90 /* CalibrationViewController.xib in Resources */,
+				A324161F2554DABE008D4B90 /* InitialViewController.xib in Resources */,
+				A328D979253CE54E00B90E62 /* MixedRealityConnectionViewController.xib in Resources */,
 				A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -570,11 +716,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A328D8B4253C8C4000B90E62 /* ConnectionViewController.swift in Sources */,
+				A328D8B4253C8C4000B90E62 /* MixedRealityConnectionViewController.swift in Sources */,
+				A324161E2554DABE008D4B90 /* InitialViewController.swift in Sources */,
 				A328D8D1253C917300B90E62 /* OculusMRC.mm in Sources */,
+				A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */,
+				A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */,
+				A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */,
+				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
+				A324163D2554E520008D4B90 /* CGPoint+Extensions.swift in Sources */,
+				A32416022554D296008D4B90 /* Math.swift in Sources */,
+				A32416052554D2FE008D4B90 /* Parser.swift in Sources */,
+				A324162A2554E1B8008D4B90 /* CalibrationViewController.swift in Sources */,
+				A324160B2554D3AB008D4B90 /* CalibrationResult.swift in Sources */,
 				A328D97F253CE63B00B90E62 /* MixedRealityViewController.swift in Sources */,
 				A328D8CC253C914500B90E62 /* frame.cpp in Sources */,
 				A328D8B0253C8C4000B90E62 /* AppDelegate.swift in Sources */,
+				A32416252554DFD4008D4B90 /* CalibrationConnectionViewController.swift in Sources */,
+				A32416312554E340008D4B90 /* CalibrationSceneNodeBuilder.swift in Sources */,
+				A324163A2554E4F5008D4B90 /* Vector3+SceneKit.swift in Sources */,
+				A32416082554D326008D4B90 /* CalibrationPayload.swift in Sources */,
+				A32416182554DA24008D4B90 /* Preference.swift in Sources */,
+				A32416352554E41E008D4B90 /* ProjectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
