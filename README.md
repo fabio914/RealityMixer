@@ -2,11 +2,18 @@
 
 # Reality Mixer <br/> *Oculus Quest Mixed Reality For iOS*
 
-This is a standalone Oculus Quest Mixed Reality app for iOS that doesn't require a PC for generating Mixed Reality content.
+This is a standalone Oculus Quest Mixed Reality app for iOS. It is able to generate VR gameplay videos in Mixed Reality without a PC and without a green screen.
 
 This project is based on the [Oculus MRC plugin for OBS](https://github.com/facebookincubator/obs-plugins/tree/master/oculus-mrc), it uses [SwiftSocket](https://github.com/swiftsocket/SwiftSocket) to handle the TCP connection with the Oculus Quest, FFMPEG with Apple's VideoToolbox to decode the stream, and ARKit for the "virtual green screen". It also requires [Carthage](https://github.com/Carthage/Carthage).
 
-This is app is still a prototype and it requires an iPhone/iPad with an A12 chip or newer. A device with LiDAR is recommended for better results.
+## Requirements
+
+ - Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed.
+ - iPhone or iPad with an A12 chip or newer, running iOS 14. The LiDAR sensor is optional but recommended for better results.
+ - 5 Ghz WiFi network.
+ - A compatible VR game (check this [page](https://creator.oculus.com/mrc/) for a list of the officially supported games).
+
+Note that this is app is still just a prototype, use at your own risk.
 
 ## Examples
 
@@ -18,8 +25,6 @@ This is app is still a prototype and it requires an iPhone/iPad with an A12 chip
 
 ## TO-DOs
 
-- [ ] Implement the calibration mechanism;
+- [ ] UI;
 
 - [ ] Add audio (if possible);
-
-- [ ] UI;

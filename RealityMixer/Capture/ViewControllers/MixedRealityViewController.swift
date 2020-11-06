@@ -91,8 +91,9 @@ final class MixedRealityViewController: UIViewController {
         let imageResolution = frame.camera.imageResolution
         let width = (2.0 * distance) * tan(atan(1/yScale) * Float(imageResolution.width / imageResolution.height))
 
-        // 16:9 aspect ratio
-        let height = (9.0 * width)/16.0
+        // Assuming the same aspect ratio as the camera (this might be different if the Quest was
+        // calibrated with the PC app)
+        let height = width * Float(imageResolution.height / imageResolution.width)
         return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
 
@@ -195,7 +196,7 @@ final class MixedRealityViewController: UIViewController {
 
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
-        configuration.environmentTexturing = .automatic
+        configuration.environmentTexturing = .none
         configuration.isLightEstimationEnabled = true
 
         if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
