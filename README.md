@@ -6,6 +6,8 @@ This is a standalone Oculus Quest Mixed Reality app for iOS. It is able to gener
 
 This project is based on the [Oculus MRC plugin for OBS](https://github.com/facebookincubator/obs-plugins/tree/master/oculus-mrc), it uses [SwiftSocket](https://github.com/swiftsocket/SwiftSocket) to handle the TCP connection with the Oculus Quest, FFMPEG with Apple's VideoToolbox to decode the stream, and ARKit for the "virtual green screen". It also requires [Carthage](https://github.com/Carthage/Carthage).
 
+Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
+
 ## Examples
 
 | Game | YouTube video | Photos |
