@@ -10,6 +10,9 @@ import UIKit
 struct Style {
     static let navigationBarBackgroundColor = UIColor(white: 0.1, alpha: 1.0)
     static let navigationBarButtonColor = UIColor.white
+
+    static let segmentedControlSelectedTextColor = UIColor.white
+    static let segmentedControlNormalTextColor = UIColor.lightGray
 }
 
 @main
@@ -18,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
 
         let titleTextAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
@@ -39,6 +41,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().standardAppearance = standard
         UINavigationBar.appearance().tintColor = Style.navigationBarButtonColor
         UINavigationBar.appearance().isTranslucent = true
+
+        UISegmentedControl.appearance().setTitleTextAttributes(
+            [ .foregroundColor: Style.segmentedControlSelectedTextColor ],
+            for: .selected
+        )
+
+        UISegmentedControl.appearance().setTitleTextAttributes(
+            [ .foregroundColor: Style.segmentedControlNormalTextColor ],
+            for: .normal
+        )
 
         let window = UIWindow(frame: UIScreen.main.bounds)
         self.window = window

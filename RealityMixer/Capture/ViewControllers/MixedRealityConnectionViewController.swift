@@ -15,6 +15,8 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var hardwareDecoderSwitch: UISwitch!
     @IBOutlet private weak var magentaSwitch: UISwitch!
     @IBOutlet private weak var infoLabel: UILabel!
+    @IBOutlet private weak var secondInfoLabel: UILabel!
+    @IBOutlet private weak var thirdInfoLabel: UILabel!
     private let storage = PreferenceStorage()
 
     init() {
@@ -42,12 +44,16 @@ final class MixedRealityConnectionViewController: UIViewController {
         infoLabel.text = """
         Before you begin:
 
-         • Make sure the device is calibrated. A new calibration is required whenever you move this device.
+         • Make sure the device is calibrated. A new calibration is required whenever you move this device or when you reset the Quest's Guardian boundary.
+        """
 
+        secondInfoLabel.text = """
          • Make sure that the Quest and this device are both connected to the same WiFi network. A 5 Ghz WiFi is recommended.
 
-         • Make sure that the Reality Mixer app is allowed to access your camera and your local network. It'll ask for permission the first time you launch the calibration or mixed reality, however, you'll need to navigate to the device Settings to be able to re-enable these permissions if you haven't given permissions during the first launch.
+         • Make sure that the Reality Mixer app is allowed to access your camera and your local network. It'll ask for permission the first time you launch the calibration or mixed reality, however, you'll need to navigate to the system settings to be able to re-enable these permissions if you haven't given permissions during the first launch.
+        """
 
+        thirdInfoLabel.text = """
          • Launch your compatible VR game/application on the Quest. Some games might require you to enable Mixed Reality Capture on their Settings screen.
 
          • Some games use the color magenta as the color for transparency, make sure to use this option if that's the case for the game you're about to play.
@@ -55,6 +61,8 @@ final class MixedRealityConnectionViewController: UIViewController {
          • Fill in the Quest's IP Address. You can find this address on the Quest's WiFi options.
 
          • Tap on "Connect".
+
+         • After your mixed reality session is over, tap on the screen once to display the options on the top left side of the screen, and then tap on "Disconnect".
         """
     }
 
@@ -115,5 +123,18 @@ final class MixedRealityConnectionViewController: UIViewController {
                 })
             }
         })
+    }
+
+    @IBAction private func startCalibrationAction(_ sender: Any) {
+        let otherNavigationController = UINavigationController(rootViewController: CalibrationConnectionViewController())
+        otherNavigationController.modalPresentationStyle = .overFullScreen
+        otherNavigationController.modalTransitionStyle = .crossDissolve
+
+        present(otherNavigationController, animated: true, completion: nil)
+    }
+
+    @IBAction func openSettingsAction(_ sender: Any) {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }

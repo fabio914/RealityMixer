@@ -22,4 +22,6 @@ struct Definitions {
     static let twitterURL: URL! = URL(string: "https://twitter.com/reality_mixer")
 
     static let instructionsURL: URL! = URL(string: "https://github.com/fabio914/OculusQuestMixedRealityForiOS/blob/main/Instructions.md")
+
+    static let oculusMRCapp: URL! = URL(string: "https://www.oculus.com/experiences/quest/2532132800176262/")
 }
