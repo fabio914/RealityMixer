@@ -892,7 +892,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.RealityMixer;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.reality.mixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -923,7 +924,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.RealityMixer;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.reality.mixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

@@ -21,6 +21,9 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="lz4-hw-OIJ">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RiB-QT-Baj">
                     <rect key="frame" x="57" y="40" width="300" height="215.5"/>
                     <subviews>
@@ -72,13 +75,18 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="RiB-QT-Baj" firstAttribute="centerX" secondItem="B1K-sQ-9FX" secondAttribute="centerX" id="Afo-6m-D45"/>
+                <constraint firstItem="lz4-hw-OIJ" firstAttribute="leading" secondItem="IeT-rn-5sM" secondAttribute="leading" id="Irk-mQ-KYs"/>
+                <constraint firstAttribute="bottom" secondItem="lz4-hw-OIJ" secondAttribute="bottom" id="Lpn-WK-ilA"/>
+                <constraint firstItem="lz4-hw-OIJ" firstAttribute="trailing" secondItem="IeT-rn-5sM" secondAttribute="trailing" id="gBR-Xa-Qoh"/>
                 <constraint firstItem="RiB-QT-Baj" firstAttribute="top" secondItem="B1K-sQ-9FX" secondAttribute="top" constant="40" id="nTf-KP-PfH"/>
+                <constraint firstItem="lz4-hw-OIJ" firstAttribute="top" secondItem="IeT-rn-5sM" secondAttribute="top" id="y2g-jm-KK0"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <point key="canvasLocation" x="139" y="52"/>
         </view>
     </objects>
     <resources>
+        <image name="background" width="682.66668701171875" height="682.66668701171875"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -30,6 +30,12 @@ final class CalibrationConnectionViewController: UIViewController {
         if let preferences = storage.preference {
             addressTextField.text = preferences.address
         }
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backAction))
+    }
+
+    @objc private func backAction() {
+        navigationController?.dismiss(animated: true, completion: nil)
     }
 
     @IBAction func connectAction(_ sender: Any) {

@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,21 +17,86 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="F6y-z9-8NT">
-                    <rect key="frame" x="57" y="40" width="300" height="70"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Uy7-8r-47p">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="F6y-z9-8NT">
+                    <rect key="frame" x="57" y="180.5" width="300" height="220"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4AY-Cw-rgB" userLabel="Calibrate">
-                            <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
-                            <state key="normal" title="Calibrate"/>
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
+                            <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="5eC-Dp-r9i"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                            <state key="normal" title="Start Calibration">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="calibrateAction:" destination="-1" eventType="touchUpInside" id="rMF-hS-3Aw"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="itV-9i-DmU" userLabel="Capture">
-                            <rect key="frame" x="0.0" y="40" width="300" height="30"/>
-                            <state key="normal" title="Capture"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAu-hh-3Ns" userLabel="Capture">
+                            <rect key="frame" x="0.0" y="60" width="300" height="40"/>
+                            <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="xdD-Gq-Ldn"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                            <state key="normal" title="Start Mixed Reality">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="captureAction:" destination="-1" eventType="touchUpInside" id="dda-PQ-P1C"/>
+                                <action selector="captureAction:" destination="-1" eventType="touchUpInside" id="RCR-Gv-wU5"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccJ-Mx-sKo" userLabel="Help">
+                            <rect key="frame" x="0.0" y="120" width="300" height="40"/>
+                            <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="2Ao-DX-F6h"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                            <state key="normal" title="How to use it?">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="helpAction:" destination="-1" eventType="touchUpInside" id="LJj-82-9fK"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Zn-st-axG" userLabel="About">
+                            <rect key="frame" x="0.0" y="180" width="300" height="40"/>
+                            <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="Rja-Hd-CqE"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                            <state key="normal" title="About">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="aboutAction:" destination="-1" eventType="touchUpInside" id="KIF-TM-yso"/>
                             </connections>
                         </button>
                     </subviews>
@@ -42,18 +106,20 @@
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="YpH-nY-xuU"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="F6y-z9-8NT" firstAttribute="centerY" secondItem="YpH-nY-xuU" secondAttribute="centerY" multiplier="0.75" id="2nZ-wr-uHN"/>
                 <constraint firstItem="F6y-z9-8NT" firstAttribute="centerX" secondItem="YpH-nY-xuU" secondAttribute="centerX" id="Myy-br-bsj"/>
-                <constraint firstItem="F6y-z9-8NT" firstAttribute="top" secondItem="YpH-nY-xuU" secondAttribute="top" constant="40" id="Uub-yP-6he"/>
+                <constraint firstItem="Uy7-8r-47p" firstAttribute="top" secondItem="3Ea-bR-bHL" secondAttribute="top" id="gZ4-4Z-Vbm"/>
+                <constraint firstItem="Uy7-8r-47p" firstAttribute="leading" secondItem="3Ea-bR-bHL" secondAttribute="leading" id="hGL-Dq-aXe"/>
+                <constraint firstAttribute="trailing" secondItem="Uy7-8r-47p" secondAttribute="trailing" id="hRr-1p-3UX"/>
+                <constraint firstAttribute="bottom" secondItem="Uy7-8r-47p" secondAttribute="bottom" id="i8h-eG-x9I"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <point key="canvasLocation" x="139" y="52"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="background" width="682.66668701171875" height="682.66668701171875"/>
     </resources>
 </document>
