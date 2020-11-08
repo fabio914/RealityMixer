@@ -30,6 +30,9 @@ final class CalibrationConnectionViewController: UIViewController {
         super.viewDidLoad()
         title = "Calibration"
 
+        addressTextField.delegate = self
+        portTextField.delegate = self
+
         if let preferences = storage.preference {
             addressTextField.text = preferences.address
         }
@@ -59,7 +62,7 @@ final class CalibrationConnectionViewController: UIViewController {
 
          • Select the resolution scale factor. Smaller factors will result in better performance when playing Quest games in mixed reality.
 
-         • Position your device, using a tripod if possible. Notice that you'll need to calibrate again if you change its position or orientation. The device cannot move during the calibration process. You will also need to recalibrate if you reset the Quest's Guardian boundary.
+         • Position this device, using a tripod if possible. Notice that you'll need to calibrate again if you change its position or orientation. The device cannot move during the calibration process. You will also need to recalibrate if you reset the Quest's Guardian boundary.
 
          • Tap on "Connect".
         """
@@ -141,5 +144,13 @@ extension CalibrationConnectionViewController: CalibrationViewControllerDelegate
     func calibrationDidFinish(_ viewController: CalibrationViewController) {
         // Dismissing and also returning to the previous screen
         navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension CalibrationConnectionViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
     }
 }

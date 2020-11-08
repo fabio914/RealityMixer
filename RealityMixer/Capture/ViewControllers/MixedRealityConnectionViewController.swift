@@ -31,6 +31,9 @@ final class MixedRealityConnectionViewController: UIViewController {
         super.viewDidLoad()
         title = "Mixed Reality"
 
+        addressTextField.delegate = self
+        portTextField.delegate = self
+
         if let preferences = storage.preference {
             addressTextField.text = preferences.address
         }
@@ -139,3 +142,10 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 }
 
+extension MixedRealityConnectionViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
+}
