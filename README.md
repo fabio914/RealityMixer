@@ -32,10 +32,8 @@ Note that this is app is still just a prototype and it's still being developed, 
 
 ## Instructions
 
-*Coming soon*
+[Link](Instructions.md)
 
 ## TO-DOs
-
-- [ ] UI;
 
 - [ ] Add audio (if possible);

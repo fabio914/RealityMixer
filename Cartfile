@@ -1,1 +1,2 @@
 github "swiftsocket/SwiftSocket"
+github "fabio914/swiftly-attributed-strings" ~> 2.0

@@ -21,7 +21,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="F6y-z9-8NT">
-                    <rect key="frame" x="57" y="180.5" width="300" height="220"/>
+                    <rect key="frame" x="57" y="40" width="300" height="220"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4AY-Cw-rgB" userLabel="Calibrate">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
@@ -108,7 +108,7 @@
             <viewLayoutGuide key="safeArea" id="YpH-nY-xuU"/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="F6y-z9-8NT" firstAttribute="centerY" secondItem="YpH-nY-xuU" secondAttribute="centerY" multiplier="0.75" id="2nZ-wr-uHN"/>
+                <constraint firstItem="F6y-z9-8NT" firstAttribute="top" secondItem="YpH-nY-xuU" secondAttribute="top" constant="40" id="26S-ST-kg9"/>
                 <constraint firstItem="F6y-z9-8NT" firstAttribute="centerX" secondItem="YpH-nY-xuU" secondAttribute="centerX" id="Myy-br-bsj"/>
                 <constraint firstItem="Uy7-8r-47p" firstAttribute="top" secondItem="3Ea-bR-bHL" secondAttribute="top" id="gZ4-4Z-Vbm"/>
                 <constraint firstItem="Uy7-8r-47p" firstAttribute="leading" secondItem="3Ea-bR-bHL" secondAttribute="leading" id="hGL-Dq-aXe"/>

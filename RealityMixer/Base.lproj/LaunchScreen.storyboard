@@ -21,10 +21,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="MvO-NN-RHx">
-                                <rect key="frame" x="127" y="260" width="160" height="160"/>
+                                <rect key="frame" x="157" y="290" width="100" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="160" id="9v1-Ys-GYO"/>
-                                    <constraint firstAttribute="height" constant="160" id="Mve-R7-9fk"/>
+                                    <constraint firstAttribute="width" constant="100" id="9v1-Ys-GYO"/>
+                                    <constraint firstAttribute="height" constant="100" id="Mve-R7-9fk"/>
                                 </constraints>
                             </imageView>
                         </subviews>

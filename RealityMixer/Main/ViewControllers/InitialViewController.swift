@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 final class InitialViewController: UIViewController {
 
@@ -39,10 +40,15 @@ final class InitialViewController: UIViewController {
     }
 
     @IBAction private func helpAction(_ sender: Any) {
-
+        let viewController = SFSafariViewController(url: Definitions.instructionsURL)
+        present(viewController, animated: true, completion: nil)
     }
 
     @IBAction private func aboutAction(_ sender: Any) {
+        let otherNavigationController = UINavigationController(rootViewController: AboutViewController())
+        otherNavigationController.modalPresentationStyle = .overFullScreen
+        otherNavigationController.modalTransitionStyle = .crossDissolve
 
+        present(otherNavigationController, animated: true, completion: nil)
     }
 }
