@@ -111,7 +111,8 @@ final class CalibrationConnectionViewController: UIViewController {
 
                     let viewController = CalibrationViewController(
                         client: client,
-                        scaleFactor: scaleFactor
+                        scaleFactor: scaleFactor,
+                        delegate: self
                     )
 
                     viewController.modalPresentationStyle = .overFullScreen
@@ -128,5 +129,17 @@ final class CalibrationConnectionViewController: UIViewController {
     @IBAction private func openSettings(_ sender: Any) {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}
+
+extension CalibrationConnectionViewController: CalibrationViewControllerDelegate {
+
+    func calibrationDidCancel(_ viewController: CalibrationViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    func calibrationDidFinish(_ viewController: CalibrationViewController) {
+        // Dismissing and also returning to the previous screen
+        navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }

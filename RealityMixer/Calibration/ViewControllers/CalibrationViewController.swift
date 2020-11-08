@@ -24,7 +24,13 @@ enum CalibrationState {
     )
 }
 
+protocol CalibrationViewControllerDelegate: AnyObject {
+    func calibrationDidCancel(_ viewController: CalibrationViewController)
+    func calibrationDidFinish(_ viewController: CalibrationViewController)
+}
+
 final class CalibrationViewController: UIViewController {
+    weak var delegate: CalibrationViewControllerDelegate?
     private let scaleFactor: Double
     private let client: TCPClient
     private var displayLink: CADisplayLink?
@@ -60,9 +66,10 @@ final class CalibrationViewController: UIViewController {
         }
     }
 
-    init(client: TCPClient, scaleFactor: Double) {
+    init(client: TCPClient, scaleFactor: Double, delegate: CalibrationViewControllerDelegate?) {
         self.client = client
         self.scaleFactor = scaleFactor
+        self.delegate = delegate
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -184,7 +191,7 @@ final class CalibrationViewController: UIViewController {
         case .success:
             // TODO: Present alert saying that the calibration was saved!
             print("New calibration saved!")
-            dismiss(animated: true, completion: nil)
+            delegate?.calibrationDidFinish(self)
         }
     }
 

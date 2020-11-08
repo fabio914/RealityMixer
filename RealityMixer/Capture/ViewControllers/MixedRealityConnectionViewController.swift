@@ -44,7 +44,7 @@ final class MixedRealityConnectionViewController: UIViewController {
         infoLabel.text = """
         Before you begin:
 
-         • Make sure the device is calibrated. A new calibration is required whenever you move this device or when you reset the Quest's Guardian boundary.
+         • Make sure the device is calibrated. A new calibration is required whenever you move this device or when you reset the Quest's Guardian boundary. You might also need to calibrate again when a new game is installed.
         """
 
         secondInfoLabel.text = """
@@ -138,3 +138,4 @@ final class MixedRealityConnectionViewController: UIViewController {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
+
