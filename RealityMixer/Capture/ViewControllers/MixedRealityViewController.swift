@@ -205,9 +205,9 @@ final class MixedRealityViewController: UIViewController {
         } else if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation) {
             configuration.frameSemantics.insert(.personSegmentation)
         } else {
-            let parentViewController = navigationController?.presentingViewController
+            let parentViewController = presentingViewController
 
-            dismiss(animated: true, completion: { [weak presentingViewController] in
+            dismiss(animated: true, completion: { [weak parentViewController] in
 
                 let alert = UIAlertController(title: "Sorry", message: "Mixed Reality capture requires a device with an A12 chip or newer.", preferredStyle: .alert)
 
@@ -215,6 +215,7 @@ final class MixedRealityViewController: UIViewController {
 
                 parentViewController?.present(alert, animated: true, completion: nil)
             })
+            return
         }
 
         sceneView.session.run(configuration)
