@@ -61,6 +61,7 @@ final class MixedRealityViewController: UIViewController {
         configureOculusMRC()
         configureScene()
         configureTap()
+        configureBackgroundEvent()
     }
 
     private func configureDisplay() {
@@ -88,6 +89,10 @@ final class MixedRealityViewController: UIViewController {
 
     private func configureTap() {
         sceneView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAction)))
+    }
+
+    private func configureBackgroundEvent() {
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
     private func planeSizeForDistance(_ distance: Float, frame: ARFrame) -> CGSize {
@@ -207,6 +212,7 @@ final class MixedRealityViewController: UIViewController {
         } else {
             let parentViewController = presentingViewController
 
+            displayLink?.invalidate()
             dismiss(animated: true, completion: { [weak parentViewController] in
 
                 let alert = UIAlertController(title: "Sorry", message: "Mixed Reality capture requires a device with an A12 chip or newer.", preferredStyle: .alert)
@@ -244,7 +250,14 @@ final class MixedRealityViewController: UIViewController {
         optionsContainer.isHidden = !optionsContainer.isHidden
     }
 
+    @objc private func willResignActive() {
+        // This is a temporary solution, this is far from ideal
+        displayLink?.invalidate()
+        dismiss(animated: false, completion: nil)
+    }
+
     @IBAction private func disconnectAction(_ sender: Any) {
+        displayLink?.invalidate()
         dismiss(animated: true, completion: nil)
     }
 
