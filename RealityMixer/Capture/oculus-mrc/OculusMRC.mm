@@ -198,6 +198,35 @@ std::string GetAvErrorString(int errNum) {
                     fprintf(stdout, "[%f][VIDEO_DATA] size %d width %d height %d format %d\n", timePassed.count(), packet->size, picture->width, picture->height, picture->format);
 #endif
 
+                    while (m_cachedAudioFrames.size() > 0 && m_cachedAudioFrames[0].first <= m_videoFrameIndex) {
+                        std::shared_ptr<Frame> audioFrame = m_cachedAudioFrames[0].second;
+
+                        struct AudioDataHeader {
+                            uint64_t timestamp;
+                            int channels;
+                            int dataLength;
+                        };
+                        
+                        AudioDataHeader* audioDataHeader = (AudioDataHeader*)(audioFrame->m_payload.data());
+
+                        if (audioDataHeader->channels == 1 || audioDataHeader->channels == 2) {
+                            SourceAudio audio = { nullptr };
+                            audio.data = (float*)audioFrame->m_payload.data() + sizeof(AudioDataHeader);
+                            audio.frames = audioDataHeader->dataLength / sizeof(float) / audioDataHeader->channels;
+                            audio.speakers = audioDataHeader->channels == 1 ? SPEAKERS_MONO : SPEAKERS_STEREO;
+                            audio.format = AUDIO_FORMAT_FLOAT;
+                            audio.samples_per_sec = m_audioSampleRate;
+                            audio.timestamp = audioDataHeader->timestamp;
+                            [_delegate oculusMRC:self didReceiveAudio:&audio];
+                        }
+                        else {
+                            fprintf(stderr, "[AUDIO_DATA] unimplemented audio channels %d", audioDataHeader->channels);
+                        }
+
+                        m_cachedAudioFrames.erase(m_cachedAudioFrames.begin());
+                    }
+
+                    
                     ++m_videoFrameIndex;
 
                     @autoreleasepool {

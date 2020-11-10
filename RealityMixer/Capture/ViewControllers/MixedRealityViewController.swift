@@ -290,6 +290,11 @@ extension MixedRealityViewController: OculusMRCDelegate {
         foregroundNode?.geometry?.firstMaterial?.diffuse.contents = image
         foregroundNode?.geometry?.firstMaterial?.transparent.contents = image
     }
+    
+    func oculusMRC(_ oculusMRC: OculusMRC, didReceive audio: UnsafeMutablePointer<SourceAudio>) {
+        // TODO: Play audio
+    }
+
 }
 
 extension MixedRealityViewController: ARSessionDelegate {
