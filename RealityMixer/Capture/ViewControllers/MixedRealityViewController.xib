@@ -10,7 +10,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MixedRealityViewController" customModule="RealityMixer" customModuleProvider="target">
             <connections>
                 <outlet property="debugView" destination="rou-Hq-oeP" id="8zj-sX-nYa"/>
+                <outlet property="optionsContainer" destination="MyF-CK-5er" id="ywz-FE-2fr"/>
                 <outlet property="sceneView" destination="2ar-Bw-mm2" id="qUN-my-w4z"/>
+                <outlet property="showDebugButton" destination="xW9-BV-5hn" id="6s9-0P-zNN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,6 +25,74 @@
                     <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </arscnView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MyF-CK-5er">
+                    <rect key="frame" x="64" y="20" width="432" height="60"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="DDs-6n-EIv">
+                            <rect key="frame" x="20" y="5" width="392" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ybl-jB-tQf">
+                                    <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                    <state key="normal" title="Disconnect">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="disconnectAction:" destination="-1" eventType="touchUpInside" id="eyi-VH-aEQ"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e1L-hA-z9K">
+                                    <rect key="frame" x="100" y="0.0" width="1" height="50"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="1" id="fab-pN-6nk"/>
+                                    </constraints>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xW9-BV-5hn">
+                                    <rect key="frame" x="121" y="0.0" width="138" height="50"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                    <state key="normal" title="Show Quest Output">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="showHideQuestOutput:" destination="-1" eventType="touchUpInside" id="LQT-eV-xWD"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rxt-qJ-Y3b">
+                                    <rect key="frame" x="279" y="0.0" width="1" height="50"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="1" id="NpR-We-yg2"/>
+                                    </constraints>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jD1-6V-VEj">
+                                    <rect key="frame" x="300" y="0.0" width="92" height="50"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                    <state key="normal" title="Hide Buttons">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="hideAction:" destination="-1" eventType="touchUpInside" id="9ak-bU-d3a"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="DDs-6n-EIv" firstAttribute="leading" secondItem="MyF-CK-5er" secondAttribute="leading" constant="20" id="AI6-DE-AeL"/>
+                        <constraint firstAttribute="height" constant="60" id="LBs-RU-fvk"/>
+                        <constraint firstAttribute="trailing" secondItem="DDs-6n-EIv" secondAttribute="trailing" constant="20" id="P9i-zp-xob"/>
+                        <constraint firstItem="DDs-6n-EIv" firstAttribute="top" secondItem="MyF-CK-5er" secondAttribute="top" constant="5" id="SbR-L5-Esh"/>
+                        <constraint firstAttribute="bottom" secondItem="DDs-6n-EIv" secondAttribute="bottom" constant="5" id="wtQ-V8-8gG"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rou-Hq-oeP">
                     <rect key="frame" x="387" y="255" width="455" height="128"/>
                     <constraints>
@@ -39,7 +109,9 @@
                 <constraint firstAttribute="bottom" secondItem="2ar-Bw-mm2" secondAttribute="bottom" id="MrF-4C-i8c"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="rou-Hq-oeP" secondAttribute="bottom" constant="10" id="Ynh-OC-IDg"/>
                 <constraint firstItem="2ar-Bw-mm2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="eOM-Bh-ili"/>
+                <constraint firstItem="MyF-CK-5er" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="gIO-OJ-FWJ"/>
                 <constraint firstAttribute="trailing" secondItem="2ar-Bw-mm2" secondAttribute="trailing" id="mAO-gu-kie"/>
+                <constraint firstItem="MyF-CK-5er" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="qxs-qe-kwO"/>
             </constraints>
             <point key="canvasLocation" x="139" y="89"/>
         </view>

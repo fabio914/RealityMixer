@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32285A82558050600FF3200 /* AboutViewController.swift */; };
+		A32285AB2558050600FF3200 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A32285A92558050600FF3200 /* AboutViewController.xib */; };
+		A32285AF25580A8800FF3200 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32285AE25580A8800FF3200 /* Definitions.swift */; };
+		A32285B425580CCA00FF3200 /* SwiftlyAttributedStrings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A32285B325580CCA00FF3200 /* SwiftlyAttributedStrings.framework */; };
+		A32285F7255A06E400FF3200 /* left.stl in Resources */ = {isa = PBXBuildFile; fileRef = A32285F5255A06E400FF3200 /* left.stl */; };
+		A32285F8255A06E400FF3200 /* right.stl in Resources */ = {isa = PBXBuildFile; fileRef = A32285F6255A06E400FF3200 /* right.stl */; };
 		A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32415FD2554D24B008D4B90 /* CalibrationFrame.swift */; };
 		A32416022554D296008D4B90 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416012554D296008D4B90 /* Math.swift */; };
 		A32416052554D2FE008D4B90 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416042554D2FE008D4B90 /* Parser.swift */; };
@@ -55,6 +61,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A32285A82558050600FF3200 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		A32285A92558050600FF3200 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		A32285AE25580A8800FF3200 /* Definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
+		A32285B325580CCA00FF3200 /* SwiftlyAttributedStrings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftlyAttributedStrings.framework; path = Carthage/Build/iOS/SwiftlyAttributedStrings.framework; sourceTree = SOURCE_ROOT; };
+		A32285B62558163B00FF3200 /* Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Instructions.md; sourceTree = "<group>"; };
+		A32285F5255A06E400FF3200 /* left.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = left.stl; sourceTree = "<group>"; };
+		A32285F6255A06E400FF3200 /* right.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = right.stl; sourceTree = "<group>"; };
 		A32415FD2554D24B008D4B90 /* CalibrationFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationFrame.swift; sourceTree = "<group>"; };
 		A32416012554D296008D4B90 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		A32416042554D2FE008D4B90 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
@@ -238,6 +251,7 @@
 				A328D95C253C954600B90E62 /* libswscale.a in Frameworks */,
 				A328D95A253C954600B90E62 /* libavdevice.a in Frameworks */,
 				A328D966253C95AD00B90E62 /* libiconv.tbd in Frameworks */,
+				A32285B425580CCA00FF3200 /* SwiftlyAttributedStrings.framework in Frameworks */,
 				A328D969253C95B700B90E62 /* VideoToolbox.framework in Frameworks */,
 				A328D95B253C954600B90E62 /* libswresample.a in Frameworks */,
 				A328D958253C954600B90E62 /* libavcodec.a in Frameworks */,
@@ -248,6 +262,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A32285E62559F87B00FF3200 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A32285F5255A06E400FF3200 /* left.stl */,
+				A32285F6255A06E400FF3200 /* right.stl */,
+				A328D8B8253C8C4300B90E62 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		A32415FA2554D1FB008D4B90 /* Calibration */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				A324161B2554DAA7008D4B90 /* ViewControllers */,
+				A32285AE25580A8800FF3200 /* Definitions.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -333,6 +358,8 @@
 			children = (
 				A324161C2554DABE008D4B90 /* InitialViewController.swift */,
 				A324161D2554DABE008D4B90 /* InitialViewController.xib */,
+				A32285A82558050600FF3200 /* AboutViewController.swift */,
+				A32285A92558050600FF3200 /* AboutViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -351,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				A32416152554D939008D4B90 /* README.md */,
+				A32285B62558163B00FF3200 /* Instructions.md */,
 				A328D8AE253C8C4000B90E62 /* RealityMixer */,
 				A328D8AD253C8C4000B90E62 /* Products */,
 				A328D95E253C958D00B90E62 /* Frameworks */,
@@ -368,14 +396,15 @@
 		A328D8AE253C8C4000B90E62 /* RealityMixer */ = {
 			isa = PBXGroup;
 			children = (
+				A32285E62559F87B00FF3200 /* Resources */,
 				A324161A2554DAA1008D4B90 /* Main */,
 				A32416122554D7F5008D4B90 /* Capture */,
 				A32415FA2554D1FB008D4B90 /* Calibration */,
 				A328D8C9253C914400B90E62 /* RealityMixer-Bridging-Header.h */,
 				A328D8D4253C954500B90E62 /* FFmpeg-iOS */,
 				A328D8C4253C8CD600B90E62 /* SwiftSocket.framework */,
+				A32285B325580CCA00FF3200 /* SwiftlyAttributedStrings.framework */,
 				A328D8AF253C8C4000B90E62 /* AppDelegate.swift */,
-				A328D8B8253C8C4300B90E62 /* Assets.xcassets */,
 				A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */,
 				A328D8BD253C8C4300B90E62 /* Info.plist */,
 			);
@@ -679,11 +708,14 @@
 			files = (
 				A328D8BC253C8C4300B90E62 /* LaunchScreen.storyboard in Resources */,
 				A32416362554E41E008D4B90 /* ProjectionViewController.xib in Resources */,
+				A32285F8255A06E400FF3200 /* right.stl in Resources */,
 				A32416262554DFD4008D4B90 /* CalibrationConnectionViewController.xib in Resources */,
 				A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */,
+				A32285F7255A06E400FF3200 /* left.stl in Resources */,
 				A324162B2554E1B8008D4B90 /* CalibrationViewController.xib in Resources */,
 				A324161F2554DABE008D4B90 /* InitialViewController.xib in Resources */,
 				A328D979253CE54E00B90E62 /* MixedRealityConnectionViewController.xib in Resources */,
+				A32285AB2558050600FF3200 /* AboutViewController.xib in Resources */,
 				A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -700,6 +732,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftSocket.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftlyAttributedStrings.framework",
 			);
 			outputFileListPaths = (
 			);
@@ -716,8 +749,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A32285AF25580A8800FF3200 /* Definitions.swift in Sources */,
 				A328D8B4253C8C4000B90E62 /* MixedRealityConnectionViewController.swift in Sources */,
 				A324161E2554DABE008D4B90 /* InitialViewController.swift in Sources */,
+				A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */,
 				A328D8D1253C917300B90E62 /* OculusMRC.mm in Sources */,
 				A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */,
 				A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */,
@@ -892,7 +927,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.RealityMixer;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.reality.mixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -923,7 +959,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.RealityMixer;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.reality.mixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

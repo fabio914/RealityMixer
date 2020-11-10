@@ -3,8 +3,8 @@ Apple clang version 12.0.0 (clang-1200.0.32.2)
 /Users/fdelaantonio/Downloads/Xcode_12_GM.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk
 iPhoneOS14.0.sdk
 /Users/fdelaantonio/Library/Caches/org.carthage.CarthageKit/DerivedData/12.0_12A7209/SwiftSocket/2.1.0/Build/Intermediates.noindex/ArchiveIntermediates/SwiftSocket iOS/IntermediateBuildFilesPath/SwiftSocket.build/Release-iphoneos/SwiftSocket iOS.build/DerivedSources/SwiftSocket_vers.c
-/Users/fdelaantonio/Desktop/MRTest2/Carthage/Checkouts/SwiftSocket
-/Users/fdelaantonio/Desktop/MRTest2/Carthage/Checkouts/SwiftSocket/Sources/yudpsocket.c
+/Users/fdelaantonio/Desktop/RealityMixer/Carthage/Checkouts/SwiftSocket
+/Users/fdelaantonio/Desktop/RealityMixer/Carthage/Checkouts/SwiftSocket/Sources/yudpsocket.c
 yudpsocket_sentto
 Sources/yudpsocket.c
 yudpsocket_get_server_ip
@@ -13,7 +13,7 @@ yudpsocket_client
 yudpsocket_close
 yudpsocket_recive
 yudpsocket_server
-/Users/fdelaantonio/Desktop/MRTest2/Carthage/Checkouts/SwiftSocket/Sources/ytcpsocket.c
+/Users/fdelaantonio/Desktop/RealityMixer/Carthage/Checkouts/SwiftSocket/Sources/ytcpsocket.c
 ytcpsocket_port
 Sources/ytcpsocket.c
 ytcpsocket_accept
@@ -63,7 +63,7 @@ ___swift_reflection_version
 Apple clang version 12.0.0 (clang-1200.0.30.1)
 <swift-imported-modules>
 Apple Swift version 5.3 effective-4.1.50 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
-/Users/fdelaantonio/Desktop/MRTest2/Carthage/Checkouts/SwiftSocket/Sources/Result.swift
+/Users/fdelaantonio/Desktop/RealityMixer/Carthage/Checkouts/SwiftSocket/Sources/Result.swift
 $s11SwiftSocket6ResultOMa
 <compiler-generated>
 $s11SwiftSocket6ResultOwui
@@ -139,7 +139,7 @@ _$s11SwiftSocket0B0C4ports5Int32VvsTq
 _$s11SwiftSocket0B0C4ports5Int32VvMTq
 _$s11SwiftSocket0B0C2fds5Int32VSgvsTq
 _$s11SwiftSocket0B0C2fds5Int32VSgvMTq
-/Users/fdelaantonio/Desktop/MRTest2/Carthage/Checkouts/SwiftSocket/Sources/Socket.swift
+/Users/fdelaantonio/Desktop/RealityMixer/Carthage/Checkouts/SwiftSocket/Sources/Socket.swift
 $s11SwiftSocket0B5ErrorOMa
 $s11SwiftSocket0B5ErrorOwui
 $s11SwiftSocket0B5ErrorOwup
@@ -200,7 +200,7 @@ _got.$ss23_ContiguousArrayStorageCMn
 _got.$ss5UInt8VMn
 _symbolic _____y_____G s23_ContiguousArrayStorageC s5UInt8V
 _$ss23_ContiguousArrayStorageCys5UInt8VGMD
-/Users/fdelaantonio/Desktop/MRTest2/Carthage/Checkouts/SwiftSocket/Sources/UDPClient.swift
+/Users/fdelaantonio/Desktop/RealityMixer/Carthage/Checkouts/SwiftSocket/Sources/UDPClient.swift
 $s11SwiftSocket9UDPServerCMa
 $s11SwiftSocket9UDPClientCMa
 $ss10ArraySliceVyxGSTsST017_copyToContiguousA0s0eA0Vy7ElementQzGyFTWs5UInt8V_Ti5
@@ -292,7 +292,7 @@ _$s11SwiftSocket9TCPServerCMf
 _symbolic _____ 11SwiftSocket9TCPServerC
 _$s11SwiftSocket9TCPServerCMF
 -private-discriminator _ABAA20CF549A32795578CD1AF9E5476D
-/Users/fdelaantonio/Desktop/MRTest2/Carthage/Checkouts/SwiftSocket/Sources/TCPClient.swift
+/Users/fdelaantonio/Desktop/RealityMixer/Carthage/Checkouts/SwiftSocket/Sources/TCPClient.swift
 $s11SwiftSocket9TCPServerCMa
 $s11SwiftSocket9TCPClientCMa
 accept

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 final class InitialViewController: UIViewController {
 
@@ -23,10 +24,31 @@ final class InitialViewController: UIViewController {
     }
 
     @IBAction private func calibrateAction(_ sender: Any) {
-        navigationController?.pushViewController(CalibrationConnectionViewController(), animated: true)
+        let otherNavigationController = UINavigationController(rootViewController: CalibrationConnectionViewController())
+        otherNavigationController.modalPresentationStyle = .overFullScreen
+        otherNavigationController.modalTransitionStyle = .crossDissolve
+
+        present(otherNavigationController, animated: true, completion: nil)
     }
 
     @IBAction private func captureAction(_ sender: Any) {
-        navigationController?.pushViewController(MixedRealityConnectionViewController(), animated: true)
+        let otherNavigationController = UINavigationController(rootViewController: MixedRealityConnectionViewController())
+        otherNavigationController.modalPresentationStyle = .overFullScreen
+        otherNavigationController.modalTransitionStyle = .crossDissolve
+
+        present(otherNavigationController, animated: true, completion: nil)
+    }
+
+    @IBAction private func helpAction(_ sender: Any) {
+        let viewController = SFSafariViewController(url: Definitions.instructionsURL)
+        present(viewController, animated: true, completion: nil)
+    }
+
+    @IBAction private func aboutAction(_ sender: Any) {
+        let otherNavigationController = UINavigationController(rootViewController: AboutViewController())
+        otherNavigationController.modalPresentationStyle = .overFullScreen
+        otherNavigationController.modalTransitionStyle = .crossDissolve
+
+        present(otherNavigationController, animated: true, completion: nil)
     }
 }

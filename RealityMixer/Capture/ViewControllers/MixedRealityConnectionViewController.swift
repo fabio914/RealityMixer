@@ -12,11 +12,11 @@ final class MixedRealityConnectionViewController: UIViewController {
 
     @IBOutlet private weak var addressTextField: UITextField!
     @IBOutlet private weak var portTextField: UITextField!
-    @IBOutlet private weak var showDebugSwitch: UISwitch!
     @IBOutlet private weak var hardwareDecoderSwitch: UISwitch!
     @IBOutlet private weak var magentaSwitch: UISwitch!
-
-    @IBOutlet private weak var overlayView: UIView!
+    @IBOutlet private weak var infoLabel: UILabel!
+    @IBOutlet private weak var secondInfoLabel: UILabel!
+    @IBOutlet private weak var thirdInfoLabel: UILabel!
     private let storage = PreferenceStorage()
 
     init() {
@@ -30,15 +30,50 @@ final class MixedRealityConnectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Mixed Reality"
-        overlayView.isHidden = true
+
+        addressTextField.delegate = self
+        portTextField.delegate = self
 
         if let preferences = storage.preference {
             addressTextField.text = preferences.address
         }
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backAction))
+
+        configureInfoLabel()
+    }
+
+    private func configureInfoLabel() {
+        infoLabel.text = """
+        Before you begin:
+
+         • Make sure the device is calibrated. A new calibration is required whenever you move this device or when you reset the Quest's Guardian boundary. You might also need to calibrate again when a new game is installed.
+        """
+
+        secondInfoLabel.text = """
+         • Make sure that the Quest and this device are both connected to the same WiFi network. A 5 Ghz WiFi is recommended.
+
+         • Make sure that the Reality Mixer app is allowed to access your camera and your local network. It'll ask for permission the first time you launch the calibration or mixed reality, however, you'll need to navigate to the system settings to be able to re-enable these permissions if you haven't given permissions during the first launch.
+        """
+
+        thirdInfoLabel.text = """
+         • Launch your compatible VR game/application on the Quest. Some games might require you to enable Mixed Reality Capture on their Settings screen.
+
+         • Some games use the color magenta as the color for transparency, make sure to use this option if that's the case for the game you're about to play.
+
+         • Fill in the Quest's IP Address. You can find this address on the Quest's WiFi options.
+
+         • Tap on "Connect".
+
+         • After your mixed reality session is over, tap on the screen once to display the options on the top left side of the screen, and then tap on "Disconnect".
+        """
+    }
+
+    @objc private func backAction() {
+        navigationController?.dismiss(animated: true, completion: nil)
     }
 
     @IBAction func connectAction(_ sender: Any) {
-        overlayView.isHidden = false
 
         guard let address = addressTextField.text, !address.isEmpty,
             let portText = portTextField.text, !portText.isEmpty,
@@ -47,37 +82,70 @@ final class MixedRealityConnectionViewController: UIViewController {
             return
         }
 
-        let client = TCPClient(address: address, port: port)
+        let connectionAlert = UIAlertController(title: "Connecting...", message: nil, preferredStyle: .alert)
 
-        switch client.connect(timeout: 10) {
-        case .failure(let error):
-            overlayView.isHidden = true
+        present(connectionAlert, animated: true, completion: { [weak self] in
+            guard let self = self else { return }
 
-            let alert = UIAlertController(
-                title: "Error",
-                message: "Unable to connect: \(error)",
-                preferredStyle: .alert
-            )
+            // FIXME: Do this in a way that doesn't block the main thread
 
-            alert.addAction(.init(title: "OK", style: .default, handler: nil))
+            let client = TCPClient(address: address, port: port)
 
-            present(alert, animated: true, completion: nil)
-        case .success:
-            try? storage.save(preference: .init(address: address))
+            switch client.connect(timeout: 10) {
+            case .failure(let error):
+                connectionAlert.dismiss(animated: false, completion: { [weak self] in
 
-            let configuration = MixedRealityConfiguration(
-                shouldShowDebug: showDebugSwitch.isOn,
-                shouldUseHardwareDecoder: hardwareDecoderSwitch.isOn,
-                shouldUseMagentaAsTransparency: magentaSwitch.isOn
-            )
+                    let alert = UIAlertController(
+                        title: "Error",
+                        message: "Unable to connect: \(error)",
+                        preferredStyle: .alert
+                    )
 
-            let viewController = MixedRealityViewController(
-                client: client,
-                configuration: configuration
-            )
+                    alert.addAction(.init(title: "OK", style: .default, handler: nil))
 
-            viewController.modalPresentationStyle = .overFullScreen
-            present(viewController, animated: true, completion: nil)
-        }
+                    self?.present(alert, animated: true, completion: nil)
+                })
+
+            case .success:
+                try? self.storage.save(preference: .init(address: address))
+
+                let configuration = MixedRealityConfiguration(
+                    shouldUseHardwareDecoder: self.hardwareDecoderSwitch.isOn,
+                    shouldUseMagentaAsTransparency: self.magentaSwitch.isOn
+                )
+
+                connectionAlert.dismiss(animated: false, completion: { [weak self] in
+
+                    let viewController = MixedRealityViewController(
+                        client: client,
+                        configuration: configuration
+                    )
+
+                    viewController.modalPresentationStyle = .overFullScreen
+                    self?.present(viewController, animated: true, completion: nil)
+                })
+            }
+        })
+    }
+
+    @IBAction private func startCalibrationAction(_ sender: Any) {
+        let otherNavigationController = UINavigationController(rootViewController: CalibrationConnectionViewController())
+        otherNavigationController.modalPresentationStyle = .overFullScreen
+        otherNavigationController.modalTransitionStyle = .crossDissolve
+
+        present(otherNavigationController, animated: true, completion: nil)
+    }
+
+    @IBAction func openSettingsAction(_ sender: Any) {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}
+
+extension MixedRealityConnectionViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
     }
 }

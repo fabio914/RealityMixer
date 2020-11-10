@@ -80,6 +80,7 @@ final class ProjectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Step 3 of 4"
         imageView.image = image
         navigationItem.rightBarButtonItem = .init(title: "Done", style: .done, target: self, action: #selector(done))
         navigationItem.leftBarButtonItem = .init(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
@@ -98,6 +99,8 @@ final class ProjectionViewController: UIViewController {
         self.mainNode = mainNode
 
         let camera = SCNCamera()
+        camera.zNear = 0.1
+        camera.zFar = 100.0
         let (xFov, yFov) = CalibrationBuilder.fov(from: frame)
 
         let imageViewRatio = imageView.frame.size.width/imageView.frame.size.height

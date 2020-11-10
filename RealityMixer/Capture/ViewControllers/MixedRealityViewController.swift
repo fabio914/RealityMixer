@@ -10,7 +10,6 @@ import ARKit
 import SwiftSocket
 
 struct MixedRealityConfiguration {
-    let shouldShowDebug: Bool
     let shouldUseHardwareDecoder: Bool
 
     // Use magenta as the transparency color for the foreground plane
@@ -23,7 +22,9 @@ final class MixedRealityViewController: UIViewController {
     private var displayLink: CADisplayLink?
     private var oculusMRC: OculusMRC?
 
+    @IBOutlet private weak var optionsContainer: UIView!
     @IBOutlet private weak var debugView: UIImageView!
+    @IBOutlet private weak var showDebugButton: UIButton!
     @IBOutlet private weak var sceneView: ARSCNView!
     private var backgroundNode: SCNNode?
     private var foregroundNode: SCNNode?
@@ -59,7 +60,8 @@ final class MixedRealityViewController: UIViewController {
         configureDisplayLink()
         configureOculusMRC()
         configureScene()
-        configureDebugView()
+        configureTap()
+        configureBackgroundEvent()
     }
 
     private func configureDisplay() {
@@ -83,6 +85,14 @@ final class MixedRealityViewController: UIViewController {
         sceneView.session.delegate = self
 
         sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
+    }
+
+    private func configureTap() {
+        sceneView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAction)))
+    }
+
+    private func configureBackgroundEvent() {
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
     private func planeSizeForDistance(_ distance: Float, frame: ARFrame) -> CGSize {
@@ -187,12 +197,8 @@ final class MixedRealityViewController: UIViewController {
         self.foregroundNode = foregroundPlaneNode
     }
 
-    private func configureDebugView() {
-        debugView.isHidden = !configuration.shouldShowDebug
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
@@ -204,15 +210,21 @@ final class MixedRealityViewController: UIViewController {
         } else if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation) {
             configuration.frameSemantics.insert(.personSegmentation)
         } else {
-            // TODO: Display Alert
-            fatalError("Person Segmentation not available")
+            let parentViewController = presentingViewController
+
+            displayLink?.invalidate()
+            dismiss(animated: true, completion: { [weak parentViewController] in
+
+                let alert = UIAlertController(title: "Sorry", message: "Mixed Reality capture requires a device with an A12 chip or newer.", preferredStyle: .alert)
+
+                alert.addAction(.init(title: "OK", style: .default, handler: nil))
+
+                parentViewController?.present(alert, animated: true, completion: nil)
+            })
+            return
         }
 
         sceneView.session.run(configuration)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -230,6 +242,43 @@ final class MixedRealityViewController: UIViewController {
 
         oculusMRC.addData(data, length: Int32(data.count))
         oculusMRC.update()
+    }
+
+    // MARK: - Actions
+
+    @objc private func tapAction() {
+        optionsContainer.isHidden = !optionsContainer.isHidden
+    }
+
+    private func disconnect() {
+        displayLink?.invalidate()
+        dismiss(animated: false, completion: nil)
+    }
+
+    @objc private func willResignActive() {
+        disconnect()
+    }
+
+    @IBAction private func disconnectAction(_ sender: Any) {
+        disconnect()
+    }
+
+    @IBAction private func showHideQuestOutput(_ sender: Any) {
+        debugView.isHidden = !debugView.isHidden
+
+        if debugView.isHidden {
+            showDebugButton.setTitle("Show Quest Output", for: .normal)
+        } else {
+            showDebugButton.setTitle("Hide Quest Output", for: .normal)
+        }
+    }
+
+    @IBAction private func hideAction(_ sender: Any) {
+        optionsContainer.isHidden = true
+    }
+
+    deinit {
+        client.close()
     }
 }
 

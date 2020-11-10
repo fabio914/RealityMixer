@@ -24,14 +24,22 @@ enum CalibrationState {
     )
 }
 
+protocol CalibrationViewControllerDelegate: AnyObject {
+    func calibrationDidCancel(_ viewController: CalibrationViewController)
+    func calibrationDidFinish(_ viewController: CalibrationViewController)
+}
+
 final class CalibrationViewController: UIViewController {
+    weak var delegate: CalibrationViewControllerDelegate?
     private let scaleFactor: Double
     private let client: TCPClient
     private var displayLink: CADisplayLink?
     private let oculusCalibration = OculusCalibration()
 
     @IBOutlet private weak var sceneView: ARSCNView!
-    @IBOutlet private weak var saveButton: UIButton!
+    @IBOutlet private weak var saveButtonContainer: UIView!
+    @IBOutlet private weak var pauseView: UIView!
+    @IBOutlet private weak var infoLabel: UILabel!
 
     private weak var leftControllerNode: SCNNode?
     private weak var rightControllerNode: SCNNode?
@@ -48,7 +56,7 @@ final class CalibrationViewController: UIViewController {
     private var lastPoseUpdate: PoseUpdate?
     private var isPaused = false {
         didSet {
-            // TODO: Update "paused" view
+            pauseView.isHidden = !isPaused
         }
     }
 
@@ -60,9 +68,10 @@ final class CalibrationViewController: UIViewController {
         }
     }
 
-    init(client: TCPClient, scaleFactor: Double) {
+    init(client: TCPClient, scaleFactor: Double, delegate: CalibrationViewControllerDelegate?) {
         self.client = client
         self.scaleFactor = scaleFactor
+        self.delegate = delegate
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -75,6 +84,7 @@ final class CalibrationViewController: UIViewController {
         configureDisplay()
         configureDisplayLink()
         configureCalibrationSource()
+        configureBackgroundEvent()
         didUpdate(state)
     }
 
@@ -90,6 +100,10 @@ final class CalibrationViewController: UIViewController {
 
     private func configureCalibrationSource() {
         oculusCalibration.delegate = self
+    }
+
+    private func configureBackgroundEvent() {
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
     @objc private func displayLinkUpdate(with sender: CADisplayLink) {
@@ -117,21 +131,23 @@ final class CalibrationViewController: UIViewController {
 
         switch state {
         case .started:
-            saveButton.isHidden = true
-            sceneView.scene = SCNScene()
+            saveButtonContainer.isHidden = true
 
-            // TODO: Tell the user to move the right controller to the camera and press the trigger
+            sceneView.scene.rootNode.enumerateChildNodes({ (node, _) in node.removeFromParentNode() })
+            sceneView.pointOfView?.enumerateChildNodes({ (node, _) in node.removeFromParentNode() })
+
+            updateInfo("Step 1 of 4: Put your headset on, face the camera, and move your right controller's trigger button as close as possible to the device's camera, then press the \"A\" button or the right controller's trigger button.")
         case .cameraOriginSet:
-            saveButton.isHidden = true
-            // TODO: Tell the user to move farther from the camera and press the trigger
-            break
+            saveButtonContainer.isHidden = true
+            updateInfo("Step 2 of 4: Put your headset on, move 1.5 meters (5 feet) away from the camera, face the camera, stay still and then press the \"A\" button or the right controller's trigger button.")
         case .controllerPositionSet(
             let cameraOrigin,
             let rightControllerPosition,
             let poseUpdate,
             let frame
         ):
-            saveButton.isHidden = true
+            saveButtonContainer.isHidden = true
+            updateInfo("Step 3 of 4")
 
             let viewController = ProjectionViewController(
                 scaleFactor: scaleFactor,
@@ -149,7 +165,8 @@ final class CalibrationViewController: UIViewController {
 
             present(navigationController, animated: true, completion: nil)
         case .calibrationSet(let transform, _):
-            saveButton.isHidden = false
+            saveButtonContainer.isHidden = false
+            updateInfo("Step 4 of 4: Review your calibration and tap on \"Save to Headset\" to save it. ")
 
             let calibrationSceneNodes = CalibrationSceneNodeBuilder.build()
 
@@ -165,26 +182,52 @@ final class CalibrationViewController: UIViewController {
         }
     }
 
+    private func updateInfo(_ text: String) {
+        infoLabel.text = "\(text)\n\nRemember: Do not move this device during and after the calibration. Press \"B\" at any moment to cancel and go back to the first step."
+    }
+
+    // MARK: - Actions
+
     private func reset() {
         self.state = .started
+    }
+
+    private func disconnect() {
+        displayLink?.invalidate()
+        delegate?.calibrationDidCancel(self)
+    }
+
+    @objc private func willResignActive() {
+        disconnect()
+    }
+
+    @IBAction func disconnectAction(_ sender: Any) {
+        disconnect()
     }
 
     @IBAction private func saveAction(_ sender: Any) {
         guard case .calibrationSet(_, let calibration) = state else { return }
 
         guard let data = calibration.toFrame()?.toData() else {
-            // TODO: Present alert to warn the user...
+            let alert = UIAlertController(title: "Error", message: "Unable to generate calibration data.", preferredStyle: .alert)
+            alert.addAction(.init(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
             return
         }
 
         switch client.send(data: data) {
         case .failure(let error):
-            // TODO: Present alert to warn the user...
-            print("Unable to save calibration: \(error)")
+            let alert = UIAlertController(title: "Error", message: "Unable to save calibration: \(error)", preferredStyle: .alert)
+            alert.addAction(.init(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         case .success:
-            // TODO: Present alert saying that the calibration was saved!
-            print("New calibration saved!")
-            dismiss(animated: true, completion: nil)
+            let alert = UIAlertController(title: "Calibration Saved!", message: nil, preferredStyle: .alert)
+            alert.addAction(.init(title: "OK", style: .default, handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.displayLink?.invalidate()
+                self.delegate?.calibrationDidFinish(self)
+            }))
+            present(alert, animated: true, completion: nil)
         }
     }
 
@@ -200,6 +243,8 @@ extension CalibrationViewController: OculusCalibrationDelegate {
     }
 
     func oculusCalibrationDidPressPrimaryButton(_ oculusCalibration: OculusCalibration) {
+        guard !isPaused else { return }
+
         switch state {
         case .started:
             if let rightHand = lastPoseUpdate?.rightHand {
