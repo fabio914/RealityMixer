@@ -54,5 +54,5 @@ It also requires [Carthage](https://github.com/Carthage/Carthage) to download it
 
 ## TO-DOs
 
-- [ ] Add audio (if possible);
+- [ ] Add audio (*Coming Soon*);
 

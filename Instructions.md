@@ -17,7 +17,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
 - Start the app, and tap on "Start Calibration".
 
-// Image
+<img src="Images/instructions/start_calibration.jpg" />
 
 - Launch the "Mixed Reality Capture" app on the Quest.
 
@@ -25,7 +25,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
 - Select your resolution scale factor. A smaller factor will result in faster performance when running VR applications/games in mixed reality.
 
-// Image
+<img src="Images/instructions/calibration_1.jpg" width="300" />
 
 - Position your iPhone/iPad. You won't be able to move it after this, or else you'll need to recalibrate. Using a tripod is recommended.
 
@@ -35,17 +35,21 @@ You might also need to calibrate again after you install a new VR application/ga
 
 - Now, put your headset on and walk in front of the camera, then bring your right controller's trigger button as close as possible to the camera and press the right controller's trigger button or the "A" button.
 
-// Image
+<img src="Images/instructions/calibration_2.jpg" width="300" />
 
 - Take a few steps back, while still facing the camera, and press the right controller's trigger button or the "A" button a second time.
 
-- Now, put your headset aside and look at the iPhone/iPad screen. You should now see a photo of you and a blue circle. Move the blue circle to where the right controller is on the photo. You'll see an overlay image indicating the controller and the headset, try to make this image match the photo. Tap on "Done" to continue.
+<img src="Images/instructions/calibration_3.jpg" width="300" />
 
-// Image
+- Now, put your headset aside and look at the iPhone/iPad screen. You should now see a photo of you and a blue circle. Move the blue circle to where the right controller is on the photo. You'll see an overlay image indicating the controller and the headset, try to make this image match the photo. Don't worry if you can't get them to align perfectly, the mixed reality capture should still look good. Tap on "Done" to continue.
 
-- You can now take both the controllers and put your headset on again, if you wish to verify your calibration. However, you'll need a second person looking at the screen to be able to confirm it. You'll notice some delay between your movements and the overlay image, that's normal and don't worry, the mixed reality recording will look more responsive. Tap on "Save to Headset" if you wish to save this calibration.
+<img src="Images/instructions/calibration_4.jpg" width="300" />
 
-// Image
+<img src="Images/instructions/calibration_5.jpg" width="300" />
+
+- You can now take both the controllers and put your headset on again, if you wish to verify your calibration. However, you'll need a second person looking at the screen to be able to confirm it. You'll notice some delay between your movements and the overlay image, that's normal and don't worry, the mixed reality recording will look more responsive. Tap on "Save to Headset" on the top right if you wish to save this calibration.
+
+<img src="Images/instructions/calibration_6.jpg" width="300" />
 
 - Remember, you should not move your iPhone/iPad during or after the calibration, or else you'll need to calibrate again.
 
@@ -53,13 +57,19 @@ You might also need to calibrate again after you install a new VR application/ga
 
 ## How to start the mixed reality capture?
 
+ - On the main menu, select "Start Mixed Reality".
+ 
+ <img src="Images/instructions/start_mixed_reality.jpg" />
+
  - First, make sure that you've completed the calibration and that you haven't moved your iPhone/iPad. Also make sure that your iPhone/iPad and the Quest are still connected to the same WiFi network.
  
  - Fill in the Quest's IP address.
 
+// Image
+
  - Some games, such as The Thrill of the Fight, use the color magenta for transparency. Make sure to use this option if you're playing games like this.
 
- - Some other games, such as Beat Saber, might require you to enable Mixed Reality capture on their Settings. You'll have to do that first before starting the connection. 
+ - Some other games, such as Beat Saber, might require you to enable Mixed Reality capture on their Settings. You'll have to do that first before starting the connection.
  
  - Launch your compatible application/game on the Quest.
  
@@ -69,7 +79,7 @@ You might also need to calibrate again after you install a new VR application/ga
  
  // Image
  
- - Tap on the screen to display the other options, and tap on "Disconnect" when you're finished.
+ - Tap on the screen to display the other options, and tap on "Disconnect" on the top left when you're finished.
  
  // Image
  
