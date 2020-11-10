@@ -17,7 +17,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
 - Start the app, and tap on "Start Calibration".
 
-<img src="Images/instructions/start_calibration.jpg" />
+<img src="Images/instructions/start_calibration.jpg" width="300" />
 
 - Launch the "Mixed Reality Capture" app on the Quest.
 
@@ -59,13 +59,13 @@ You might also need to calibrate again after you install a new VR application/ga
 
  - On the main menu, select "Start Mixed Reality".
  
- <img src="Images/instructions/start_mixed_reality.jpg" />
+ <img src="Images/instructions/start_mixed_reality.jpg" width="300" />
 
  - First, make sure that you've completed the calibration and that you haven't moved your iPhone/iPad. Also make sure that your iPhone/iPad and the Quest are still connected to the same WiFi network.
  
  - Fill in the Quest's IP address.
 
-// Image
+<img src="Images/instructions/mixed_reality_1.jpg" width="300" />
 
  - Some games, such as The Thrill of the Fight, use the color magenta for transparency. Make sure to use this option if you're playing games like this.
 
@@ -77,11 +77,11 @@ You might also need to calibrate again after you install a new VR application/ga
  
  - You should now see a blank screen. Put your headset on again and start playing, the screen will update and it'll display your gameplay in mixed reality.
  
- // Image
+ <img src="Images/instructions/mixed_reality_2.jpg" width="300" />
  
  - Tap on the screen to display the other options, and tap on "Disconnect" on the top left when you're finished.
  
- // Image
+ <img src="Images/instructions/mixed_reality_3.jpg" width="300" />
  
  - You can now close your application/game on the Quest.
 
