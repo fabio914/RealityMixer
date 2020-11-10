@@ -40,7 +40,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="1194" height="618"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </sceneKitView>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6BM-Jj-krs">
+                        <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6BM-Jj-krs">
                             <rect key="frame" x="574" y="290" width="40" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBlueColor"/>
