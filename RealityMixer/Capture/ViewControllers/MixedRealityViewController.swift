@@ -250,15 +250,17 @@ final class MixedRealityViewController: UIViewController {
         optionsContainer.isHidden = !optionsContainer.isHidden
     }
 
-    @objc private func willResignActive() {
-        // This is a temporary solution, this is far from ideal
+    private func disconnect() {
         displayLink?.invalidate()
         dismiss(animated: false, completion: nil)
     }
 
+    @objc private func willResignActive() {
+        disconnect()
+    }
+
     @IBAction private func disconnectAction(_ sender: Any) {
-        displayLink?.invalidate()
-        dismiss(animated: true, completion: nil)
+        disconnect()
     }
 
     @IBAction private func showHideQuestOutput(_ sender: Any) {

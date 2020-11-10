@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="landscape" appearance="light"/>
+    <device id="ipad11_0rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -20,21 +20,28 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="ds9-C5-PyV">
-            <rect key="frame" x="0.0" y="0.0" width="896" height="370"/>
+            <rect key="frame" x="0.0" y="0.0" width="1194" height="784"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m64-PO-r2E">
+                    <rect key="frame" x="40" y="20" width="1114" height="36"/>
+                    <string key="text">Move the blue circle to where the right controller is. Try to align the controllers and the headset with the overlay image. Tap on "Cancel" to return to the first step if you can't get a good alignment. Tap on "Done" to continue.</string>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="36L-do-dxF">
-                    <rect key="frame" x="44" y="0.0" width="808" height="279"/>
+                    <rect key="frame" x="0.0" y="76" width="1194" height="618"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qh6-HM-Fm4">
-                            <rect key="frame" x="0.0" y="0.0" width="808" height="279"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1194" height="618"/>
                         </imageView>
                         <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aLM-Kc-mJ7">
-                            <rect key="frame" x="0.0" y="0.0" width="808" height="279"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1194" height="618"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </sceneKitView>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6BM-Jj-krs">
-                            <rect key="frame" x="382" y="120" width="40" height="40"/>
+                            <rect key="frame" x="574" y="290" width="40" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBlueColor"/>
                             <userDefinedRuntimeAttributes>
@@ -57,29 +64,29 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fIM-u8-bbX">
-                    <rect key="frame" x="64" y="299" width="768" height="30"/>
+                    <rect key="frame" x="20" y="714" width="1154" height="30"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance Adjustment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jS9-hT-bnE">
                             <rect key="frame" x="0.0" y="0.0" width="158" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="158" id="Pqw-QU-F04"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <slider opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-0.05000000074505806" maxValue="0.05000000074505806" translatesAutoresizingMaskIntoConstraints="NO" id="AoH-M3-FBd">
-                            <rect key="frame" x="166" y="0.0" width="555.5" height="31"/>
-                            <color key="minimumTrackTintColor" systemColor="systemGreenColor"/>
-                            <color key="maximumTrackTintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="thumbTintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="166" y="0.0" width="941" height="31"/>
+                            <color key="minimumTrackTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="maximumTrackTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="thumbTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="distanceAdjustmentChanged:" destination="-1" eventType="valueChanged" id="Eov-wy-gfk"/>
                             </connections>
                         </slider>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="0 cm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9iq-pd-KXY">
-                            <rect key="frame" x="729.5" y="0.0" width="38.5" height="30"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <rect key="frame" x="1115" y="0.0" width="39" height="30"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -93,9 +100,12 @@
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="fIM-u8-bbX" firstAttribute="leading" secondItem="pnx-NR-nTc" secondAttribute="leading" constant="20" id="4qr-mf-6X3"/>
-                <constraint firstItem="36L-do-dxF" firstAttribute="top" secondItem="pnx-NR-nTc" secondAttribute="top" id="5BK-q1-mVA"/>
+                <constraint firstItem="m64-PO-r2E" firstAttribute="leading" secondItem="pnx-NR-nTc" secondAttribute="leading" constant="40" id="55k-fy-QB8"/>
                 <constraint firstItem="fIM-u8-bbX" firstAttribute="top" secondItem="36L-do-dxF" secondAttribute="bottom" constant="20" id="IQ7-Qc-Ud3"/>
+                <constraint firstItem="m64-PO-r2E" firstAttribute="top" secondItem="pnx-NR-nTc" secondAttribute="top" constant="20" id="TI1-Vs-mUz"/>
                 <constraint firstItem="pnx-NR-nTc" firstAttribute="trailing" secondItem="36L-do-dxF" secondAttribute="trailing" id="TU0-7a-I0B"/>
+                <constraint firstItem="36L-do-dxF" firstAttribute="top" secondItem="m64-PO-r2E" secondAttribute="bottom" constant="20" id="UoR-Ev-ja3"/>
+                <constraint firstItem="pnx-NR-nTc" firstAttribute="trailing" secondItem="m64-PO-r2E" secondAttribute="trailing" constant="40" id="bRi-be-idK"/>
                 <constraint firstItem="36L-do-dxF" firstAttribute="leading" secondItem="pnx-NR-nTc" secondAttribute="leading" id="gFG-Aw-cbF"/>
                 <constraint firstItem="pnx-NR-nTc" firstAttribute="bottom" secondItem="fIM-u8-bbX" secondAttribute="bottom" constant="20" id="jjJ-fK-lAX"/>
                 <constraint firstItem="pnx-NR-nTc" firstAttribute="trailing" secondItem="fIM-u8-bbX" secondAttribute="trailing" constant="20" id="y2r-R9-ZC6"/>
@@ -107,9 +117,6 @@
     <resources>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
