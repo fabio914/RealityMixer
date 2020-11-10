@@ -7,6 +7,7 @@
 
 import Foundation
 import SceneKit
+import SceneKit.ModelIO
 
 struct CalibrationSceneNodes {
     let main: SCNNode
@@ -19,32 +20,35 @@ struct CalibrationSceneNodes {
 
 struct CalibrationSceneNodeBuilder {
 
-    static func build() -> CalibrationSceneNodes {
-        let radius = 0.0125
-        let height = 0.12
+    static func model(named name: String) -> SCNNode? {
+        Bundle.main.url(forResource: name, withExtension: "stl")
+            .flatMap(MDLAsset.init(url:))
+            .flatMap({ asset -> MDLMesh? in
+                guard asset.count > 0 else { return nil }
+                return asset.object(at: 0) as? MDLMesh
+            })
+            .flatMap({ SCNNode(mdlObject: $0) })
+    }
 
+    static func build() -> CalibrationSceneNodes {
         let mainNode = SCNNode()
 
-        let leftController = SCNCylinder()
-        leftController.radius = CGFloat(radius)
-        leftController.height = CGFloat(height)
-
-        leftController.firstMaterial?.lightingModel = .constant
-        leftController.firstMaterial?.diffuse.contents = UIColor.red
+        let leftController: SCNNode! = model(named: "left")
+        leftController.geometry?.firstMaterial?.lightingModel = .constant
+        leftController.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        leftController.rotation = SCNVector4(1, 0, 0, 45.0 * .pi/180.0)
 
         let leftControllerNode = SCNNode()
-        leftControllerNode.geometry = leftController
+        leftControllerNode.addChildNode(leftController)
         mainNode.addChildNode(leftControllerNode)
 
-        let rightController = SCNCylinder()
-        rightController.radius = CGFloat(radius)
-        rightController.height = CGFloat(height)
-
-        rightController.firstMaterial?.lightingModel = .constant
-        rightController.firstMaterial?.diffuse.contents = UIColor.blue
+        let rightController: SCNNode! = model(named: "right")
+        rightController.geometry?.firstMaterial?.lightingModel = .constant
+        rightController.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+        rightController.rotation = SCNVector4(1, 0, 0, 45.0 * .pi/180.0)
 
         let rightControllerNode = SCNNode()
-        rightControllerNode.geometry = rightController
+        rightControllerNode.addChildNode(rightController)
         mainNode.addChildNode(rightControllerNode)
 
         // Using Quest 2 dimensions

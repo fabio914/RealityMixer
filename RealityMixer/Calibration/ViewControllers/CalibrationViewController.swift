@@ -125,7 +125,7 @@ final class CalibrationViewController: UIViewController {
         switch state {
         case .started:
             saveButton.isHidden = true
-            sceneView.scene = SCNScene()
+            sceneView.scene.rootNode.childNodes.forEach({ $0.removeFromParentNode() })
 
             // TODO: Tell the user to move the right controller to the camera and press the trigger
         case .cameraOriginSet:

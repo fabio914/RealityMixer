@@ -98,6 +98,8 @@ final class ProjectionViewController: UIViewController {
         self.mainNode = mainNode
 
         let camera = SCNCamera()
+        camera.zNear = 0.1
+        camera.zFar = 100.0
         let (xFov, yFov) = CalibrationBuilder.fov(from: frame)
 
         let imageViewRatio = imageView.frame.size.width/imageView.frame.size.height
