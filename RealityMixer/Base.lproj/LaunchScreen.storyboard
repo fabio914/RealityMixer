@@ -27,11 +27,19 @@
                                     <constraint firstAttribute="height" constant="100" id="Mve-R7-9fk"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reality Mixer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTd-RY-hvj">
+                                <rect key="frame" x="130" y="432" width="154" height="33"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="27"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="MvO-NN-RHx" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.75" id="3pB-e9-POl"/>
+                            <constraint firstItem="KTd-RY-hvj" firstAttribute="top" secondItem="MvO-NN-RHx" secondAttribute="bottom" constant="42" id="88R-sI-1pB"/>
+                            <constraint firstItem="KTd-RY-hvj" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="8C4-uy-kCq"/>
                             <constraint firstItem="MvO-NN-RHx" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="rRi-AJ-QRc"/>
                         </constraints>
                     </view>
