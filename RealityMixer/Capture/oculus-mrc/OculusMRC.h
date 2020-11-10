@@ -21,7 +21,7 @@ enum audio_format {
     AUDIO_FORMAT_FLOAT
 };
 struct SourceAudio {
-    const uint8_t *data;
+    const float *data;
     uint32_t frames;
 
     enum speaker_layout speakers;

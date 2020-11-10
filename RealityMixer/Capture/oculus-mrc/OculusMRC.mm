@@ -211,7 +211,7 @@ std::string GetAvErrorString(int errNum) {
 
                         if (audioDataHeader->channels == 1 || audioDataHeader->channels == 2) {
                             SourceAudio audio = { nullptr };
-                            audio.data = (uint8_t*)audioFrame->m_payload.data() + sizeof(AudioDataHeader);
+                            audio.data = (float*)audioFrame->m_payload.data() + sizeof(AudioDataHeader);
                             audio.frames = audioDataHeader->dataLength / sizeof(float) / audioDataHeader->channels;
                             audio.speakers = audioDataHeader->channels == 1 ? SPEAKERS_MONO : SPEAKERS_STEREO;
                             audio.format = AUDIO_FORMAT_FLOAT;
