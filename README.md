@@ -26,15 +26,21 @@ Note that this is app is still just a prototype and it's still being developed, 
 
 ## Installation
 
+### AltStore
+
+ - Follow [these instructions](https://altstore.io/) to install and configure AltServer on your PC or Mac, then install the AltStore app on your iPhone/iPad.
+ 
+ - Open the camera app on your iPhone/iPad and scan this QR code:
+
+![out](https://user-images.githubusercontent.com/2430631/98624274-57379080-2305-11eb-8c4b-e381dbc8c536.png)
+
+### Test Flight
+
 *Coming soon*
 
 ## Instructions
 
 [Link](Instructions.md)
-
-## TO-DOs
-
-- [ ] Add audio (if possible);
 
 ## Credits
 
@@ -45,3 +51,8 @@ It uses [SwiftSocket](https://github.com/swiftsocket/SwiftSocket) to handle the 
 The right and left controller models are modified versions of the `oculus-touch-v3` models from the [WebXR Input Profiles](https://github.com/immersive-web/webxr-input-profiles).
 
 It also requires [Carthage](https://github.com/Carthage/Carthage) to download its dependencies.
+
+## TO-DOs
+
+- [ ] Add audio (if possible);
+
