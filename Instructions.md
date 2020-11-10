@@ -29,7 +29,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
 - Position your iPhone/iPad. You won't be able to move it after this, or else you'll need to recalibrate. Using a tripod is recommended.
 
-- Tap on "Connect". You might be prompted to give the app permission to access your local network and your camera, you should allow both.
+- Tap on "Connect". You might be asked to give the app permission to access your local network and your camera, you should allow both.
 
 - Take your headset and the right controller.
 
@@ -73,7 +73,7 @@ You might also need to calibrate again after you install a new VR application/ga
  
  - Launch your compatible application/game on the Quest.
  
- - Tap on "Connect". You might be prompted to give the app permission to access your local network and your camera, you should allow both.
+ - Tap on "Connect". You might be asked to give the app permission to access your local network and your camera, you should allow both.
  
  - You should now see a blank screen. Put your headset on again and start playing, the screen will update and it'll display your gameplay in mixed reality.
  
@@ -87,9 +87,15 @@ You might also need to calibrate again after you install a new VR application/ga
 
 ## How to record a video?
 
-You can use the iPhone/iPad native "Screen Recording" feature. Before starting your mixed reality capture, you can open "Control Center" and tap on the record button, that looks like this:
+You can use the iPhone/iPad native "Screen Recording" feature.
 
-// Image
+- Open "Control Center" before starting your mixed reality capture
+
+<img src="Images/instructions/record_1.jpg" width="300" />
+
+- Tap on the record button, that looks like this:
+
+<img src="Images/instructions/record_2.jpg" width="150" />
 
 When you're finished, you can open "Control Center" and tap on the same button again to finish recording. You'll find your recording in the "Photos" app.
 
@@ -97,8 +103,8 @@ Follow the instructions below if you don't have the record option inside your "C
 
  - Open the iPhone/iPad Settings app, and navigate to "Control Center"
  
- // Image
+ <img src="Images/instructions/record_3.jpg" width="300" />
  
  - Scroll down to "More Controls" and tap on the "+" button beside "Screen Recording".
  
-// Image
+ <img src="Images/instructions/record_4.jpg" width="300" />
