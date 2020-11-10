@@ -20,7 +20,7 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
  - Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed.
  - iPhone or iPad with an A12 chip or newer, running iOS 14. The LiDAR sensor is optional but recommended for better results.
  - 5 Ghz WiFi network.
- - A compatible VR game (check this [page](https://creator.oculus.com/mrc/) for a list of the officially supported games).
+ - A compatible Quest VR application/game (check this [page](https://creator.oculus.com/mrc/) for a list of the officially supported games).
 
 Note that this is app is still just a prototype and it's still being developed, use at your own risk.
 
@@ -54,5 +54,5 @@ It also requires [Carthage](https://github.com/Carthage/Carthage) to download it
 
 ## TO-DOs
 
-- [ ] Add audio (if possible);
+- [ ] Add audio (*Coming Soon*);
 
