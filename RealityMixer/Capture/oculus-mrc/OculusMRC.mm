@@ -16,6 +16,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #import "OculusMRC.h"
+#import "AudioDataHeader.h"
 #include "frame.h"
 
 #include <stdio.h>
@@ -27,6 +28,8 @@ extern "C" {
 #include "libavformat/avformat.h"
 #include "libswscale/swscale.h"
 #include "libavutil/error.h"
+
+AVAudioPCMBuffer * pcmBufferFrom(struct AudioDataHeader * audioDataHeader, double sampleRate, float * data);
 }
 
 #define OM_DEFAULT_WIDTH (1920*2)
@@ -58,6 +61,7 @@ std::string GetAvErrorString(int errNum) {
 
 @interface OculusMRC () {
     BOOL _shouldUseHardwareDecoder;
+    BOOL _enableAudio;
     uint32_t m_width;
     uint32_t m_height;
     uint32_t m_audioSampleRate;
@@ -83,10 +87,11 @@ std::string GetAvErrorString(int errNum) {
 
 @implementation OculusMRC
 
-- (instancetype)initWithHardwareDecoder:(BOOL)useHardwareDecoder {
+- (instancetype)initWithHardwareDecoder:(BOOL)useHardwareDecoder enableAudio:(BOOL)enableAudio {
     self = [super init];
     if (self) {
         _shouldUseHardwareDecoder = useHardwareDecoder;
+        _enableAudio = enableAudio;
         m_width = OM_DEFAULT_WIDTH;
         m_height = OM_DEFAULT_HEIGHT;
         m_audioSampleRate = OM_DEFAULT_AUDIO_SAMPLERATE;
@@ -201,31 +206,17 @@ std::string GetAvErrorString(int errNum) {
                     while (m_cachedAudioFrames.size() > 0 && m_cachedAudioFrames[0].first <= m_videoFrameIndex) {
                         std::shared_ptr<Frame> audioFrame = m_cachedAudioFrames[0].second;
 
-                        struct AudioDataHeader {
-                            uint64_t timestamp;
-                            int channels;
-                            int dataLength;
-                        };
-                        
-                        AudioDataHeader* audioDataHeader = (AudioDataHeader*)(audioFrame->m_payload.data());
+                        AudioDataHeader * audioDataHeader = (AudioDataHeader *)(audioFrame->m_payload.data());
 
                         if (audioDataHeader->channels == 1 || audioDataHeader->channels == 2) {
-                            SourceAudio audio = { nullptr };
-                            audio.data = (float*)audioFrame->m_payload.data() + sizeof(AudioDataHeader);
-                            audio.frames = audioDataHeader->dataLength / sizeof(float) / audioDataHeader->channels;
-                            audio.speakers = audioDataHeader->channels == 1 ? SPEAKERS_MONO : SPEAKERS_STEREO;
-                            audio.format = AUDIO_FORMAT_FLOAT;
-                            audio.samples_per_sec = m_audioSampleRate;
-                            audio.timestamp = audioDataHeader->timestamp;
-                            [_delegate oculusMRC:self didReceiveAudio:&audio];
-                        }
-                        else {
+                            float * data = (float *)((uint8_t *)audioFrame->m_payload.data() + sizeof(AudioDataHeader));
+                            [_delegate oculusMRC: self didReceiveAudio: pcmBufferFrom(audioDataHeader, m_audioSampleRate, data)];
+                        } else {
                             fprintf(stderr, "[AUDIO_DATA] unimplemented audio channels %d", audioDataHeader->channels);
                         }
 
                         m_cachedAudioFrames.erase(m_cachedAudioFrames.begin());
                     }
-
                     
                     ++m_videoFrameIndex;
 

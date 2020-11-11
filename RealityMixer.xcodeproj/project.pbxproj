@@ -13,6 +13,7 @@
 		A32285B425580CCA00FF3200 /* SwiftlyAttributedStrings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A32285B325580CCA00FF3200 /* SwiftlyAttributedStrings.framework */; };
 		A32285F7255A06E400FF3200 /* left.stl in Resources */ = {isa = PBXBuildFile; fileRef = A32285F5255A06E400FF3200 /* left.stl */; };
 		A32285F8255A06E400FF3200 /* right.stl in Resources */ = {isa = PBXBuildFile; fileRef = A32285F6255A06E400FF3200 /* right.stl */; };
+		A3228605255B864900FF3200 /* AudioDataHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A3228601255B847900FF3200 /* AudioDataHeader.m */; };
 		A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32415FD2554D24B008D4B90 /* CalibrationFrame.swift */; };
 		A32416022554D296008D4B90 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416012554D296008D4B90 /* Math.swift */; };
 		A32416052554D2FE008D4B90 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416042554D2FE008D4B90 /* Parser.swift */; };
@@ -68,6 +69,8 @@
 		A32285B62558163B00FF3200 /* Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Instructions.md; sourceTree = "<group>"; };
 		A32285F5255A06E400FF3200 /* left.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = left.stl; sourceTree = "<group>"; };
 		A32285F6255A06E400FF3200 /* right.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = right.stl; sourceTree = "<group>"; };
+		A3228600255B847900FF3200 /* AudioDataHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioDataHeader.h; sourceTree = "<group>"; };
+		A3228601255B847900FF3200 /* AudioDataHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioDataHeader.m; sourceTree = "<group>"; };
 		A32415FD2554D24B008D4B90 /* CalibrationFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationFrame.swift; sourceTree = "<group>"; };
 		A32416012554D296008D4B90 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		A32416042554D2FE008D4B90 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
@@ -418,6 +421,8 @@
 				A328D8CB253C914500B90E62 /* frame.h */,
 				A328D8CF253C917300B90E62 /* OculusMRC.h */,
 				A328D8D0253C917300B90E62 /* OculusMRC.mm */,
+				A3228600255B847900FF3200 /* AudioDataHeader.h */,
+				A3228601255B847900FF3200 /* AudioDataHeader.m */,
 			);
 			path = "oculus-mrc";
 			sourceTree = "<group>";
@@ -750,6 +755,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A32285AF25580A8800FF3200 /* Definitions.swift in Sources */,
+				A3228605255B864900FF3200 /* AudioDataHeader.m in Sources */,
 				A328D8B4253C8C4000B90E62 /* MixedRealityConnectionViewController.swift in Sources */,
 				A324161E2554DABE008D4B90 /* InitialViewController.swift in Sources */,
 				A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */,
@@ -912,6 +918,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = ZTJ55TM37B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -927,7 +934,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/lib",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.reality.mixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
@@ -944,6 +951,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = ZTJ55TM37B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -959,7 +967,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/lib",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.reality.mixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
