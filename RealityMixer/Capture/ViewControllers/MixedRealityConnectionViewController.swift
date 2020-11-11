@@ -14,6 +14,7 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var portTextField: UITextField!
     @IBOutlet private weak var hardwareDecoderSwitch: UISwitch!
     @IBOutlet private weak var magentaSwitch: UISwitch!
+    @IBOutlet private weak var audioSwitch: UISwitch!
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
@@ -111,7 +112,8 @@ final class MixedRealityConnectionViewController: UIViewController {
 
                 let configuration = MixedRealityConfiguration(
                     shouldUseHardwareDecoder: self.hardwareDecoderSwitch.isOn,
-                    shouldUseMagentaAsTransparency: self.magentaSwitch.isOn
+                    shouldUseMagentaAsTransparency: self.magentaSwitch.isOn,
+                    enableAudio: self.audioSwitch.isOn
                 )
 
                 connectionAlert.dismiss(animated: false, completion: { [weak self] in
