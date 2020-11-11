@@ -61,6 +61,7 @@ std::string GetAvErrorString(int errNum) {
 
 @interface OculusMRC () {
     BOOL _shouldUseHardwareDecoder;
+    BOOL _enableAudio;
     uint32_t m_width;
     uint32_t m_height;
     uint32_t m_audioSampleRate;
@@ -86,10 +87,11 @@ std::string GetAvErrorString(int errNum) {
 
 @implementation OculusMRC
 
-- (instancetype)initWithHardwareDecoder:(BOOL)useHardwareDecoder {
+- (instancetype)initWithHardwareDecoder:(BOOL)useHardwareDecoder enableAudio:(BOOL)enableAudio {
     self = [super init];
     if (self) {
         _shouldUseHardwareDecoder = useHardwareDecoder;
+        _enableAudio = enableAudio;
         m_width = OM_DEFAULT_WIDTH;
         m_height = OM_DEFAULT_HEIGHT;
         m_audioSampleRate = OM_DEFAULT_AUDIO_SAMPLERATE;

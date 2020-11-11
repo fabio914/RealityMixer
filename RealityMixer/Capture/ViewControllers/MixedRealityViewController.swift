@@ -107,7 +107,10 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureOculusMRC() {
-        self.oculusMRC = OculusMRC(hardwareDecoder: configuration.shouldUseHardwareDecoder)
+        self.oculusMRC = OculusMRC(
+            hardwareDecoder: configuration.shouldUseHardwareDecoder,
+            enableAudio: configuration.enableAudio
+        )
         oculusMRC?.delegate = self
     }
 
