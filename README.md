@@ -63,6 +63,7 @@ It also requires [Carthage](https://github.com/Carthage/Carthage) to download it
 ## Contributors
 
 [Fabio de A. Dela Antonio](https://github.com/fabio914/)
+
 [Giovanni Longatto N. Marques](https://github.com/gmarques33)
 
 ## TO-DOs
