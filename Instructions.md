@@ -84,6 +84,8 @@ You might also need to calibrate again after you install a new VR application/ga
  <img src="Images/instructions/mixed_reality_3.jpg" width="300" />
  
  - You can now close your application/game on the Quest.
+ 
+ If the camera position appeared to be incorrect or you were having other issues. Try restarting your headset, defining a new Guardian boundary and calibrating again.
 
 ## How to record a video?
 
