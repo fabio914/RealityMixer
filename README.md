@@ -22,7 +22,7 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
  - 5 Ghz WiFi network.
  - A compatible Quest VR application/game (check this [page](https://creator.oculus.com/mrc/) for a list of the officially supported games).
 
-Note that this is app is still just a prototype and it's still being developed, use at your own risk.
+Note that this app is still just a prototype and it's still being developed, use at your own risk.
 
 ## Installation
 

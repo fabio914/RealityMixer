@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 struct Style {
     static let navigationBarBackgroundColor = UIColor(white: 0.1, alpha: 1.0)
@@ -51,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             [ .foregroundColor: Style.segmentedControlNormalTextColor ],
             for: .normal
         )
+
+        try? AVAudioSession.sharedInstance().setCategory(.playback, options: [ .mixWithOthers ])
 
         let window = UIWindow(frame: UIScreen.main.bounds)
         self.window = window
