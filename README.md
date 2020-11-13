@@ -4,6 +4,8 @@
 
 This is a standalone Oculus Quest Mixed Reality app for iOS. It is able to generate VR gameplay videos in Mixed Reality without a PC and without a green screen.
 
+Click on [this link](https://testflight.apple.com/join/gyXe6zXG) to join the TestFlight beta, or follow the [instructions](#installation) below to install it using AltStore.
+
 Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
 
 ## Examples
@@ -42,9 +44,9 @@ OR
 altstore://install?url=https://github.com/fabio914/OculusQuestMixedRealityForiOS/releases/download/0.1.2/RealityMixer.ipa
 ```
 
-### Test Flight
+### TestFlight
 
-*Coming soon?*
+Use [this link](https://testflight.apple.com/join/gyXe6zXG) to join the beta. Limited to the first 10 thousand users.
 
 ## Instructions
 
