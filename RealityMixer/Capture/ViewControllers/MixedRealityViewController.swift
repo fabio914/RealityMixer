@@ -15,7 +15,9 @@ struct MixedRealityConfiguration {
 
     // Use magenta as the transparency color for the foreground plane
     let shouldUseMagentaAsTransparency: Bool
+
     let enableAudio: Bool
+    let shouldFlipOutput: Bool
 }
 
 final class MixedRealityViewController: UIViewController {
@@ -161,7 +163,9 @@ final class MixedRealityViewController: UIViewController {
         let backgroundPlaneNode = makePlaneNodeForDistance(100.0, frame: frame)
 
         // Flipping image
-        backgroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = flipTransform
+        if configuration.shouldFlipOutput {
+            backgroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = flipTransform
+        }
 
         backgroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
             .surface: """
@@ -178,8 +182,10 @@ final class MixedRealityViewController: UIViewController {
         let foregroundPlaneNode = makePlaneNodeForDistance(0.1, frame: frame)
 
         // Flipping image
-        foregroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = flipTransform
-        foregroundPlaneNode.geometry?.firstMaterial?.transparent.contentsTransform = flipTransform
+        if configuration.shouldFlipOutput {
+            foregroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = flipTransform
+            foregroundPlaneNode.geometry?.firstMaterial?.transparent.contentsTransform = flipTransform
+        }
 
         foregroundPlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 

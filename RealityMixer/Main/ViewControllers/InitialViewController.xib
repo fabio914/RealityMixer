@@ -68,7 +68,7 @@
                                 <constraint firstAttribute="height" constant="40" id="2Ao-DX-F6h"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                            <state key="normal" title="How to use it?">
+                            <state key="normal" title="Instructions">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>

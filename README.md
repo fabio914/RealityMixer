@@ -52,6 +52,30 @@ Use [this link](https://testflight.apple.com/join/gyXe6zXG) to join the beta. Li
 
 [Link](Instructions.md)
 
+## TO-DOs
+
+ - [ ] Optimize the video stream (adopt a lower frame rate if the iPhone/iPad can't keep up with the stream);
+  
+ - [ ] Investigate the audio delay;
+
+ - [ ] Improve the calibration screen and fix the positioning of the controller models;
+ 
+ - [ ] Add a "green screen mode" that will allow the user to use the app with a regular green screen, allowing the app to run on devices without an A12 chip;
+ 
+## Wishlist
+
+These are features that could be implemented in the future:
+
+ - Create a custom calibration app for the Quest to replace the Oculus MRC app, allowing the user to calibrate from VR itself;
+
+ - Use ARKit's body tracking to replace the image from the camera with an avatar;
+ 
+ - Allow the user to adjust the FOV of the mixed reality capture;
+ 
+ - Allow the app to cast the video output (although this should already be possible if you long press the "Screen recording" button on "Control Center" and then select a streaming app);
+ 
+ - Android version;
+
 ## Credits
 
 This project is based on the [Oculus MRC plugin for OBS](https://github.com/facebookincubator/obs-plugins/tree/master/oculus-mrc).
@@ -67,7 +91,3 @@ It also requires [Carthage](https://github.com/Carthage/Carthage) to download it
 [Fabio de A. Dela Antonio](https://github.com/fabio914/)
 
 [Giovanni Longatto N. Marques](https://github.com/gmarques33)
-
-## TO-DOs
-
- - Optimize the video stream;
