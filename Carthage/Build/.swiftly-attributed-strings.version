@@ -2,10 +2,10 @@
   "commitish" : "2.0.0",
   "iOS" : [
     {
-      "hash" : "2858a06be1193c8636cb92fb6cd845a635ed8e2fb32dc304307d3b682198f38a",
+      "hash" : "b60e3e6692fa50a1af843c3bd04d05841a68a405f5dd834b128542a2fff7cae1",
       "name" : "SwiftlyAttributedStrings",
       "linking" : "dynamic",
-      "swiftToolchainVersion" : "5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)"
+      "swiftToolchainVersion" : "5.3.1 (swiftlang-1200.0.41 clang-1200.0.32.8)"
     }
   ]
 }

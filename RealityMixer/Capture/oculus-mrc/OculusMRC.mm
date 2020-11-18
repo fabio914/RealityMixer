@@ -62,6 +62,7 @@ std::string GetAvErrorString(int errNum) {
 @interface OculusMRC () {
     BOOL _shouldUseHardwareDecoder;
     BOOL _enableAudio;
+    BOOL _shouldSkipFrame;
     uint32_t m_width;
     uint32_t m_height;
     uint32_t m_audioSampleRate;
@@ -87,11 +88,12 @@ std::string GetAvErrorString(int errNum) {
 
 @implementation OculusMRC
 
-- (instancetype)initWithHardwareDecoder:(BOOL)useHardwareDecoder enableAudio:(BOOL)enableAudio {
+- (instancetype)initWithHardwareDecoder:(BOOL)useHardwareDecoder enableAudio:(BOOL)enableAudio skipFrame:(BOOL)skipFrame {
     self = [super init];
     if (self) {
         _shouldUseHardwareDecoder = useHardwareDecoder;
         _enableAudio = enableAudio;
+        _shouldSkipFrame = skipFrame;
         m_width = OM_DEFAULT_WIDTH;
         m_height = OM_DEFAULT_HEIGHT;
         m_audioSampleRate = OM_DEFAULT_AUDIO_SAMPLERATE;
@@ -163,6 +165,8 @@ std::string GetAvErrorString(int errNum) {
 
 - (void)update {
 
+    bool isFirstFrame = true;
+
     while (m_frameCollection.HasCompletedFrame()) {
 
         auto frame = m_frameCollection.PopFrame();
@@ -193,43 +197,54 @@ std::string GetAvErrorString(int errNum) {
                 fprintf(stderr, "avcodec_send_packet error %s\n", GetAvErrorString(ret).c_str());
             } else {
 
+#if DEBUG
+                std::chrono::duration<double> timePassed = std::chrono::system_clock::now() - m_frameCollection.GetFirstFrameTime();
+                fprintf(stdout, "[%f][VIDEO_DATA] size %d width %d height %d format %d\n", timePassed.count(), packet->size, picture->width, picture->height, picture->format);
+#endif
+
+                while (m_cachedAudioFrames.size() > 0 && m_cachedAudioFrames[0].first <= m_videoFrameIndex) {
+                    std::shared_ptr<Frame> audioFrame = m_cachedAudioFrames[0].second;
+
+                    AudioDataHeader * audioDataHeader = (AudioDataHeader *)(audioFrame->m_payload.data());
+
+                    if (audioDataHeader->channels == 1 || audioDataHeader->channels == 2) {
+                        float * data = (float *)((uint8_t *)audioFrame->m_payload.data() + sizeof(AudioDataHeader));
+                        [_delegate oculusMRC: self didReceiveAudio: pcmBufferFrom(audioDataHeader, m_audioSampleRate, data)];
+                    } else {
+                        fprintf(stderr, "[AUDIO_DATA] unimplemented audio channels %d", audioDataHeader->channels);
+                    }
+
+                    m_cachedAudioFrames.erase(m_cachedAudioFrames.begin());
+                }
+
+                ++m_videoFrameIndex;
+
+                bool shouldKeepFrame = _shouldSkipFrame ? isFirstFrame:true;
+
+                if(shouldKeepFrame) {
+                    m_codecContext->skip_frame = AVDISCARD_NONE;
+                } else {
+                    m_codecContext->skip_frame = AVDISCARD_NONREF;
+                }
+
                 ret = avcodec_receive_frame(m_codecContext, picture);
 
                 if (ret < 0) {
                     fprintf(stderr, "avcodec_receive_frame error %s\n", GetAvErrorString(ret).c_str());
                 } else {
-#if DEBUG
-                    std::chrono::duration<double> timePassed = std::chrono::system_clock::now() - m_frameCollection.GetFirstFrameTime();
-                    fprintf(stdout, "[%f][VIDEO_DATA] size %d width %d height %d format %d\n", timePassed.count(), packet->size, picture->width, picture->height, picture->format);
-#endif
-
-                    while (m_cachedAudioFrames.size() > 0 && m_cachedAudioFrames[0].first <= m_videoFrameIndex) {
-                        std::shared_ptr<Frame> audioFrame = m_cachedAudioFrames[0].second;
-
-                        AudioDataHeader * audioDataHeader = (AudioDataHeader *)(audioFrame->m_payload.data());
-
-                        if (audioDataHeader->channels == 1 || audioDataHeader->channels == 2) {
-                            float * data = (float *)((uint8_t *)audioFrame->m_payload.data() + sizeof(AudioDataHeader));
-                            [_delegate oculusMRC: self didReceiveAudio: pcmBufferFrom(audioDataHeader, m_audioSampleRate, data)];
-                        } else {
-                            fprintf(stderr, "[AUDIO_DATA] unimplemented audio channels %d", audioDataHeader->channels);
-                        }
-
-                        m_cachedAudioFrames.erase(m_cachedAudioFrames.begin());
-                    }
-                    
-                    ++m_videoFrameIndex;
-
-                    @autoreleasepool {
-                        if (_shouldUseHardwareDecoder) {
-                            [self processPictureFromVideoToolbox:picture];
-                        } else {
-                            [self processPicture:picture];
+                    if (shouldKeepFrame) {
+                        @autoreleasepool {
+                            if (_shouldUseHardwareDecoder) {
+                                [self processPictureFromVideoToolbox:picture];
+                            } else {
+                                [self processPicture:picture];
+                            }
                         }
                     }
                 }
             }
 
+            isFirstFrame = false;
             av_frame_free(&picture);
             av_packet_free(&packet);
 

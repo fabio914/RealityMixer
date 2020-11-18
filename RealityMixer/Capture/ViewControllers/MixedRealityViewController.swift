@@ -12,6 +12,7 @@ import SwiftSocket
 
 struct MixedRealityConfiguration {
     let shouldUseHardwareDecoder: Bool
+    let shouldSkipFrame: Bool
 
     // Use magenta as the transparency color for the foreground plane
     let shouldUseMagentaAsTransparency: Bool
@@ -26,11 +27,10 @@ final class MixedRealityViewController: UIViewController {
     private var audioEngine: AVAudioEngine?
     private var audioPlayer: AVAudioPlayerNode?
     private var displayLink: CADisplayLink?
+    private var networkThread: Thread?
     private var oculusMRC: OculusMRC?
 
     @IBOutlet private weak var optionsContainer: UIView!
-    @IBOutlet private weak var debugView: UIImageView!
-    @IBOutlet private weak var showDebugButton: UIButton!
     @IBOutlet private weak var sceneView: ARSCNView!
     private var backgroundNode: SCNNode?
     private var foregroundNode: SCNNode?
@@ -69,6 +69,7 @@ final class MixedRealityViewController: UIViewController {
         configureScene()
         configureTap()
         configureBackgroundEvent()
+        configureNetworkThread()
     }
 
     private func configureDisplay() {
@@ -111,7 +112,8 @@ final class MixedRealityViewController: UIViewController {
     private func configureOculusMRC() {
         self.oculusMRC = OculusMRC(
             hardwareDecoder: configuration.shouldUseHardwareDecoder,
-            enableAudio: configuration.enableAudio
+            enableAudio: configuration.enableAudio,
+            skipFrame: configuration.shouldSkipFrame
         )
         oculusMRC?.delegate = self
     }
@@ -130,6 +132,10 @@ final class MixedRealityViewController: UIViewController {
 
     private func configureBackgroundEvent() {
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+    }
+
+    private func configureNetworkThread() {
+        networkThread = Thread(target: self, selector: #selector(dataThread), object: nil)
     }
 
     private func planeSizeForDistance(_ distance: Float, frame: ARFrame) -> CGSize {
@@ -266,6 +272,7 @@ final class MixedRealityViewController: UIViewController {
         }
 
         sceneView.session.run(configuration)
+        networkThread?.start()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -273,16 +280,16 @@ final class MixedRealityViewController: UIViewController {
         sceneView.session.pause()
     }
 
-    @objc func update(with sender: CADisplayLink) {
-        guard let oculusMRC = oculusMRC,
-            let data = client.read(65536, timeout: 0),
-            data.count > 0
-        else {
-            return
+    @objc private func dataThread(_ thread: Thread) {
+        while !thread.isCancelled {
+            if let data = client.read(65536, timeout: 0), data.count > 0 {
+                oculusMRC?.addData(data, length: Int32(data.count))
+            }
         }
+    }
 
-        oculusMRC.addData(data, length: Int32(data.count))
-        oculusMRC.update()
+    @objc func update(with sender: CADisplayLink) {
+        oculusMRC?.update()
     }
 
     // MARK: - Actions
@@ -304,21 +311,12 @@ final class MixedRealityViewController: UIViewController {
         disconnect()
     }
 
-    @IBAction private func showHideQuestOutput(_ sender: Any) {
-        debugView.isHidden = !debugView.isHidden
-
-        if debugView.isHidden {
-            showDebugButton.setTitle("Show Quest Output", for: .normal)
-        } else {
-            showDebugButton.setTitle("Hide Quest Output", for: .normal)
-        }
-    }
-
     @IBAction private func hideAction(_ sender: Any) {
         optionsContainer.isHidden = true
     }
 
     func invalidate() {
+        networkThread?.cancel()
         audioPlayer?.stop()
         audioEngine?.stop()
         displayLink?.invalidate()
@@ -333,7 +331,6 @@ final class MixedRealityViewController: UIViewController {
 extension MixedRealityViewController: OculusMRCDelegate {
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceive image: UIImage) {
-        debugView.image = image
         backgroundNode?.geometry?.firstMaterial?.diffuse.contents = image
         foregroundNode?.geometry?.firstMaterial?.diffuse.contents = image
         foregroundNode?.geometry?.firstMaterial?.transparent.contents = image
