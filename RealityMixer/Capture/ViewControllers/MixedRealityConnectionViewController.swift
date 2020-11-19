@@ -12,7 +12,6 @@ final class MixedRealityConnectionViewController: UIViewController {
 
     @IBOutlet private weak var addressTextField: UITextField!
     @IBOutlet private weak var portTextField: UITextField!
-    @IBOutlet private weak var hardwareDecoderSwitch: UISwitch!
     @IBOutlet private weak var audioSwitch: UISwitch!
     @IBOutlet private weak var magentaSwitch: UISwitch!
     @IBOutlet private weak var unflipSwitch: UISwitch!
@@ -112,7 +111,6 @@ final class MixedRealityConnectionViewController: UIViewController {
                 try? self.storage.save(preference: .init(address: address))
 
                 let configuration = MixedRealityConfiguration(
-                    shouldUseHardwareDecoder: self.hardwareDecoderSwitch.isOn,
                     shouldUseMagentaAsTransparency: self.magentaSwitch.isOn,
                     enableAudio: self.audioSwitch.isOn,
                     shouldFlipOutput: !self.unflipSwitch.isOn

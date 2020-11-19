@@ -11,8 +11,6 @@ import AVFoundation
 import SwiftSocket
 
 struct MixedRealityConfiguration {
-    let shouldUseHardwareDecoder: Bool
-
     // Use magenta as the transparency color for the foreground plane
     let shouldUseMagentaAsTransparency: Bool
 
@@ -29,7 +27,6 @@ final class MixedRealityViewController: UIViewController {
     private var oculusMRC: OculusMRC?
 
     @IBOutlet private weak var optionsContainer: UIView!
-    @IBOutlet private weak var debugView: UIImageView!
     @IBOutlet private weak var showDebugButton: UIButton!
     @IBOutlet private weak var sceneView: ARSCNView!
     private var backgroundNode: SCNNode?
@@ -109,10 +106,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureOculusMRC() {
-        self.oculusMRC = OculusMRC(
-            hardwareDecoder: configuration.shouldUseHardwareDecoder,
-            enableAudio: configuration.enableAudio
-        )
+        self.oculusMRC = OculusMRC(audio: configuration.enableAudio)
         oculusMRC?.delegate = self
     }
 
@@ -304,16 +298,6 @@ final class MixedRealityViewController: UIViewController {
         disconnect()
     }
 
-    @IBAction private func showHideQuestOutput(_ sender: Any) {
-        debugView.isHidden = !debugView.isHidden
-
-        if debugView.isHidden {
-            showDebugButton.setTitle("Show Quest Output", for: .normal)
-        } else {
-            showDebugButton.setTitle("Hide Quest Output", for: .normal)
-        }
-    }
-
     @IBAction private func hideAction(_ sender: Any) {
         optionsContainer.isHidden = true
     }
@@ -333,7 +317,6 @@ final class MixedRealityViewController: UIViewController {
 extension MixedRealityViewController: OculusMRCDelegate {
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceive image: UIImage) {
-        debugView.image = image
         backgroundNode?.geometry?.firstMaterial?.diffuse.contents = image
         foregroundNode?.geometry?.firstMaterial?.diffuse.contents = image
         foregroundNode?.geometry?.firstMaterial?.transparent.contents = image

@@ -2,10 +2,10 @@
   "commitish" : "2.1.0",
   "iOS" : [
     {
-      "hash" : "65953bb9a4db4141143f8ac3e9ec8e6758ec4880c9e594c8ea110e54cfbcb801",
+      "hash" : "7d188e2bb695610e5bbc9ba19e9a91d0bb5a9106a6801c4ab552293563114bcb",
       "name" : "SwiftSocket",
       "linking" : "dynamic",
-      "swiftToolchainVersion" : "5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)"
+      "swiftToolchainVersion" : "5.3.1 (swiftlang-1200.0.41 clang-1200.0.32.8)"
     }
   ]
 }
