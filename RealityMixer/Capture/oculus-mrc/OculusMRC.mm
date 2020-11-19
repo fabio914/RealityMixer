@@ -209,9 +209,8 @@ std::string GetAvErrorString(int errNum) {
                     
                     ++m_videoFrameIndex;
 
-                    @autoreleasepool {
-                        [self processPictureFromVideoToolbox:picture];
-                    }
+                    // Assuming that the VideoToolbox integration is working and that this pixel buffer is available.
+                    [_delegate oculusMRC:self didReceivePixelBuffer:(CVPixelBufferRef)picture->data[3]];
                 }
             }
 
@@ -238,36 +237,10 @@ std::string GetAvErrorString(int errNum) {
     }
 }
 
-#pragma mark - Processing
-
-- (void)processPictureFromVideoToolbox:(AVFrame *)picture {
-    // Assuming that the VideoToolbox integration is working and that this pixel buffer is available.
-    CVPixelBufferRef pixelBuffer = (CVPixelBufferRef)picture->data[3];
-    UIImage * image = [self imageFromCVPixelBuffer:pixelBuffer];
-
-    if (image != nil) {
-        [_delegate oculusMRC:self didReceiveImage:image];
-    }
-}
-
 #pragma mark - Deinit
 
 - (void)dealloc {
     [self stopDecoder];
-}
-
-#pragma mark - Helper functions
-
-// https://stackoverflow.com/questions/8072208/how-to-turn-a-cvpixelbuffer-into-a-uiimage
-- (UIImage *)imageFromCVPixelBuffer:(CVPixelBufferRef)pixelBuffer {
-
-    CIImage * ciImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
-    CIContext * temporaryContext = [CIContext contextWithOptions:nil];
-    CGRect rect = CGRectMake(0, 0, CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer));
-    CGImageRef videoImage = [temporaryContext createCGImage:ciImage fromRect:rect];
-    UIImage * uiImage = [UIImage imageWithCGImage:videoImage scale:1.0 orientation:UIImageOrientationDownMirrored];
-    CGImageRelease(videoImage);
-    return uiImage;
 }
 
 @end

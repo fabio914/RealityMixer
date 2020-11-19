@@ -27,8 +27,8 @@ final class MixedRealityViewController: UIViewController {
     private var oculusMRC: OculusMRC?
 
     @IBOutlet private weak var optionsContainer: UIView!
-    @IBOutlet private weak var showDebugButton: UIButton!
     @IBOutlet private weak var sceneView: ARSCNView!
+    private var textureCache: CVMetalTextureCache?
     private var backgroundNode: SCNNode?
     private var foregroundNode: SCNNode?
 
@@ -101,6 +101,7 @@ final class MixedRealityViewController: UIViewController {
 
     private func configureDisplayLink() {
         let displayLink = CADisplayLink(target: self, selector: #selector(update(with:)))
+        displayLink.preferredFramesPerSecond = 60
         displayLink.add(to: .main, forMode: .default)
         self.displayLink = displayLink
     }
@@ -116,6 +117,20 @@ final class MixedRealityViewController: UIViewController {
         sceneView.session.delegate = self
 
         sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
+
+        if let metalDevice = sceneView.device {
+            let result = CVMetalTextureCacheCreate(
+                kCFAllocatorDefault,
+                nil,
+                metalDevice,
+                nil,
+                &textureCache
+            )
+
+            if result != kCVReturnSuccess {
+                print("Unable to create metal texture cache!")
+            }
+        }
     }
 
     private func configureTap() {
@@ -268,15 +283,51 @@ final class MixedRealityViewController: UIViewController {
     }
 
     @objc func update(with sender: CADisplayLink) {
-        guard let oculusMRC = oculusMRC,
-            let data = client.read(65536, timeout: 0),
-            data.count > 0
-        else {
-            return
+        receiveData()
+        oculusMRC?.update()
+    }
+
+    // MARK: - Helpers
+
+    private func receiveData() {
+        while let data = client.read(65536, timeout: 0), data.count > 0 {
+            oculusMRC?.addData(data, length: Int32(data.count))
+        }
+    }
+
+    private func texture(from pixelBuffer: CVPixelBuffer) -> MTLTexture? {
+        guard let textureCache = textureCache else { return nil }
+
+        var texture: MTLTexture?
+
+        let width = CVPixelBufferGetWidth(pixelBuffer)
+        let height = CVPixelBufferGetHeight(pixelBuffer)
+
+        if CVPixelBufferGetPixelFormatType(pixelBuffer) != kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange {
+            print("Unexpected format type")
         }
 
-        oculusMRC.addData(data, length: Int32(data.count))
-        oculusMRC.update()
+        // FIXME: Set the right format
+        let format: MTLPixelFormat = .gbgr422
+        var textureRef : CVMetalTexture?
+
+        let result = CVMetalTextureCacheCreateTextureFromImage(
+            nil,
+            textureCache,
+            pixelBuffer,
+            nil,
+            format,
+            width/2,
+            height,
+            0,
+            &textureRef
+        )
+
+        if result == kCVReturnSuccess, let textureRef = textureRef {
+            texture = CVMetalTextureGetTexture(textureRef)
+        }
+
+        return texture
     }
 
     // MARK: - Actions
@@ -316,12 +367,14 @@ final class MixedRealityViewController: UIViewController {
 
 extension MixedRealityViewController: OculusMRCDelegate {
 
-    func oculusMRC(_ oculusMRC: OculusMRC, didReceive image: UIImage) {
+    func oculusMRC(_ oculusMRC: OculusMRC, didReceive pixelBuffer: CVPixelBuffer) {
+        let image = texture(from: pixelBuffer)
+
         backgroundNode?.geometry?.firstMaterial?.diffuse.contents = image
-        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = image
-        foregroundNode?.geometry?.firstMaterial?.transparent.contents = image
+//        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = image
+//        foregroundNode?.geometry?.firstMaterial?.transparent.contents = image
     }
-    
+
     func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer) {
         audioPlayer?.scheduleBuffer(audio, completionHandler: nil)
     }
@@ -333,7 +386,7 @@ extension MixedRealityViewController: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         if first {
             configureBackground(with: frame)
-            configureForeground(with: frame)
+//            configureForeground(with: frame)
             first = false
         }
     }
