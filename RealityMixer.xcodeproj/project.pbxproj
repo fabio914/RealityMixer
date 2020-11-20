@@ -62,6 +62,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E1B214525678AF60084847C /* RealityMixer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = RealityMixer.xcconfig; sourceTree = "<group>"; };
 		A32285A82558050600FF3200 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A32285A92558050600FF3200 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		A32285AE25580A8800FF3200 /* Definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
@@ -410,6 +411,7 @@
 				A328D8AF253C8C4000B90E62 /* AppDelegate.swift */,
 				A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */,
 				A328D8BD253C8C4300B90E62 /* Info.plist */,
+				3E1B214525678AF60084847C /* RealityMixer.xcconfig */,
 			);
 			path = RealityMixer;
 			sourceTree = "<group>";
@@ -913,13 +915,13 @@
 		};
 		A328D8C1253C8C4300B90E62 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E1B214525678AF60084847C /* RealityMixer.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = ZTJ55TM37B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -935,7 +937,7 @@
 					"$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/lib",
 				);
 				MARKETING_VERSION = 0.1.3;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.reality.mixer;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).reality.mixer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -946,13 +948,13 @@
 		};
 		A328D8C2253C8C4300B90E62 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E1B214525678AF60084847C /* RealityMixer.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = ZTJ55TM37B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -968,7 +970,7 @@
 					"$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/lib",
 				);
 				MARKETING_VERSION = 0.1.3;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.reality.mixer;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).reality.mixer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

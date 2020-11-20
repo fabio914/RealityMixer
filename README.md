@@ -48,6 +48,15 @@ altstore://install?url=https://github.com/fabio914/OculusQuestMixedRealityForiOS
 
 Use [this link](https://testflight.apple.com/join/gyXe6zXG) to join the beta. Limited to the first 10 thousand users.
 
+### Xcode
+
+To build with your own developer account, create the the config file in ./RealityMixer/DeveloperSettings.xcconfig. Enter your developer team ID and organization ID like this:
+
+```
+DEVELOPMENT_TEAM = YOUR_TEAM_D
+ORGANIZATION_IDENTIFIER = com.yourcompany
+```
+
 ## Instructions
 
 [Link](Instructions.md)
