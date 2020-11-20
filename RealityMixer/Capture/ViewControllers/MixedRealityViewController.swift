@@ -178,20 +178,68 @@ final class MixedRealityViewController: UIViewController {
 
         backgroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
             .surface: """
+
+            float BT709_nonLinearNormToLinear(float normV) {
+                if (normV < 0.081) {
+                    normV *= (1.0 / 4.5);
+                } else {
+                    float a = 0.099;
+                    float gamma = 1.0 / 0.45;
+                    normV = (normV + a) * (1.0 / (1.0 + a));
+                    normV = pow(normV, gamma);
+                }
+                return normV;
+            }
+
+            vec4 yCbCrToRGB(float luma, vec2 chroma) {
+                float y = luma;
+                float u = chroma.r - 0.5;
+                float v = chroma.g - 0.5;
+
+                //float r = (1.164f * y + 1.596f * v);
+                //float g = (1.164f * y - 0.813f * v - 0.391f * u);
+                //float b = (1.164f * y + 2.018f * u);
+
+                const float yScale = 255.0 / (235.0 - 16.0); //(BT709_YMax-BT709_YMin)
+                const float uvScale = 255.0 / (240.0 - 16.0); //(BT709_UVMax-BT709_UVMin)
+
+                y = y - 16.0/255.0;
+                float r = y*yScale +                          v*uvScale*1.5748;
+                float g = y*yScale - u*uvScale*1.8556*0.101 - v*uvScale*1.5748*0.2973;
+                float b = y*yScale + u*uvScale*1.8556;
+
+                //vec4 ycbcr = vec4(luma, chroma, 1.0);
+
+                //const float4x4 ycbcrToRGBTransform = float4x4(
+                //    float4(+1.0000f, +1.0000f, +1.0000f, +0.0000f),
+                //    float4(+0.0000f, -0.3441f, +1.7720f, +0.0000f),
+                //    float4(+1.4020f, -0.7141f, +0.0000f, +0.0000f),
+                //    float4(-0.7010f, +0.5291f, -0.8860f, +1.0000f)
+                //);
+
+                //vec3 result = (ycbcrToRGBTransform * ycbcr).rgb;
+                //float r = result.r;
+                //float g = result.g;
+                //float b = result.b;
+
+                r = clamp(r, 0.0, 1.0);
+                g = clamp(g, 0.0, 1.0);
+                b = clamp(b, 0.0, 1.0);
+
+                r = BT709_nonLinearNormToLinear(r);
+                g = BT709_nonLinearNormToLinear(g);
+                b = BT709_nonLinearNormToLinear(b);
+                return vec4(r, g, b, 1.0);
+            }
+
+            #pragma body
+
             vec2 backgroundCoords = vec2((_surface.diffuseTexcoord.x * 0.5), _surface.diffuseTexcoord.y);
 
             float luma = texture2D(u_ambientTexture, backgroundCoords).r;
             vec2 chroma = texture2D(u_diffuseTexture, backgroundCoords).rg;
-            vec4 ycbcr = vec4(luma, chroma, 1.0);
 
-            const float4x4 ycbcrToRGBTransform = float4x4(
-                float4(+1.0000f, +1.0000f, +1.0000f, +0.0000f),
-                float4(+0.0000f, -0.3441f, +1.7720f, +0.0000f),
-                float4(+1.4020f, -0.7141f, +0.0000f, +0.0000f),
-                float4(-0.7010f, +0.5291f, -0.8860f, +1.0000f)
-            );
-
-            _surface.diffuse = ycbcrToRGBTransform * ycbcr;
+            _surface.diffuse = yCbCrToRGB(luma, chroma);
             _surface.ambient = vec4(0.0, 0.0, 0.0, 1.0);
             """
         ]
