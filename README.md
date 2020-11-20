@@ -54,8 +54,6 @@ Use [this link](https://testflight.apple.com/join/gyXe6zXG) to join the beta. Li
 
 ## TO-DOs
 
- - [ ] Optimize the video stream (adopt a lower frame rate if the iPhone/iPad can't keep up with the stream);
-  
  - [ ] Investigate the audio delay;
 
  - [ ] Improve the calibration screen and fix the positioning of the controller models;
