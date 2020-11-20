@@ -110,3 +110,11 @@ Follow the instructions below if you don't have the record option inside your "C
  - Scroll down to "More Controls" and tap on the "+" button beside "Screen Recording".
  
  <img src="Images/instructions/record_4.jpg" width="300" />
+
+## How to improve performance?
+
+ - Make sure that your device is using a 5 GHz WiFi connection (e.g. 802.11ac), and that you don't have too many devices using the network at the same time while you're using the app.
+ 
+ - Make sure that your device is not on Low Power mode. It is recommended that you keep your device connected to a power outlet while using the app.
+ 
+ - Select a small resoltion scale factor (`0.5x` or `0.25x`) and then calibrate again.

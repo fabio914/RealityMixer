@@ -64,6 +64,8 @@ final class MixedRealityConnectionViewController: UIViewController {
 
          • Fill in the Quest's IP Address. You can find this address on the Quest's WiFi options.
 
+         • Make sure that your device is not on Low Power mode.
+
          • Tap on "Connect".
 
          • After your mixed reality session is over, tap on the screen once to display the options on the top left side of the screen, and then tap on "Disconnect".
