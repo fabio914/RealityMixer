@@ -177,71 +177,7 @@ final class MixedRealityViewController: UIViewController {
         }
 
         backgroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: """
-
-            float BT709_nonLinearNormToLinear(float normV) {
-                if (normV < 0.081) {
-                    normV *= (1.0 / 4.5);
-                } else {
-                    float a = 0.099;
-                    float gamma = 1.0 / 0.45;
-                    normV = (normV + a) * (1.0 / (1.0 + a));
-                    normV = pow(normV, gamma);
-                }
-                return normV;
-            }
-
-            vec4 yCbCrToRGB(float luma, vec2 chroma) {
-                float y = luma;
-                float u = chroma.r - 0.5;
-                float v = chroma.g - 0.5;
-
-                //float r = (1.164f * y + 1.596f * v);
-                //float g = (1.164f * y - 0.813f * v - 0.391f * u);
-                //float b = (1.164f * y + 2.018f * u);
-
-                const float yScale = 255.0 / (235.0 - 16.0); //(BT709_YMax-BT709_YMin)
-                const float uvScale = 255.0 / (240.0 - 16.0); //(BT709_UVMax-BT709_UVMin)
-
-                y = y - 16.0/255.0;
-                float r = y*yScale +                          v*uvScale*1.5748;
-                float g = y*yScale - u*uvScale*1.8556*0.101 - v*uvScale*1.5748*0.2973;
-                float b = y*yScale + u*uvScale*1.8556;
-
-                //vec4 ycbcr = vec4(luma, chroma, 1.0);
-
-                //const float4x4 ycbcrToRGBTransform = float4x4(
-                //    float4(+1.0000f, +1.0000f, +1.0000f, +0.0000f),
-                //    float4(+0.0000f, -0.3441f, +1.7720f, +0.0000f),
-                //    float4(+1.4020f, -0.7141f, +0.0000f, +0.0000f),
-                //    float4(-0.7010f, +0.5291f, -0.8860f, +1.0000f)
-                //);
-
-                //vec3 result = (ycbcrToRGBTransform * ycbcr).rgb;
-                //float r = result.r;
-                //float g = result.g;
-                //float b = result.b;
-
-                r = clamp(r, 0.0, 1.0);
-                g = clamp(g, 0.0, 1.0);
-                b = clamp(b, 0.0, 1.0);
-
-                r = BT709_nonLinearNormToLinear(r);
-                g = BT709_nonLinearNormToLinear(g);
-                b = BT709_nonLinearNormToLinear(b);
-                return vec4(r, g, b, 1.0);
-            }
-
-            #pragma body
-
-            vec2 backgroundCoords = vec2((_surface.diffuseTexcoord.x * 0.5), _surface.diffuseTexcoord.y);
-
-            float luma = texture2D(u_ambientTexture, backgroundCoords).r;
-            vec2 chroma = texture2D(u_diffuseTexture, backgroundCoords).rg;
-
-            _surface.diffuse = yCbCrToRGB(luma, chroma);
-            _surface.ambient = vec4(0.0, 0.0, 0.0, 1.0);
-            """
+            .surface: Shaders.backgroundSurface
         ]
 
         sceneView.pointOfView?.addChildNode(backgroundPlaneNode)
@@ -261,43 +197,11 @@ final class MixedRealityViewController: UIViewController {
 
         if configuration.shouldUseMagentaAsTransparency {
             foregroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-                .surface: """
-                vec2 foregroundCoords = vec2((_surface.diffuseTexcoord.x * 0.25) + 0.5, _surface.diffuseTexcoord.y);
-                _surface.diffuse = texture2D(u_diffuseTexture, foregroundCoords);
-
-                vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.5, _surface.transparentTexcoord.y);
-                vec3 color = texture2D(u_diffuseTexture, alphaCoords).rgb;
-                vec3 magenta = vec3(1.0, 0.0, 1.0);
-                float threshold = 0.10;
-
-                bool checkRed = (color.r >= (magenta.r - threshold));
-                bool checkGreen = (color.g >= (magenta.g - threshold) && color.g <= (magenta.g + threshold));
-                bool checkBlue = (color.b >= (magenta.b - threshold));
-
-                if (checkRed && checkGreen && checkBlue) {
-                    // FIXME: This is not ideal, this is ignoring semi-transparent pixels
-                    _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
-                } else {
-                    _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
-                }
-                """
+                .surface: Shaders.magentaForegroundSurface
             ]
         } else {
             foregroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-                .surface: """
-                vec2 foregroundCoords = vec2((_surface.diffuseTexcoord.x * 0.25) + 0.5, _surface.diffuseTexcoord.y);
-                _surface.diffuse = texture2D(u_diffuseTexture, foregroundCoords);
-
-                vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.75, _surface.transparentTexcoord.y);
-                float alpha = texture2D(u_transparentTexture, alphaCoords).r;
-
-                // Threshold to prevent glitches because of the video compression.
-                float threshold = 0.25;
-                float correctedAlpha = step(threshold, alpha) * alpha;
-
-                float value = (1.0 - correctedAlpha);
-                _surface.transparent = vec4(value, value, value, 1.0);
-                """
+                .surface: Shaders.foregroundSurface
             ]
         }
 
@@ -434,9 +338,8 @@ extension MixedRealityViewController: OculusMRCDelegate {
         backgroundNode?.geometry?.firstMaterial?.ambient.contents = luma
         backgroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
 
-
-//        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = image
-//        foregroundNode?.geometry?.firstMaterial?.transparent.contents = image
+        foregroundNode?.geometry?.firstMaterial?.transparent.contents = luma
+        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
     }
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer) {
@@ -450,7 +353,7 @@ extension MixedRealityViewController: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         if first {
             configureBackground(with: frame)
-//            configureForeground(with: frame)
+            configureForeground(with: frame)
             first = false
         }
     }
