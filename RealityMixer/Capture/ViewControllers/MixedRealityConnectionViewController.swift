@@ -12,7 +12,6 @@ final class MixedRealityConnectionViewController: UIViewController {
 
     @IBOutlet private weak var addressTextField: UITextField!
     @IBOutlet private weak var portTextField: UITextField!
-    @IBOutlet private weak var hardwareDecoderSwitch: UISwitch!
     @IBOutlet private weak var audioSwitch: UISwitch!
     @IBOutlet private weak var magentaSwitch: UISwitch!
     @IBOutlet private weak var unflipSwitch: UISwitch!
@@ -65,6 +64,8 @@ final class MixedRealityConnectionViewController: UIViewController {
 
          • Fill in the Quest's IP Address. You can find this address on the Quest's WiFi options.
 
+         • Make sure that your device is not on Low Power mode.
+
          • Tap on "Connect".
 
          • After your mixed reality session is over, tap on the screen once to display the options on the top left side of the screen, and then tap on "Disconnect".
@@ -112,7 +113,6 @@ final class MixedRealityConnectionViewController: UIViewController {
                 try? self.storage.save(preference: .init(address: address))
 
                 let configuration = MixedRealityConfiguration(
-                    shouldUseHardwareDecoder: self.hardwareDecoderSwitch.isOn,
                     shouldUseMagentaAsTransparency: self.magentaSwitch.isOn,
                     enableAudio: self.audioSwitch.isOn,
                     shouldFlipOutput: !self.unflipSwitch.isOn

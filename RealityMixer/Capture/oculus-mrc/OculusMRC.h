@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class AVAudioPCMBuffer;
 
 @protocol OculusMRCDelegate <NSObject>
-- (void)oculusMRC:(OculusMRC *)oculusMRC didReceiveImage:(UIImage *)image;
+- (void)oculusMRC:(OculusMRC *)oculusMRC didReceivePixelBuffer:(CVPixelBufferRef)pixelBuffer;
 - (void)oculusMRC:(OculusMRC *)oculusMRC didReceiveAudio:(AVAudioPCMBuffer *)audio;
 @end
 
@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<OculusMRCDelegate> delegate;
 
-- (instancetype)initWithHardwareDecoder:(BOOL)useHardwareDecoder enableAudio:(BOOL)enableAudio;
+- (instancetype)initWithAudio:(BOOL)enableAudio;
 - (void)addData:(const uint8_t *)data length:(int32_t)length;
 - (void)update;
 

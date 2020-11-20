@@ -11,8 +11,6 @@ import AVFoundation
 import SwiftSocket
 
 struct MixedRealityConfiguration {
-    let shouldUseHardwareDecoder: Bool
-
     // Use magenta as the transparency color for the foreground plane
     let shouldUseMagentaAsTransparency: Bool
 
@@ -29,9 +27,8 @@ final class MixedRealityViewController: UIViewController {
     private var oculusMRC: OculusMRC?
 
     @IBOutlet private weak var optionsContainer: UIView!
-    @IBOutlet private weak var debugView: UIImageView!
-    @IBOutlet private weak var showDebugButton: UIButton!
     @IBOutlet private weak var sceneView: ARSCNView!
+    private var textureCache: CVMetalTextureCache?
     private var backgroundNode: SCNNode?
     private var foregroundNode: SCNNode?
 
@@ -104,15 +101,13 @@ final class MixedRealityViewController: UIViewController {
 
     private func configureDisplayLink() {
         let displayLink = CADisplayLink(target: self, selector: #selector(update(with:)))
+        displayLink.preferredFramesPerSecond = 60
         displayLink.add(to: .main, forMode: .default)
         self.displayLink = displayLink
     }
 
     private func configureOculusMRC() {
-        self.oculusMRC = OculusMRC(
-            hardwareDecoder: configuration.shouldUseHardwareDecoder,
-            enableAudio: configuration.enableAudio
-        )
+        self.oculusMRC = OculusMRC(audio: configuration.enableAudio)
         oculusMRC?.delegate = self
     }
 
@@ -122,6 +117,20 @@ final class MixedRealityViewController: UIViewController {
         sceneView.session.delegate = self
 
         sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
+
+        if let metalDevice = sceneView.device {
+            let result = CVMetalTextureCacheCreate(
+                kCFAllocatorDefault,
+                nil,
+                metalDevice,
+                nil,
+                &textureCache
+            )
+
+            if result != kCVReturnSuccess {
+                print("Unable to create metal texture cache!")
+            }
+        }
     }
 
     private func configureTap() {
@@ -168,10 +177,7 @@ final class MixedRealityViewController: UIViewController {
         }
 
         backgroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: """
-            vec2 backgroundCoords = vec2((_surface.diffuseTexcoord.x * 0.5), _surface.diffuseTexcoord.y);
-            _surface.diffuse = texture2D(u_diffuseTexture, backgroundCoords);
-            """
+            .surface: Shaders.backgroundSurface
         ]
 
         sceneView.pointOfView?.addChildNode(backgroundPlaneNode)
@@ -191,43 +197,11 @@ final class MixedRealityViewController: UIViewController {
 
         if configuration.shouldUseMagentaAsTransparency {
             foregroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-                .surface: """
-                vec2 foregroundCoords = vec2((_surface.diffuseTexcoord.x * 0.25) + 0.5, _surface.diffuseTexcoord.y);
-                _surface.diffuse = texture2D(u_diffuseTexture, foregroundCoords);
-
-                vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.5, _surface.transparentTexcoord.y);
-                vec3 color = texture2D(u_diffuseTexture, alphaCoords).rgb;
-                vec3 magenta = vec3(1.0, 0.0, 1.0);
-                float threshold = 0.10;
-
-                bool checkRed = (color.r >= (magenta.r - threshold));
-                bool checkGreen = (color.g >= (magenta.g - threshold) && color.g <= (magenta.g + threshold));
-                bool checkBlue = (color.b >= (magenta.b - threshold));
-
-                if (checkRed && checkGreen && checkBlue) {
-                    // FIXME: This is not ideal, this is ignoring semi-transparent pixels
-                    _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
-                } else {
-                    _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
-                }
-                """
+                .surface: Shaders.magentaForegroundSurface
             ]
         } else {
             foregroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-                .surface: """
-                vec2 foregroundCoords = vec2((_surface.diffuseTexcoord.x * 0.25) + 0.5, _surface.diffuseTexcoord.y);
-                _surface.diffuse = texture2D(u_diffuseTexture, foregroundCoords);
-
-                vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.75, _surface.transparentTexcoord.y);
-                float alpha = texture2D(u_transparentTexture, alphaCoords).r;
-
-                // Threshold to prevent glitches because of the video compression.
-                float threshold = 0.25;
-                float correctedAlpha = step(threshold, alpha) * alpha;
-
-                float value = (1.0 - correctedAlpha);
-                _surface.transparent = vec4(value, value, value, 1.0);
-                """
+                .surface: Shaders.foregroundSurface
             ]
         }
 
@@ -274,15 +248,50 @@ final class MixedRealityViewController: UIViewController {
     }
 
     @objc func update(with sender: CADisplayLink) {
-        guard let oculusMRC = oculusMRC,
-            let data = client.read(65536, timeout: 0),
-            data.count > 0
+        receiveData()
+        oculusMRC?.update()
+    }
+
+    // MARK: - Helpers
+
+    private func receiveData() {
+        while let data = client.read(65536, timeout: 0), data.count > 0 {
+            oculusMRC?.addData(data, length: Int32(data.count))
+        }
+    }
+
+    private func texture(from pixelBuffer: CVPixelBuffer, format: MTLPixelFormat, planeIndex: Int) -> MTLTexture? {
+        guard let textureCache = textureCache,
+              planeIndex >= 0, planeIndex < CVPixelBufferGetPlaneCount(pixelBuffer),
+              CVPixelBufferGetPixelFormatType(pixelBuffer) == kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
         else {
-            return
+            return nil
         }
 
-        oculusMRC.addData(data, length: Int32(data.count))
-        oculusMRC.update()
+        var texture: MTLTexture?
+
+        let width =  CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex)
+        let height = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex)
+
+        var textureRef : CVMetalTexture?
+
+        let result = CVMetalTextureCacheCreateTextureFromImage(
+            nil,
+            textureCache,
+            pixelBuffer,
+            nil,
+            format,
+            width,
+            height,
+            planeIndex,
+            &textureRef
+        )
+
+        if result == kCVReturnSuccess, let textureRef = textureRef {
+            texture = CVMetalTextureGetTexture(textureRef)
+        }
+
+        return texture
     }
 
     // MARK: - Actions
@@ -304,16 +313,6 @@ final class MixedRealityViewController: UIViewController {
         disconnect()
     }
 
-    @IBAction private func showHideQuestOutput(_ sender: Any) {
-        debugView.isHidden = !debugView.isHidden
-
-        if debugView.isHidden {
-            showDebugButton.setTitle("Show Quest Output", for: .normal)
-        } else {
-            showDebugButton.setTitle("Hide Quest Output", for: .normal)
-        }
-    }
-
     @IBAction private func hideAction(_ sender: Any) {
         optionsContainer.isHidden = true
     }
@@ -332,13 +331,17 @@ final class MixedRealityViewController: UIViewController {
 
 extension MixedRealityViewController: OculusMRCDelegate {
 
-    func oculusMRC(_ oculusMRC: OculusMRC, didReceive image: UIImage) {
-        debugView.image = image
-        backgroundNode?.geometry?.firstMaterial?.diffuse.contents = image
-        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = image
-        foregroundNode?.geometry?.firstMaterial?.transparent.contents = image
+    func oculusMRC(_ oculusMRC: OculusMRC, didReceive pixelBuffer: CVPixelBuffer) {
+        let luma = texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0)
+        let chroma = texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1)
+
+        backgroundNode?.geometry?.firstMaterial?.ambient.contents = luma
+        backgroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+
+        foregroundNode?.geometry?.firstMaterial?.transparent.contents = luma
+        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
     }
-    
+
     func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer) {
         audioPlayer?.scheduleBuffer(audio, completionHandler: nil)
     }
