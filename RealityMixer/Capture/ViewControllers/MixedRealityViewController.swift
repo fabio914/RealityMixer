@@ -179,7 +179,20 @@ final class MixedRealityViewController: UIViewController {
         backgroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
             .surface: """
             vec2 backgroundCoords = vec2((_surface.diffuseTexcoord.x * 0.5), _surface.diffuseTexcoord.y);
-            _surface.diffuse = texture2D(u_diffuseTexture, backgroundCoords);
+
+            float luma = texture2D(u_ambientTexture, backgroundCoords).r;
+            vec2 chroma = texture2D(u_diffuseTexture, backgroundCoords).rg;
+            vec4 ycbcr = vec4(luma, chroma, 1.0);
+
+            const float4x4 ycbcrToRGBTransform = float4x4(
+                float4(+1.0000f, +1.0000f, +1.0000f, +0.0000f),
+                float4(+0.0000f, -0.3441f, +1.7720f, +0.0000f),
+                float4(+1.4020f, -0.7141f, +0.0000f, +0.0000f),
+                float4(-0.7010f, +0.5291f, -0.8860f, +1.0000f)
+            );
+
+            _surface.diffuse = ycbcrToRGBTransform * ycbcr;
+            _surface.ambient = vec4(0.0, 0.0, 0.0, 1.0);
             """
         ]
 
@@ -295,20 +308,19 @@ final class MixedRealityViewController: UIViewController {
         }
     }
 
-    private func texture(from pixelBuffer: CVPixelBuffer) -> MTLTexture? {
-        guard let textureCache = textureCache else { return nil }
+    private func texture(from pixelBuffer: CVPixelBuffer, format: MTLPixelFormat, planeIndex: Int) -> MTLTexture? {
+        guard let textureCache = textureCache,
+              planeIndex >= 0, planeIndex < CVPixelBufferGetPlaneCount(pixelBuffer),
+              CVPixelBufferGetPixelFormatType(pixelBuffer) == kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
+        else {
+            return nil
+        }
 
         var texture: MTLTexture?
 
-        let width = CVPixelBufferGetWidth(pixelBuffer)
-        let height = CVPixelBufferGetHeight(pixelBuffer)
+        let width =  CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex)
+        let height = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex)
 
-        if CVPixelBufferGetPixelFormatType(pixelBuffer) != kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange {
-            print("Unexpected format type")
-        }
-
-        // FIXME: Set the right format
-        let format: MTLPixelFormat = .gbgr422
         var textureRef : CVMetalTexture?
 
         let result = CVMetalTextureCacheCreateTextureFromImage(
@@ -317,9 +329,9 @@ final class MixedRealityViewController: UIViewController {
             pixelBuffer,
             nil,
             format,
-            width/2,
+            width,
             height,
-            0,
+            planeIndex,
             &textureRef
         )
 
@@ -368,9 +380,13 @@ final class MixedRealityViewController: UIViewController {
 extension MixedRealityViewController: OculusMRCDelegate {
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceive pixelBuffer: CVPixelBuffer) {
-        let image = texture(from: pixelBuffer)
+        let luma = texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0)
+        let chroma = texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1)
 
-        backgroundNode?.geometry?.firstMaterial?.diffuse.contents = image
+        backgroundNode?.geometry?.firstMaterial?.ambient.contents = luma
+        backgroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+
+
 //        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = image
 //        foregroundNode?.geometry?.firstMaterial?.transparent.contents = image
     }
