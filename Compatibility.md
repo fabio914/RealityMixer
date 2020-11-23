@@ -10,9 +10,14 @@ You can find a list of the officially supported games/applications [here](https:
 | [Arizona Sunshine](https://www.oculus.com/experiences/quest/2190353671014400) | 5 | 0 | ? | ? |
 | [Beat Saber](https://www.oculus.com/experiences/quest/2448060205267927) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=tNTGkVg5ceU) | You'll need to enable Mixed Reality in its Settings before connecting. |
 | [Dead and Buried II](https://www.oculus.com/experiences/quest/2134077359973067) | ? | ? | ? | ? |
+| [Epic Roller Coasters](https://www.oculus.com/experiences/quest/2299465166734471) | 5 | 5 | ? | ? |
 | [Gadgeteer](https://www.oculus.com/experiences/quest/2567395559960697) | ? | ? | ? | ? |
+| [Half + Half](https://www.oculus.com/experiences/quest/2035353573194060) | 5 | 0 | ? | ? |
+| [Hand Physics Lab](https://sidequestvr.com/app/750) | 5 | 5 | ? | ? |
+| [Holopoint](https://www.oculus.com/experiences/quest/2202354219893697) | ? | ? | ? | ? |
 | [Kingspray](https://www.oculus.com/experiences/quest/2082941345119152) | ? | ? | ? | ? |
 | [Pistol Whip](https://www.oculus.com/experiences/quest/2104963472963790) | 2 | 0 | [Tweet](https://twitter.com/fabio914/status/1326699860146401284) | The audio didn't work and the video was showing a first person POV. |
+| [QuestDraw AR](https://sidequestvr.com/app/1168) | 5 | ? | ? | ? |
 | [Racket Fury](https://www.oculus.com/experiences/quest/1952355814856769) | ? | ? | ? | You'll have to use the "Unflip output" option. |
 | [Real VR Fishing](https://www.oculus.com/experiences/quest/2582932495064035) | ? | ? | ? | ? |
 | [Richie's Plank Experience](https://www.oculus.com/experiences/quest/1642239225880682) | ? | ? | [Tweet](https://twitter.com/FreekTeunen/status/1327673218891649024) | ? |
