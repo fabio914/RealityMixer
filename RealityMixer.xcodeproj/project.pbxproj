@@ -236,6 +236,7 @@
 		A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MixedRealityViewController.xib; sourceTree = "<group>"; };
 		A328D98D253CF2EE00B90E62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		A328D98F253CF2F400B90E62 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		A37850BC256C433C00C046FA /* Compatibility.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Compatibility.md; sourceTree = "<group>"; };
 		A39033EC256859A8004CB638 /* Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -385,6 +386,7 @@
 			children = (
 				A32416152554D939008D4B90 /* README.md */,
 				A32285B62558163B00FF3200 /* Instructions.md */,
+				A37850BC256C433C00C046FA /* Compatibility.md */,
 				A328D8AE253C8C4000B90E62 /* RealityMixer */,
 				A328D8AD253C8C4000B90E62 /* Products */,
 				A328D95E253C958D00B90E62 /* Frameworks */,
