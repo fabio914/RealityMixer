@@ -13,7 +13,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Epic Roller Coasters](https://www.oculus.com/experiences/quest/2299465166734471) | 5 | 5 | ? | ? |
 | [Gadgeteer](https://www.oculus.com/experiences/quest/2567395559960697) | ? | ? | ? | ? |
 | [Half + Half](https://www.oculus.com/experiences/quest/2035353573194060) | 5 | 0 | ? | ? |
-| [Hand Physics Lab](https://sidequestvr.com/app/750) | 5 | 5 | ? | ? |
+| [Hand Physics Lab](https://sidequestvr.com/app/750) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1330985474740121602) | Works perfectly. |
 | [Holopoint](https://www.oculus.com/experiences/quest/2202354219893697) | ? | ? | ? | ? |
 | [Kingspray](https://www.oculus.com/experiences/quest/2082941345119152) | ? | ? | ? | ? |
 | [Pistol Whip](https://www.oculus.com/experiences/quest/2104963472963790) | 2 | 0 | [Tweet](https://twitter.com/fabio914/status/1326699860146401284) | The audio didn't work and the video was showing a first person POV. |
