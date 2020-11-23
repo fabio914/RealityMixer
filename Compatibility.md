@@ -7,6 +7,7 @@ You can find a list of the officially supported games/applications [here](https:
 | Application | Video Score (0 to 5) | Audio Score (0 to 5) | Example | Notes |
 |--------------|------------------------|-------------------------|------------|--------|
 | [Audica](https://www.oculus.com/experiences/quest/2333124776756148) | ? | ? | ? | ? |
+| [Arizona Sunshine](https://www.oculus.com/experiences/quest/2190353671014400) | 5 | 0 | ? | ? |
 | [Beat Saber](https://www.oculus.com/experiences/quest/2448060205267927) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=tNTGkVg5ceU) | You'll need to enable Mixed Reality in its Settings before connecting. |
 | [Dead and Buried II](https://www.oculus.com/experiences/quest/2134077359973067) | ? | ? | ? | ? |
 | [Gadgeteer](https://www.oculus.com/experiences/quest/2567395559960697) | ? | ? | ? | ? |
