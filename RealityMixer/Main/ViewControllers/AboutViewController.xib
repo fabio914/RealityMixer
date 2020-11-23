@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutViewController" customModule="RealityMixer" customModuleProvider="target">
             <connections>
                 <outlet property="infoLabel" destination="pUz-cP-Vum" id="0fS-Pe-SxC"/>
+                <outlet property="scrollView" destination="UFX-kx-uv5" id="1WS-gU-dO2"/>
                 <outlet property="versionLabel" destination="NhZ-8A-rGr" id="kQM-MT-RLC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

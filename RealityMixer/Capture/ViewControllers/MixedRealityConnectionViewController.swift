@@ -10,6 +10,7 @@ import SwiftSocket
 
 final class MixedRealityConnectionViewController: UIViewController {
 
+    @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var addressTextField: UITextField!
     @IBOutlet private weak var portTextField: UITextField!
     @IBOutlet private weak var audioSwitch: UISwitch!
@@ -42,6 +43,11 @@ final class MixedRealityConnectionViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backAction))
 
         configureInfoLabel()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        scrollView.flashScrollIndicators()
     }
 
     private func configureInfoLabel() {

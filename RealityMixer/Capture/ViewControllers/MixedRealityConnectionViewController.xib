@@ -15,6 +15,7 @@
                 <outlet property="infoLabel" destination="Cvo-ep-K0W" id="ZvL-Zh-Kd4"/>
                 <outlet property="magentaSwitch" destination="mmC-l6-vWp" id="Uda-GP-MSq"/>
                 <outlet property="portTextField" destination="Lky-ae-zSD" id="2KE-UZ-PBo"/>
+                <outlet property="scrollView" destination="Fl1-MX-Dh0" id="nAb-23-e3d"/>
                 <outlet property="secondInfoLabel" destination="i5n-Pa-HjL" id="phQ-wk-zIK"/>
                 <outlet property="thirdInfoLabel" destination="IU3-yK-ZhP" id="TuP-Ji-w80"/>
                 <outlet property="unflipSwitch" destination="YfJ-I6-mox" id="W2V-XS-nee"/>

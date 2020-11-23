@@ -15,6 +15,7 @@
                 <outlet property="poorPerformanceWarningLabel" destination="5YI-78-h9Z" id="YQk-7e-chV"/>
                 <outlet property="portTextField" destination="b29-Z3-Oac" id="MbA-cV-FAT"/>
                 <outlet property="scaleSegmentedControl" destination="fQR-NO-g7h" id="yO2-io-sJp"/>
+                <outlet property="scrollView" destination="sxE-Xl-mHg" id="Ydy-YC-0gn"/>
                 <outlet property="secondInfoLabel" destination="JvS-Eo-KGa" id="GrV-0Z-eS8"/>
                 <outlet property="thirdInfoLabel" destination="glg-Xg-gpW" id="zXF-PI-71V"/>
                 <outlet property="view" destination="IeT-rn-5sM" id="yjL-3O-iyt"/>

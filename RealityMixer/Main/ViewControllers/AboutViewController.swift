@@ -10,6 +10,7 @@ import SwiftlyAttributedStrings
 
 final class AboutViewController: UIViewController {
 
+    @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var versionLabel: UILabel!
     @IBOutlet private weak var infoLabel: UILabel!
 
@@ -28,6 +29,11 @@ final class AboutViewController: UIViewController {
         configureInfoLabel()
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backAction))
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        scrollView.flashScrollIndicators()
     }
 
     @objc private func backAction() {
