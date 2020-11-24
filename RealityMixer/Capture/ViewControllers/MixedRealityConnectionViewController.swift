@@ -10,9 +10,9 @@ import SwiftSocket
 
 final class MixedRealityConnectionViewController: UIViewController {
 
+    @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var addressTextField: UITextField!
     @IBOutlet private weak var portTextField: UITextField!
-    @IBOutlet private weak var hardwareDecoderSwitch: UISwitch!
     @IBOutlet private weak var audioSwitch: UISwitch!
     @IBOutlet private weak var magentaSwitch: UISwitch!
     @IBOutlet private weak var unflipSwitch: UISwitch!
@@ -45,6 +45,11 @@ final class MixedRealityConnectionViewController: UIViewController {
         configureInfoLabel()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        scrollView.flashScrollIndicators()
+    }
+
     private func configureInfoLabel() {
         infoLabel.text = """
         Before you begin:
@@ -64,6 +69,8 @@ final class MixedRealityConnectionViewController: UIViewController {
          • Some games use the color magenta as the color for transparency, make sure to use this option if that's the case for the game you're about to play.
 
          • Fill in the Quest's IP Address. You can find this address on the Quest's WiFi options.
+
+         • Make sure that your device is not on Low Power mode.
 
          • Tap on "Connect".
 
@@ -112,7 +119,6 @@ final class MixedRealityConnectionViewController: UIViewController {
                 try? self.storage.save(preference: .init(address: address))
 
                 let configuration = MixedRealityConfiguration(
-                    shouldUseHardwareDecoder: self.hardwareDecoderSwitch.isOn,
                     shouldUseMagentaAsTransparency: self.magentaSwitch.isOn,
                     enableAudio: self.audioSwitch.isOn,
                     shouldFlipOutput: !self.unflipSwitch.isOn

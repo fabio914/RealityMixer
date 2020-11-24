@@ -9,10 +9,13 @@ import UIKit
 import SwiftSocket
 
 final class CalibrationConnectionViewController: UIViewController {
+
+    @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var addressTextField: UITextField!
     @IBOutlet private weak var portTextField: UITextField!
 
     @IBOutlet private weak var scaleSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var poorPerformanceWarningLabel: UILabel!
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
@@ -40,6 +43,11 @@ final class CalibrationConnectionViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backAction))
 
         configureInfoLabel()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        scrollView.flashScrollIndicators()
     }
 
     private func configureInfoLabel() {
@@ -123,6 +131,10 @@ final class CalibrationConnectionViewController: UIViewController {
                 })
             }
         })
+    }
+
+    @IBAction private func scaleFactorChanged(_ sender: Any) {
+        poorPerformanceWarningLabel.isHidden = scaleSegmentedControl.selectedSegmentIndex < 2
     }
 
     @IBAction private func downloadMRCAction(_ sender: Any) {

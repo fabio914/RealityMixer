@@ -22,9 +22,13 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
  - Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed.
  - iPhone or iPad with an A12 chip or newer, running iOS 14. The LiDAR sensor is optional but recommended for better results.
  - 5 Ghz WiFi network.
- - A compatible Quest VR application/game (check this [page](https://creator.oculus.com/mrc/) for a list of the officially supported games).
+ - A [compatible Quest VR application/game](Compatibility.md).
 
 Note that this app is still just a prototype and it's still being developed, use at your own risk.
+
+## Compatible Applications/Games
+
+[Link](Compatibility.md)
 
 ## Installation
 
@@ -34,14 +38,14 @@ Note that this app is still just a prototype and it's still being developed, use
  
  - Open the camera app on your iPhone/iPad and scan this QR code:
 
-![download](https://user-images.githubusercontent.com/2430631/99197336-ca1f8c00-2789-11eb-8ec0-0d26f0e838a5.png)
+![download](https://user-images.githubusercontent.com/2430631/99850775-e484ab80-2b75-11eb-8440-ed3ab341559c.png)
 
 OR
 
 - Open this URL on your iPhone/iPad:
 
 ```
-altstore://install?url=https://github.com/fabio914/OculusQuestMixedRealityForiOS/releases/download/0.1.3/RealityMixer.ipa
+altstore://install?url=https://github.com/fabio914/OculusQuestMixedRealityForiOS/releases/download/0.1.4/RealityMixer.ipa
 ```
 
 ### TestFlight
@@ -63,8 +67,6 @@ ORGANIZATION_IDENTIFIER = com.yourcompany
 
 ## TO-DOs
 
- - [ ] Optimize the video stream (adopt a lower frame rate if the iPhone/iPad can't keep up with the stream);
-  
  - [ ] Investigate the audio delay;
 
  - [ ] Improve the calibration screen and fix the positioning of the controller models;

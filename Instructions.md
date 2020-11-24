@@ -5,7 +5,7 @@
  - Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed.
  - iPhone or iPad with an A12 chip or newer, running iOS 14. The LiDAR sensor is optional but recommended for better results.
  - 5 Ghz WiFi network.
- - A compatible Quest VR application/game (check this [page](https://creator.oculus.com/mrc/) for a list of the officially supported games).
+ - A [compatible Quest VR application/game](Compatibility.md).
  
 ## Calibration, what is this?
 
@@ -110,3 +110,11 @@ Follow the instructions below if you don't have the record option inside your "C
  - Scroll down to "More Controls" and tap on the "+" button beside "Screen Recording".
  
  <img src="Images/instructions/record_4.jpg" width="300" />
+
+## How to improve performance?
+
+ - Make sure that your device is using a 5 GHz WiFi connection (e.g. 802.11ac), and that you don't have too many devices using the network at the same time while you're using the app.
+ 
+ - Make sure that your device is not on Low Power mode. It is recommended that you keep your device connected to a power outlet while using the app.
+ 
+ - Select a small resoltion scale factor (`0.5x` or `0.25x`) and then calibrate again.

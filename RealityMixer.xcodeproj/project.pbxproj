@@ -59,6 +59,7 @@
 		A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */; };
 		A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98D253CF2EE00B90E62 /* ARKit.framework */; };
 		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
+		A39033ED256859A8004CB638 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39033EC256859A8004CB638 /* Shaders.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -236,6 +237,8 @@
 		A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MixedRealityViewController.xib; sourceTree = "<group>"; };
 		A328D98D253CF2EE00B90E62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		A328D98F253CF2F400B90E62 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		A37850BC256C433C00C046FA /* Compatibility.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Compatibility.md; sourceTree = "<group>"; };
+		A39033EC256859A8004CB638 /* Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +336,7 @@
 		A32416122554D7F5008D4B90 /* Capture */ = {
 			isa = PBXGroup;
 			children = (
+				A39033EB2568599B004CB638 /* Shaders */,
 				A32416162554DA18008D4B90 /* Model */,
 				A328D8C8253C912E00B90E62 /* oculus-mrc */,
 				A328D971253CE4AA00B90E62 /* ViewControllers */,
@@ -383,6 +387,7 @@
 			children = (
 				A32416152554D939008D4B90 /* README.md */,
 				A32285B62558163B00FF3200 /* Instructions.md */,
+				A37850BC256C433C00C046FA /* Compatibility.md */,
 				A328D8AE253C8C4000B90E62 /* RealityMixer */,
 				A328D8AD253C8C4000B90E62 /* Products */,
 				A328D95E253C958D00B90E62 /* Frameworks */,
@@ -654,6 +659,14 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		A39033EB2568599B004CB638 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				A39033EC256859A8004CB638 /* Shaders.swift */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -767,6 +780,7 @@
 				A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */,
 				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
 				A324163D2554E520008D4B90 /* CGPoint+Extensions.swift in Sources */,
+				A39033ED256859A8004CB638 /* Shaders.swift in Sources */,
 				A32416022554D296008D4B90 /* Math.swift in Sources */,
 				A32416052554D2FE008D4B90 /* Parser.swift in Sources */,
 				A324162A2554E1B8008D4B90 /* CalibrationViewController.swift in Sources */,
@@ -921,7 +935,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -936,7 +950,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/lib",
 				);
-				MARKETING_VERSION = 0.1.3;
+				MARKETING_VERSION = 0.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).reality.mixer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
@@ -954,7 +968,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -969,7 +983,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/RealityMixer/FFmpeg-iOS/lib",
 				);
-				MARKETING_VERSION = 0.1.3;
+				MARKETING_VERSION = 0.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).reality.mixer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
