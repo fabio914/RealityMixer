@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InitialViewController" customModule="RealityMixer" customModuleProvider="target">
             <connections>
+                <outlet property="scrollView" destination="qby-sX-taU" id="vg8-55-xSf"/>
                 <outlet property="view" destination="3Ea-bR-bHL" id="Cnk-VJ-fja"/>
             </connections>
         </placeholder>
@@ -20,96 +21,123 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Uy7-8r-47p">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                 </imageView>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="F6y-z9-8NT">
-                    <rect key="frame" x="57" y="40" width="300" height="220"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="qby-sX-taU">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4AY-Cw-rgB" userLabel="Calibrate">
-                            <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
-                            <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtw-vQ-Mzq">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="F6y-z9-8NT">
+                                    <rect key="frame" x="57" y="40" width="300" height="220"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccJ-Mx-sKo" userLabel="Help">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
+                                            <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="2Ao-DX-F6h"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                            <state key="normal" title="Instructions">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="helpAction:" destination="-1" eventType="touchUpInside" id="LJj-82-9fK"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4AY-Cw-rgB" userLabel="Calibrate">
+                                            <rect key="frame" x="0.0" y="60" width="300" height="40"/>
+                                            <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="5eC-Dp-r9i"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                            <state key="normal" title="Start Calibration">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="calibrateAction:" destination="-1" eventType="touchUpInside" id="rMF-hS-3Aw"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAu-hh-3Ns" userLabel="Capture">
+                                            <rect key="frame" x="0.0" y="120" width="300" height="40"/>
+                                            <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="xdD-Gq-Ldn"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                            <state key="normal" title="Start Mixed Reality">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="captureAction:" destination="-1" eventType="touchUpInside" id="RCR-Gv-wU5"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Zn-st-axG" userLabel="About">
+                                            <rect key="frame" x="0.0" y="180" width="300" height="40"/>
+                                            <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="Rja-Hd-CqE"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                            <state key="normal" title="About">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="aboutAction:" destination="-1" eventType="touchUpInside" id="KIF-TM-yso"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="300" id="gUF-1g-g0k"/>
+                                    </constraints>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="5eC-Dp-r9i"/>
+                                <constraint firstAttribute="bottom" secondItem="F6y-z9-8NT" secondAttribute="bottom" constant="40" id="34z-aY-Xjs"/>
+                                <constraint firstItem="F6y-z9-8NT" firstAttribute="top" secondItem="qtw-vQ-Mzq" secondAttribute="top" constant="40" id="odc-n2-pGn"/>
+                                <constraint firstItem="F6y-z9-8NT" firstAttribute="centerX" secondItem="qtw-vQ-Mzq" secondAttribute="centerX" id="wHD-yM-xhi"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                            <state key="normal" title="Start Calibration">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="10"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="calibrateAction:" destination="-1" eventType="touchUpInside" id="rMF-hS-3Aw"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAu-hh-3Ns" userLabel="Capture">
-                            <rect key="frame" x="0.0" y="60" width="300" height="40"/>
-                            <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="xdD-Gq-Ldn"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                            <state key="normal" title="Start Mixed Reality">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="10"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="captureAction:" destination="-1" eventType="touchUpInside" id="RCR-Gv-wU5"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccJ-Mx-sKo" userLabel="Help">
-                            <rect key="frame" x="0.0" y="120" width="300" height="40"/>
-                            <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="2Ao-DX-F6h"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                            <state key="normal" title="Instructions">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="10"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="helpAction:" destination="-1" eventType="touchUpInside" id="LJj-82-9fK"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Zn-st-axG" userLabel="About">
-                            <rect key="frame" x="0.0" y="180" width="300" height="40"/>
-                            <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="Rja-Hd-CqE"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                            <state key="normal" title="About">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="10"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="aboutAction:" destination="-1" eventType="touchUpInside" id="KIF-TM-yso"/>
-                            </connections>
-                        </button>
+                        </view>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="width" constant="300" id="gUF-1g-g0k"/>
+                        <constraint firstItem="qtw-vQ-Mzq" firstAttribute="trailing" secondItem="IFq-zx-kbJ" secondAttribute="trailing" id="3WV-df-eSZ"/>
+                        <constraint firstItem="qtw-vQ-Mzq" firstAttribute="leading" secondItem="IFq-zx-kbJ" secondAttribute="leading" id="AwA-e2-2pg"/>
+                        <constraint firstItem="qtw-vQ-Mzq" firstAttribute="top" secondItem="IFq-zx-kbJ" secondAttribute="top" id="PjS-pn-pa1"/>
+                        <constraint firstItem="qtw-vQ-Mzq" firstAttribute="width" secondItem="qby-sX-taU" secondAttribute="width" id="eF3-Ko-Quv"/>
+                        <constraint firstItem="qtw-vQ-Mzq" firstAttribute="bottom" secondItem="IFq-zx-kbJ" secondAttribute="bottom" id="wt8-ex-9gr"/>
                     </constraints>
-                </stackView>
+                    <viewLayoutGuide key="contentLayoutGuide" id="IFq-zx-kbJ"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="rdd-XQ-SCU"/>
+                </scrollView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="YpH-nY-xuU"/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="F6y-z9-8NT" firstAttribute="top" secondItem="YpH-nY-xuU" secondAttribute="top" constant="40" id="26S-ST-kg9"/>
-                <constraint firstItem="F6y-z9-8NT" firstAttribute="centerX" secondItem="YpH-nY-xuU" secondAttribute="centerX" id="Myy-br-bsj"/>
+                <constraint firstItem="qby-sX-taU" firstAttribute="leading" secondItem="YpH-nY-xuU" secondAttribute="leading" id="86j-LP-nOg"/>
+                <constraint firstItem="qby-sX-taU" firstAttribute="top" secondItem="YpH-nY-xuU" secondAttribute="top" id="E0O-MK-Hg7"/>
+                <constraint firstAttribute="bottom" secondItem="qby-sX-taU" secondAttribute="bottom" id="FTL-wD-vw5"/>
+                <constraint firstItem="YpH-nY-xuU" firstAttribute="trailing" secondItem="qby-sX-taU" secondAttribute="trailing" id="aBf-4N-L7V"/>
                 <constraint firstItem="Uy7-8r-47p" firstAttribute="top" secondItem="3Ea-bR-bHL" secondAttribute="top" id="gZ4-4Z-Vbm"/>
                 <constraint firstItem="Uy7-8r-47p" firstAttribute="leading" secondItem="3Ea-bR-bHL" secondAttribute="leading" id="hGL-Dq-aXe"/>
                 <constraint firstAttribute="trailing" secondItem="Uy7-8r-47p" secondAttribute="trailing" id="hRr-1p-3UX"/>
