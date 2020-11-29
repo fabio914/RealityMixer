@@ -158,12 +158,11 @@ final class CalibrationViewController: UIViewController {
                 delegate: self
             )
 
-            let navigationController = UINavigationController(rootViewController: viewController)
+            viewController.isModalInPresentation = true
+            viewController.modalPresentationStyle = .overFullScreen
+            viewController.modalTransitionStyle = .crossDissolve
 
-            navigationController.isModalInPresentation = true
-            navigationController.modalPresentationStyle = .fullScreen
-
-            present(navigationController, animated: true, completion: nil)
+            present(viewController, animated: true, completion: nil)
         case .calibrationSet(let transform, _):
             saveButtonContainer.isHidden = false
             updateInfo("Step 4 of 4: Review your calibration and tap on \"Save to Headset\" to save it. ")

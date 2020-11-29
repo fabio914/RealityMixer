@@ -35,7 +35,12 @@ final class ProjectionViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var sceneOverlay: SCNView!
     @IBOutlet private weak var blueView: UIView!
+
+    @IBOutlet private weak var adjustDistanceButtonContainer: UIView!
+    @IBOutlet private weak var adjustDistanceContainer: UIView!
     @IBOutlet private weak var distanceLabel: UILabel!
+
+    @IBOutlet private weak var instructionsOverlayView: UIView!
 
     private weak var mainNode: SCNNode?
 
@@ -80,10 +85,7 @@ final class ProjectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Step 3 of 4"
         imageView.image = image
-        navigationItem.rightBarButtonItem = .init(title: "Done", style: .done, target: self, action: #selector(done))
-        navigationItem.leftBarButtonItem = .init(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
         buildScene()
     }
 
@@ -169,12 +171,32 @@ final class ProjectionViewController: UIViewController {
         distanceAdjustment = Double(sender.value)
     }
 
-    @objc private func done() {
+    @IBAction private func hideInstructionsAction(_ sender: UIButton) {
+        sender.isUserInteractionEnabled = false
+
+        UIView.animateKeyframes(
+            withDuration: 0.2,
+            delay: 0,
+            animations: { [weak self] in
+                self?.instructionsOverlayView.alpha = 0
+            },
+            completion: { [weak self] _ in
+                self?.instructionsOverlayView.isHidden = true
+            }
+        )
+    }
+
+    @IBAction private func showDistanceAdjustmentAction(_ sender: UIButton) {
+        adjustDistanceButtonContainer.isHidden = true
+        adjustDistanceContainer.isHidden = false
+    }
+
+    @IBAction private func done() {
         guard let currentResult = currentResult else { return }
         delegate?.projection(self, didFinishWithCalibration: currentResult.1, transform: currentResult.0)
     }
 
-    @objc private func cancel() {
+    @IBAction private func cancel() {
         delegate?.projectionDidCancel(self)
     }
 
@@ -199,7 +221,7 @@ final class ProjectionViewController: UIViewController {
         blueView?.center = blueViewCenter
     }
 
-    // Using Aspect Fit
+    // Using Aspect Fill
     private func pixelCoordinate(from viewCoordinate: CGPoint) -> CGPoint {
 
         let imageViewRatio = imageView.frame.size.width/imageView.frame.size.height
@@ -207,14 +229,13 @@ final class ProjectionViewController: UIViewController {
 
         if imageViewRatio > imageRatio {
             return CGPoint(
-                x: floor((viewCoordinate.x-((imageView.frame.size.width/2.0)-(((imageView.frame.size.height/image.size.height)*image.size.width)/2.0)))/(imageView.frame.size.height/image.size.height)),
-                y: floor(viewCoordinate.y/(imageView.frame.size.height/image.size.height))
+                x: floor(viewCoordinate.x/(imageView.frame.size.width/image.size.width)),
+                y: floor(viewCoordinate.y/(imageView.frame.size.width/image.size.width))
             )
         } else if imageViewRatio < imageRatio {
-            let halfAspectFit: CGFloat = ((imageView.frame.size.width/image.size.width)*image.size.height)/2.0
             return CGPoint(
-                x: floor(viewCoordinate.x/(imageView.frame.size.width/image.size.width)),
-                y: floor((viewCoordinate.y-((imageView.frame.size.width/2.0)-halfAspectFit))/(imageView.frame.size.height/image.size.height))
+                x: floor(viewCoordinate.x/(imageView.frame.size.height/image.size.height)),
+                y: floor(viewCoordinate.y/(imageView.frame.size.height/image.size.height))
             )
         } else {
             return CGPoint(
