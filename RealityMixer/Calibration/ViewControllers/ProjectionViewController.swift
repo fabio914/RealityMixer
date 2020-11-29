@@ -108,13 +108,20 @@ final class ProjectionViewController: UIViewController {
         let imageViewRatio = imageView.frame.size.width/imageView.frame.size.height
         let imageRatio = frame.camera.imageResolution.width/frame.camera.imageResolution.height
 
-        // FIXME: Adjust FOV for aspect fill
         if imageViewRatio > imageRatio {
+            let imageHeightInImageViewCoordinates = frame.camera.imageResolution.height * (imageView.frame.size.width/frame.camera.imageResolution.width)
+            let distanceInImageViewCoordinates = (imageHeightInImageViewCoordinates * 0.5)/CGFloat(tan(yFov/2.0))
+            let adjustedYFov = CGFloat(2.0 * atan2((imageView.frame.size.height * 0.5), distanceInImageViewCoordinates))
+
             camera.projectionDirection = .vertical
-            camera.fieldOfView = CGFloat(yFov * (180.0/Float.pi))
+            camera.fieldOfView = (adjustedYFov * (180.0/CGFloat.pi))
         } else {
+            let imageWidthInImageViewCoordinates = frame.camera.imageResolution.width * (imageView.frame.size.height/frame.camera.imageResolution.height)
+            let distanceInImageViewCoordinates = (imageWidthInImageViewCoordinates * 0.5)/CGFloat(tan(xFov/2.0))
+            let adjustedXFov = CGFloat(2.0 * atan2((imageView.frame.size.width * 0.5), distanceInImageViewCoordinates))
+
             camera.projectionDirection = .horizontal
-            camera.fieldOfView = CGFloat(xFov * (180.0/Float.pi))
+            camera.fieldOfView = (adjustedXFov * (180.0/CGFloat.pi))
         }
 
         let cameraNode = SCNNode()

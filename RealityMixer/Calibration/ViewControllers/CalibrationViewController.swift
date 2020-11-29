@@ -220,7 +220,7 @@ final class CalibrationViewController: UIViewController {
             alert.addAction(.init(title: "OK", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         case .success:
-            let alert = UIAlertController(title: "Calibration Saved!", message: "You can now close the Oculus Mixed Reality Calibration app on the Quest.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Calibration Saved!", message: "You can now close the Oculus Mixed Reality Capture Calibration app and launch your VR application/game.", preferredStyle: .alert)
             alert.addAction(.init(title: "OK", style: .default, handler: { [weak self] _ in
                 guard let self = self else { return }
                 self.displayLink?.invalidate()
