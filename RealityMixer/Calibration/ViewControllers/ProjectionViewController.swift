@@ -62,6 +62,8 @@ final class ProjectionViewController: UIViewController {
         }
     }
 
+    private var first = true
+
     init(
         scaleFactor: Double,
         cameraOrigin: Vector3,
@@ -86,7 +88,14 @@ final class ProjectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = image
-        buildScene()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if first {
+            buildScene()
+            first = false
+        }
     }
 
     private func buildScene() {
