@@ -10,6 +10,8 @@ import SafariServices
 
 final class InitialViewController: UIViewController {
 
+    @IBOutlet private weak var scrollView: UIScrollView!
+
     init() {
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
@@ -21,6 +23,11 @@ final class InitialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Reality Mixer"
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        scrollView.flashScrollIndicators()
     }
 
     @IBAction private func calibrateAction(_ sender: Any) {

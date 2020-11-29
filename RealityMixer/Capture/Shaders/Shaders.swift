@@ -104,6 +104,7 @@ struct Shaders {
     vec3 magenta = vec3(1.0, 0.0, 1.0);
     float threshold = 0.10;
 
+    // FIXME: Consider using HSV to compare these colors
     bool checkRed = (alphaColor.r >= (magenta.r - threshold));
     bool checkGreen = (alphaColor.g >= (magenta.g - threshold) && alphaColor.g <= (magenta.g + threshold));
     bool checkBlue = (alphaColor.b >= (magenta.b - threshold));

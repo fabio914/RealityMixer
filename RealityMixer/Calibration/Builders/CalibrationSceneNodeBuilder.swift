@@ -36,19 +36,27 @@ struct CalibrationSceneNodeBuilder {
         let leftController: SCNNode! = model(named: "left")
         leftController.geometry?.firstMaterial?.lightingModel = .constant
         leftController.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-        leftController.rotation = SCNVector4(1, 0, 0, 45.0 * .pi/180.0)
+        leftController.position = SCNVector3(-0.004, 0.027, 0.04)
+
+        let rotatedLeftController = SCNNode()
+        rotatedLeftController.addChildNode(leftController)
+        rotatedLeftController.rotation = SCNVector4(1, 0, 0, 45.0 * .pi/180.0)
 
         let leftControllerNode = SCNNode()
-        leftControllerNode.addChildNode(leftController)
+        leftControllerNode.addChildNode(rotatedLeftController)
         mainNode.addChildNode(leftControllerNode)
 
         let rightController: SCNNode! = model(named: "right")
         rightController.geometry?.firstMaterial?.lightingModel = .constant
         rightController.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-        rightController.rotation = SCNVector4(1, 0, 0, 45.0 * .pi/180.0)
+        rightController.position = SCNVector3(0.004, 0.027, 0.04)
+
+        let rotatedRightController = SCNNode()
+        rotatedRightController.addChildNode(rightController)
+        rotatedRightController.rotation = SCNVector4(1, 0, 0, 45.0 * .pi/180.0)
 
         let rightControllerNode = SCNNode()
-        rightControllerNode.addChildNode(rightController)
+        rightControllerNode.addChildNode(rotatedRightController)
         mainNode.addChildNode(rightControllerNode)
 
         // Using Quest 2 dimensions
@@ -56,8 +64,12 @@ struct CalibrationSceneNodeBuilder {
         headset.firstMaterial?.lightingModel = .constant
         headset.firstMaterial?.diffuse.contents = UIColor.gray
 
+        let headsetIntermediateNode = SCNNode()
+        headsetIntermediateNode.geometry = headset
+        headsetIntermediateNode.position = SCNVector3(0, 0.025, 0)
+
         let headsetNode = SCNNode()
-        headsetNode.geometry = headset
+        headsetNode.addChildNode(headsetIntermediateNode)
         mainNode.addChildNode(headsetNode)
 
         return .init(
