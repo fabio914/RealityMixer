@@ -108,6 +108,7 @@ final class ProjectionViewController: UIViewController {
         let imageViewRatio = imageView.frame.size.width/imageView.frame.size.height
         let imageRatio = frame.camera.imageResolution.width/frame.camera.imageResolution.height
 
+        // FIXME: Adjust FOV for aspect fill
         if imageViewRatio > imageRatio {
             camera.projectionDirection = .vertical
             camera.fieldOfView = CGFloat(yFov * (180.0/Float.pi))
@@ -228,19 +229,25 @@ final class ProjectionViewController: UIViewController {
         let imageRatio = image.size.width/image.size.height
 
         if imageViewRatio > imageRatio {
+            let imageHeightInImageViewCoordinates = image.size.height * (imageView.frame.size.width/image.size.width)
+            let offsetY = (imageHeightInImageViewCoordinates - imageView.frame.size.height)/2.0
+
             return CGPoint(
-                x: floor(viewCoordinate.x/(imageView.frame.size.width/image.size.width)),
-                y: floor(viewCoordinate.y/(imageView.frame.size.width/image.size.width))
+                x: floor(viewCoordinate.x * (image.size.width/imageView.frame.size.width)),
+                y: floor((viewCoordinate.y + offsetY) * (image.size.height/imageHeightInImageViewCoordinates))
             )
         } else if imageViewRatio < imageRatio {
+            let imageWidthInImageViewCoordinates = image.size.width * (imageView.frame.size.height/image.size.height)
+            let offsetX = (imageWidthInImageViewCoordinates - imageView.frame.size.width)/2.0
+
             return CGPoint(
-                x: floor(viewCoordinate.x/(imageView.frame.size.height/image.size.height)),
-                y: floor(viewCoordinate.y/(imageView.frame.size.height/image.size.height))
+                x: floor((viewCoordinate.x + offsetX) * (image.size.width/imageWidthInImageViewCoordinates)),
+                y: floor(viewCoordinate.y * (image.size.height/imageView.frame.size.height))
             )
         } else {
             return CGPoint(
-                x: floor(viewCoordinate.x/(imageView.frame.size.width/image.size.width)),
-                y: floor(viewCoordinate.y/(imageView.frame.size.width/image.size.height))
+                x: floor(viewCoordinate.x * (image.size.width/imageView.frame.size.width)),
+                y: floor(viewCoordinate.y * (image.size.height/imageView.frame.size.height))
             )
         }
     }
