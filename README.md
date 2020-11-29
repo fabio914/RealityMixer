@@ -60,7 +60,7 @@ Use [this link](https://testflight.apple.com/join/gyXe6zXG) to join the beta. Li
 
  - [ ] Investigate the audio delay;
 
- - [ ] Improve the calibration screen;
+ - [ ] Improve the calibration screen and fix the positioning of the controller models;
  
  - [ ] Add a "green screen mode" that will allow the user to use the app with a regular green screen, allowing the app to run on devices without an A12 chip;
  
