@@ -9,6 +9,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Audica](https://www.oculus.com/experiences/quest/2333124776756148) | ? | ? | ? | ? |
 | [Arizona Sunshine](https://www.oculus.com/experiences/quest/2190353671014400) | 5 | 0 | [YouTube video](https://www.youtube.com/watch?v=P6t7ofl2Spk) | The audio doesn't work. |
 | [Beat Saber](https://www.oculus.com/experiences/quest/2448060205267927) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=tNTGkVg5ceU) | You'll need to enable Mixed Reality in its Settings before connecting. |
+| [Cubism](https://www.oculus.com/experiences/quest/2264524423619421/) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1333548364697378827) | Works perfectly. |
 | [Dead and Buried II](https://www.oculus.com/experiences/quest/2134077359973067) | ? | ? | ? | ? |
 | [Epic Roller Coasters](https://www.oculus.com/experiences/quest/2299465166734471) | 5 | 5 | ? | ? |
 | [Gadgeteer](https://www.oculus.com/experiences/quest/2567395559960697) | ? | ? | ? | ? |
