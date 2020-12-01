@@ -16,6 +16,7 @@ struct MixedRealityConfiguration {
 
     let enableAudio: Bool
     let shouldFlipOutput: Bool
+    let shouldHideBackground: Bool
 }
 
 final class MixedRealityViewController: UIViewController {
@@ -116,7 +117,9 @@ final class MixedRealityViewController: UIViewController {
         sceneView.scene = scene
         sceneView.session.delegate = self
 
-        sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
+        if !configuration.shouldHideBackground {
+            sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
+        }
 
         if let metalDevice = sceneView.device {
             let result = CVMetalTextureCacheCreate(
@@ -169,6 +172,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureBackground(with frame: ARFrame) {
+        guard !configuration.shouldHideBackground else { return }
         let backgroundPlaneNode = makePlaneNodeForDistance(100.0, frame: frame)
 
         // Flipping image
