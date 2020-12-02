@@ -38,14 +38,14 @@ Note that this app is still just a prototype and it's still being developed, use
  
  - Open the camera app on your iPhone/iPad and scan this QR code:
 
-![download](https://user-images.githubusercontent.com/2430631/100543778-11a61d80-324a-11eb-80c6-8548f23b2b92.png)
+![download](https://user-images.githubusercontent.com/2430631/100815736-9193d980-343c-11eb-9046-ecd5c3c8f368.png)
 
 OR
 
 - Open this URL on your iPhone/iPad:
 
 ```
-altstore://install?url=https://github.com/fabio914/OculusQuestMixedRealityForiOS/releases/download/0.1.5/RealityMixer.ipa
+altstore://install?url=https://github.com/fabio914/OculusQuestMixedRealityForiOS/releases/download/0.1.6/RealityMixer.ipa
 ```
 
 ### TestFlight
