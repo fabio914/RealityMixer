@@ -16,6 +16,7 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var audioSwitch: UISwitch!
     @IBOutlet private weak var magentaSwitch: UISwitch!
     @IBOutlet private weak var unflipSwitch: UISwitch!
+    @IBOutlet private weak var hideBackgroundSwitch: UISwitch!
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
@@ -121,7 +122,8 @@ final class MixedRealityConnectionViewController: UIViewController {
                 let configuration = MixedRealityConfiguration(
                     shouldUseMagentaAsTransparency: self.magentaSwitch.isOn,
                     enableAudio: self.audioSwitch.isOn,
-                    shouldFlipOutput: !self.unflipSwitch.isOn
+                    shouldFlipOutput: !self.unflipSwitch.isOn,
+                    shouldHideBackground: self.hideBackgroundSwitch.isOn
                 )
 
                 connectionAlert.dismiss(animated: false, completion: { [weak self] in
