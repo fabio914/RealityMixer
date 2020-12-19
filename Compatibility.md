@@ -25,5 +25,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Richie's Plank Experience](https://www.oculus.com/experiences/quest/1642239225880682) | ? | ? | [Tweet](https://twitter.com/FreekTeunen/status/1327673218891649024) | ? |
 | [SUPERHOT](https://www.oculus.com/experiences/quest/1921533091289407/) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=ZnOY8juMw4k) | Works perfectly. |
 | [Space Pirate Trainer](https://www.oculus.com/experiences/quest/1663790613725314) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=44Nmv7Es5yI) | Works perfectly. |
+| [Synth Riders](https://www.oculus.com/experiences/quest/2436558143118760) | 5 | 5 | [YouTube video](https://youtu.be/ss7L1vqUp0I) | Works perfectly. |
+| [Tetris Effect](https://www.oculus.com/experiences/quest/3386618894743567) | 0 | 0 | ? | The camera position was incorrect. |
 | [Tilt Brush](https://www.oculus.com/experiences/quest/2322529091093901) | 0 | 0 | [Tweet](https://twitter.com/fabio914/status/1332724521497931777) | The video output is glitching and the camera doesn't appear to be respecting the calibration. |
 | [The Thrill of the Fight](https://www.oculus.com/experiences/quest/3008315795852749) | 4 | 5 | [YouTube video](https://www.youtube.com/watch?v=aPSBmej4ppc) | You'll have to use the "Use magenta for transparency" option. |
