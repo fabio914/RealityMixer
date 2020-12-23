@@ -117,9 +117,9 @@ final class MixedRealityViewController: UIViewController {
         sceneView.scene = scene
         sceneView.session.delegate = self
 
-        if !configuration.shouldHideBackground {
-            sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
-        }
+//        if !configuration.shouldHideBackground {
+//            sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
+//        }
 
         if let metalDevice = sceneView.device {
             let result = CVMetalTextureCacheCreate(
@@ -178,10 +178,19 @@ final class MixedRealityViewController: UIViewController {
         // Flipping image
         if configuration.shouldFlipOutput {
             backgroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = flipTransform
+            backgroundPlaneNode.geometry?.firstMaterial?.transparent.contentsTransform = flipTransform //
         }
 
+        backgroundPlaneNode.geometry?.firstMaterial?.diffuse.magnificationFilter = .nearest
+        backgroundPlaneNode.geometry?.firstMaterial?.diffuse.minificationFilter = .nearest
+
+        backgroundPlaneNode.geometry?.firstMaterial?.transparent.magnificationFilter = .nearest
+        backgroundPlaneNode.geometry?.firstMaterial?.transparent.minificationFilter = .nearest
+
+        backgroundPlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero //
+
         backgroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: Shaders.backgroundSurface
+            .surface: Shaders.backgroundSurfaceWithChromaKey //Shaders.backgroundSurface
         ]
 
         sceneView.pointOfView?.addChildNode(backgroundPlaneNode)
@@ -339,7 +348,8 @@ extension MixedRealityViewController: OculusMRCDelegate {
         let luma = texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0)
         let chroma = texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1)
 
-        backgroundNode?.geometry?.firstMaterial?.ambient.contents = luma
+//        backgroundNode?.geometry?.firstMaterial?.ambient.contents = luma
+        backgroundNode?.geometry?.firstMaterial?.transparent.contents = luma
         backgroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
 
         foregroundNode?.geometry?.firstMaterial?.transparent.contents = luma

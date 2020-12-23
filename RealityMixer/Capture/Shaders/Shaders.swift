@@ -44,6 +44,25 @@ struct Shaders {
         b = BT709_nonLinearNormToLinear(b);
         return vec4(r, g, b, 1.0);
     }
+
+    """
+
+    static let chromaKey = """
+    float chromaKey(vec3 c, vec3 maskColor) {
+        float sensitivity = 0.1; // 0 ... 1.0
+        float smooth = 0.1; // 0 ... 1.0
+
+        float maskY = 0.2989 * maskColor.r + 0.5866 * maskColor.g + 0.1145 * maskColor.b;
+        float maskCr = 0.7132 * (maskColor.r - maskY);
+        float maskCb = 0.5647 * (maskColor.b - maskY);
+
+        float Y = 0.2989 * c.r + 0.5866 * c.g + 0.1145 * c.b;
+        float Cr = 0.7132 * (c.r - Y);
+        float Cb = 0.5647 * (c.b - Y);
+
+        return 1.0 - smoothstep(sensitivity, sensitivity + smooth, distance(vec2(Cr, Cb), vec2(maskCr, maskCb)));
+    }
+
     """
 
     static let backgroundSurface = """
@@ -58,6 +77,25 @@ struct Shaders {
 
     _surface.diffuse = yCbCrToRGB(luma, chroma);
     _surface.ambient = vec4(0.0, 0.0, 0.0, 1.0);
+    """
+
+    static let backgroundSurfaceWithChromaKey = """
+    \(yCrCbToRGB)
+    \(chromaKey)
+
+    #pragma body
+
+    vec2 backgroundCoords = vec2((_surface.diffuseTexcoord.x * 0.5), _surface.diffuseTexcoord.y);
+
+    float luma = texture2D(u_transparentTexture, backgroundCoords).r;
+    vec2 chroma = texture2D(u_diffuseTexture, backgroundCoords).rg;
+
+    vec4 textureColor = yCbCrToRGB(luma, chroma);
+
+    float blendValue = chromaKey(textureColor.rgb, vec3(1.0, 0.0, 1.0));
+
+    _surface.diffuse = textureColor;
+    _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
     """
 
     static let foregroundSurfaceShared = """
