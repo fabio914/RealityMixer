@@ -109,7 +109,7 @@ struct Shaders {
 
     //_surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
 
-    if (luma < 0.1) {
+    if (luma < 0.13) {
         _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
     } else {
         _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);

@@ -181,11 +181,11 @@ final class MixedRealityViewController: UIViewController {
             backgroundPlaneNode.geometry?.firstMaterial?.transparent.contentsTransform = flipTransform //
         }
 
-        backgroundPlaneNode.geometry?.firstMaterial?.diffuse.magnificationFilter = .nearest
-        backgroundPlaneNode.geometry?.firstMaterial?.diffuse.minificationFilter = .nearest
-
-        backgroundPlaneNode.geometry?.firstMaterial?.transparent.magnificationFilter = .nearest
-        backgroundPlaneNode.geometry?.firstMaterial?.transparent.minificationFilter = .nearest
+//        backgroundPlaneNode.geometry?.firstMaterial?.diffuse.magnificationFilter = .nearest
+//        backgroundPlaneNode.geometry?.firstMaterial?.diffuse.minificationFilter = .nearest
+//
+//        backgroundPlaneNode.geometry?.firstMaterial?.transparent.magnificationFilter = .nearest
+//        backgroundPlaneNode.geometry?.firstMaterial?.transparent.minificationFilter = .nearest
 
         backgroundPlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero //
 
