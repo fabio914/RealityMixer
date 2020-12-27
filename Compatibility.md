@@ -7,6 +7,7 @@ You can find a list of the officially supported games/applications [here](https:
 | Application | Video Score (0 to 5) | Audio Score (0 to 5) | Example | Notes |
 |--------------|------------------------|-------------------------|------------|--------|
 | [Audica](https://www.oculus.com/experiences/quest/2333124776756148) | ? | ? | ? | ? |
+| [Audio Trip](https://www.oculus.com/experiences/quest/2484044451715693) | 0 | 0 | [Tweet](https://twitter.com/fabio914/status/1342941540566650880) | The audio didn't work and the video was showing a first person POV. |
 | [Arizona Sunshine](https://www.oculus.com/experiences/quest/2190353671014400) | 5 | 0 | [YouTube video](https://www.youtube.com/watch?v=P6t7ofl2Spk) | The audio doesn't work. |
 | [Beat Saber](https://www.oculus.com/experiences/quest/2448060205267927) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=tNTGkVg5ceU) | You'll need to enable Mixed Reality in its Settings before connecting. |
 | [Crazy Kung Fu](https://sidequestvr.com/app/1195/crazy-kung-fu) | 5 | 5 | [Tweet](https://twitter.com/ImPotter/status/1333928589897699332) | |
@@ -27,5 +28,6 @@ You can find a list of the officially supported games/applications [here](https:
 | [Space Pirate Trainer](https://www.oculus.com/experiences/quest/1663790613725314) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=44Nmv7Es5yI) | Works perfectly. |
 | [Synth Riders](https://www.oculus.com/experiences/quest/2436558143118760) | 5 | 5 | [YouTube video](https://youtu.be/ss7L1vqUp0I) | Works perfectly. |
 | [Tetris Effect](https://www.oculus.com/experiences/quest/3386618894743567) | 0 | 0 | ? | The camera position was incorrect. |
-| [Tilt Brush](https://www.oculus.com/experiences/quest/2322529091093901) | 0 | 0 | [Tweet](https://twitter.com/fabio914/status/1332724521497931777) | The video output is glitching and the camera doesn't appear to be respecting the calibration. |
 | [The Thrill of the Fight](https://www.oculus.com/experiences/quest/3008315795852749) | 4 | 5 | [YouTube video](https://www.youtube.com/watch?v=aPSBmej4ppc) | You'll have to use the "Use magenta for transparency" option. |
+| [Tilt Brush](https://www.oculus.com/experiences/quest/2322529091093901) | 0 | 0 | [Tweet](https://twitter.com/fabio914/status/1332724521497931777) | The video output is glitching and the camera doesn't appear to be respecting the calibration. |
+| [Topgolf with Pro Putt](https://www.oculus.com/experiences/quest/2412327085529357) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1342953951453446145) | Works perfectly. | 
