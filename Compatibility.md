@@ -15,6 +15,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Dead and Buried II](https://www.oculus.com/experiences/quest/2134077359973067) | ? | ? | ? | ? |
 | [Epic Roller Coasters](https://www.oculus.com/experiences/quest/2299465166734471) | 5 | 5 | ? | ? |
 | [Gadgeteer](https://www.oculus.com/experiences/quest/2567395559960697) | ? | ? | ? | ? |
+| [Gun Club VR](https://www.oculus.com/experiences/quest/2285803881494677) | 5 | 5 | ? | ? |
 | [Half + Half](https://www.oculus.com/experiences/quest/2035353573194060) | 5 | 0 | ? | ? |
 | [Hand Physics Lab](https://sidequestvr.com/app/750) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1330985474740121602) | Works perfectly. |
 | [Holopoint](https://www.oculus.com/experiences/quest/2202354219893697) | ? | ? | ? | ? |

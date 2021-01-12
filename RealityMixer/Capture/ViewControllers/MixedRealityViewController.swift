@@ -10,16 +10,6 @@ import ARKit
 import AVFoundation
 import SwiftSocket
 
-struct MixedRealityConfiguration {
-    // Use magenta as the transparency color for the foreground plane
-    let shouldUseMagentaAsTransparency: Bool
-
-    let enableAudio: Bool
-    let enableAutoFocus: Bool
-    let shouldFlipOutput: Bool
-    let shouldHideBackground: Bool
-}
-
 final class MixedRealityViewController: UIViewController {
     private let client: TCPClient
     private let configuration: MixedRealityConfiguration
@@ -118,9 +108,9 @@ final class MixedRealityViewController: UIViewController {
         sceneView.scene = scene
         sceneView.session.delegate = self
 
-//        if !configuration.shouldHideBackground {
-//            sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
-//        }
+        if case .visible = configuration.backgroundVisibility {
+            sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
+        }
 
         if let metalDevice = sceneView.device {
             let result = CVMetalTextureCacheCreate(
@@ -173,7 +163,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureBackground(with frame: ARFrame) {
-        guard !configuration.shouldHideBackground else { return }
+        if case .hidden = configuration.backgroundVisibility { return }
         let backgroundPlaneNode = makePlaneNodeForDistance(100.0, frame: frame)
 
         // Flipping image
@@ -190,6 +180,7 @@ final class MixedRealityViewController: UIViewController {
 
         backgroundPlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero //
 
+        // TODO: Change background shader based on configuration.backgroundVisibility
         backgroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
             .surface: Shaders.backgroundSurfaceWithChromaKey //Shaders.backgroundSurface
         ]

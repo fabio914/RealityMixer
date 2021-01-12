@@ -17,7 +17,9 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var autoFocusSwitch: UISwitch!
     @IBOutlet private weak var magentaSwitch: UISwitch!
     @IBOutlet private weak var unflipSwitch: UISwitch!
-    @IBOutlet private weak var hideBackgroundSwitch: UISwitch!
+    @IBOutlet private weak var backgroundVisibilitySegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var backgroundChromaKeySection: UIStackView!
+    @IBOutlet private weak var backgroundChromaKeySegmentedControl: UISegmentedControl!
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
@@ -125,7 +127,7 @@ final class MixedRealityConnectionViewController: UIViewController {
                     enableAudio: self.audioSwitch.isOn,
                     enableAutoFocus: self.autoFocusSwitch.isOn,
                     shouldFlipOutput: !self.unflipSwitch.isOn,
-                    shouldHideBackground: self.hideBackgroundSwitch.isOn
+                    backgroundVisibility: self.backgroundVisibility()
                 )
 
                 connectionAlert.dismiss(animated: false, completion: { [weak self] in
@@ -140,6 +142,30 @@ final class MixedRealityConnectionViewController: UIViewController {
                 })
             }
         })
+    }
+
+    private func backgroundVisibility() -> MixedRealityConfiguration.BackgroundVisibility {
+        switch backgroundVisibilitySegmentedControl.selectedSegmentIndex {
+        case 0:
+            return .visible
+        case 1:
+            return .chromaKey({
+                switch backgroundChromaKeySegmentedControl.selectedSegmentIndex {
+                case 0:
+                    return .black
+                case 1:
+                    return .green
+                default:
+                    return .magenta
+                }
+            }())
+        default:
+            return .hidden
+        }
+    }
+
+    @IBAction func backgroundVisibilityDidChange(_ sender: UISegmentedControl) {
+        backgroundChromaKeySection.isHidden = sender.selectedSegmentIndex != 1
     }
 
     @IBAction private func startCalibrationAction(_ sender: Any) {
