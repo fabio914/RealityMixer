@@ -22,6 +22,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Pistol Whip](https://www.oculus.com/experiences/quest/2104963472963790) | 2 | 0 | [Tweet](https://twitter.com/fabio914/status/1326699860146401284) | The audio didn't work and the video was showing a first person POV. |
 | [QuestDraw AR](https://sidequestvr.com/app/1168) | 5 | ? | ? | ? |
 | [Racket Fury](https://www.oculus.com/experiences/quest/1952355814856769) | ? | ? | ? | You'll have to use the "Unflip output" option. |
+| [Racket: Nx](https://www.oculus.com/experiences/quest/2255408847836468) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=u05jGAV-V_Q) | Works perfectly. |
 | [Real VR Fishing](https://www.oculus.com/experiences/quest/2582932495064035) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=xMbj-JThgoc) | Works perfectly. |
 | [Richie's Plank Experience](https://www.oculus.com/experiences/quest/1642239225880682) | ? | ? | [Tweet](https://twitter.com/FreekTeunen/status/1327673218891649024) | ? |
 | [SUPERHOT](https://www.oculus.com/experiences/quest/1921533091289407/) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=ZnOY8juMw4k) | Works perfectly. |

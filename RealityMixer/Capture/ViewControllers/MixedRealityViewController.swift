@@ -15,6 +15,7 @@ struct MixedRealityConfiguration {
     let shouldUseMagentaAsTransparency: Bool
 
     let enableAudio: Bool
+    let enableAutoFocus: Bool
     let shouldFlipOutput: Bool
     let shouldHideBackground: Bool
 }
@@ -232,6 +233,7 @@ final class MixedRealityViewController: UIViewController {
         configuration.planeDetection = .horizontal
         configuration.environmentTexturing = .none
         configuration.isLightEstimationEnabled = true
+        configuration.isAutoFocusEnabled = self.configuration.enableAutoFocus
 
         if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
             configuration.frameSemantics.insert(.personSegmentationWithDepth)
