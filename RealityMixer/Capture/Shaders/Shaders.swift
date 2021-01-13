@@ -92,7 +92,7 @@ struct Shaders {
         vec2 chroma = texture2D(u_diffuseTexture, backgroundCoords).rg;
 
         vec4 textureColor = yCbCrToRGB(luma, chroma);
-        _surface.diffuse = backgroundColor;
+        _surface.diffuse = textureColor;
 
         float blendValue = chromaKey(textureColor.rgb, vec3(\(red), \(green), \(blue)));
         _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
