@@ -154,6 +154,7 @@ struct Shaders {
     """
 
     static let magentaForegroundSurface = """
+    \(chromaKey)
     \(foregroundSurfaceShared)
 
     vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.5, _surface.transparentTexcoord.y);
@@ -163,19 +164,7 @@ struct Shaders {
 
     vec4 alphaColor = yCbCrToRGB(luma2, chroma2);
 
-    vec3 magenta = vec3(1.0, 0.0, 1.0);
-    float threshold = 0.10;
-
-    // FIXME: Consider using HSV to compare these colors
-    bool checkRed = (alphaColor.r >= (magenta.r - threshold));
-    bool checkGreen = (alphaColor.g >= (magenta.g - threshold) && alphaColor.g <= (magenta.g + threshold));
-    bool checkBlue = (alphaColor.b >= (magenta.b - threshold));
-
-    if (checkRed && checkGreen && checkBlue) {
-        // FIXME: This is not ideal, this is ignoring semi-transparent pixels
-        _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
-    } else {
-        _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
-    }
+    float blendValue = chromaKey(alphaColor.rgb, vec3(1.0, 0.0, 1.0));
+    _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
     """
 }
