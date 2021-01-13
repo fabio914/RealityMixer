@@ -60,14 +60,7 @@ struct Shaders {
         float Cr = 0.7132 * (c.r - Y);
         float Cb = 0.5647 * (c.b - Y);
 
-        float dist = distance(vec2(Cr, Cb), vec2(maskCr, maskCb));
-        if (dist <= 0.1) {
-            return 1.0;
-        } else {
-            return 0.0;
-        }
-
-        // return 1.0 - smoothstep(sensitivity, sensitivity + smooth, distance(vec2(Cr, Cb), vec2(maskCr, maskCb)));
+        return 1.0 - smoothstep(sensitivity, sensitivity + smooth, distance(vec2(Cr, Cb), vec2(maskCr, maskCb)));
     }
 
     """
@@ -79,16 +72,35 @@ struct Shaders {
 
     vec2 backgroundCoords = vec2((_surface.diffuseTexcoord.x * 0.5), _surface.diffuseTexcoord.y);
 
-    float luma = texture2D(u_ambientTexture, backgroundCoords).r;
+    float luma = texture2D(u_transparentTexture, backgroundCoords).r;
     vec2 chroma = texture2D(u_diffuseTexture, backgroundCoords).rg;
 
     _surface.diffuse = yCbCrToRGB(luma, chroma);
-    _surface.ambient = vec4(0.0, 0.0, 0.0, 1.0);
+    _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
     """
 
-    static let backgroundSurfaceWithChromaKey = """
+    static func backgroundSurfaceChromaKey(red: Float, green: Float, blue: Float) -> String {
+        """
+        \(yCrCbToRGB)
+        \(chromaKey)
+
+        #pragma body
+
+        vec2 backgroundCoords = vec2((_surface.diffuseTexcoord.x * 0.5), _surface.diffuseTexcoord.y);
+
+        float luma = texture2D(u_transparentTexture, backgroundCoords).r;
+        vec2 chroma = texture2D(u_diffuseTexture, backgroundCoords).rg;
+
+        vec4 textureColor = yCbCrToRGB(luma, chroma);
+        _surface.diffuse = backgroundColor;
+
+        float blendValue = chromaKey(textureColor.rgb, vec3(\(red), \(green), \(blue)));
+        _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
+        """
+    }
+
+    static let backgroundSurfaceWithBlackChromaKey = """
     \(yCrCbToRGB)
-    \(chromaKey)
 
     #pragma body
 
@@ -99,16 +111,6 @@ struct Shaders {
 
     _surface.diffuse = yCbCrToRGB(luma, chroma);
 
-    //vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.5), _surface.transparentTexcoord.y);
-
-    //float luma2 = texture2D(u_transparentTexture, alphaCoords).r;
-    //vec2 chroma2 = texture2D(u_diffuseTexture, alphaCoords).rg;
-
-    //vec4 alphaColor = yCbCrToRGB(luma, chroma);
-    //float blendValue = chromaKey(alphaColor.rgb, vec3(0.0, 0.0, 0.0));
-
-    //_surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
-
     if (luma < 0.13) {
         _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
     } else {
@@ -116,6 +118,9 @@ struct Shaders {
     }
 
     """
+
+    static let backgroundSurfaceWithGreenChromaKey = backgroundSurfaceChromaKey(red: 0, green: 1, blue: 0)
+    static let backgroundSurfaceWithMagentaChromaKey = backgroundSurfaceChromaKey(red: 1, green: 0, blue: 1)
 
     static let foregroundSurfaceShared = """
     \(yCrCbToRGB)

@@ -169,20 +169,26 @@ final class MixedRealityViewController: UIViewController {
         // Flipping image
         if configuration.shouldFlipOutput {
             backgroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = flipTransform
-            backgroundPlaneNode.geometry?.firstMaterial?.transparent.contentsTransform = flipTransform //
+            backgroundPlaneNode.geometry?.firstMaterial?.transparent.contentsTransform = flipTransform
         }
 
-//        backgroundPlaneNode.geometry?.firstMaterial?.diffuse.magnificationFilter = .nearest
-//        backgroundPlaneNode.geometry?.firstMaterial?.diffuse.minificationFilter = .nearest
-//
-//        backgroundPlaneNode.geometry?.firstMaterial?.transparent.magnificationFilter = .nearest
-//        backgroundPlaneNode.geometry?.firstMaterial?.transparent.minificationFilter = .nearest
+        backgroundPlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 
-        backgroundPlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero //
+        let surfaceShader = { () -> String in
+            switch configuration.backgroundVisibility {
+            case .chromaKey(.black):
+                return Shaders.backgroundSurfaceWithBlackChromaKey
+            case .chromaKey(.green):
+                return Shaders.backgroundSurfaceWithGreenChromaKey
+            case .chromaKey(.magenta):
+                return Shaders.backgroundSurfaceWithMagentaChromaKey
+            default:
+                return Shaders.backgroundSurface
+            }
+        }()
 
-        // TODO: Change background shader based on configuration.backgroundVisibility
         backgroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: Shaders.backgroundSurfaceWithChromaKey //Shaders.backgroundSurface
+            .surface: surfaceShader
         ]
 
         sceneView.pointOfView?.addChildNode(backgroundPlaneNode)
@@ -341,7 +347,6 @@ extension MixedRealityViewController: OculusMRCDelegate {
         let luma = texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0)
         let chroma = texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1)
 
-//        backgroundNode?.geometry?.firstMaterial?.ambient.contents = luma
         backgroundNode?.geometry?.firstMaterial?.transparent.contents = luma
         backgroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
 
