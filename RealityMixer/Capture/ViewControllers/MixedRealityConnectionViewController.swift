@@ -17,7 +17,9 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var autoFocusSwitch: UISwitch!
     @IBOutlet private weak var magentaSwitch: UISwitch!
     @IBOutlet private weak var unflipSwitch: UISwitch!
-    @IBOutlet private weak var hideBackgroundSwitch: UISwitch!
+    @IBOutlet private weak var backgroundVisibilitySegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var backgroundChromaKeySection: UIStackView!
+    @IBOutlet private weak var backgroundChromaKeySegmentedControl: UISegmentedControl!
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
@@ -60,7 +62,7 @@ final class MixedRealityConnectionViewController: UIViewController {
         """
 
         secondInfoLabel.text = """
-         • Make sure that the Quest and this device are both connected to the same WiFi network. A 5 Ghz WiFi is recommended.
+         • Make sure that the Quest and this device are both connected to the same WiFi network, and that both have a strong signal. A 5 Ghz WiFi is recommended.
 
          • Make sure that the Reality Mixer app is allowed to access your camera and your local network. It'll ask for permission the first time you launch the calibration or mixed reality, however, you'll need to navigate to the system settings to be able to re-enable these permissions if you haven't given permissions during the first launch.
         """
@@ -125,7 +127,7 @@ final class MixedRealityConnectionViewController: UIViewController {
                     enableAudio: self.audioSwitch.isOn,
                     enableAutoFocus: self.autoFocusSwitch.isOn,
                     shouldFlipOutput: !self.unflipSwitch.isOn,
-                    shouldHideBackground: self.hideBackgroundSwitch.isOn
+                    backgroundVisibility: self.backgroundVisibility()
                 )
 
                 connectionAlert.dismiss(animated: false, completion: { [weak self] in
@@ -140,6 +142,30 @@ final class MixedRealityConnectionViewController: UIViewController {
                 })
             }
         })
+    }
+
+    private func backgroundVisibility() -> MixedRealityConfiguration.BackgroundVisibility {
+        switch backgroundVisibilitySegmentedControl.selectedSegmentIndex {
+        case 0:
+            return .visible
+        case 1:
+            return .chromaKey({
+                switch backgroundChromaKeySegmentedControl.selectedSegmentIndex {
+                case 0:
+                    return .black
+                case 1:
+                    return .green
+                default:
+                    return .magenta
+                }
+            }())
+        default:
+            return .hidden
+        }
+    }
+
+    @IBAction func backgroundVisibilityDidChange(_ sender: UISegmentedControl) {
+        backgroundChromaKeySection.isHidden = sender.selectedSegmentIndex != 1
     }
 
     @IBAction private func startCalibrationAction(_ sender: Any) {
