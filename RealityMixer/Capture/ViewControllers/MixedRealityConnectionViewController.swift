@@ -62,7 +62,7 @@ final class MixedRealityConnectionViewController: UIViewController {
         """
 
         secondInfoLabel.text = """
-         • Make sure that the Quest and this device are both connected to the same WiFi network. A 5 Ghz WiFi is recommended.
+         • Make sure that the Quest and this device are both connected to the same WiFi network, and that both have a strong signal. A 5 Ghz WiFi is recommended.
 
          • Make sure that the Reality Mixer app is allowed to access your camera and your local network. It'll ask for permission the first time you launch the calibration or mixed reality, however, you'll need to navigate to the system settings to be able to re-enable these permissions if you haven't given permissions during the first launch.
         """
