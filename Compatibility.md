@@ -13,8 +13,10 @@ You can find a list of the officially supported games/applications [here](https:
 | [Crazy Kung Fu](https://sidequestvr.com/app/1195/crazy-kung-fu) | 5 | 5 | [Tweet](https://twitter.com/ImPotter/status/1333928589897699332) | |
 | [Cubism](https://www.oculus.com/experiences/quest/2264524423619421/) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1333548364697378827) | Works perfectly. |
 | [Dead and Buried II](https://www.oculus.com/experiences/quest/2134077359973067) | ? | ? | ? | ? |
+| [Eleven Table Tennis](https://www.oculus.com/experiences/quest/1995434190525828) | ? | ? | [Tweet](https://twitter.com/OnvrNewMedia/status/1349682761251098625) | ? |
 | [Epic Roller Coasters](https://www.oculus.com/experiences/quest/2299465166734471) | 5 | 5 | ? | ? |
 | [Gadgeteer](https://www.oculus.com/experiences/quest/2567395559960697) | ? | ? | ? | ? |
+| [Gun Club VR](https://www.oculus.com/experiences/quest/2285803881494677) | 5 | 5 | ? | ? |
 | [Half + Half](https://www.oculus.com/experiences/quest/2035353573194060) | 5 | 0 | ? | ? |
 | [Hand Physics Lab](https://sidequestvr.com/app/750) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1330985474740121602) | Works perfectly. |
 | [Holopoint](https://www.oculus.com/experiences/quest/2202354219893697) | ? | ? | ? | ? |
