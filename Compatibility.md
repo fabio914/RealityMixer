@@ -13,6 +13,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Crazy Kung Fu](https://sidequestvr.com/app/1195/crazy-kung-fu) | 5 | 5 | [Tweet](https://twitter.com/ImPotter/status/1333928589897699332) | |
 | [Cubism](https://www.oculus.com/experiences/quest/2264524423619421/) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1333548364697378827) | Works perfectly. |
 | [Dead and Buried II](https://www.oculus.com/experiences/quest/2134077359973067) | ? | ? | ? | ? |
+| [Drop Dead: Dual Strike Edition](https://www.oculus.com/experiences/quest/1935017546592600) | ? | ? | [Tweet](https://twitter.com/Seaglemaniac/status/1352082534084055041) | ? |
 | [Eleven Table Tennis](https://www.oculus.com/experiences/quest/1995434190525828) | ? | ? | [Tweet](https://twitter.com/OnvrNewMedia/status/1349682761251098625) | ? |
 | [Epic Roller Coasters](https://www.oculus.com/experiences/quest/2299465166734471) | 5 | 5 | ? | ? |
 | [Gadgeteer](https://www.oculus.com/experiences/quest/2567395559960697) | ? | ? | ? | ? |
@@ -21,6 +22,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Hand Physics Lab](https://sidequestvr.com/app/750) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1330985474740121602) | Works perfectly. |
 | [Holopoint](https://www.oculus.com/experiences/quest/2202354219893697) | ? | ? | ? | ? |
 | [Kingspray](https://www.oculus.com/experiences/quest/2082941345119152) | ? | ? | ? | ? |
+| [OhShape](https://www.oculus.com/experiences/quest/2522558964527688) | ? | ? | [Tweet](https://twitter.com/Seaglemaniac/status/1351727338661273600) | ? |
 | [Pistol Whip](https://www.oculus.com/experiences/quest/2104963472963790) | 2 | 0 | [Tweet](https://twitter.com/fabio914/status/1326699860146401284) | The audio didn't work and the video was showing a first person POV. |
 | [QuestDraw AR](https://sidequestvr.com/app/1168) | 5 | ? | ? | ? |
 | [Racket Fury](https://www.oculus.com/experiences/quest/1952355814856769) | ? | ? | ? | You'll have to use the "Unflip output" option. |
