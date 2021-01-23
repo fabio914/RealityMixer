@@ -2,7 +2,7 @@
 
 ## Requirements
 
- - Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed.
+ - Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed. This application is only necessary for the calibration step.
  - iPhone or iPad with an A12 chip or newer, running iOS 14. The LiDAR sensor is optional but recommended for better results.
  - 5 Ghz WiFi network (802.11ac).
  - A [compatible Quest VR application/game](Compatibility.md).
@@ -53,7 +53,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
 - Remember, you should not move your iPhone/iPad during or after the calibration, or else you'll need to calibrate again.
 
-- You can now close the Mixed Reality Capture app on the Quest.
+- You should now **quit** the Mixed Reality Capture app on the Quest.
 
 ## How to start the mixed reality capture?
 
@@ -71,7 +71,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
  - Some other games, such as Beat Saber, might require you to enable Mixed Reality capture on their Settings. You'll have to do that first before starting the connection.
  
- - Launch your compatible application/game on the Quest.
+ - Make sure the Oculus Mixed Reality Capture app is **NOT** running, then launch your compatible application/game on the Quest.
  
  - Tap on "Connect". You might be asked to give the app permission to access your local network and your camera, you should allow both.
  
