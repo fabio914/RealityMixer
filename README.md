@@ -1,8 +1,8 @@
 <img src="Images/rounded.png" width="100" />
 
-# Reality Mixer <br/> *Oculus Quest Mixed Reality For iOS*
+# Reality Mixer <br/> *Mixed Reality app For iOS*
 
-This is a standalone Oculus Quest Mixed Reality app for iOS. It is able to generate VR gameplay videos in Mixed Reality without a PC and without a green screen.
+This is a standalone Mixed Reality app for iOS. It is able to generate VR gameplay videos in Mixed Reality without a PC and without a green screen.
 
 Click on [this link](https://testflight.apple.com/join/gyXe6zXG) to join the TestFlight beta, or follow the [instructions](#installation) below to install it using AltStore.
 
@@ -24,11 +24,9 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
  - 5 Ghz WiFi network (802.11ac).
  - A [compatible Quest VR application/game](Compatibility.md).
 
-Note that this app is still just a prototype and it's still being developed, use at your own risk.
-
 ## Compatible Applications/Games
 
-[Link](Compatibility.md)
+The app is currently only compatible with the Oculus Quest 1 and 2, check this [link](Compatibility.md) for a list of the compatible games/applications.
 
 ## Installation
 
