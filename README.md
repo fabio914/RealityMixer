@@ -1,6 +1,6 @@
 <img src="Images/rounded.png" width="100" />
 
-# Reality Mixer <br/> *Mixed Reality app For iOS*
+# Reality Mixer <br/> *Mixed Reality app for iOS*
 
 This is a standalone Mixed Reality app for iOS. It is able to generate VR gameplay videos in Mixed Reality without a PC and without a green screen.
 
@@ -43,7 +43,7 @@ OR
 - Open this URL on your iPhone/iPad:
 
 ```
-altstore://install?url=https://github.com/fabio914/OculusQuestMixedRealityForiOS/releases/download/0.1.7/RealityMixer.ipa
+altstore://install?url=https://github.com/fabio914/RealityMixer/releases/download/0.1.7/RealityMixer.ipa
 ```
 
 ### TestFlight
