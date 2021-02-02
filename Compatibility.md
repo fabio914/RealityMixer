@@ -27,7 +27,9 @@ You can find a list of the officially supported games/applications [here](https:
 | [Hyper Dash](https://sidequestvr.com/app/807/hyper-dash) | ? | ? | ? | ? |
 | [Kingspray](https://www.oculus.com/experiences/quest/2082941345119152) | ? | ? | ? | ? |
 | [OhShape](https://www.oculus.com/experiences/quest/2522558964527688) | ? | ? | [Tweet](https://twitter.com/Seaglemaniac/status/1351727338661273600) | ? |
+| [Peco Peco](https://benthamrealities.itch.io/pecopeco) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=Zrf2i6FvkrU) | Works perfectly. |
 | [Pistol Whip](https://www.oculus.com/experiences/quest/2104963472963790) | 2 | 0 | [Tweet](https://twitter.com/fabio914/status/1326699860146401284) | The audio didn't work and the video was showing a first person POV. |
+| [Puzzling Places Prototype](https://sidequestvr.com/app/809/puzzling-places-prototype) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=a8Ph-bUJFoA) | The colors appear desaturated. |
 | [QuestDraw AR](https://sidequestvr.com/app/1168) | 5 | ? | ? | ? |
 | [Racket Fury](https://www.oculus.com/experiences/quest/1952355814856769) | ? | ? | ? | You'll have to use the "Unflip output" option. |
 | [Racket: Nx](https://www.oculus.com/experiences/quest/2255408847836468) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=u05jGAV-V_Q) | Works perfectly. |
