@@ -2,9 +2,9 @@
 
 # Reality Mixer <br/> *Mixed Reality app for iOS*
 
-This is a standalone Mixed Reality app for iOS. It is able to generate VR gameplay videos in Mixed Reality without a PC and without a green screen.
+Reality Mixer lets you use your iPhone or iPad to capture your favorite VR games and applications in Mixed Reality without a PC and without a green screen.
 
-Click on [this link](https://testflight.apple.com/join/gyXe6zXG) to join the TestFlight beta, or follow the [instructions](#installation) below to install it using AltStore.
+Click on [this link](https://apps.apple.com/us/app/reality-mixer/id1539307552) to get it from the App Store, or follow the [instructions](#installation) below to install it using alternative methods.
 
 Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
 
@@ -29,6 +29,10 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
 The app is currently only compatible with the Oculus Quest 1 and 2, check this [link](Compatibility.md) for a list of the compatible games/applications.
 
 ## Installation
+
+### App Store
+
+[Link](https://apps.apple.com/us/app/reality-mixer/id1539307552)
 
 ### AltStore
 
