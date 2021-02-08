@@ -25,7 +25,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Hand Physics Lab](https://sidequestvr.com/app/750) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1330985474740121602) | Works perfectly. |
 | [Holopoint](https://www.oculus.com/experiences/quest/2202354219893697) | ? | ? | ? | ? |
 | [Hyper Dash](https://sidequestvr.com/app/807/hyper-dash) | ? | ? | ? | ? |
-| [Kingspray](https://www.oculus.com/experiences/quest/2082941345119152) | ? | ? | ? | ? |
+| [Kingspray](https://www.oculus.com/experiences/quest/2082941345119152) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=_0aYmo2Ytac) | Works perfectly. |
 | [OhShape](https://www.oculus.com/experiences/quest/2522558964527688) | ? | ? | [Tweet](https://twitter.com/Seaglemaniac/status/1351727338661273600) | ? |
 | [Peco Peco](https://benthamrealities.itch.io/pecopeco) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=Zrf2i6FvkrU) | Works perfectly. |
 | [Pistol Whip](https://www.oculus.com/experiences/quest/2104963472963790) | 2 | 0 | [Tweet](https://twitter.com/fabio914/status/1326699860146401284) | The audio didn't work and the video was showing a first person POV. |
