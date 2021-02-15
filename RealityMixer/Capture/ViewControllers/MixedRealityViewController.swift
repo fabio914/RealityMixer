@@ -36,12 +36,17 @@ final class MixedRealityViewController: UIViewController {
         true
     }
 
+    private let cameraExperiment: CameraExperiment?
+    private var initialReliableCameraPose: (Vector3, Vector3)? // Position and Euler angles
+
     init(
         client: TCPClient,
-        configuration: MixedRealityConfiguration
+        configuration: MixedRealityConfiguration,
+        cameraExperiment: CameraExperiment?
     ) {
         self.client = client
         self.configuration = configuration
+        self.cameraExperiment = cameraExperiment
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -363,10 +368,72 @@ extension MixedRealityViewController: OculusMRCDelegate {
 extension MixedRealityViewController: ARSessionDelegate {
 
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
+
         if first {
             configureBackground(with: frame)
             configureForeground(with: frame)
             first = false
+        } else {
+
+            if let initialReliableCameraPose = initialReliableCameraPose {
+
+                if case .normal = frame.camera.trackingState {
+
+                    let angles = frame.camera.eulerAngles
+                    let position = frame.camera.transform.columns.3
+
+                    let positionVector = Vector3(
+                        x: .init(position.x),
+                        y: .init(position.y),
+                        z: .init(position.z)
+                    )
+
+                    let anglesVector = Vector3(
+                        x: .init(angles.x),
+                        y: .init(angles.y),
+                        z: .init(angles.z)
+                    )
+
+                    let positionDelta = positionVector - initialReliableCameraPose.0
+                    let anglesDelta = anglesVector - initialReliableCameraPose.1
+
+//                    print("CAMERA Pose update: position \(positionDelta) angles \(anglesDelta)")
+
+                    let pose = Pose(
+                        position: positionDelta,
+                        rotation: .init(roll: anglesDelta.x, pitch: anglesDelta.y, yaw: anglesDelta.z)
+                    )
+
+                    cameraExperiment?.sendCameraPoseUpdate(pose)
+                }
+
+            } else {
+
+                // Assuming there was no movement between the first ARFrame and the first reliable
+                // camera position and orientation
+
+                if case .normal = frame.camera.trackingState {
+                    let angles = frame.camera.eulerAngles
+                    let position = frame.camera.transform.columns.3
+
+                    let positionVector = Vector3(
+                        x: .init(position.x),
+                        y: .init(position.y),
+                        z: .init(position.z)
+                    )
+
+                    let anglesVector = Vector3(
+                        x: .init(angles.x),
+                        y: .init(angles.y),
+                        z: .init(angles.z)
+                    )
+
+                    initialReliableCameraPose = (positionVector, anglesVector)
+
+//                    print("CAMERA Initial pose: position \(positionVector) angles \(anglesVector)")
+                }
+            }
+
         }
     }
 }
