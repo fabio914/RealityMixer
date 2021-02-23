@@ -37,7 +37,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private let cameraExperiment: CameraExperiment?
-    private var initialReliableCameraPose: (Vector3, Vector3)? // Position and Euler angles
+    private var initialReliableCameraPose: (Vector3, Quaternion)?
 
     init(
         client: TCPClient,
@@ -378,8 +378,6 @@ extension MixedRealityViewController: ARSessionDelegate {
             if let initialReliableCameraPose = initialReliableCameraPose {
 
                 if case .normal = frame.camera.trackingState {
-
-                    let angles = frame.camera.eulerAngles
                     let position = frame.camera.transform.columns.3
 
                     let positionVector = Vector3(
@@ -388,20 +386,12 @@ extension MixedRealityViewController: ARSessionDelegate {
                         z: .init(position.z)
                     )
 
-                    let anglesVector = Vector3(
-                        x: .init(angles.x),
-                        y: .init(angles.y),
-                        z: .init(angles.z)
-                    )
-
                     let positionDelta = positionVector - initialReliableCameraPose.0
-                    let anglesDelta = anglesVector - initialReliableCameraPose.1
-
-//                    print("CAMERA Pose update: position \(positionDelta) angles \(anglesDelta)")
+                    let rotationDelta = initialReliableCameraPose.1 * Quaternion(rotationMatrix: frame.camera.transform)
 
                     let pose = Pose(
                         position: positionDelta,
-                        rotation: .init(roll: anglesDelta.x, pitch: anglesDelta.y, yaw: anglesDelta.z)
+                        rotation: rotationDelta
                     )
 
                     cameraExperiment?.sendCameraPoseUpdate(pose)
@@ -413,7 +403,6 @@ extension MixedRealityViewController: ARSessionDelegate {
                 // camera position and orientation
 
                 if case .normal = frame.camera.trackingState {
-                    let angles = frame.camera.eulerAngles
                     let position = frame.camera.transform.columns.3
 
                     let positionVector = Vector3(
@@ -422,15 +411,9 @@ extension MixedRealityViewController: ARSessionDelegate {
                         z: .init(position.z)
                     )
 
-                    let anglesVector = Vector3(
-                        x: .init(angles.x),
-                        y: .init(angles.y),
-                        z: .init(angles.z)
-                    )
+                    let inverseRotation = Quaternion(rotationMatrix: frame.camera.transform).inverse
 
-                    initialReliableCameraPose = (positionVector, anglesVector)
-
-//                    print("CAMERA Initial pose: position \(positionVector) angles \(anglesVector)")
+                    initialReliableCameraPose = (positionVector, inverseRotation)
                 }
             }
 

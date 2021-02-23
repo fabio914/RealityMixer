@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SceneKit
 
 struct Vector3 {
     let x: Double
@@ -78,6 +79,36 @@ struct Quaternion {
         let yaw = atan2(siny_cosp, cosy_cosp)
 
         return Vector3(x: roll, y: pitch, z: yaw)
+    }
+
+    init(rotationMatrix m: simd_float4x4) {
+        let tr: Float = m[0][0] + m[1][1] + m[2][2]
+
+        if tr > 0 {
+            let s: Float = sqrt(tr+1.0) * 2.0 // S=4*qw
+            self.w = Double(0.25 * s)
+            self.x = Double((m[2][1] - m[1][2])/s)
+            self.y = Double((m[0][2] - m[2][0])/s)
+            self.z = Double((m[1][0] - m[0][1])/s)
+        } else if (m[0][0] > m[1][1]) && (m[0][0] > m[2][2]) {
+            let s: Float = sqrt(1.0 + m[0][0] - m[1][1] - m[2][2]) * 2.0 // S=4*qx
+            self.w = Double((m[2][1] - m[1][2])/s)
+            self.x = Double(0.25 * s)
+            self.y = Double((m[0][1] + m[1][0])/s)
+            self.z = Double((m[0][2] + m[2][0])/s)
+        } else if m[1][1] > m[2][2] {
+            let s: Float = sqrt(1.0 + m[1][1] - m[0][0] - m[2][2]) * 2.0 // S=4*qy
+            self.w = Double((m[0][2] - m[2][0])/s)
+            self.x = Double((m[0][1] + m[1][0])/s)
+            self.y = Double(0.25 * s)
+            self.z = Double((m[1][2] + m[2][1])/s)
+        } else {
+            let s: Float = sqrt(1.0 + m[2][2] - m[0][0] - m[1][1]) * 2.0 // S=4*qz
+            self.w = Double((m[1][0] - m[0][1])/s)
+            self.x = Double((m[0][2] + m[2][0])/s)
+            self.y = Double((m[1][2] + m[2][1])/s)
+            self.z = Double(0.25 * s)
+        }
     }
 
     init(x: Double, y: Double, z: Double, w: Double) {
