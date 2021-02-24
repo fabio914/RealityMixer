@@ -82,6 +82,7 @@ struct Quaternion {
     }
 
     init(rotationMatrix m: simd_float4x4) {
+        let m = m.transpose
         let tr: Float = m[0][0] + m[1][1] + m[2][2]
 
         if tr > 0 {
