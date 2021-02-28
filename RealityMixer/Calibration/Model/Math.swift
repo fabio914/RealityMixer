@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SceneKit
 
 struct Vector3 {
     let x: Double
@@ -78,6 +79,36 @@ struct Quaternion {
         let yaw = atan2(siny_cosp, cosy_cosp)
 
         return Vector3(x: roll, y: pitch, z: yaw)
+    }
+
+    init(rotationMatrix m: SCNMatrix4) {
+        let tr: Float = m.m11 + m.m22 + m.m33
+
+        if tr > 0 {
+            let s: Float = sqrt(tr+1.0) * 2.0 // S=4*qw
+            self.w = Double(0.25 * s)
+            self.x = Double((m.m23 - m.m12)/s)
+            self.y = Double((m.m31 - m.m13)/s)
+            self.z = Double((m.m12 - m.m21)/s)
+        } else if (m.m11 > m.m22) && (m.m11 > m.m33) {
+            let s: Float = sqrt(1.0 + m.m11 - m.m22 - m.m33) * 2.0 // S=4*qx
+            self.w = Double((m.m23 - m.m32)/s)
+            self.x = Double(0.25 * s)
+            self.y = Double((m.m21 + m.m12)/s)
+            self.z = Double((m.m31 + m.m13)/s)
+        } else if m.m22 > m.m33 {
+            let s: Float = sqrt(1.0 + m.m22 - m.m11 - m.m33) * 2.0 // S=4*qy
+            self.w = Double((m.m31 - m.m13)/s)
+            self.x = Double((m.m21 + m.m12)/s)
+            self.y = Double(0.25 * s)
+            self.z = Double((m.m32 + m.m23)/s)
+        } else {
+            let s: Float = sqrt(1.0 + m.m33 - m.m11 - m.m22) * 2.0 // S=4*qz
+            self.w = Double((m.m12 - m.m21)/s)
+            self.x = Double((m.m31 + m.m13)/s)
+            self.y = Double((m.m32 + m.m23)/s)
+            self.z = Double(0.25 * s)
+        }
     }
 
     init(x: Double, y: Double, z: Double, w: Double) {
