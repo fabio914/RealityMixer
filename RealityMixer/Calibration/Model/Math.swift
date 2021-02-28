@@ -87,7 +87,7 @@ struct Quaternion {
         if tr > 0 {
             let s: Float = sqrt(tr+1.0) * 2.0 // S=4*qw
             self.w = Double(0.25 * s)
-            self.x = Double((m.m23 - m.m12)/s)
+            self.x = Double((m.m23 - m.m32)/s)
             self.y = Double((m.m31 - m.m13)/s)
             self.z = Double((m.m12 - m.m21)/s)
         } else if (m.m11 > m.m22) && (m.m11 > m.m33) {
