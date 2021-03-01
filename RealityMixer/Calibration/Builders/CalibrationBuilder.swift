@@ -136,18 +136,9 @@ struct CalibrationBuilder {
             m44: 1.0
         )
 
-        let node = SCNNode()
-        node.transform = transposed
-
-        let cameraRotation = Quaternion(
-            roll: Double(node.eulerAngles.x),
-            pitch: Double(node.eulerAngles.y),
-            yaw: Double(node.eulerAngles.z)
-        )
-
         let cameraPose = Pose(
             position: cameraOrigin,
-            rotation: cameraRotation
+            rotation: Quaternion(rotationMatrix: transposed)
         )
 
         let imageSize = Size(width: Int(imageResolution.width), height: Int(imageResolution.height))

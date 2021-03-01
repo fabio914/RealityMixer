@@ -387,7 +387,7 @@ extension MixedRealityViewController: ARSessionDelegate {
                     )
 
                     let positionDelta = positionVector - initialReliableCameraPose.0
-                    let rotationDelta = initialReliableCameraPose.1 * Quaternion(rotationMatrix: frame.camera.transform)
+                    let rotationDelta = initialReliableCameraPose.1 * Quaternion(rotationMatrix: SCNMatrix4(frame.camera.transform))
 
                     let pose = Pose(
                         position: positionDelta,
@@ -411,7 +411,7 @@ extension MixedRealityViewController: ARSessionDelegate {
                         z: .init(position.z)
                     )
 
-                    let inverseRotation = Quaternion(rotationMatrix: frame.camera.transform).inverse
+                    let inverseRotation = Quaternion(rotationMatrix: SCNMatrix4(frame.camera.transform)).inverse
 
                     initialReliableCameraPose = (positionVector, inverseRotation)
                 }

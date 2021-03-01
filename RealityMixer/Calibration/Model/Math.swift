@@ -81,32 +81,32 @@ struct Quaternion {
         return Vector3(x: roll, y: pitch, z: yaw)
     }
 
-    init(rotationMatrix m: simd_float4x4) {
-        let tr: Float = m[0][0] + m[1][1] + m[2][2]
+    init(rotationMatrix m: SCNMatrix4) {
+        let tr: Float = m.m11 + m.m22 + m.m33
 
         if tr > 0 {
             let s: Float = sqrt(tr+1.0) * 2.0 // S=4*qw
             self.w = Double(0.25 * s)
-            self.x = Double((m[1][2] - m[2][1])/s)
-            self.y = Double((m[2][0] - m[0][2])/s)
-            self.z = Double((m[0][1] - m[1][0])/s)
-        } else if (m[0][0] > m[1][1]) && (m[0][0] > m[2][2]) {
-            let s: Float = sqrt(1.0 + m[0][0] - m[1][1] - m[2][2]) * 2.0 // S=4*qx
-            self.w = Double((m[1][2] - m[2][1])/s)
+            self.x = Double((m.m23 - m.m32)/s)
+            self.y = Double((m.m31 - m.m13)/s)
+            self.z = Double((m.m12 - m.m21)/s)
+        } else if (m.m11 > m.m22) && (m.m11 > m.m33) {
+            let s: Float = sqrt(1.0 + m.m11 - m.m22 - m.m33) * 2.0 // S=4*qx
+            self.w = Double((m.m23 - m.m32)/s)
             self.x = Double(0.25 * s)
-            self.y = Double((m[1][0] + m[0][1])/s)
-            self.z = Double((m[2][0] + m[0][2])/s)
-        } else if m[1][1] > m[2][2] {
-            let s: Float = sqrt(1.0 + m[1][1] - m[0][0] - m[2][2]) * 2.0 // S=4*qy
-            self.w = Double((m[2][0] - m[0][2])/s)
-            self.x = Double((m[1][0] + m[0][1])/s)
+            self.y = Double((m.m21 + m.m12)/s)
+            self.z = Double((m.m31 + m.m13)/s)
+        } else if m.m22 > m.m33 {
+            let s: Float = sqrt(1.0 + m.m22 - m.m11 - m.m33) * 2.0 // S=4*qy
+            self.w = Double((m.m31 - m.m13)/s)
+            self.x = Double((m.m21 + m.m12)/s)
             self.y = Double(0.25 * s)
-            self.z = Double((m[2][1] + m[1][2])/s)
+            self.z = Double((m.m32 + m.m23)/s)
         } else {
-            let s: Float = sqrt(1.0 + m[2][2] - m[0][0] - m[1][1]) * 2.0 // S=4*qz
-            self.w = Double((m[0][1] - m[1][0])/s)
-            self.x = Double((m[2][0] + m[0][2])/s)
-            self.y = Double((m[2][1] + m[1][2])/s)
+            let s: Float = sqrt(1.0 + m.m33 - m.m11 - m.m22) * 2.0 // S=4*qz
+            self.w = Double((m.m12 - m.m21)/s)
+            self.x = Double((m.m31 + m.m13)/s)
+            self.y = Double((m.m32 + m.m23)/s)
             self.z = Double(0.25 * s)
         }
     }
