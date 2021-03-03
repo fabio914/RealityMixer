@@ -225,33 +225,46 @@ final class MixedRealityViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        prepareARConfiguration()
+    }
+    
+    private func prepareARConfiguration() {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
         configuration.environmentTexturing = .none
         configuration.isLightEstimationEnabled = true
         configuration.isAutoFocusEnabled = self.configuration.enableAutoFocus
 
-        if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
-            configuration.frameSemantics.insert(.personSegmentationWithDepth)
-        } else if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation) {
-            configuration.frameSemantics.insert(.personSegmentation)
-        } else {
-            let parentViewController = presentingViewController
-
-            invalidate()
-            dismiss(animated: true, completion: { [weak parentViewController] in
-
-                let alert = UIAlertController(title: "Sorry", message: "Mixed Reality capture requires a device with an A12 chip or newer.", preferredStyle: .alert)
-
-                alert.addAction(.init(title: "OK", style: .default, handler: nil))
-
-                parentViewController?.present(alert, animated: true, completion: nil)
-            })
-            return
+        if self.configuration.enableSegmentation {
+            if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
+                configuration.frameSemantics.insert(.personSegmentationWithDepth)
+            } else if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation) {
+                configuration.frameSemantics.insert(.personSegmentation)
+            } else {
+                displayIncompatibilityAlert()
+                return
+            }
         }
 
         sceneView.session.run(configuration)
+    }
+    
+    private func displayIncompatibilityAlert() {
+        let parentViewController = presentingViewController
+
+        invalidate()
+        dismiss(animated: true, completion: { [weak parentViewController] in
+
+            let alert = UIAlertController(
+                title: "Sorry",
+                message: "Mixed Reality capture requires a device with an A12 chip or newer.",
+                preferredStyle: .alert
+            )
+
+            alert.addAction(.init(title: "OK", style: .default, handler: nil))
+
+            parentViewController?.present(alert, animated: true, completion: nil)
+        })
     }
 
     override func viewWillDisappear(_ animated: Bool) {

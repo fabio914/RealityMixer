@@ -17,6 +17,7 @@ struct MixedRealityConfiguration {
     // Use magenta as the transparency color for the foreground plane
     let shouldUseMagentaAsTransparency: Bool
 
+    let enableSegmentation: Bool
     let enableAudio: Bool
     let enableAutoFocus: Bool
     let shouldFlipOutput: Bool

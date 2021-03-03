@@ -13,6 +13,7 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var addressTextField: UITextField!
     @IBOutlet private weak var portTextField: UITextField!
+    @IBOutlet private weak var segmentationSwitch: UISwitch!
     @IBOutlet private weak var audioSwitch: UISwitch!
     @IBOutlet private weak var autoFocusSwitch: UISwitch!
     @IBOutlet private weak var magentaSwitch: UISwitch!
@@ -124,6 +125,7 @@ final class MixedRealityConnectionViewController: UIViewController {
 
                 let configuration = MixedRealityConfiguration(
                     shouldUseMagentaAsTransparency: self.magentaSwitch.isOn,
+                    enableSegmentation: self.segmentationSwitch.isOn,
                     enableAudio: self.audioSwitch.isOn,
                     enableAutoFocus: self.autoFocusSwitch.isOn,
                     shouldFlipOutput: !self.unflipSwitch.isOn,
