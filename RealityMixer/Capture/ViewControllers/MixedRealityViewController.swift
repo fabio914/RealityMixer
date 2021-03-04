@@ -257,7 +257,7 @@ final class MixedRealityViewController: UIViewController {
 
             let alert = UIAlertController(
                 title: "Sorry",
-                message: "Mixed Reality capture requires a device with an A12 chip or newer.",
+                message: "Person segmentation (virtual green screen) requires a device with an A12 chip or newer.",
                 preferredStyle: .alert
             )
 
