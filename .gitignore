@@ -1,3 +1,6 @@
+# Carthage checkouts
+Carthage/Checkouts/
+
 *.xcuserstate
 project.xcworkspace/
 xcuserdata/
