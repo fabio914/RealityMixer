@@ -2,10 +2,18 @@
   "commitish" : "2.0.0",
   "iOS" : [
     {
-      "hash" : "3527f891cf78ff09e374faf969a1afa9d876f44449a1925544f1b94b752322ba",
+      "swiftToolchainVersion" : "5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)",
+      "hash" : "ae5888bb55ab0482747c71621ee186176af945f0fe74c78ec86ae05640b3dc53",
       "name" : "SwiftlyAttributedStrings",
-      "linking" : "dynamic",
-      "swiftToolchainVersion" : "5.3.1 (swiftlang-1200.0.41 clang-1200.0.32.8)"
+      "container" : "SwiftlyAttributedStrings.xcframework",
+      "identifier" : "ios-arm64_i386_x86_64-simulator"
+    },
+    {
+      "swiftToolchainVersion" : "5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)",
+      "hash" : "a3756986be76663580507ec491a1e2747637e9635342436081f633e132953426",
+      "name" : "SwiftlyAttributedStrings",
+      "container" : "SwiftlyAttributedStrings.xcframework",
+      "identifier" : "ios-arm64_armv7"
     }
   ]
 }

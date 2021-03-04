@@ -1,0 +1,11 @@
+framework module SwiftlyAttributedStrings {
+  umbrella header "SwiftlyAttributedStrings.h"
+
+  export *
+  module * { export * }
+}
+
+module SwiftlyAttributedStrings.Swift {
+    header "SwiftlyAttributedStrings-Swift.h"
+    requires objc
+}

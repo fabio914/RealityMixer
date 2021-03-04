@@ -3,14 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32285A82558050600FF3200 /* AboutViewController.swift */; };
 		A32285AB2558050600FF3200 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A32285A92558050600FF3200 /* AboutViewController.xib */; };
 		A32285AF25580A8800FF3200 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32285AE25580A8800FF3200 /* Definitions.swift */; };
-		A32285B425580CCA00FF3200 /* SwiftlyAttributedStrings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A32285B325580CCA00FF3200 /* SwiftlyAttributedStrings.framework */; };
 		A32285F7255A06E400FF3200 /* left.stl in Resources */ = {isa = PBXBuildFile; fileRef = A32285F5255A06E400FF3200 /* left.stl */; };
 		A32285F8255A06E400FF3200 /* right.stl in Resources */ = {isa = PBXBuildFile; fileRef = A32285F6255A06E400FF3200 /* right.stl */; };
 		A3228605255B864900FF3200 /* AudioDataHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A3228601255B847900FF3200 /* AudioDataHeader.m */; };
@@ -38,7 +37,6 @@
 		A328D8B4253C8C4000B90E62 /* MixedRealityConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D8B3253C8C4000B90E62 /* MixedRealityConnectionViewController.swift */; };
 		A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A328D8B8253C8C4300B90E62 /* Assets.xcassets */; };
 		A328D8BC253C8C4300B90E62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */; };
-		A328D8C5253C8CD600B90E62 /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D8C4253C8CD600B90E62 /* SwiftSocket.framework */; };
 		A328D8CC253C914500B90E62 /* frame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A328D8CA253C914500B90E62 /* frame.cpp */; };
 		A328D8D1253C917300B90E62 /* OculusMRC.mm in Sources */ = {isa = PBXBuildFile; fileRef = A328D8D0253C917300B90E62 /* OculusMRC.mm */; };
 		A328D956253C954600B90E62 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D94F253C954600B90E62 /* libavutil.a */; };
@@ -59,15 +57,33 @@
 		A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */; };
 		A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98D253CF2EE00B90E62 /* ARKit.framework */; };
 		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
+		A36BAB2C25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A36BAB2A25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework */; };
+		A36BAB2D25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A36BAB2A25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A36BAB2E25F059B00006FDD8 /* SwiftSocket.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A36BAB2B25F059B00006FDD8 /* SwiftSocket.xcframework */; };
+		A36BAB2F25F059B00006FDD8 /* SwiftSocket.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A36BAB2B25F059B00006FDD8 /* SwiftSocket.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A36C606825AE58FE0026DDE1 /* MixedRealityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C606725AE58FE0026DDE1 /* MixedRealityConfiguration.swift */; };
 		A39033ED256859A8004CB638 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39033EC256859A8004CB638 /* Shaders.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A36BAB3025F059B00006FDD8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A36BAB2F25F059B00006FDD8 /* SwiftSocket.xcframework in Embed Frameworks */,
+				A36BAB2D25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A32285A82558050600FF3200 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A32285A92558050600FF3200 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		A32285AE25580A8800FF3200 /* Definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
-		A32285B325580CCA00FF3200 /* SwiftlyAttributedStrings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftlyAttributedStrings.framework; path = Carthage/Build/iOS/SwiftlyAttributedStrings.framework; sourceTree = SOURCE_ROOT; };
 		A32285B62558163B00FF3200 /* Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Instructions.md; sourceTree = "<group>"; };
 		A32285F5255A06E400FF3200 /* left.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = left.stl; sourceTree = "<group>"; };
 		A32285F6255A06E400FF3200 /* right.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = right.stl; sourceTree = "<group>"; };
@@ -100,7 +116,6 @@
 		A328D8B8253C8C4300B90E62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A328D8BB253C8C4300B90E62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A328D8BD253C8C4300B90E62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A328D8C4253C8CD600B90E62 /* SwiftSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSocket.framework; path = Carthage/Build/iOS/SwiftSocket.framework; sourceTree = SOURCE_ROOT; };
 		A328D8C9253C914400B90E62 /* RealityMixer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RealityMixer-Bridging-Header.h"; sourceTree = "<group>"; };
 		A328D8CA253C914500B90E62 /* frame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = frame.cpp; sourceTree = "<group>"; };
 		A328D8CB253C914500B90E62 /* frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = frame.h; sourceTree = "<group>"; };
@@ -237,6 +252,8 @@
 		A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MixedRealityViewController.xib; sourceTree = "<group>"; };
 		A328D98D253CF2EE00B90E62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		A328D98F253CF2F400B90E62 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		A36BAB2A25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SwiftlyAttributedStrings.xcframework; path = Carthage/Build/SwiftlyAttributedStrings.xcframework; sourceTree = "<group>"; };
+		A36BAB2B25F059B00006FDD8 /* SwiftSocket.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SwiftSocket.xcframework; path = Carthage/Build/SwiftSocket.xcframework; sourceTree = "<group>"; };
 		A36C606725AE58FE0026DDE1 /* MixedRealityConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixedRealityConfiguration.swift; sourceTree = "<group>"; };
 		A37850BC256C433C00C046FA /* Compatibility.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Compatibility.md; sourceTree = "<group>"; };
 		A39033EC256859A8004CB638 /* Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
@@ -252,18 +269,18 @@
 				A328D956253C954600B90E62 /* libavutil.a in Frameworks */,
 				A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */,
 				A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */,
-				A328D8C5253C8CD600B90E62 /* SwiftSocket.framework in Frameworks */,
 				A328D959253C954600B90E62 /* libavformat.a in Frameworks */,
 				A328D96B253C95BD00B90E62 /* AudioToolbox.framework in Frameworks */,
 				A328D96D253C95C300B90E62 /* CoreMedia.framework in Frameworks */,
 				A328D95C253C954600B90E62 /* libswscale.a in Frameworks */,
 				A328D95A253C954600B90E62 /* libavdevice.a in Frameworks */,
 				A328D966253C95AD00B90E62 /* libiconv.tbd in Frameworks */,
-				A32285B425580CCA00FF3200 /* SwiftlyAttributedStrings.framework in Frameworks */,
 				A328D969253C95B700B90E62 /* VideoToolbox.framework in Frameworks */,
 				A328D95B253C954600B90E62 /* libswresample.a in Frameworks */,
 				A328D958253C954600B90E62 /* libavcodec.a in Frameworks */,
 				A328D963253C95A000B90E62 /* libz.tbd in Frameworks */,
+				A36BAB2C25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework in Frameworks */,
+				A36BAB2E25F059B00006FDD8 /* SwiftSocket.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,8 +430,6 @@
 				A32415FA2554D1FB008D4B90 /* Calibration */,
 				A328D8C9253C914400B90E62 /* RealityMixer-Bridging-Header.h */,
 				A328D8D4253C954500B90E62 /* FFmpeg-iOS */,
-				A328D8C4253C8CD600B90E62 /* SwiftSocket.framework */,
-				A32285B325580CCA00FF3200 /* SwiftlyAttributedStrings.framework */,
 				A328D8AF253C8C4000B90E62 /* AppDelegate.swift */,
 				A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */,
 				A328D8BD253C8C4300B90E62 /* Info.plist */,
@@ -637,6 +652,8 @@
 		A328D95E253C958D00B90E62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A36BAB2A25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework */,
+				A36BAB2B25F059B00006FDD8 /* SwiftSocket.xcframework */,
 				A328D98F253CF2F400B90E62 /* SceneKit.framework */,
 				A328D98D253CF2EE00B90E62 /* ARKit.framework */,
 				A328D96C253C95C200B90E62 /* CoreMedia.framework */,
@@ -678,7 +695,7 @@
 				A328D8A8253C8C4000B90E62 /* Sources */,
 				A328D8A9253C8C4000B90E62 /* Frameworks */,
 				A328D8AA253C8C4000B90E62 /* Resources */,
-				A328D8C6253C8CE200B90E62 /* ShellScript */,
+				A36BAB3025F059B00006FDD8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -742,28 +759,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		A328D8C6253C8CE200B90E62 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftSocket.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftlyAttributedStrings.framework",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "carthage copy-frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A328D8A8253C8C4000B90E62 /* Sources */ = {
