@@ -57,6 +57,7 @@
 		A3A50C0925F497B000413E01 /* SwiftSocket.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A50C0825F497B000413E01 /* SwiftSocket.xcframework */; };
 		A3A50C0C25F57AB700413E01 /* ProjectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */; };
 		A3A50C0D25F57AB700413E01 /* ProjectionPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */; };
+		A3A50C3925F5821B00413E01 /* SwiftSocket.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3A50C0825F497B000413E01 /* SwiftSocket.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,6 +67,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				A3A50C3925F5821B00413E01 /* SwiftSocket.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
