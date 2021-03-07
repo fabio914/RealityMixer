@@ -50,13 +50,12 @@
 		A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */; };
 		A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98D253CF2EE00B90E62 /* ARKit.framework */; };
 		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
-		A36BAB2C25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A36BAB2A25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework */; };
-		A36BAB2D25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A36BAB2A25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A36BAB2E25F059B00006FDD8 /* SwiftSocket.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A36BAB2B25F059B00006FDD8 /* SwiftSocket.xcframework */; };
 		A36BAB2F25F059B00006FDD8 /* SwiftSocket.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A36BAB2B25F059B00006FDD8 /* SwiftSocket.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A36C606825AE58FE0026DDE1 /* MixedRealityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C606725AE58FE0026DDE1 /* MixedRealityConfiguration.swift */; };
 		A39033ED256859A8004CB638 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39033EC256859A8004CB638 /* Shaders.swift */; };
 		A3A50C0425F48B1000413E01 /* FFmpeg in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C0325F48B1000413E01 /* FFmpeg */; };
+		A3A50C0725F4945700413E01 /* SwiftlyAttributedStrings in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,7 +66,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				A36BAB2F25F059B00006FDD8 /* SwiftSocket.xcframework in Embed Frameworks */,
-				A36BAB2D25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,7 +124,6 @@
 		A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MixedRealityViewController.xib; sourceTree = "<group>"; };
 		A328D98D253CF2EE00B90E62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		A328D98F253CF2F400B90E62 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
-		A36BAB2A25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SwiftlyAttributedStrings.xcframework; path = Carthage/Build/SwiftlyAttributedStrings.xcframework; sourceTree = "<group>"; };
 		A36BAB2B25F059B00006FDD8 /* SwiftSocket.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SwiftSocket.xcframework; path = Carthage/Build/SwiftSocket.xcframework; sourceTree = "<group>"; };
 		A36C606725AE58FE0026DDE1 /* MixedRealityConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixedRealityConfiguration.swift; sourceTree = "<group>"; };
 		A37850BC256C433C00C046FA /* Compatibility.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Compatibility.md; sourceTree = "<group>"; };
@@ -139,6 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A328D960253C959500B90E62 /* libbz2.tbd in Frameworks */,
+				A3A50C0725F4945700413E01 /* SwiftlyAttributedStrings in Frameworks */,
 				A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */,
 				A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */,
 				A328D96B253C95BD00B90E62 /* AudioToolbox.framework in Frameworks */,
@@ -147,7 +145,6 @@
 				A328D969253C95B700B90E62 /* VideoToolbox.framework in Frameworks */,
 				A3A50C0425F48B1000413E01 /* FFmpeg in Frameworks */,
 				A328D963253C95A000B90E62 /* libz.tbd in Frameworks */,
-				A36BAB2C25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework in Frameworks */,
 				A36BAB2E25F059B00006FDD8 /* SwiftSocket.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,7 +317,6 @@
 		A328D95E253C958D00B90E62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A36BAB2A25F059B00006FDD8 /* SwiftlyAttributedStrings.xcframework */,
 				A36BAB2B25F059B00006FDD8 /* SwiftSocket.xcframework */,
 				A328D98F253CF2F400B90E62 /* SceneKit.framework */,
 				A328D98D253CF2EE00B90E62 /* ARKit.framework */,
@@ -372,6 +368,7 @@
 			name = RealityMixer;
 			packageProductDependencies = (
 				A3A50C0325F48B1000413E01 /* FFmpeg */,
+				A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */,
 			);
 			productName = MRTest2;
 			productReference = A328D8AC253C8C4000B90E62 /* RealityMixer.app */;
@@ -403,6 +400,7 @@
 			mainGroup = A328D8A3253C8C4000B90E62;
 			packageReferences = (
 				A3A50C0225F48B1000413E01 /* XCRemoteSwiftPackageReference "FFmpeg-iOS-RealityMixer" */,
+				A3A50C0525F4945700413E01 /* XCRemoteSwiftPackageReference "swiftly-attributed-strings" */,
 			);
 			productRefGroup = A328D8AD253C8C4000B90E62 /* Products */;
 			projectDirPath = "";
@@ -683,6 +681,14 @@
 				version = 1.0.0;
 			};
 		};
+		A3A50C0525F4945700413E01 /* XCRemoteSwiftPackageReference "swiftly-attributed-strings" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fabio914/swiftly-attributed-strings.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -690,6 +696,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A3A50C0225F48B1000413E01 /* XCRemoteSwiftPackageReference "FFmpeg-iOS-RealityMixer" */;
 			productName = FFmpeg;
+		};
+		A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A3A50C0525F4945700413E01 /* XCRemoteSwiftPackageReference "swiftly-attributed-strings" */;
+			productName = SwiftlyAttributedStrings;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
