@@ -55,6 +55,8 @@
 		A3A50C0425F48B1000413E01 /* FFmpeg in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C0325F48B1000413E01 /* FFmpeg */; };
 		A3A50C0725F4945700413E01 /* SwiftlyAttributedStrings in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */; };
 		A3A50C0925F497B000413E01 /* SwiftSocket.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A50C0825F497B000413E01 /* SwiftSocket.xcframework */; };
+		A3A50C0C25F57AB700413E01 /* ProjectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */; };
+		A3A50C0D25F57AB700413E01 /* ProjectionPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -126,6 +128,8 @@
 		A37850BC256C433C00C046FA /* Compatibility.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Compatibility.md; sourceTree = "<group>"; };
 		A39033EC256859A8004CB638 /* Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
 		A3A50C0825F497B000413E01 /* SwiftSocket.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SwiftSocket.xcframework; path = Frameworks/SwiftSocket.xcframework; sourceTree = "<group>"; };
+		A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectionPickerViewController.swift; sourceTree = "<group>"; };
+		A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectionPickerViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +214,8 @@
 				A32416292554E1B8008D4B90 /* CalibrationViewController.xib */,
 				A32416332554E41E008D4B90 /* ProjectionViewController.swift */,
 				A32416342554E41E008D4B90 /* ProjectionViewController.xib */,
+				A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */,
+				A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -423,6 +429,7 @@
 				A324162B2554E1B8008D4B90 /* CalibrationViewController.xib in Resources */,
 				A324161F2554DABE008D4B90 /* InitialViewController.xib in Resources */,
 				A328D979253CE54E00B90E62 /* MixedRealityConnectionViewController.xib in Resources */,
+				A3A50C0D25F57AB700413E01 /* ProjectionPickerViewController.xib in Resources */,
 				A32285AB2558050600FF3200 /* AboutViewController.xib in Resources */,
 				A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */,
 			);
@@ -447,6 +454,7 @@
 				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
 				A324163D2554E520008D4B90 /* CGPoint+Extensions.swift in Sources */,
 				A39033ED256859A8004CB638 /* Shaders.swift in Sources */,
+				A3A50C0C25F57AB700413E01 /* ProjectionPickerViewController.swift in Sources */,
 				A32416022554D296008D4B90 /* Math.swift in Sources */,
 				A32416052554D2FE008D4B90 /* Parser.swift in Sources */,
 				A324162A2554E1B8008D4B90 /* CalibrationViewController.swift in Sources */,
