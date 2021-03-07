@@ -67,6 +67,7 @@ final class ProjectionViewController: UIViewController {
         ])
 
         projectionPickerViewController.didMove(toParent: self)
+        projectionPickerViewController.delegate = self
     }
 
     @IBAction private func distanceAdjustmentChanged(_ sender: UISlider) {
@@ -109,5 +110,18 @@ extension ProjectionViewController: UIScrollViewDelegate {
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         calibrationView
+    }
+}
+
+extension ProjectionViewController: ProjectionPickerViewControllerDelegate {
+
+    func disableScrolling() {
+        scrollView.pinchGestureRecognizer?.isEnabled = false
+        scrollView.panGestureRecognizer.isEnabled = false
+    }
+    
+    func enableScrolling() {
+        scrollView.pinchGestureRecognizer?.isEnabled = true
+        scrollView.panGestureRecognizer.isEnabled = true
     }
 }

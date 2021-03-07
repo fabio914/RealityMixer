@@ -13,7 +13,13 @@ private struct Touch {
     let touch: UITouch
 }
 
+protocol ProjectionPickerViewControllerDelegate: AnyObject {
+    func disableScrolling()
+    func enableScrolling()
+}
+
 final class ProjectionPickerViewController: UIViewController {
+    weak var delegate: ProjectionPickerViewControllerDelegate?
     private let scaleFactor: Double
     private let cameraOrigin: Vector3
     private let rightControllerPosition: Vector3
@@ -34,7 +40,7 @@ final class ProjectionPickerViewController: UIViewController {
     
     private(set) var currentResult: (SCNMatrix4, CalibrationResult)?
 
-    public var distanceAdjustment: Double = 0.0 {
+    var distanceAdjustment: Double = 0.0 {
         didSet {
             updateTransform()
         }
@@ -146,6 +152,7 @@ final class ProjectionPickerViewController: UIViewController {
             else { continue }
 
             currentTouch = .init(delta: viewCenter - location, touch: touch)
+            delegate?.disableScrolling()
         }
     }
 
@@ -159,10 +166,12 @@ final class ProjectionPickerViewController: UIViewController {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        delegate?.enableScrolling()
         currentTouch = nil
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        delegate?.enableScrolling()
         currentTouch = nil
     }
 
