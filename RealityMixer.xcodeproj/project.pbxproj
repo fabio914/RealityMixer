@@ -52,11 +52,11 @@
 		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
 		A36C606825AE58FE0026DDE1 /* MixedRealityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C606725AE58FE0026DDE1 /* MixedRealityConfiguration.swift */; };
 		A39033ED256859A8004CB638 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39033EC256859A8004CB638 /* Shaders.swift */; };
-		A3A50C0425F48B1000413E01 /* FFmpeg in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C0325F48B1000413E01 /* FFmpeg */; };
 		A3A50C0725F4945700413E01 /* SwiftlyAttributedStrings in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */; };
 		A3A50C0C25F57AB700413E01 /* ProjectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */; };
 		A3A50C0D25F57AB700413E01 /* ProjectionPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */; };
 		A3A50C4125F5B3B100413E01 /* SwiftSocket in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C4025F5B3B100413E01 /* SwiftSocket */; };
+		A3A50C4525F5B71000413E01 /* FFmpeg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -129,6 +129,7 @@
 		A39033EC256859A8004CB638 /* Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
 		A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectionPickerViewController.swift; sourceTree = "<group>"; };
 		A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectionPickerViewController.xib; sourceTree = "<group>"; };
+		A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FFmpeg.xcframework; path = Frameworks/FFmpeg.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,8 +145,8 @@
 				A328D96B253C95BD00B90E62 /* AudioToolbox.framework in Frameworks */,
 				A328D96D253C95C300B90E62 /* CoreMedia.framework in Frameworks */,
 				A328D966253C95AD00B90E62 /* libiconv.tbd in Frameworks */,
+				A3A50C4525F5B71000413E01 /* FFmpeg.xcframework in Frameworks */,
 				A328D969253C95B700B90E62 /* VideoToolbox.framework in Frameworks */,
-				A3A50C0425F48B1000413E01 /* FFmpeg in Frameworks */,
 				A328D963253C95A000B90E62 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +321,7 @@
 		A328D95E253C958D00B90E62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */,
 				A328D98F253CF2F400B90E62 /* SceneKit.framework */,
 				A328D98D253CF2EE00B90E62 /* ARKit.framework */,
 				A328D96C253C95C200B90E62 /* CoreMedia.framework */,
@@ -369,7 +371,6 @@
 			);
 			name = RealityMixer;
 			packageProductDependencies = (
-				A3A50C0325F48B1000413E01 /* FFmpeg */,
 				A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */,
 				A3A50C4025F5B3B100413E01 /* SwiftSocket */,
 			);
@@ -402,7 +403,6 @@
 			);
 			mainGroup = A328D8A3253C8C4000B90E62;
 			packageReferences = (
-				A3A50C0225F48B1000413E01 /* XCRemoteSwiftPackageReference "FFmpeg-iOS-RealityMixer" */,
 				A3A50C0525F4945700413E01 /* XCRemoteSwiftPackageReference "swiftly-attributed-strings" */,
 				A3A50C3F25F5B3B100413E01 /* XCRemoteSwiftPackageReference "SwiftSocket" */,
 			);
@@ -679,14 +679,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A3A50C0225F48B1000413E01 /* XCRemoteSwiftPackageReference "FFmpeg-iOS-RealityMixer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/fabio914/FFmpeg-iOS-RealityMixer";
-			requirement = {
-				kind = exactVersion;
-				version = 1.0.0;
-			};
-		};
 		A3A50C0525F4945700413E01 /* XCRemoteSwiftPackageReference "swiftly-attributed-strings" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/fabio914/swiftly-attributed-strings.git";
@@ -706,11 +698,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A3A50C0325F48B1000413E01 /* FFmpeg */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A3A50C0225F48B1000413E01 /* XCRemoteSwiftPackageReference "FFmpeg-iOS-RealityMixer" */;
-			productName = FFmpeg;
-		};
 		A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A3A50C0525F4945700413E01 /* XCRemoteSwiftPackageReference "swiftly-attributed-strings" */;
