@@ -127,17 +127,17 @@ final class ProjectionPickerViewController: UIViewController {
         scene.rootNode.addChildNode(cameraNode)
 
         if let leftHand = lastPoseUpdate.leftHand {
-            leftControllerNode.position = leftHand.position.sceneKitVector
-            leftControllerNode.eulerAngles = leftHand.rotation.eulerAngles.sceneKitVector
+            leftControllerNode.position = .init(leftHand.position)
+            leftControllerNode.eulerAngles = .init(leftHand.rotation.eulerAngles)
         }
 
         if let rightHand = lastPoseUpdate.rightHand {
-            rightControllerNode.position = rightHand.position.sceneKitVector
-            rightControllerNode.eulerAngles = rightHand.rotation.eulerAngles.sceneKitVector
+            rightControllerNode.position = .init(rightHand.position)
+            rightControllerNode.eulerAngles = .init(rightHand.rotation.eulerAngles)
         }
 
-        headsetNode.position = lastPoseUpdate.head.position.sceneKitVector
-        headsetNode.eulerAngles = lastPoseUpdate.head.rotation.eulerAngles.sceneKitVector
+        headsetNode.position = .init(lastPoseUpdate.head.position)
+        headsetNode.eulerAngles = .init(lastPoseUpdate.head.rotation.eulerAngles)
         sceneOverlay.scene = scene
     }
 

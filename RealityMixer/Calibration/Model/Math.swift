@@ -7,64 +7,33 @@
 
 import Foundation
 import SceneKit
+import simd
 
-struct Vector3 {
-    let x: Double
-    let y: Double
-    let z: Double
+typealias Vector3 = simd_double3
+
+extension Vector3 {
 
     var norm: Double {
         sqrt(x*x + y*y + z*z)
     }
 
     var normalized: Vector3 {
-        let norm = self.norm
-        guard norm != 0 else { return .init(x: 0, y: 0, z: 0) }
-        return self/norm
-    }
-
-    static func + (_ lhs: Vector3, _ rhs: Vector3) -> Vector3 {
-        .init(x: lhs.x + rhs.x, y: lhs.y + rhs.y, z: lhs.z + rhs.z)
-    }
-
-    static func - (_ lhs: Vector3, _ rhs: Vector3) -> Vector3 {
-        .init(x: lhs.x - rhs.x, y: lhs.y - rhs.y, z: lhs.z - rhs.z)
+        normalize(self)
     }
 
     func cross(_ other: Vector3) -> Vector3 {
-        .init(
-            x: y * other.z - z * other.y,
-            y: z * other.x - x * other.z,
-            z: x * other.y - y * other.x
-        )
-    }
-
-    func dot(_ other: Vector3) -> Double {
-        x * other.x + y * other.y + z * other.z
-    }
-
-    static func * (_ lhs: Double, _ rhs: Vector3) -> Vector3 {
-        .init(x: lhs * rhs.x, y: lhs * rhs.y, z: lhs * rhs.z)
-    }
-
-    static func / (_ lhs: Vector3, _ rhs: Double) -> Vector3 {
-        .init(x: lhs.x/rhs, y: lhs.y/rhs, z: lhs.z/rhs)
+        simd.cross(self, other)
     }
 }
 
-struct Quaternion {
-    let x: Double
-    let y: Double
-    let z: Double
-    let w: Double
+typealias Quaternion = simd_quatd
 
-    var normSquared: Double {
-        x * x + y * y + z * z + w * w
-    }
+extension Quaternion {
 
-    var inverse: Quaternion {
-        .init(x: -x/normSquared, y: -y/normSquared, z: -z/normSquared, w: w/normSquared)
-    }
+    var x: Double { vector.x }
+    var y: Double { vector.y }
+    var z: Double { vector.z }
+    var w: Double { vector.w }
 
     var eulerAngles: Vector3 {
         let sinr_cosp = 2.0 * (w * x + y * z)
@@ -79,66 +48,6 @@ struct Quaternion {
         let yaw = atan2(siny_cosp, cosy_cosp)
 
         return Vector3(x: roll, y: pitch, z: yaw)
-    }
-
-    init(rotationMatrix m: SCNMatrix4) {
-        let tr: Float = m.m11 + m.m22 + m.m33
-
-        if tr > 0 {
-            let s: Float = sqrt(tr+1.0) * 2.0 // S=4*qw
-            self.w = Double(0.25 * s)
-            self.x = Double((m.m23 - m.m32)/s)
-            self.y = Double((m.m31 - m.m13)/s)
-            self.z = Double((m.m12 - m.m21)/s)
-        } else if (m.m11 > m.m22) && (m.m11 > m.m33) {
-            let s: Float = sqrt(1.0 + m.m11 - m.m22 - m.m33) * 2.0 // S=4*qx
-            self.w = Double((m.m23 - m.m32)/s)
-            self.x = Double(0.25 * s)
-            self.y = Double((m.m21 + m.m12)/s)
-            self.z = Double((m.m31 + m.m13)/s)
-        } else if m.m22 > m.m33 {
-            let s: Float = sqrt(1.0 + m.m22 - m.m11 - m.m33) * 2.0 // S=4*qy
-            self.w = Double((m.m31 - m.m13)/s)
-            self.x = Double((m.m21 + m.m12)/s)
-            self.y = Double(0.25 * s)
-            self.z = Double((m.m32 + m.m23)/s)
-        } else {
-            let s: Float = sqrt(1.0 + m.m33 - m.m11 - m.m22) * 2.0 // S=4*qz
-            self.w = Double((m.m12 - m.m21)/s)
-            self.x = Double((m.m31 + m.m13)/s)
-            self.y = Double((m.m32 + m.m23)/s)
-            self.z = Double(0.25 * s)
-        }
-    }
-
-    init(x: Double, y: Double, z: Double, w: Double) {
-        self.x = x
-        self.y = y
-        self.z = z
-        self.w = w
-    }
-
-    init(roll: Double, pitch: Double, yaw: Double) {
-        let cos_roll_2 = cos(roll/2.0)
-        let sin_roll_2 = sin(roll/2.0)
-        let cos_pitch_2 = cos(pitch/2.0)
-        let sin_pitch_2 = sin(pitch/2.0)
-        let cos_yaw_2 = cos(yaw/2.0)
-        let sin_yaw_2 = sin(yaw/2.0)
-
-        x = sin_roll_2 * cos_pitch_2 * cos_yaw_2 - cos_roll_2 * sin_pitch_2 * sin_yaw_2
-        y = cos_roll_2 * sin_pitch_2 * cos_yaw_2 + sin_roll_2 * cos_pitch_2 * sin_yaw_2
-        z = cos_roll_2 * cos_pitch_2 * sin_yaw_2 - sin_roll_2 * sin_pitch_2 * cos_yaw_2
-        w = cos_roll_2 * cos_pitch_2 * cos_yaw_2 + sin_roll_2 * sin_pitch_2 * sin_yaw_2
-    }
-
-    static func * (_ lhs: Quaternion, _ rhs: Quaternion) -> Quaternion {
-        .init(
-            x: lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z - lhs.z * rhs.y,
-            y: lhs.w * rhs.y + lhs.y * rhs.w + lhs.z * rhs.x - lhs.x * rhs.z,
-            z: lhs.w * rhs.z + lhs.z * rhs.w + lhs.x * rhs.y - lhs.y * rhs.x,
-            w: lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z
-        )
     }
 
     static func * (_ lhs: Quaternion, _ rhs: Vector3) -> Vector3 {
@@ -161,18 +70,46 @@ struct Quaternion {
             z: (num8 - num11) * rhs.x + (num9 + num10) * rhs.y + (1.0 - (num4 + num5)) * rhs.z
         )
     }
+
+    init(rotationMatrix m: SCNMatrix4) {
+        self.init(simd_double4x4(m))
+    }
+
+    init(x: Double, y: Double, z: Double, w: Double) {
+        self.init(vector: .init(x: x, y: y, z: z, w: w))
+    }
 }
 
-struct Matrix3 {
-    let m11: Double
-    let m12: Double
-    let m13: Double
-    let m21: Double
-    let m22: Double
-    let m23: Double
-    let m31: Double
-    let m32: Double
-    let m33: Double
+typealias Matrix3 = simd_double3x3
+
+extension Matrix3 {
+    var m11: Double { self[0, 0] }
+    var m12: Double { self[1, 0] }
+    var m13: Double { self[2, 0] }
+    var m21: Double { self[0, 1] }
+    var m22: Double { self[1, 1] }
+    var m23: Double { self[2, 1] }
+    var m31: Double { self[0, 2] }
+    var m32: Double { self[1, 2] }
+    var m33: Double { self[2, 2] }
+
+    init(
+        m11: Double,
+        m12: Double,
+        m13: Double,
+        m21: Double,
+        m22: Double,
+        m23: Double,
+        m31: Double,
+        m32: Double,
+        m33: Double
+    ) {
+      self.init(rows: [
+        .init(x: m11, y: m12, z: m13),
+        .init(x: m21, y: m22, z: m23),
+        .init(x: m31, y: m32, z: m33)
+      ])
+    }
 }
 
 struct Size {
