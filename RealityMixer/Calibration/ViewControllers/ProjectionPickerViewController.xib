@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="landscape" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProjectionPickerViewController" customModule="RealityMixer" customModuleProvider="target">
+            <connections>
+                <outlet property="blueView" destination="4p1-eW-OJe" id="McJ-Ef-L7D"/>
+                <outlet property="imageView" destination="oe7-TP-tf3" id="cQg-oJ-fn1"/>
+                <outlet property="sceneOverlay" destination="sjL-qE-FDu" id="w43-Rf-YeZ"/>
+                <outlet property="view" destination="hKN-hZ-C9K" id="aph-NK-tTd"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="hKN-hZ-C9K">
+            <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oe7-TP-tf3">
+                    <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                </imageView>
+                <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjL-qE-FDu">
+                    <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </sceneKitView>
+                <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4p1-eW-OJe">
+                    <rect key="frame" x="425" y="187" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" systemColor="systemBlueColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="8ve-b6-KG9"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="sjL-qE-FDu" firstAttribute="top" secondItem="hKN-hZ-C9K" secondAttribute="top" id="05c-ih-v9u"/>
+                <constraint firstAttribute="bottom" secondItem="sjL-qE-FDu" secondAttribute="bottom" id="KyX-fa-8TR"/>
+                <constraint firstAttribute="bottom" secondItem="oe7-TP-tf3" secondAttribute="bottom" id="NLI-xj-9Zf"/>
+                <constraint firstAttribute="trailing" secondItem="sjL-qE-FDu" secondAttribute="trailing" id="UW9-pf-YIO"/>
+                <constraint firstItem="oe7-TP-tf3" firstAttribute="leading" secondItem="hKN-hZ-C9K" secondAttribute="leading" id="YNT-FQ-DWG"/>
+                <constraint firstAttribute="trailing" secondItem="oe7-TP-tf3" secondAttribute="trailing" id="fJz-73-qeI"/>
+                <constraint firstItem="sjL-qE-FDu" firstAttribute="leading" secondItem="hKN-hZ-C9K" secondAttribute="leading" id="kNQ-c6-Zsz"/>
+                <constraint firstItem="oe7-TP-tf3" firstAttribute="top" secondItem="hKN-hZ-C9K" secondAttribute="top" id="q0b-pj-ksR"/>
+            </constraints>
+            <point key="canvasLocation" x="-508" y="-580"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

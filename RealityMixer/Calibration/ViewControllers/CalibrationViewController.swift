@@ -158,12 +158,11 @@ final class CalibrationViewController: UIViewController {
                 delegate: self
             )
 
-            let navigationController = UINavigationController(rootViewController: viewController)
+            viewController.isModalInPresentation = true
+            viewController.modalPresentationStyle = .overFullScreen
+            viewController.modalTransitionStyle = .crossDissolve
 
-            navigationController.isModalInPresentation = true
-            navigationController.modalPresentationStyle = .fullScreen
-
-            present(navigationController, animated: true, completion: nil)
+            present(viewController, animated: true, completion: nil)
         case .calibrationSet(let transform, _):
             saveButtonContainer.isHidden = false
             updateInfo("Step 4 of 4: Review your calibration and tap on \"Save to Headset\" to save it. ")
@@ -221,7 +220,7 @@ final class CalibrationViewController: UIViewController {
             alert.addAction(.init(title: "OK", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         case .success:
-            let alert = UIAlertController(title: "Calibration Saved!", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: "Calibration Saved!", message: "You can now close the Oculus Mixed Reality Capture Calibration app and launch your VR application/game.", preferredStyle: .alert)
             alert.addAction(.init(title: "OK", style: .default, handler: { [weak self] _ in
                 guard let self = self else { return }
                 self.displayLink?.invalidate()

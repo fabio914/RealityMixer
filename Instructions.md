@@ -2,9 +2,9 @@
 
 ## Requirements
 
- - Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed.
+ - Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed. This application is only necessary for the calibration step.
  - iPhone or iPad with an A12 chip or newer, running iOS 14. The LiDAR sensor is optional but recommended for better results.
- - 5 Ghz WiFi network.
+ - 5 Ghz WiFi network (802.11ac).
  - A [compatible Quest VR application/game](Compatibility.md).
  
 ## Calibration, what is this?
@@ -53,7 +53,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
 - Remember, you should not move your iPhone/iPad during or after the calibration, or else you'll need to calibrate again.
 
-- You can now close the Mixed Reality Capture app on the Quest.
+- You should now **quit** the Mixed Reality Capture app on the Quest.
 
 ## How to start the mixed reality capture?
 
@@ -71,7 +71,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
  - Some other games, such as Beat Saber, might require you to enable Mixed Reality capture on their Settings. You'll have to do that first before starting the connection.
  
- - Launch your compatible application/game on the Quest.
+ - Make sure the Oculus Mixed Reality Capture app is **NOT** running, then launch your compatible application/game on the Quest.
  
  - Tap on "Connect". You might be asked to give the app permission to access your local network and your camera, you should allow both.
  
@@ -113,8 +113,8 @@ Follow the instructions below if you don't have the record option inside your "C
 
 ## How to improve performance?
 
- - Make sure that your device is using a 5 GHz WiFi connection (e.g. 802.11ac), and that you don't have too many devices using the network at the same time while you're using the app.
+ - Make sure that your device is using a 5 GHz WiFi connection (e.g. 802.11ac), that you don't have too many devices using the network at the same time while you're using the app, and that you have a strong signal.
  
  - Make sure that your device is not on Low Power mode. It is recommended that you keep your device connected to a power outlet while using the app.
  
- - Select a small resoltion scale factor (`0.5x` or `0.25x`) and then calibrate again.
+ - Select a small resolution scale factor (`0.5x` or `0.25x`) and then calibrate again.

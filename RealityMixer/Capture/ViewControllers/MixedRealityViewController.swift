@@ -10,14 +10,6 @@ import ARKit
 import AVFoundation
 import SwiftSocket
 
-struct MixedRealityConfiguration {
-    // Use magenta as the transparency color for the foreground plane
-    let shouldUseMagentaAsTransparency: Bool
-
-    let enableAudio: Bool
-    let shouldFlipOutput: Bool
-}
-
 final class MixedRealityViewController: UIViewController {
     private let client: TCPClient
     private let configuration: MixedRealityConfiguration
@@ -116,7 +108,9 @@ final class MixedRealityViewController: UIViewController {
         sceneView.scene = scene
         sceneView.session.delegate = self
 
-        sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
+        if case .visible = configuration.backgroundVisibility {
+            sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
+        }
 
         if let metalDevice = sceneView.device {
             let result = CVMetalTextureCacheCreate(
@@ -169,15 +163,32 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureBackground(with frame: ARFrame) {
+        if case .hidden = configuration.backgroundVisibility { return }
         let backgroundPlaneNode = makePlaneNodeForDistance(100.0, frame: frame)
 
         // Flipping image
         if configuration.shouldFlipOutput {
             backgroundPlaneNode.geometry?.firstMaterial?.diffuse.contentsTransform = flipTransform
+            backgroundPlaneNode.geometry?.firstMaterial?.transparent.contentsTransform = flipTransform
         }
 
+        backgroundPlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
+
+        let surfaceShader = { () -> String in
+            switch configuration.backgroundVisibility {
+            case .chromaKey(.black):
+                return Shaders.backgroundSurfaceWithBlackChromaKey
+            case .chromaKey(.green):
+                return Shaders.backgroundSurfaceWithGreenChromaKey
+            case .chromaKey(.magenta):
+                return Shaders.backgroundSurfaceWithMagentaChromaKey
+            default:
+                return Shaders.backgroundSurface
+            }
+        }()
+
         backgroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: Shaders.backgroundSurface
+            .surface: surfaceShader
         ]
 
         sceneView.pointOfView?.addChildNode(backgroundPlaneNode)
@@ -219,6 +230,7 @@ final class MixedRealityViewController: UIViewController {
         configuration.planeDetection = .horizontal
         configuration.environmentTexturing = .none
         configuration.isLightEstimationEnabled = true
+        configuration.isAutoFocusEnabled = self.configuration.enableAutoFocus
 
         if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
             configuration.frameSemantics.insert(.personSegmentationWithDepth)
@@ -335,7 +347,7 @@ extension MixedRealityViewController: OculusMRCDelegate {
         let luma = texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0)
         let chroma = texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1)
 
-        backgroundNode?.geometry?.firstMaterial?.ambient.contents = luma
+        backgroundNode?.geometry?.firstMaterial?.transparent.contents = luma
         backgroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
 
         foregroundNode?.geometry?.firstMaterial?.transparent.contents = luma

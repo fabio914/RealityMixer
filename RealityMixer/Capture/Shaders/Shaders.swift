@@ -44,6 +44,31 @@ struct Shaders {
         b = BT709_nonLinearNormToLinear(b);
         return vec4(r, g, b, 1.0);
     }
+
+    """
+
+    static let chromaKey = """
+    float chromaKey(vec3 c, vec3 maskColor) {
+        float maskY = 0.2989 * maskColor.r + 0.5866 * maskColor.g + 0.1145 * maskColor.b;
+        float maskCr = 0.7132 * (maskColor.r - maskY);
+        float maskCb = 0.5647 * (maskColor.b - maskY);
+
+        float Y = 0.2989 * c.r + 0.5866 * c.g + 0.1145 * c.b;
+        float Cr = 0.7132 * (c.r - Y);
+        float Cb = 0.5647 * (c.b - Y);
+
+        if (distance(vec2(Cr, Cb), vec2(maskCr, maskCb)) < 0.18) {
+            return 1.0;
+        } else {
+            return 0.0;
+        }
+
+        //float sensitivity = 0.18; // 0 ... 1.0
+        //float smooth = 0.1; // 0 ... 1.0
+
+        //return 1.0 - smoothstep(sensitivity, sensitivity + smooth, distance(vec2(Cr, Cb), vec2(maskCr, maskCb)));
+    }
+
     """
 
     static let backgroundSurface = """
@@ -53,12 +78,55 @@ struct Shaders {
 
     vec2 backgroundCoords = vec2((_surface.diffuseTexcoord.x * 0.5), _surface.diffuseTexcoord.y);
 
-    float luma = texture2D(u_ambientTexture, backgroundCoords).r;
+    float luma = texture2D(u_transparentTexture, backgroundCoords).r;
     vec2 chroma = texture2D(u_diffuseTexture, backgroundCoords).rg;
 
     _surface.diffuse = yCbCrToRGB(luma, chroma);
-    _surface.ambient = vec4(0.0, 0.0, 0.0, 1.0);
+    _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
     """
+
+    static func backgroundSurfaceChromaKey(red: Float, green: Float, blue: Float) -> String {
+        """
+        \(yCrCbToRGB)
+        \(chromaKey)
+
+        #pragma body
+
+        vec2 backgroundCoords = vec2((_surface.diffuseTexcoord.x * 0.5), _surface.diffuseTexcoord.y);
+
+        float luma = texture2D(u_transparentTexture, backgroundCoords).r;
+        vec2 chroma = texture2D(u_diffuseTexture, backgroundCoords).rg;
+
+        vec4 textureColor = yCbCrToRGB(luma, chroma);
+        _surface.diffuse = textureColor;
+
+        float blendValue = chromaKey(textureColor.rgb, vec3(\(red), \(green), \(blue)));
+        _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
+        """
+    }
+
+    static let backgroundSurfaceWithBlackChromaKey = """
+    \(yCrCbToRGB)
+
+    #pragma body
+
+    vec2 backgroundCoords = vec2((_surface.diffuseTexcoord.x * 0.5), _surface.diffuseTexcoord.y);
+
+    float luma = texture2D(u_transparentTexture, backgroundCoords).r;
+    vec2 chroma = texture2D(u_diffuseTexture, backgroundCoords).rg;
+
+    _surface.diffuse = yCbCrToRGB(luma, chroma);
+
+    if (luma < 0.13) {
+        _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
+    } else {
+        _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
+    }
+
+    """
+
+    static let backgroundSurfaceWithGreenChromaKey = backgroundSurfaceChromaKey(red: 0, green: 1, blue: 0)
+    static let backgroundSurfaceWithMagentaChromaKey = backgroundSurfaceChromaKey(red: 1, green: 0, blue: 1)
 
     static let foregroundSurfaceShared = """
     \(yCrCbToRGB)
@@ -92,6 +160,7 @@ struct Shaders {
     """
 
     static let magentaForegroundSurface = """
+    \(chromaKey)
     \(foregroundSurfaceShared)
 
     vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.5, _surface.transparentTexcoord.y);
@@ -101,18 +170,7 @@ struct Shaders {
 
     vec4 alphaColor = yCbCrToRGB(luma2, chroma2);
 
-    vec3 magenta = vec3(1.0, 0.0, 1.0);
-    float threshold = 0.10;
-
-    bool checkRed = (alphaColor.r >= (magenta.r - threshold));
-    bool checkGreen = (alphaColor.g >= (magenta.g - threshold) && alphaColor.g <= (magenta.g + threshold));
-    bool checkBlue = (alphaColor.b >= (magenta.b - threshold));
-
-    if (checkRed && checkGreen && checkBlue) {
-        // FIXME: This is not ideal, this is ignoring semi-transparent pixels
-        _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
-    } else {
-        _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
-    }
+    float blendValue = chromaKey(alphaColor.rgb, vec3(1.0, 0.0, 1.0));
+    _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
     """
 }
