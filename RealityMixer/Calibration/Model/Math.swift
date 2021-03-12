@@ -84,13 +84,13 @@ typealias Matrix3 = simd_double3x3
 
 extension Matrix3 {
     var m11: Double { self[0, 0] }
-    var m12: Double { self[1, 0] }
-    var m13: Double { self[2, 0] }
-    var m21: Double { self[0, 1] }
+    var m12: Double { self[0, 1] }
+    var m13: Double { self[0, 2] }
+    var m21: Double { self[1, 0] }
     var m22: Double { self[1, 1] }
-    var m23: Double { self[2, 1] }
-    var m31: Double { self[0, 2] }
-    var m32: Double { self[1, 2] }
+    var m23: Double { self[1, 2] }
+    var m31: Double { self[2, 0] }
+    var m32: Double { self[2, 1] }
     var m33: Double { self[2, 2] }
 
     init(
@@ -104,10 +104,10 @@ extension Matrix3 {
         m32: Double,
         m33: Double
     ) {
-      self.init(rows: [
-        .init(x: m11, y: m12, z: m13),
-        .init(x: m21, y: m22, z: m23),
-        .init(x: m31, y: m32, z: m33)
+      self.init([
+          .init(x: m11, y: m12, z: m13),
+          .init(x: m21, y: m22, z: m23),
+          .init(x: m31, y: m32, z: m33)
       ])
     }
 }
