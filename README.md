@@ -56,10 +56,10 @@ Use [this link](https://testflight.apple.com/join/gyXe6zXG) to join the beta. Li
 
 ### Xcode
 
-To build with your own developer account, create the the config file in ./RealityMixer/DeveloperSettings.xcconfig. Enter your developer team ID and organization ID like this:
+To build the app using your own developer account, create a `DeveloperSettings.xcconfig` config file inside `RealityMixer/` with your development team identifier and your organization identifier:
 
 ```
-DEVELOPMENT_TEAM = YOUR_TEAM_D
+DEVELOPMENT_TEAM = YOUR_TEAM_ID
 ORGANIZATION_IDENTIFIER = com.yourcompany
 ```
 
