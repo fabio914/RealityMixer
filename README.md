@@ -54,6 +54,15 @@ altstore://install?url=https://github.com/fabio914/RealityMixer/releases/downloa
 
 Use [this link](https://testflight.apple.com/join/gyXe6zXG) to join the beta. Limited to the first 10 thousand users.
 
+### Xcode
+
+To build the app using your own developer account, create a `DeveloperSettings.xcconfig` config file inside `RealityMixer/` with your development team identifier and your organization identifier:
+
+```
+DEVELOPMENT_TEAM = YOUR_TEAM_ID
+ORGANIZATION_IDENTIFIER = com.yourcompany
+```
+
 ## Instructions
 
 [Link](Instructions.md)
