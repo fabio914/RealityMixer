@@ -275,17 +275,17 @@ extension CalibrationViewController: OculusCalibrationDelegate {
         self.lastPoseUpdate = pose
 
         if let leftHand = pose.leftHand {
-            leftControllerNode?.position = leftHand.position.sceneKitVector
-            leftControllerNode?.eulerAngles = leftHand.rotation.eulerAngles.sceneKitVector
+            leftControllerNode?.position = .init(leftHand.position)
+            leftControllerNode?.eulerAngles = .init(leftHand.rotation.eulerAngles)
         }
 
         if let rightHand = pose.rightHand {
-            rightControllerNode?.position = rightHand.position.sceneKitVector
-            rightControllerNode?.eulerAngles = rightHand.rotation.eulerAngles.sceneKitVector
+            rightControllerNode?.position = .init(rightHand.position)
+            rightControllerNode?.eulerAngles = .init(rightHand.rotation.eulerAngles)
         }
 
-        headsetNode?.position = pose.head.position.sceneKitVector
-        headsetNode?.eulerAngles = pose.head.rotation.eulerAngles.sceneKitVector
+        headsetNode?.position = .init(pose.head.position)
+        headsetNode?.eulerAngles = .init(pose.head.rotation.eulerAngles)
     }
 
     func oculusCalibration(_ oculusCalibration: OculusCalibration, didReceiveCalibrationXMLString xmlString: String) {
