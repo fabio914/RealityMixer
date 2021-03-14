@@ -40,19 +40,28 @@ The app is currently only compatible with the Oculus Quest 1 and 2, check this [
  
  - Open the camera app on your iPhone/iPad and scan this QR code:
 
-![download](https://user-images.githubusercontent.com/2430631/104648208-ba99c200-56aa-11eb-9620-943f5f133ce3.png)
+![download](https://user-images.githubusercontent.com/2430631/110265425-6d074a80-7fb3-11eb-8042-5fa3d690d8cb.png)
 
 OR
 
 - Open this URL on your iPhone/iPad:
 
 ```
-altstore://install?url=https://github.com/fabio914/RealityMixer/releases/download/0.1.7/RealityMixer.ipa
+altstore://install?url=https://github.com/fabio914/RealityMixer/releases/download/0.2.1/RealityMixer.ipa
 ```
 
 ### TestFlight
 
 Use [this link](https://testflight.apple.com/join/gyXe6zXG) to join the beta. Limited to the first 10 thousand users.
+
+### Xcode
+
+To build the app using your own developer account, create a `DeveloperSettings.xcconfig` config file inside `RealityMixer/` with your development team identifier and your organization identifier:
+
+```
+DEVELOPMENT_TEAM = YOUR_TEAM_ID
+ORGANIZATION_IDENTIFIER = com.yourcompany
+```
 
 ## Instructions
 
