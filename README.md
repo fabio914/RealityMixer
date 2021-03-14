@@ -96,9 +96,3 @@ This project is based on the [Oculus MRC plugin for OBS](https://github.com/face
 It uses [SwiftSocket](https://github.com/swiftsocket/SwiftSocket) to handle the TCP connection with the Oculus Quest, FFMPEG with Apple's VideoToolbox to decode the stream, and ARKit for the "virtual green screen". 
 
 The right and left controller models are modified versions of the `oculus-touch-v3` models from the [WebXR Input Profiles](https://github.com/immersive-web/webxr-input-profiles).
-
-## Contributors
-
-[Fabio de A. Dela Antonio](https://github.com/fabio914/)
-
-[Giovanni Longatto N. Marques](https://github.com/gmarques33)
