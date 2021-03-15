@@ -232,7 +232,7 @@ final class MixedRealityViewController: UIViewController {
         super.viewDidAppear(animated)
 
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
+        configuration.planeDetection = [.horizontal, .vertical]
         configuration.environmentTexturing = .none
         configuration.isLightEstimationEnabled = true
         configuration.isAutoFocusEnabled = self.configuration.enableAutoFocus
@@ -376,8 +376,9 @@ extension MixedRealityViewController: ARSessionDelegate {
         } else {
 
             if let initialReliableCameraPose = initialReliableCameraPose {
-
-                if case .normal = frame.camera.trackingState {
+                
+                switch frame.camera.trackingState {
+                case .normal, .limited:
                     let position = frame.camera.transform.columns.3
 
                     let positionVector = Vector3(
@@ -395,8 +396,9 @@ extension MixedRealityViewController: ARSessionDelegate {
                     )
 
                     cameraExperiment?.sendCameraPoseUpdate(pose)
+                default:
+                    break
                 }
-
             } else {
 
                 // Assuming there was no movement between the first ARFrame and the first reliable
