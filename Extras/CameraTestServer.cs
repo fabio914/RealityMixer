@@ -17,10 +17,7 @@ using System.Runtime.InteropServices;
 //
 // 1. Add this file to `Assets/Oculus/VR/Scripts/Composition`
 //
-// 2. Make the following change to line 96 of the file `OVRComposition.cs`:
-// return trackingSpacePose * CameraTestServer.cameraPose.flipZ();
-//
-// 3. Add an empty Game Object to your scene and add this script to that Game Object.
+// 2. Add an empty Game Object to your scene and add this script to that Game Object.
 //
 
 [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -57,7 +54,7 @@ public struct CameraPayload {
         OVRPose result = new OVRPose();
         result.position = new Vector3(px, py, pz);
         result.orientation = new Quaternion(qx, qy, qz, qw);
-        return result;
+        return result.flipZ();
     }
 }
 
@@ -67,8 +64,9 @@ public class CameraTestServer: MonoBehaviour {
     private Thread tcpListenerThread; 
     private TcpClient connectedTcpClient;
     
-    // Making it static to make it easier to access from OVRComposition
-    public static OVRPose cameraPose = OVRPose.identity;
+    private OVRPose? calibratedCameraPose = null;
+
+    private OVRPose cameraPose = OVRPose.identity;
 
     public void Start() {
         tcpListenerThread = new Thread (new ThreadStart(ListenForIncommingRequests));         
@@ -76,12 +74,26 @@ public class CameraTestServer: MonoBehaviour {
         tcpListenerThread.Start();     
     }
 
-    public void Update() {
-    
+    public void Update()
+    {
+        if (!calibratedCameraPose.HasValue)
+        {
+            if (!OVRPlugin.Media.GetInitialized())
+                return;
+            OVRPlugin.CameraIntrinsics cameraIntrinsics;
+            OVRPlugin.CameraExtrinsics cameraExtrinsics;
+            OVRPlugin.GetMixedRealityCameraInfo(0, out cameraExtrinsics, out cameraIntrinsics);
+            calibratedCameraPose = cameraExtrinsics.RelativePose.ToOVRPose();
+        }
+
+        // The receivedCameraPose is relative to the original calibrated pose, which is itself expressed in stage space.
+        OVRPose cameraStagePose = calibratedCameraPose.Value * cameraPose;
+
+        // Override the MRC camera's stage pose
+        OVRPlugin.OverrideExternalCameraStaticPose(0, true, cameraStagePose.ToPosef());
     }  
 
     public const int MaxBufferLength = 65536;
-
     private void ListenForIncommingRequests () {         
         try {                        
             tcpListener = new TcpListener(IPAddress.Any, 1337);             
