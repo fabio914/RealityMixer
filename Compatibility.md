@@ -14,7 +14,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Cubism](https://www.oculus.com/experiences/quest/2264524423619421/) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1333548364697378827) | Works perfectly. Hint: use the background layer visibility options and a [custom theme](https://github.com/cubismvr/Mods/tree/main/CustomTheme) to record yourself in "AR"  |
 | [Dead and Buried II](https://www.oculus.com/experiences/quest/2134077359973067) | ? | ? | ? | ? |
 | [Death Horizon: Reloaded](https://www.oculus.com/experiences/quest/2115015981923610) | ? | ? | ? | ? |
-| [Drop Dead: Dual Strike Edition](https://www.oculus.com/experiences/quest/1935017546592600) | ? | ? | [Tweet](https://twitter.com/Seaglemaniac/status/1352082534084055041) | ? |
+| [Drop Dead: Dual Strike Edition](https://www.oculus.com/experiences/quest/1935017546592600) | 4 | 3 | [Tweet](https://twitter.com/Seaglemaniac/status/1352082534084055041) | Audio works but is lagged. Game is confused and retains message to "walk back into play area" |
 | [Eleven Table Tennis](https://www.oculus.com/experiences/quest/1995434190525828) | ? | ? | [Tweet](https://twitter.com/OnvrNewMedia/status/1349682761251098625) | ? |
 | [Epic Roller Coasters](https://www.oculus.com/experiences/quest/2299465166734471) | 5 | 5 | ? | ? |
 | [Gadgeteer](https://www.oculus.com/experiences/quest/2567395559960697) | ? | ? | ? | ? |
