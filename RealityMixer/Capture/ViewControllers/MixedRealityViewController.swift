@@ -36,17 +36,16 @@ final class MixedRealityViewController: UIViewController {
         true
     }
 
-    private let cameraExperiment: CameraExperiment?
-    private var initialReliableCameraPose: (Vector3, Quaternion)?
+    private let cameraPoseSender: CameraPoseSender?
 
     init(
         client: TCPClient,
         configuration: MixedRealityConfiguration,
-        cameraExperiment: CameraExperiment?
+        cameraPoseSender: CameraPoseSender?
     ) {
         self.client = client
         self.configuration = configuration
-        self.cameraExperiment = cameraExperiment
+        self.cameraPoseSender = cameraPoseSender
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -374,51 +373,7 @@ extension MixedRealityViewController: ARSessionDelegate {
             configureForeground(with: frame)
             first = false
         } else {
-
-            if let initialReliableCameraPose = initialReliableCameraPose {
-                
-                switch frame.camera.trackingState {
-                case .normal, .limited:
-                    let position = frame.camera.transform.columns.3
-
-                    let positionVector = Vector3(
-                        x: .init(position.x),
-                        y: .init(position.y),
-                        z: .init(position.z)
-                    )
-
-                    let positionDelta = positionVector - initialReliableCameraPose.0
-                    let rotationDelta = initialReliableCameraPose.1 * Quaternion(rotationMatrix: SCNMatrix4(frame.camera.transform))
-
-                    let pose = Pose(
-                        position: positionDelta,
-                        rotation: rotationDelta
-                    )
-
-                    cameraExperiment?.sendCameraPoseUpdate(pose)
-                default:
-                    break
-                }
-            } else {
-
-                // Assuming there was no movement between the first ARFrame and the first reliable
-                // camera position and orientation
-
-                if case .normal = frame.camera.trackingState {
-                    let position = frame.camera.transform.columns.3
-
-                    let positionVector = Vector3(
-                        x: .init(position.x),
-                        y: .init(position.y),
-                        z: .init(position.z)
-                    )
-
-                    let inverseRotation = Quaternion(rotationMatrix: SCNMatrix4(frame.camera.transform)).inverse
-
-                    initialReliableCameraPose = (positionVector, inverseRotation)
-                }
-            }
-
+            cameraPoseSender?.didUpdate(frame: frame)
         }
     }
 }

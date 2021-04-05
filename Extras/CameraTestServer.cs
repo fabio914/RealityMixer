@@ -13,11 +13,9 @@ using System.Runtime.InteropServices;
 // This is a very basic prototype for a "moving camera server" that can
 // receive the camera pose updates from Reality Mixer.
 //
-// Instructions
+// Instructions:
 //
-// 1. Add this file to `Assets/Oculus/VR/Scripts/Composition`
-//
-// 2. Add an empty Game Object to your scene and add this script to that Game Object.
+// 1. Add an empty Game Object to your scene and add this script to that Game Object.
 //
 
 [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -69,7 +67,8 @@ public class CameraTestServer: MonoBehaviour {
     private OVRPose cameraPose = OVRPose.identity;
 
     public void Start() {
-        tcpListenerThread = new Thread (new ThreadStart(ListenForIncommingRequests));         
+        // Consider starting the thread on OnEnable() and ending the Thread on OnDisable()
+        tcpListenerThread = new Thread (new ThreadStart(ListenForIncomingRequests));         
         tcpListenerThread.IsBackground = true;         
         tcpListenerThread.Start();     
     }
@@ -94,8 +93,8 @@ public class CameraTestServer: MonoBehaviour {
     }  
 
     public const int MaxBufferLength = 65536;
-    private void ListenForIncommingRequests () {         
-        try {                        
+    private void ListenForIncomingRequests () {         
+        try {
             tcpListener = new TcpListener(IPAddress.Any, 1337);             
             tcpListener.Start();              
             Debug.Log("[CAMERA SERVER] Server is listening");              

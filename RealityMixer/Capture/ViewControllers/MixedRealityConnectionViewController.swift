@@ -130,14 +130,14 @@ final class MixedRealityConnectionViewController: UIViewController {
                     backgroundVisibility: self.backgroundVisibility()
                 )
 
-                let cameraExperiment = CameraExperiment(address: address)
+                let cameraPoseSender = CameraPoseSender(address: address)
 
                 connectionAlert.dismiss(animated: false, completion: { [weak self] in
 
                     let viewController = MixedRealityViewController(
                         client: client,
                         configuration: configuration,
-                        cameraExperiment: cameraExperiment
+                        cameraPoseSender: cameraPoseSender
                     )
 
                     viewController.modalPresentationStyle = .overFullScreen
