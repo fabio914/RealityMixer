@@ -2,23 +2,36 @@ import Foundation
 
 struct MixedRealityConfiguration {
 
-    enum BackgroundVisibility {
-        enum ChromaKey {
-            case black
-            case green
-            case magenta
+    struct ForegroundLayerOptions {
+        enum ForegroundVisibility {
+            case visible(_ useMagentaAsTransparency: Bool)
+            case hidden
         }
 
-        case visible
-        case chromaKey(ChromaKey)
-        case hidden
+        let visibility: ForegroundVisibility
     }
 
-    // Use magenta as the transparency color for the foreground plane
-    let shouldUseMagentaAsTransparency: Bool
+    struct BackgroundLayerOptions {
+        enum BackgroundVisibility {
+            enum ChromaKey {
+                case black
+                case green
+                case magenta
+            }
+
+            case visible
+            case chromaKey(ChromaKey)
+            case hidden
+        }
+
+        let visibility: BackgroundVisibility
+    }
 
     let enableAudio: Bool
     let enableAutoFocus: Bool
+    let enablePersonSegmentation: Bool
     let shouldFlipOutput: Bool
-    let backgroundVisibility: BackgroundVisibility
+
+    let foregroundLayerOptions: ForegroundLayerOptions
+    let backgroundLayerOptions: BackgroundLayerOptions
 }
