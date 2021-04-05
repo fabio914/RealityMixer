@@ -26,7 +26,7 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var foregroundTransparencySection: UIStackView!
     @IBOutlet private weak var magentaSwitch: UISwitch!
 
-    // MARK: - Backgroudn layer options
+    // MARK: - Background layer options
     @IBOutlet private weak var backgroundVisibilitySegmentedControl: UISegmentedControl!
     @IBOutlet private weak var backgroundChromaKeySection: UIStackView!
     @IBOutlet private weak var backgroundChromaKeySegmentedControl: UISegmentedControl!
