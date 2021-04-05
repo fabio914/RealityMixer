@@ -36,12 +36,16 @@ final class MixedRealityViewController: UIViewController {
         true
     }
 
+    private let cameraPoseSender: CameraPoseSender?
+
     init(
         client: TCPClient,
-        configuration: MixedRealityConfiguration
+        configuration: MixedRealityConfiguration,
+        cameraPoseSender: CameraPoseSender?
     ) {
         self.client = client
         self.configuration = configuration
+        self.cameraPoseSender = cameraPoseSender
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -227,7 +231,7 @@ final class MixedRealityViewController: UIViewController {
         super.viewDidAppear(animated)
 
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
+        configuration.planeDetection = [.horizontal, .vertical]
         configuration.environmentTexturing = .none
         configuration.isLightEstimationEnabled = true
         configuration.isAutoFocusEnabled = self.configuration.enableAutoFocus
@@ -363,10 +367,13 @@ extension MixedRealityViewController: OculusMRCDelegate {
 extension MixedRealityViewController: ARSessionDelegate {
 
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
+
         if first {
             configureBackground(with: frame)
             configureForeground(with: frame)
             first = false
+        } else {
+            cameraPoseSender?.didUpdate(frame: frame)
         }
     }
 }
