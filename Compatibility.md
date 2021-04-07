@@ -28,7 +28,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Immersed VR](https://immersedvr.com) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=rhAepGvSMf4) | There was some latency but it still worked really well. | 
 | [Kingspray](https://www.oculus.com/experiences/quest/2082941345119152) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=_0aYmo2Ytac) | Works perfectly. |
 | [OhShape](https://www.oculus.com/experiences/quest/2522558964527688) | ? | ? | [Tweet](https://twitter.com/Seaglemaniac/status/1351727338661273600) | ? |
-| [Open Brush](https://www.oculus.com/experiences/quest/3600360710032222) |  |  |  | Mixed Reality support coming soon. You try [this version](https://github.com/fabio914/open-brush/releases/tag/0.2.1) in the meantime. | 
+| [Open Brush](https://www.oculus.com/experiences/quest/3600360710032222) |  |  |  | Mixed Reality support coming soon. You can try [this version](https://github.com/fabio914/open-brush/releases/tag/0.2.1) in the meantime. | 
 | [Peco Peco](https://benthamrealities.itch.io/pecopeco) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=Zrf2i6FvkrU) | Works perfectly. |
 | [Pistol Whip](https://www.oculus.com/experiences/quest/2104963472963790) | 2 | 0 | [Tweet](https://twitter.com/fabio914/status/1326699860146401284) | The audio didn't work and the video was showing a first person POV. |
 | [Puzzling Places Prototype](https://sidequestvr.com/app/809/puzzling-places-prototype) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=a8Ph-bUJFoA) | The colors appear desaturated. |
