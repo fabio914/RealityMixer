@@ -389,7 +389,7 @@ extension MixedRealityViewController: ARSessionDelegate {
             skeleton.update(bodyAnchor: bodyAnchor)
         } else {
             let skeleton = Skeleton(bodyAnchor: bodyAnchor)
-            sceneView.pointOfView?.addChildNode(skeleton.mainNode)
+            sceneView.scene.rootNode.addChildNode(skeleton.mainNode)
             self.skeleton = skeleton
         }
     }
