@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ARKit
 import SwiftSocket
 
 final class MixedRealityConnectionViewController: UIViewController {
@@ -13,17 +14,51 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var addressTextField: UITextField!
     @IBOutlet private weak var portTextField: UITextField!
+
+    @IBOutlet private weak var optionsStackView: UIStackView!
     @IBOutlet private weak var audioSwitch: UISwitch!
     @IBOutlet private weak var autoFocusSwitch: UISwitch!
-    @IBOutlet private weak var magentaSwitch: UISwitch!
+    @IBOutlet private weak var personSegmentationSwitch: UISwitch!
     @IBOutlet private weak var unflipSwitch: UISwitch!
+
+    // MARK: - Foreground layer options
+    @IBOutlet private weak var foregroundVisibilitySegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var foregroundTransparencySection: UIStackView!
+    @IBOutlet private weak var magentaSwitch: UISwitch!
+
+    // MARK: - Background layer options
     @IBOutlet private weak var backgroundVisibilitySegmentedControl: UISegmentedControl!
     @IBOutlet private weak var backgroundChromaKeySection: UIStackView!
     @IBOutlet private weak var backgroundChromaKeySegmentedControl: UISegmentedControl!
+
+    @IBOutlet private weak var showOptionsButton: UIButton!
+    @IBOutlet private weak var resetOptionsButton: UIButton!
+
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
-    private let storage = PreferenceStorage()
+
+    private let preferenceStorage = PreferenceStorage()
+    private let configurationStorage = ConfigurationStorage()
+
+    private var supportsSegmentation: Bool {
+        ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) ||
+        ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation)
+    }
+
+    private var configuration: MixedRealityConfiguration {
+        get {
+            configurationStorage.configuration
+        }
+        set {
+            guard newValue != configuration else { return }
+            didUpdate(configuration: newValue)
+            UIView.animate(withDuration: 0.1, animations: {
+                self.view.layoutIfNeeded()
+            })
+            try? configurationStorage.save(configuration: newValue)
+        }
+    }
 
     init() {
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
@@ -40,13 +75,17 @@ final class MixedRealityConnectionViewController: UIViewController {
         addressTextField.delegate = self
         portTextField.delegate = self
 
-        if let preferences = storage.preference {
+        if let preferences = preferenceStorage.preference {
             addressTextField.text = preferences.address
         }
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backAction))
 
+        showOptionsButton.isHidden = false
+        optionsStackView.isHidden = true
+
         configureInfoLabel()
+        didUpdate(configuration: configuration)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -82,19 +121,95 @@ final class MixedRealityConnectionViewController: UIViewController {
         """
     }
 
-    @objc private func backAction() {
-        navigationController?.dismiss(animated: true, completion: nil)
-    }
+    private func didUpdate(configuration: MixedRealityConfiguration) {
+        audioSwitch.isOn = configuration.enableAudio
+        autoFocusSwitch.isOn = configuration.enableAutoFocus
+        personSegmentationSwitch.isOn = configuration.enablePersonSegmentation
+        unflipSwitch.isOn = !configuration.shouldFlipOutput
 
-    @IBAction func connectAction(_ sender: Any) {
-
-        guard let address = addressTextField.text, !address.isEmpty,
-            let portText = portTextField.text, !portText.isEmpty,
-            let port = Int32(portText)
-        else {
-            return
+        switch configuration.foregroundLayerOptions.visibility {
+        case .visible(let magentaAsTransparency):
+            foregroundVisibilitySegmentedControl.selectedSegmentIndex = 0
+            foregroundTransparencySection.isHidden = false
+            magentaSwitch.isOn = magentaAsTransparency
+        case .hidden:
+            foregroundVisibilitySegmentedControl.selectedSegmentIndex = 1
+            foregroundTransparencySection.isHidden = true
+            magentaSwitch.isOn = false
         }
 
+        switch configuration.backgroundLayerOptions.visibility {
+        case .visible:
+            backgroundVisibilitySegmentedControl.selectedSegmentIndex = 0
+            backgroundChromaKeySection.isHidden = true
+            backgroundChromaKeySegmentedControl.selectedSegmentIndex = 0
+        case .chromaKey(let chromaColor):
+            backgroundVisibilitySegmentedControl.selectedSegmentIndex = 1
+            backgroundChromaKeySection.isHidden = false
+            switch chromaColor {
+            case .black:
+                backgroundChromaKeySegmentedControl.selectedSegmentIndex = 0
+            case .green:
+                backgroundChromaKeySegmentedControl.selectedSegmentIndex = 1
+            case .magenta:
+                backgroundChromaKeySegmentedControl.selectedSegmentIndex = 2
+            }
+        case .hidden:
+            backgroundVisibilitySegmentedControl.selectedSegmentIndex = 2
+            backgroundChromaKeySection.isHidden = true
+            backgroundChromaKeySegmentedControl.selectedSegmentIndex = 0
+        }
+
+        resetOptionsButton.isHidden = configuration == .defaultConfiguration
+    }
+
+    private func updateConfiguration() {
+        updateConfiguration(enablePersonSegmentation: personSegmentationSwitch.isOn)
+    }
+
+    private func updateConfiguration(enablePersonSegmentation: Bool) {
+        configuration = MixedRealityConfiguration(
+            enableAudio: audioSwitch.isOn,
+            enableAutoFocus: autoFocusSwitch.isOn,
+            enablePersonSegmentation: enablePersonSegmentation,
+            shouldFlipOutput: !unflipSwitch.isOn,
+            foregroundLayerOptions: .init(
+                visibility: {
+                    switch foregroundVisibilitySegmentedControl.selectedSegmentIndex {
+                    case 0:
+                        return .visible(useMagentaAsTransparency: magentaSwitch.isOn)
+                    case 1:
+                        return .hidden
+                    default:
+                        return .hidden
+                    }
+                }()
+            ),
+            backgroundLayerOptions: .init(
+                visibility: {
+                    switch backgroundVisibilitySegmentedControl.selectedSegmentIndex {
+                    case 0:
+                        return .visible
+                    case 1:
+                        return .chromaKey(color: {
+                            switch backgroundChromaKeySegmentedControl.selectedSegmentIndex {
+                            case 0:
+                                return .black
+                            case 1:
+                                return .green
+                            default:
+                                return .magenta
+                            }
+                        }())
+                    default:
+                        return .hidden
+                    }
+                }()
+            )
+        )
+    }
+
+    private func startConnection(address: String, port: Int32) {
         let connectionAlert = UIAlertController(title: "Connecting...", message: nil, preferredStyle: .alert)
 
         present(connectionAlert, animated: true, completion: { [weak self] in
@@ -120,17 +235,9 @@ final class MixedRealityConnectionViewController: UIViewController {
                 })
 
             case .success:
-                try? self.storage.save(preference: .init(address: address))
-
-                let configuration = MixedRealityConfiguration(
-                    shouldUseMagentaAsTransparency: self.magentaSwitch.isOn,
-                    enableAudio: self.audioSwitch.isOn,
-                    enableAutoFocus: self.autoFocusSwitch.isOn,
-                    shouldFlipOutput: !self.unflipSwitch.isOn,
-                    backgroundVisibility: self.backgroundVisibility()
-                )
-
+                try? self.preferenceStorage.save(preference: .init(address: address))
                 let cameraPoseSender = CameraPoseSender(address: address)
+                let configuration = self.configuration
 
                 connectionAlert.dismiss(animated: false, completion: { [weak self] in
 
@@ -147,28 +254,55 @@ final class MixedRealityConnectionViewController: UIViewController {
         })
     }
 
-    private func backgroundVisibility() -> MixedRealityConfiguration.BackgroundVisibility {
-        switch backgroundVisibilitySegmentedControl.selectedSegmentIndex {
-        case 0:
-            return .visible
-        case 1:
-            return .chromaKey({
-                switch backgroundChromaKeySegmentedControl.selectedSegmentIndex {
-                case 0:
-                    return .black
-                case 1:
-                    return .green
-                default:
-                    return .magenta
-                }
-            }())
-        default:
-            return .hidden
-        }
+    // MARK: - Actions
+
+    @objc private func backAction() {
+        navigationController?.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func backgroundVisibilityDidChange(_ sender: UISegmentedControl) {
-        backgroundChromaKeySection.isHidden = sender.selectedSegmentIndex != 1
+    @IBAction private func showOptionsAction(_ sender: Any) {
+        showOptionsButton.isHidden = true
+        optionsStackView.isHidden = false
+        scrollView.flashScrollIndicators()
+        UIView.animate(withDuration: 0.1, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+
+    @IBAction func configurationValueDidChange(_ sender: Any) {
+        updateConfiguration()
+    }
+
+    @IBAction func resetOptionsAction(_ sender: Any) {
+        configuration = .defaultConfiguration
+    }
+
+    @IBAction func connectAction(_ sender: Any) {
+
+        guard let address = addressTextField.text, !address.isEmpty,
+            let portText = portTextField.text, !portText.isEmpty,
+            let port = Int32(portText)
+        else {
+            return
+        }
+
+        if configuration.enablePersonSegmentation && !supportsSegmentation {
+            let alert = UIAlertController(
+                title: "Sorry",
+                message: "Person segmentation (virtual green screen) requires a device with an A12 chip or newer. Would you like to continue without it?",
+                preferredStyle: .alert
+            )
+
+            alert.addAction(.init(title: "Continue", style: .default, handler: { [weak self] _ in
+                self?.updateConfiguration(enablePersonSegmentation: false)
+                self?.startConnection(address: address, port: port)
+            }))
+
+            alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+        } else {
+            startConnection(address: address, port: port)
+        }
     }
 
     @IBAction private func startCalibrationAction(_ sender: Any) {

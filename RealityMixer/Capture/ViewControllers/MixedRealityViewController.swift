@@ -108,11 +108,14 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureScene() {
+        sceneView.rendersCameraGrain = false
+        sceneView.rendersMotionBlur = false
+
         let scene = SCNScene()
         sceneView.scene = scene
         sceneView.session.delegate = self
 
-        if case .visible = configuration.backgroundVisibility {
+        if case .visible = configuration.backgroundLayerOptions.visibility {
             sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
         }
 
@@ -167,7 +170,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureBackground(with frame: ARFrame) {
-        if case .hidden = configuration.backgroundVisibility { return }
+        if case .hidden = configuration.backgroundLayerOptions.visibility { return }
         let backgroundPlaneNode = makePlaneNodeForDistance(100.0, frame: frame)
 
         // Flipping image
@@ -179,7 +182,7 @@ final class MixedRealityViewController: UIViewController {
         backgroundPlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 
         let surfaceShader = { () -> String in
-            switch configuration.backgroundVisibility {
+            switch configuration.backgroundLayerOptions.visibility {
             case .chromaKey(.black):
                 return Shaders.backgroundSurfaceWithBlackChromaKey
             case .chromaKey(.green):
@@ -200,6 +203,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureForeground(with frame: ARFrame) {
+        guard case .visible(let useMagentaAsTransparency) = configuration.foregroundLayerOptions.visibility else { return }
         let foregroundPlaneNode = makePlaneNodeForDistance(0.1, frame: frame)
 
         // Flipping image
@@ -210,7 +214,7 @@ final class MixedRealityViewController: UIViewController {
 
         foregroundPlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 
-        if configuration.shouldUseMagentaAsTransparency {
+        if useMagentaAsTransparency {
             foregroundPlaneNode.geometry?.firstMaterial?.shaderModifiers = [
                 .surface: Shaders.magentaForegroundSurface
             ]
@@ -229,30 +233,22 @@ final class MixedRealityViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        prepareARConfiguration()
+    }
 
+    private func prepareARConfiguration() {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.horizontal, .vertical]
         configuration.environmentTexturing = .none
         configuration.isLightEstimationEnabled = true
         configuration.isAutoFocusEnabled = self.configuration.enableAutoFocus
 
-        if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
-            configuration.frameSemantics.insert(.personSegmentationWithDepth)
-        } else if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation) {
-            configuration.frameSemantics.insert(.personSegmentation)
-        } else {
-            let parentViewController = presentingViewController
-
-            invalidate()
-            dismiss(animated: true, completion: { [weak parentViewController] in
-
-                let alert = UIAlertController(title: "Sorry", message: "Mixed Reality capture requires a device with an A12 chip or newer.", preferredStyle: .alert)
-
-                alert.addAction(.init(title: "OK", style: .default, handler: nil))
-
-                parentViewController?.present(alert, animated: true, completion: nil)
-            })
-            return
+        if self.configuration.enablePersonSegmentation {
+            if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
+                configuration.frameSemantics.insert(.personSegmentationWithDepth)
+            } else if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation) {
+                configuration.frameSemantics.insert(.personSegmentation)
+            }
         }
 
         sceneView.session.run(configuration)
