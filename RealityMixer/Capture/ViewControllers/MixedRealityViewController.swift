@@ -26,7 +26,8 @@ final class MixedRealityViewController: UIViewController {
 
     private let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
 
-    private var skeleton: Skeleton?
+//    private var skeleton: Skeleton?
+    private var avatarNode: SCNNode?
 
     var first = true
 
@@ -112,6 +113,10 @@ final class MixedRealityViewController: UIViewController {
     private func configureScene() {
         sceneView.rendersCameraGrain = false
         sceneView.rendersMotionBlur = false
+
+        // Light for the model
+        sceneView.autoenablesDefaultLighting = true
+        sceneView.automaticallyUpdatesLighting = true
 
         let scene = SCNScene()
         sceneView.scene = scene
@@ -385,13 +390,51 @@ extension MixedRealityViewController: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         guard let bodyAnchor = anchors.compactMap({ $0 as? ARBodyAnchor }).first else { return }
 
-        if let skeleton = skeleton {
-            skeleton.update(bodyAnchor: bodyAnchor)
-        } else {
-            let skeleton = Skeleton(bodyAnchor: bodyAnchor)
-            sceneView.scene.rootNode.addChildNode(skeleton.mainNode)
-            self.skeleton = skeleton
+        let avatarNode: SCNNode = {
+            if let node = self.avatarNode {
+                return node
+            } else {
+                let avatarReferenceNode = Bundle.main
+                    .url(forResource: "robot", withExtension: "usdz")
+                    .flatMap(SCNReferenceNode.init(url:))
+
+                if let avatarReferenceNode = avatarReferenceNode {
+                    self.avatarNode = avatarReferenceNode
+                    avatarReferenceNode.load()
+                    sceneView.scene.rootNode.addChildNode(avatarReferenceNode)
+                    return avatarReferenceNode
+                } else {
+                    return SCNNode()
+                }
+            }
+        }()
+
+        avatarNode.transform = SCNMatrix4(bodyAnchor.transform)
+
+        let skeleton = bodyAnchor.skeleton
+        let jointLocalTransforms = skeleton.jointLocalTransforms
+
+        for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
+            let parentIndex = skeleton.definition.parentIndices[i]
+            let jointName = skeleton.definition.jointNames[i]
+
+            // Searching this all the time might not be efficient...
+            guard parentIndex != -1,
+                let node = avatarNode.childNode(withName: jointName, recursively: true)
+            else {
+                continue
+            }
+
+            node.transform = SCNMatrix4(jointLocalTransform)
         }
+
+//        if let skeleton = skeleton {
+//            skeleton.update(bodyAnchor: bodyAnchor)
+//        } else {
+//            let skeleton = Skeleton(bodyAnchor: bodyAnchor)
+//            sceneView.scene.rootNode.addChildNode(skeleton.mainNode)
+//            self.skeleton = skeleton
+//        }
     }
 }
 
