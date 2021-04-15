@@ -136,8 +136,9 @@ public class CameraTestServer: MonoBehaviour {
                                 }
                                 receivedBufferIndex = newBufferIndex;
                                 receivedBufferDataSize = newBufferDataSize;
-                                maximumDataSize = CameraTestServer.MaxBufferLength - receivedBufferDataSize;
-                            }                    
+                            }
+                            
+                            maximumDataSize = CameraTestServer.MaxBufferLength - receivedBufferDataSize;
                         }                                             
                     }                 
                 }             
