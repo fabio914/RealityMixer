@@ -409,37 +409,33 @@ extension MixedRealityViewController: ARSessionDelegate {
             }
         }()
 
-        guard let skeletonNode = avatarNode.childNode(withName: "Skeleton", recursively: true) else {
+        guard let skeletonNode = avatarNode.childNode(withName: "Skeleton", recursively: true),
+            let hipsNode = skeletonNode.childNode(withName: "Hips", recursively: true)
+        else {
             return
         }
 
 //        avatarNode.transform = SCNMatrix4(bodyAnchor.transform)
-        skeletonNode.transform = SCNMatrix4(bodyAnchor.transform)
+        hipsNode.transform = SCNMatrix4(bodyAnchor.transform)
 
         let skeleton = bodyAnchor.skeleton
         let jointLocalTransforms = skeleton.jointLocalTransforms
 
-        for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
-            let parentIndex = skeleton.definition.parentIndices[i]
-            let jointName = skeleton.definition.jointNames[i]
-
-            // Searching this all the time might not be efficient...
-            guard parentIndex != -1,
-                let nodeName = Avatar.node(forJoint: jointName),
-                let node = skeletonNode.childNode(withName: nodeName, recursively: true)
-            else {
-                continue
-            }
-
-            node.transform = SCNMatrix4(jointLocalTransform)
-        }
-
-//        if let skeleton = skeleton {
-//            skeleton.update(bodyAnchor: bodyAnchor)
-//        } else {
-//            let skeleton = Skeleton(bodyAnchor: bodyAnchor)
-//            sceneView.scene.rootNode.addChildNode(skeleton.mainNode)
-//            self.skeleton = skeleton
+//        for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
+//            let parentIndex = skeleton.definition.parentIndices[i]
+//            let jointName = skeleton.definition.jointNames[i]
+//
+//            // Searching this all the time might not be efficient...
+//            guard parentIndex != -1,
+//                jointName != "root",
+//                jointName != "hips_joint",
+//                let nodeName = Avatar.node(forJoint: jointName),
+//                let node = hipsNode.childNode(withName: nodeName, recursively: true)
+//            else {
+//                continue
+//            }
+//
+//            node.transform = SCNMatrix4(jointLocalTransform)
 //        }
     }
 }
