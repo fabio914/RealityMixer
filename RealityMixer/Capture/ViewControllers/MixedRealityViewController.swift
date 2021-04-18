@@ -419,10 +419,10 @@ struct Avatar {
         "right_toes_joint": "RightToeBase",
         "right_toesEnd_joint": "RightToe_End",
         "spine_1_joint": "Spine",
-        "spine_2_joint": "",
-        "spine_3_joint": "",
-        "spine_4_joint": "",
-        "spine_5_joint": "",
+//        "spine_2_joint": "",
+//        "spine_3_joint": "",
+//        "spine_4_joint": "",
+//        "spine_5_joint": "",
         "spine_6_joint": "Spine1",
         "spine_7_joint": "Spine2",
         "right_shoulder_1_joint": "RightShoulder",
@@ -538,6 +538,8 @@ struct Avatar {
 
         var corrections: [String: Quaternion] = [:]
 
+        // We might need to use model/world transforms...
+
         for (i, _) in jointLocalTransforms.enumerated() {
             let parentIndex = skeleton.definition.parentIndices[i]
             let jointName = skeleton.definition.jointNames[i]
@@ -545,15 +547,14 @@ struct Avatar {
             guard parentIndex != -1,
                 jointName != "root",
                 jointName != "hips_joint",
-                let avatarNodeName = Avatar.node(forJoint: jointName),
-                let avatarNode = hipsNode.childNode(withName: avatarNodeName, recursively: true),
+                let nodeName = Avatar.node(forJoint: jointName),
+                let node = hipsNode.childNode(withName: nodeName, recursively: true),
                 let referenceNode = robotNode.childNode(withName: jointName, recursively: true)
             else {
                 continue
             }
 
-//            corrections[jointName] = Quaternion(rotationMatrix: referenceNode.transform).inverse * Quaternion(rotationMatrix: avatarNode.transform)
-            corrections[jointName] = Quaternion(rotationMatrix: avatarNode.transform) * Quaternion(rotationMatrix: referenceNode.transform).inverse
+            corrections[jointName] = Quaternion(rotationMatrix: referenceNode.transform).inverse * Quaternion(rotationMatrix: node.transform)
         }
 
         self.corrections = corrections
@@ -572,8 +573,7 @@ struct Avatar {
                 continue
             }
 
-//            let correctedOrientation = Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform)) * correction
-            let correctedOrientation = correction * Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform))
+            let correctedOrientation = Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform)) * correction
 
             node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
 
@@ -609,8 +609,7 @@ struct Avatar {
                 continue
             }
 
-//            let correctedOrientation = Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform)) * correction
-            let correctedOrientation = correction * Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform))
+            let correctedOrientation = Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform)) * correction
 
             node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
 
