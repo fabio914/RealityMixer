@@ -395,7 +395,7 @@ extension MixedRealityViewController: ARSessionDelegate {
                 return node
             } else {
                 let avatarReferenceNode = Bundle.main
-                    .url(forResource: "robot", withExtension: "usdz")
+                    .url(forResource: "avatar", withExtension: "usdz")
                     .flatMap(SCNReferenceNode.init(url:))
 
                 if let avatarReferenceNode = avatarReferenceNode {
@@ -409,7 +409,12 @@ extension MixedRealityViewController: ARSessionDelegate {
             }
         }()
 
-        avatarNode.transform = SCNMatrix4(bodyAnchor.transform)
+        guard let skeletonNode = avatarNode.childNode(withName: "Skeleton", recursively: true) else {
+            return
+        }
+
+//        avatarNode.transform = SCNMatrix4(bodyAnchor.transform)
+        skeletonNode.transform = SCNMatrix4(bodyAnchor.transform)
 
         let skeleton = bodyAnchor.skeleton
         let jointLocalTransforms = skeleton.jointLocalTransforms
@@ -420,7 +425,8 @@ extension MixedRealityViewController: ARSessionDelegate {
 
             // Searching this all the time might not be efficient...
             guard parentIndex != -1,
-                let node = avatarNode.childNode(withName: jointName, recursively: true)
+                let nodeName = Avatar.node(forJoint: jointName),
+                let node = skeletonNode.childNode(withName: nodeName, recursively: true)
             else {
                 continue
             }
@@ -438,117 +444,105 @@ extension MixedRealityViewController: ARSessionDelegate {
     }
 }
 
-final class Skeleton {
-    var mainNode: SCNNode
-    private var joints: [String: SCNNode]
-    private var cylindersNode: SCNNode
+struct Avatar {
 
-    static func lineBetweenNodes(positionA: SCNVector3, positionB: SCNVector3, mainNode: SCNNode) -> SCNNode {
-        let vector = SCNVector3(positionA.x - positionB.x, positionA.y - positionB.y, positionA.z - positionB.z)
-        let distance = sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
-        let midPosition = SCNVector3 (x:(positionA.x + positionB.x) / 2, y:(positionA.y + positionB.y) / 2, z:(positionA.z + positionB.z) / 2)
+// The rotations don't match those of ARKit's robot, so the avatar is becoming distorted
 
-        let lineGeometry = SCNCylinder()
-        lineGeometry.radius = 0.025
-        lineGeometry.height = CGFloat(distance)
-        lineGeometry.radialSegmentCount = 5
-        lineGeometry.firstMaterial?.lightingModel = .constant
-        lineGeometry.firstMaterial?.diffuse.contents = UIColor.gray
+    static let nodes: [String: String] = [
+        "root": "Skeleton",
+        "hips_joint": "Hips", // 2 nodes with this name...
+        "left_upLeg_joint": "LeftUpLeg",
+        "left_leg_joint": "LeftLeg",
+        "left_foot_joint": "LeftFoot",
+        "left_toes_joint": "LeftToeBase",
+        "left_toesEnd_joint": "LeftToe_End",
+        "right_upLeg_joint": "RightUpLeg",
+        "right_leg_joint": "RightLeg",
+        "right_foot_joint": "RightFoot",
+        "right_toes_joint": "RightToeBase",
+        "right_toesEnd_joint": "RightToe_End",
+        "spine_1_joint": "Spine",
+        "spine_2_joint": "",
+        "spine_3_joint": "",
+        "spine_4_joint": "",
+        "spine_5_joint": "",
+        "spine_6_joint": "Spine1",
+        "spine_7_joint": "Spine2",
+        "right_shoulder_1_joint": "RightShoulder",
+        "right_arm_joint": "RightArm",
+        "right_forearm_joint": "RightForeArm",
+        "right_hand_joint": "RightHand",
+        "right_handThumbStart_joint": "RightHandThumb1",
+        "right_handThumb_1_joint": "RightHandThumb2",
+        "right_handThumb_2_joint": "RightHandThumb3",
+        "right_handThumbEnd_joint": "RightHandThumb4",
+//        "right_handIndexStart_joint": "",
+        "right_handIndex_1_joint": "RightHandIndex1",
+        "right_handIndex_2_joint": "RightHandIndex2",
+        "right_handIndex_3_joint": "RightHandIndex3",
+        "right_handIndexEnd_joint": "RightHandIndex4",
+//        "right_handMidStart_joint": "",
+        "right_handMid_1_joint": "RightHandMiddle1",
+        "right_handMid_2_joint": "RightHandMiddle2",
+        "right_handMid_3_joint": "RightHandMiddle3",
+        "right_handMidEnd_joint": "RightHandMiddle4",
+//        "right_handRingStart_joint": "",
+        "right_handRing_1_joint": "RightHandRing1",
+        "right_handRing_2_joint": "RightHandRing2",
+        "right_handRing_3_joint": "RightHandRing3",
+        "right_handRingEnd_joint": "RightHandRing4",
+//        "right_handPinkyStart_joint": "",
+        "right_handPinky_1_joint": "RightHandPinky1",
+        "right_handPinky_2_joint": "RightHandPinky2",
+        "right_handPinky_3_joint": "RightHandPinky3",
+        "right_handPinkyEnd_joint": "RightHandPinky4",
+        "left_shoulder_1_joint": "LeftShoulder",
+        "left_arm_joint": "LeftArm",
+        "left_forearm_joint": "LeftForeArm",
+        "left_hand_joint": "LeftHand",
+        "left_handThumbStart_joint": "LeftHandThumb1",
+        "left_handThumb_1_joint": "LeftHandThumb2",
+        "left_handThumb_2_joint": "LeftHandThumb3",
+        "left_handThumbEnd_joint": "LeftHandThumb4",
+//        "left_handIndexStart_joint": "",
+        "left_handIndex_1_joint": "LeftHandIndex1",
+        "left_handIndex_2_joint": "LeftHandIndex2",
+        "left_handIndex_3_joint": "LeftHandIndex3",
+        "left_handIndexEnd_joint": "LeftHandIndex4",
+//        "left_handMidStart_joint": "",
+        "left_handMid_1_joint": "LeftHandMiddle1",
+        "left_handMid_2_joint": "LeftHandMiddle2",
+        "left_handMid_3_joint": "LeftHandMiddle3",
+        "left_handMidEnd_joint": "LeftHandMiddle4",
+//        "left_handRingStart_joint": "",
+        "left_handRing_1_joint": "LeftHandRing1",
+        "left_handRing_2_joint": "LeftHandRing2",
+        "left_handRing_3_joint": "LeftHandRing3",
+        "left_handRingEnd_joint": "LeftHandRing4",
+//        "left_handPinkyStart_joint": "",
+        "left_handPinky_1_joint": "LeftHandPinky1",
+        "left_handPinky_2_joint": "LeftHandPinky2",
+        "left_handPinky_3_joint": "LeftHandPinky3",
+        "left_handPinkyEnd_joint": "LeftHandPinky4",
+        "head_joint": "Head",
+//        "jaw_joint": "",
+//        "chin_joint": "",
+//        "nose_joint": "",
+        "right_eye_joint": "RightEye",
+//        "right_eyeUpperLid_joint": "",
+//        "right_eyeLowerLid_joint": "",
+//        "right_eyeball_joint": "",
+        "left_eye_joint": "LeftEye",
+//        "left_eyeUpperLid_joint": "",
+//        "left_eyeLowerLid_joint": "",
+//        "left_eyeball_joint": "",
+//        "neck_1_joint": "",
+//        "neck_2_joint": "",
+        "neck_3_joint": "Neck",
+//        "neck_4_joint": ""
+    ]
 
-        let lineNode = SCNNode(geometry: lineGeometry)
-        lineNode.position = midPosition
-        lineNode.look (at: positionB, up: mainNode.worldUp, localFront: lineNode.worldUp)
-        return lineNode
-    }
-
-    // Improve this.... We're rebuilding this all the time....
-    static func buildCylinders(skeleton: ARSkeleton3D, mainNode: SCNNode) -> SCNNode {
-        let jointModelTransforms = skeleton.jointModelTransforms
-
-        let cylinderParent = SCNNode()
-
-        for (i, jointModelTransform) in jointModelTransforms.enumerated() {
-            let parentIndex = skeleton.definition.parentIndices[i]
-            let modelPosition = SCNVector3(simd_make_float3(jointModelTransform.columns.3))
-
-            guard parentIndex != -1 else { continue }
-
-            let parentModelTransform = jointModelTransforms[parentIndex]
-            let parentModelPosition = SCNVector3(simd_make_float3(parentModelTransform.columns.3))
-
-            let lineNode = lineBetweenNodes(
-                positionA: modelPosition,
-                positionB: parentModelPosition,
-                mainNode: mainNode
-            )
-
-            cylinderParent.addChildNode(lineNode)
-        }
-
-        return cylinderParent
-    }
-
-    init(bodyAnchor: ARBodyAnchor) {
-        let mainNode = SCNNode()
-        mainNode.transform = SCNMatrix4(bodyAnchor.transform)
-        mainNode.geometry = SCNSphere(radius: 0.1)
-        mainNode.geometry?.firstMaterial?.lightingModel = .constant
-        mainNode.geometry?.firstMaterial?.diffuse.contents = UIColor.green
-        self.mainNode = mainNode
-
-        let skeleton = bodyAnchor.skeleton
-        let jointLocalTransforms = skeleton.jointLocalTransforms
-
-        var nodes: [String: SCNNode] = [:]
-
-        // Assuming that this is sorted topologically
-        for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
-            let parentIndex = skeleton.definition.parentIndices[i]
-            let jointName = skeleton.definition.jointNames[i]
-
-            // Root
-            if parentIndex == -1 {
-                nodes[jointName] = mainNode
-            } else {
-                let currentNode = SCNNode()
-                currentNode.transform = SCNMatrix4(jointLocalTransform)
-                currentNode.geometry = SCNSphere(radius: 0.05)
-                currentNode.geometry?.firstMaterial?.lightingModel = .constant
-                currentNode.geometry?.firstMaterial?.diffuse.contents = UIColor.green
-
-                // This can be `nil` if this is not sorted topologically
-                let parentNode = nodes[skeleton.definition.jointNames[parentIndex]]
-                parentNode?.addChildNode(currentNode)
-
-                nodes[jointName] = currentNode
-            }
-        }
-
-        self.cylindersNode = Skeleton.buildCylinders(skeleton: skeleton, mainNode: mainNode)
-        mainNode.addChildNode(cylindersNode)
-
-        self.mainNode = mainNode
-        self.joints = nodes
-    }
-
-    func update(bodyAnchor: ARBodyAnchor) {
-        mainNode.transform = SCNMatrix4(bodyAnchor.transform)
-
-        let skeleton = bodyAnchor.skeleton
-        let jointLocalTransforms = skeleton.jointLocalTransforms
-
-        for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
-            let parentIndex = skeleton.definition.parentIndices[i]
-            let jointName = skeleton.definition.jointNames[i]
-
-            if parentIndex != -1 {
-                joints[jointName]?.transform = SCNMatrix4(jointLocalTransform)
-            }
-        }
-
-        // Improve this.... We're rebuilding this all the time...
-        cylindersNode.removeFromParentNode()
-        cylindersNode = Skeleton.buildCylinders(skeleton: skeleton, mainNode: mainNode)
-        mainNode.addChildNode(cylindersNode)
+    static func node(forJoint jointName: String) -> String? {
+        nodes[jointName]
     }
 }

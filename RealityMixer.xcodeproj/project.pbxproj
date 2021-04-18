@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A32226F6262A70B6004629CC /* avatar.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A32226F5262A70B6004629CC /* avatar.usdz */; };
+		A32226FC262C5229004629CC /* MixedRealityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */; };
+		A32226FD262C5229004629CC /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FB262C5229004629CC /* Preference.swift */; };
+		A32226FF262C5253004629CC /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FE262C5253004629CC /* Skeleton.swift */; };
 		A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32285A82558050600FF3200 /* AboutViewController.swift */; };
 		A32285AB2558050600FF3200 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A32285A92558050600FF3200 /* AboutViewController.xib */; };
 		A32285AF25580A8800FF3200 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32285AE25580A8800FF3200 /* Definitions.swift */; };
@@ -19,7 +23,6 @@
 		A32416082554D326008D4B90 /* CalibrationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416072554D326008D4B90 /* CalibrationPayload.swift */; };
 		A324160B2554D3AB008D4B90 /* CalibrationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A324160A2554D3AB008D4B90 /* CalibrationResult.swift */; };
 		A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A324160E2554D4AD008D4B90 /* CalibrationBuilder.swift */; };
-		A32416182554DA24008D4B90 /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416172554DA24008D4B90 /* Preference.swift */; };
 		A324161E2554DABE008D4B90 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A324161C2554DABE008D4B90 /* InitialViewController.swift */; };
 		A324161F2554DABE008D4B90 /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A324161D2554DABE008D4B90 /* InitialViewController.xib */; };
 		A32416252554DFD4008D4B90 /* CalibrationConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416232554DFD3008D4B90 /* CalibrationConnectionViewController.swift */; };
@@ -50,7 +53,6 @@
 		A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98D253CF2EE00B90E62 /* ARKit.framework */; };
 		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
 		A344D5B72621444C0026924F /* robot.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A344D5B62621444C0026924F /* robot.usdz */; };
-		A36C606825AE58FE0026DDE1 /* MixedRealityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C606725AE58FE0026DDE1 /* MixedRealityConfiguration.swift */; };
 		A3798AE125D9F6CA00B3BFBC /* CameraPoseSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */; };
 		A39033ED256859A8004CB638 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39033EC256859A8004CB638 /* Shaders.swift */; };
 		A3A50C0725F4945700413E01 /* SwiftlyAttributedStrings in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */; };
@@ -75,6 +77,10 @@
 
 /* Begin PBXFileReference section */
 		3E1B214525678AF60084847C /* RealityMixer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = RealityMixer.xcconfig; sourceTree = "<group>"; };
+		A32226F5262A70B6004629CC /* avatar.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar.usdz; sourceTree = "<group>"; };
+		A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MixedRealityConfiguration.swift; sourceTree = "<group>"; };
+		A32226FB262C5229004629CC /* Preference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
+		A32226FE262C5253004629CC /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
 		A32285A82558050600FF3200 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A32285A92558050600FF3200 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		A32285AE25580A8800FF3200 /* Definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
@@ -90,7 +96,6 @@
 		A324160A2554D3AB008D4B90 /* CalibrationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationResult.swift; sourceTree = "<group>"; };
 		A324160E2554D4AD008D4B90 /* CalibrationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationBuilder.swift; sourceTree = "<group>"; };
 		A32416152554D939008D4B90 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		A32416172554DA24008D4B90 /* Preference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
 		A324161C2554DABE008D4B90 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		A324161D2554DABE008D4B90 /* InitialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		A32416232554DFD3008D4B90 /* CalibrationConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationConnectionViewController.swift; sourceTree = "<group>"; };
@@ -126,7 +131,6 @@
 		A328D98D253CF2EE00B90E62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		A328D98F253CF2F400B90E62 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		A344D5B62621444C0026924F /* robot.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = robot.usdz; sourceTree = "<group>"; };
-		A36C606725AE58FE0026DDE1 /* MixedRealityConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixedRealityConfiguration.swift; sourceTree = "<group>"; };
 		A37850BC256C433C00C046FA /* Compatibility.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Compatibility.md; sourceTree = "<group>"; };
 		A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPoseSender.swift; sourceTree = "<group>"; };
 		A39033EC256859A8004CB638 /* Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
@@ -157,9 +161,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A32226F9262C5213004629CC /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */,
+				A32226FB262C5229004629CC /* Preference.swift */,
+				A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */,
+				A32226FE262C5253004629CC /* Skeleton.swift */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
 		A32285E62559F87B00FF3200 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A32226F5262A70B6004629CC /* avatar.usdz */,
 				A344D5B62621444C0026924F /* robot.usdz */,
 				A32285F5255A06E400FF3200 /* left.stl */,
 				A32285F6255A06E400FF3200 /* right.stl */,
@@ -227,22 +243,12 @@
 		A32416122554D7F5008D4B90 /* Capture */ = {
 			isa = PBXGroup;
 			children = (
+				A32226F9262C5213004629CC /* Misc */,
 				A39033EB2568599B004CB638 /* Shaders */,
-				A32416162554DA18008D4B90 /* Model */,
 				A328D8C8253C912E00B90E62 /* oculus-mrc */,
 				A328D971253CE4AA00B90E62 /* ViewControllers */,
-				A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */,
 			);
 			path = Capture;
-			sourceTree = "<group>";
-		};
-		A32416162554DA18008D4B90 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				A32416172554DA24008D4B90 /* Preference.swift */,
-				A36C606725AE58FE0026DDE1 /* MixedRealityConfiguration.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		A324161A2554DAA1008D4B90 /* Main */ = {
@@ -431,6 +437,7 @@
 				A32416262554DFD4008D4B90 /* CalibrationConnectionViewController.xib in Resources */,
 				A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */,
 				A32285F7255A06E400FF3200 /* left.stl in Resources */,
+				A32226F6262A70B6004629CC /* avatar.usdz in Resources */,
 				A324162B2554E1B8008D4B90 /* CalibrationViewController.xib in Resources */,
 				A324161F2554DABE008D4B90 /* InitialViewController.xib in Resources */,
 				A328D979253CE54E00B90E62 /* MixedRealityConnectionViewController.xib in Resources */,
@@ -470,10 +477,11 @@
 				A328D8B0253C8C4000B90E62 /* AppDelegate.swift in Sources */,
 				A32416252554DFD4008D4B90 /* CalibrationConnectionViewController.swift in Sources */,
 				A32416312554E340008D4B90 /* CalibrationSceneNodeBuilder.swift in Sources */,
+				A32226FF262C5253004629CC /* Skeleton.swift in Sources */,
 				A3798AE125D9F6CA00B3BFBC /* CameraPoseSender.swift in Sources */,
+				A32226FC262C5229004629CC /* MixedRealityConfiguration.swift in Sources */,
 				A32416082554D326008D4B90 /* CalibrationPayload.swift in Sources */,
-				A36C606825AE58FE0026DDE1 /* MixedRealityConfiguration.swift in Sources */,
-				A32416182554DA24008D4B90 /* Preference.swift in Sources */,
+				A32226FD262C5229004629CC /* Preference.swift in Sources */,
 				A32416352554E41E008D4B90 /* ProjectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
