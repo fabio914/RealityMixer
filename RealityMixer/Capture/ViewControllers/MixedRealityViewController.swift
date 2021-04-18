@@ -504,7 +504,7 @@ struct Avatar {
     }
 
     private(set) var mainNode: SCNNode
-    private let referenceTransforms: [String: Quaternion]
+    private let corrections: [String: Quaternion]
 
     init?(bodyAnchor: ARBodyAnchor) {
 
@@ -536,6 +536,28 @@ struct Avatar {
         let skeleton = bodyAnchor.skeleton
         let jointLocalTransforms = skeleton.jointLocalTransforms
 
+        var corrections: [String: Quaternion] = [:]
+
+        for (i, _) in jointLocalTransforms.enumerated() {
+            let parentIndex = skeleton.definition.parentIndices[i]
+            let jointName = skeleton.definition.jointNames[i]
+
+            guard parentIndex != -1,
+                jointName != "root",
+                jointName != "hips_joint",
+                let avatarNodeName = Avatar.node(forJoint: jointName),
+                let avatarNode = hipsNode.childNode(withName: avatarNodeName, recursively: true),
+                let referenceNode = robotNode.childNode(withName: jointName, recursively: true)
+            else {
+                continue
+            }
+
+//            corrections[jointName] = Quaternion(rotationMatrix: referenceNode.transform).inverse * Quaternion(rotationMatrix: avatarNode.transform)
+            corrections[jointName] = Quaternion(rotationMatrix: avatarNode.transform) * Quaternion(rotationMatrix: referenceNode.transform).inverse
+        }
+
+        self.corrections = corrections
+
         for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
             let parentIndex = skeleton.definition.parentIndices[i]
             let jointName = skeleton.definition.jointNames[i]
@@ -544,16 +566,21 @@ struct Avatar {
                 jointName != "root",
                 jointName != "hips_joint",
                 let nodeName = Avatar.node(forJoint: jointName),
-                let node = hipsNode.childNode(withName: nodeName, recursively: true)
+                let node = hipsNode.childNode(withName: nodeName, recursively: true),
+                let correction = corrections[jointName]
             else {
                 continue
             }
 
-            node.transform = SCNMatrix4(jointLocalTransform)
+//            let correctedOrientation = Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform)) * correction
+            let correctedOrientation = correction * Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform))
+
+            node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
+
+//            node.position = SCNVector3(simd_make_float3(jointLocalTransform.columns.3))
         }
 
         mainNode = avatarNode
-        referenceTransforms = [:]
     }
 
     func update(bodyAnchor: ARBodyAnchor) {
@@ -576,12 +603,18 @@ struct Avatar {
                 jointName != "root",
                 jointName != "hips_joint",
                 let nodeName = Avatar.node(forJoint: jointName),
-                let node = hipsNode.childNode(withName: nodeName, recursively: true)
+                let node = hipsNode.childNode(withName: nodeName, recursively: true),
+                let correction = corrections[jointName]
             else {
                 continue
             }
 
-            node.transform = SCNMatrix4(jointLocalTransform)
+//            let correctedOrientation = Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform)) * correction
+            let correctedOrientation = correction * Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform))
+
+            node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
+
+//            node.position = SCNVector3(simd_make_float3(jointLocalTransform.columns.3))
         }
     }
 }
