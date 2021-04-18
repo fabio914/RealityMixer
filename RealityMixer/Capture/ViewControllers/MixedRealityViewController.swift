@@ -27,7 +27,7 @@ final class MixedRealityViewController: UIViewController {
     private let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
 
 //    private var skeleton: Skeleton?
-    private var avatarNode: SCNNode?
+    private var avatar: Avatar?
 
     var first = true
 
@@ -390,53 +390,14 @@ extension MixedRealityViewController: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         guard let bodyAnchor = anchors.compactMap({ $0 as? ARBodyAnchor }).first else { return }
 
-        let avatarNode: SCNNode = {
-            if let node = self.avatarNode {
-                return node
-            } else {
-                let avatarReferenceNode = Bundle.main
-                    .url(forResource: "avatar", withExtension: "usdz")
-                    .flatMap(SCNReferenceNode.init(url:))
-
-                if let avatarReferenceNode = avatarReferenceNode {
-                    self.avatarNode = avatarReferenceNode
-                    avatarReferenceNode.load()
-                    sceneView.scene.rootNode.addChildNode(avatarReferenceNode)
-                    return avatarReferenceNode
-                } else {
-                    return SCNNode()
-                }
+        if let avatar = avatar {
+            avatar.update(bodyAnchor: bodyAnchor)
+        } else {
+            avatar = Avatar(bodyAnchor: bodyAnchor)
+            if let mainNode = avatar?.mainNode {
+                sceneView.scene.rootNode.addChildNode(mainNode)
             }
-        }()
-
-        guard let skeletonNode = avatarNode.childNode(withName: "Skeleton", recursively: true),
-            let hipsNode = skeletonNode.childNode(withName: "Hips", recursively: true)
-        else {
-            return
         }
-
-//        avatarNode.transform = SCNMatrix4(bodyAnchor.transform)
-        hipsNode.transform = SCNMatrix4(bodyAnchor.transform)
-
-        let skeleton = bodyAnchor.skeleton
-        let jointLocalTransforms = skeleton.jointLocalTransforms
-
-//        for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
-//            let parentIndex = skeleton.definition.parentIndices[i]
-//            let jointName = skeleton.definition.jointNames[i]
-//
-//            // Searching this all the time might not be efficient...
-//            guard parentIndex != -1,
-//                jointName != "root",
-//                jointName != "hips_joint",
-//                let nodeName = Avatar.node(forJoint: jointName),
-//                let node = hipsNode.childNode(withName: nodeName, recursively: true)
-//            else {
-//                continue
-//            }
-//
-//            node.transform = SCNMatrix4(jointLocalTransform)
-//        }
     }
 }
 
@@ -445,7 +406,7 @@ struct Avatar {
 // The rotations don't match those of ARKit's robot, so the avatar is becoming distorted
 
     static let nodes: [String: String] = [
-        "root": "Skeleton",
+//        "root": "Skeleton",
         "hips_joint": "Hips", // 2 nodes with this name...
         "left_upLeg_joint": "LeftUpLeg",
         "left_leg_joint": "LeftLeg",
@@ -540,5 +501,87 @@ struct Avatar {
 
     static func node(forJoint jointName: String) -> String? {
         nodes[jointName]
+    }
+
+    private(set) var mainNode: SCNNode
+    private let referenceTransforms: [String: Quaternion]
+
+    init?(bodyAnchor: ARBodyAnchor) {
+
+        let maybeAvatarReferenceNode = Bundle.main
+            .url(forResource: "tpose", withExtension: "usdz")
+            .flatMap(SCNReferenceNode.init(url:))
+
+        let maybeRobotReferenceNode = Bundle.main
+            .url(forResource: "robot", withExtension: "usdz")
+            .flatMap(SCNReferenceNode.init(url:))
+
+        guard let avatarNode = maybeAvatarReferenceNode,
+            let robotNode = maybeRobotReferenceNode
+        else {
+            return nil
+        }
+
+        avatarNode.load()
+        robotNode.load()
+
+        guard let skeletonNode = avatarNode.childNode(withName: "Skeleton", recursively: true),
+            let hipsNode = skeletonNode.childNode(withName: "Hips", recursively: false)
+        else {
+            return nil
+        }
+
+        hipsNode.transform = SCNMatrix4(bodyAnchor.transform)
+
+        let skeleton = bodyAnchor.skeleton
+        let jointLocalTransforms = skeleton.jointLocalTransforms
+
+        for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
+            let parentIndex = skeleton.definition.parentIndices[i]
+            let jointName = skeleton.definition.jointNames[i]
+
+            guard parentIndex != -1,
+                jointName != "root",
+                jointName != "hips_joint",
+                let nodeName = Avatar.node(forJoint: jointName),
+                let node = hipsNode.childNode(withName: nodeName, recursively: true)
+            else {
+                continue
+            }
+
+            node.transform = SCNMatrix4(jointLocalTransform)
+        }
+
+        mainNode = avatarNode
+        referenceTransforms = [:]
+    }
+
+    func update(bodyAnchor: ARBodyAnchor) {
+        guard let skeletonNode = mainNode.childNode(withName: "Skeleton", recursively: true),
+            let hipsNode = skeletonNode.childNode(withName: "Hips", recursively: false)
+        else {
+            return
+        }
+
+        hipsNode.transform = SCNMatrix4(bodyAnchor.transform)
+
+        let skeleton = bodyAnchor.skeleton
+        let jointLocalTransforms = skeleton.jointLocalTransforms
+
+        for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
+            let parentIndex = skeleton.definition.parentIndices[i]
+            let jointName = skeleton.definition.jointNames[i]
+
+            guard parentIndex != -1,
+                jointName != "root",
+                jointName != "hips_joint",
+                let nodeName = Avatar.node(forJoint: jointName),
+                let node = hipsNode.childNode(withName: nodeName, recursively: true)
+            else {
+                continue
+            }
+
+            node.transform = SCNMatrix4(jointLocalTransform)
+        }
     }
 }

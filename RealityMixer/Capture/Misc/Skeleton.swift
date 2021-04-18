@@ -9,7 +9,7 @@ import UIKit
 import ARKit
 
 final class Skeleton {
-    var mainNode: SCNNode
+    private(set) var mainNode: SCNNode
     private var joints: [String: SCNNode]
     private var cylindersNode: SCNNode
 
