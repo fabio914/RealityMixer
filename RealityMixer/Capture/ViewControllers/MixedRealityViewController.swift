@@ -534,51 +534,54 @@ struct Avatar {
         hipsNode.transform = SCNMatrix4(bodyAnchor.transform)
 
         let skeleton = bodyAnchor.skeleton
-        let jointLocalTransforms = skeleton.jointLocalTransforms
+        let jointModelTransforms = skeleton.jointModelTransforms
 
         var corrections: [String: Quaternion] = [:]
 
         // We might need to use model/world transforms...
 
-        for (i, _) in jointLocalTransforms.enumerated() {
+        for (i, _) in jointModelTransforms.enumerated() {
             let parentIndex = skeleton.definition.parentIndices[i]
             let jointName = skeleton.definition.jointNames[i]
 
             guard parentIndex != -1,
                 jointName != "root",
                 jointName != "hips_joint",
-                let nodeName = Avatar.node(forJoint: jointName),
-                let node = hipsNode.childNode(withName: nodeName, recursively: true),
+//                let nodeName = Avatar.node(forJoint: jointName),
+//                let node = hipsNode.childNode(withName: nodeName, recursively: true),
                 let referenceNode = robotNode.childNode(withName: jointName, recursively: true)
             else {
                 continue
             }
 
-            corrections[jointName] = Quaternion(rotationMatrix: referenceNode.transform).inverse * Quaternion(rotationMatrix: node.transform)
+            let parentName = skeleton.definition.jointNames[parentIndex]
+            let parentCorrection = corrections[parentName] ?? Quaternion(x: 0, y: 0, z: 0, w: 1)
+
+            corrections[jointName] = parentCorrection * Quaternion(rotationMatrix: referenceNode.transform).inverse /* * Quaternion(rotationMatrix: node.transform) */
         }
 
         self.corrections = corrections
 
-        for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
-            let parentIndex = skeleton.definition.parentIndices[i]
-            let jointName = skeleton.definition.jointNames[i]
-
-            guard parentIndex != -1,
-                jointName != "root",
-                jointName != "hips_joint",
-                let nodeName = Avatar.node(forJoint: jointName),
-                let node = hipsNode.childNode(withName: nodeName, recursively: true),
-                let correction = corrections[jointName]
-            else {
-                continue
-            }
-
-            let correctedOrientation = Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform)) * correction
-
-            node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
-
-//            node.position = SCNVector3(simd_make_float3(jointLocalTransform.columns.3))
-        }
+//        for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
+//            let parentIndex = skeleton.definition.parentIndices[i]
+//            let jointName = skeleton.definition.jointNames[i]
+//
+//            guard parentIndex != -1,
+//                jointName != "root",
+//                jointName != "hips_joint",
+//                let nodeName = Avatar.node(forJoint: jointName),
+//                let node = hipsNode.childNode(withName: nodeName, recursively: true),
+//                let correction = corrections[jointName]
+//            else {
+//                continue
+//            }
+//
+//            let correctedOrientation = Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform)) * correction
+//
+//            node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
+//
+////            node.position = SCNVector3(simd_make_float3(jointLocalTransform.columns.3))
+//        }
 
         mainNode = avatarNode
     }
@@ -593,24 +596,33 @@ struct Avatar {
         hipsNode.transform = SCNMatrix4(bodyAnchor.transform)
 
         let skeleton = bodyAnchor.skeleton
-        let jointLocalTransforms = skeleton.jointLocalTransforms
+        let jointModelTransforms = skeleton.jointModelTransforms
 
-        for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
+        var parentOrientations = [String: Quaternion]()
+
+        for (i, jointModelTransform) in jointModelTransforms.enumerated() {
             let parentIndex = skeleton.definition.parentIndices[i]
             let jointName = skeleton.definition.jointNames[i]
 
             guard parentIndex != -1,
                 jointName != "root",
                 jointName != "hips_joint",
-                let nodeName = Avatar.node(forJoint: jointName),
-                let node = hipsNode.childNode(withName: nodeName, recursively: true),
                 let correction = corrections[jointName]
             else {
                 continue
             }
 
-            let correctedOrientation = Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform)) * correction
+            let parentName = skeleton.definition.jointNames[parentIndex]
+            let parentOrientation = parentOrientations[parentName] ?? Quaternion(x: 0, y: 0, z: 0, w: 1)
+            parentOrientations[jointName] = Quaternion(rotationMatrix: SCNMatrix4(jointModelTransform)) * correction
 
+            guard let nodeName = Avatar.node(forJoint: jointName),
+                let node = hipsNode.childNode(withName: nodeName, recursively: true)
+            else {
+                continue
+            }
+
+            let correctedOrientation = parentOrientation.inverse * Quaternion(rotationMatrix: SCNMatrix4(jointModelTransform)) * correction
             node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
 
 //            node.position = SCNVector3(simd_make_float3(jointLocalTransform.columns.3))
