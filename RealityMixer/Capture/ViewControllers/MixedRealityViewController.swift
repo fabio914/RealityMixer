@@ -397,6 +397,7 @@ extension MixedRealityViewController: ARSessionDelegate {
             if let mainNode = avatar?.mainNode {
                 sceneView.scene.rootNode.addChildNode(mainNode)
             }
+            avatar?.update(bodyAnchor: bodyAnchor)
         }
     }
 }
@@ -561,28 +562,6 @@ struct Avatar {
         }
 
         self.corrections = corrections
-
-//        for (i, jointLocalTransform) in jointLocalTransforms.enumerated() {
-//            let parentIndex = skeleton.definition.parentIndices[i]
-//            let jointName = skeleton.definition.jointNames[i]
-//
-//            guard parentIndex != -1,
-//                jointName != "root",
-//                jointName != "hips_joint",
-//                let nodeName = Avatar.node(forJoint: jointName),
-//                let node = hipsNode.childNode(withName: nodeName, recursively: true),
-//                let correction = corrections[jointName]
-//            else {
-//                continue
-//            }
-//
-//            let correctedOrientation = Quaternion(rotationMatrix: SCNMatrix4(jointLocalTransform)) * correction
-//
-//            node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
-//
-////            node.position = SCNVector3(simd_make_float3(jointLocalTransform.columns.3))
-//        }
-
         mainNode = avatarNode
     }
 
