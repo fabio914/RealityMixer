@@ -557,7 +557,7 @@ struct Avatar {
             let parentName = skeleton.definition.jointNames[parentIndex]
             let parentCorrection = corrections[parentName] ?? Quaternion(x: 0, y: 0, z: 0, w: 1)
 
-            corrections[jointName] = parentCorrection * Quaternion(rotationMatrix: referenceNode.transform).inverse /* * Quaternion(rotationMatrix: node.transform) */
+            corrections[jointName] = parentCorrection * Quaternion(rotationMatrix: referenceNode.transform) /* * Quaternion(rotationMatrix: node.transform) */
         }
 
         self.corrections = corrections
@@ -614,7 +614,7 @@ struct Avatar {
 
             let parentName = skeleton.definition.jointNames[parentIndex]
             let parentOrientation = parentOrientations[parentName] ?? Quaternion(x: 0, y: 0, z: 0, w: 1)
-            parentOrientations[jointName] = Quaternion(rotationMatrix: SCNMatrix4(jointModelTransform)) * correction
+            parentOrientations[jointName] = Quaternion(rotationMatrix: SCNMatrix4(jointModelTransform)) * correction.inverse
 
             guard let nodeName = Avatar.node(forJoint: jointName),
                 let node = hipsNode.childNode(withName: nodeName, recursively: true)
@@ -622,7 +622,7 @@ struct Avatar {
                 continue
             }
 
-            let correctedOrientation = parentOrientation.inverse * Quaternion(rotationMatrix: SCNMatrix4(jointModelTransform)) * correction
+            let correctedOrientation = parentOrientation.inverse * Quaternion(rotationMatrix: SCNMatrix4(jointModelTransform)) * correction.inverse
             node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
 
 //            node.position = SCNVector3(simd_make_float3(jointLocalTransform.columns.3))
