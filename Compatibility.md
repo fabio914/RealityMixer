@@ -31,6 +31,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Open Brush](https://www.oculus.com/experiences/quest/3600360710032222) |  |  |  | Version 0.3.0 supports Mixed Reality Capture. You can try [this version](https://github.com/fabio914/open-brush/releases/tag/0.2.1) if you wish to use the "moving camera". | 
 | [Peco Peco](https://benthamrealities.itch.io/pecopeco) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=Zrf2i6FvkrU) | Works perfectly. |
 | [Pistol Whip](https://www.oculus.com/experiences/quest/2104963472963790) | 2 | 0 | [Tweet](https://twitter.com/fabio914/status/1326699860146401284) | The audio didn't work and the video was showing a first person POV. |
+| [Premium Bowling](https://www.oculus.com/experiences/quest/2773034772778845/) | 5 | 5 | |
 | [Puzzling Places Prototype](https://sidequestvr.com/app/809/puzzling-places-prototype) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=a8Ph-bUJFoA) | The colors appear desaturated. |
 | [QuestDraw AR](https://sidequestvr.com/app/1168) | 5 | ? | ? | ? |
 | [Racket Fury](https://www.oculus.com/experiences/quest/1952355814856769) | ? | ? | ? | You'll have to use the "Unflip output" option. |
