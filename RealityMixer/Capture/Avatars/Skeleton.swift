@@ -5,10 +5,9 @@
 //  Created by Fabio de Albuquerque Dela Antonio on 18/04/2021.
 //
 
-import UIKit
 import ARKit
 
-final class Skeleton {
+final class Skeleton: AvatarProtocol {
     private(set) var mainNode: SCNNode
     private var joints: [String: SCNNode]
     private var cylindersNode: SCNNode
@@ -58,7 +57,7 @@ final class Skeleton {
         return cylinderParent
     }
 
-    init(bodyAnchor: ARBodyAnchor) {
+    init?(bodyAnchor: ARBodyAnchor) {
         let mainNode = SCNNode()
         mainNode.transform = SCNMatrix4(bodyAnchor.transform)
         mainNode.geometry = SCNSphere(radius: 0.1)
