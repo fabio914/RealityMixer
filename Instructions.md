@@ -118,3 +118,9 @@ Follow the instructions below if you don't have the record option inside your "C
  - Make sure that your device is not on Low Power mode. It is recommended that you keep your device connected to a power outlet while using the app.
  
  - Select a small resolution scale factor (`0.5x` or `0.25x`) and then calibrate again.
+
+## YouTube Tutorials
+
+* Disco-VR  [Mixed Reality on iPhone without Green Screen! Tutorial for Beat Saber using Oculus Quest 2](https://www.youtube.com/watch?v=NH5xAwQ9UY4)
+
+* Fabio [Tutorial: Mixed Reality with an iPhone and an Oculus Quest (no green screen)](https://www.youtube.com/watch?v=iRLwhK1Oees)
