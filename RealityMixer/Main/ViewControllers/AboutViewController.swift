@@ -62,7 +62,8 @@ final class AboutViewController: UIViewController {
                 """
                 Special thanks to:
                 Giovanni Longatto N. Marques
-                Gustavo Buzogany Eboli\n\n
+                Gustavo Buzogany Eboli\n
+                Check our GitHub page for a list of all contributors.\n\n
                 """
             } +
             Font(.systemFont(ofSize: 15, weight: .regular)) {
