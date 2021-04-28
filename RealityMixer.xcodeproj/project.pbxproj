@@ -51,6 +51,8 @@
 		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
 		A36C606825AE58FE0026DDE1 /* MixedRealityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C606725AE58FE0026DDE1 /* MixedRealityConfiguration.swift */; };
 		A3798AE125D9F6CA00B3BFBC /* CameraPoseSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */; };
+		A3837F6D263A239F0053951E /* next.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A3837F6B263A239F0053951E /* next.mp3 */; };
+		A3837F6E263A239F0053951E /* reset.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A3837F6C263A239F0053951E /* reset.mp3 */; };
 		A39033ED256859A8004CB638 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39033EC256859A8004CB638 /* Shaders.swift */; };
 		A3A50C0725F4945700413E01 /* SwiftlyAttributedStrings in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */; };
 		A3A50C0C25F57AB700413E01 /* ProjectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */; };
@@ -127,6 +129,8 @@
 		A36C606725AE58FE0026DDE1 /* MixedRealityConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixedRealityConfiguration.swift; sourceTree = "<group>"; };
 		A37850BC256C433C00C046FA /* Compatibility.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Compatibility.md; sourceTree = "<group>"; };
 		A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPoseSender.swift; sourceTree = "<group>"; };
+		A3837F6B263A239F0053951E /* next.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = next.mp3; sourceTree = "<group>"; };
+		A3837F6C263A239F0053951E /* reset.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = reset.mp3; sourceTree = "<group>"; };
 		A39033EC256859A8004CB638 /* Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
 		A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectionPickerViewController.swift; sourceTree = "<group>"; };
 		A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectionPickerViewController.xib; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 		A32285E62559F87B00FF3200 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A3837F6A263A23950053951E /* Sounds */,
 				A32285F5255A06E400FF3200 /* left.stl */,
 				A32285F6255A06E400FF3200 /* right.stl */,
 				A328D8B8253C8C4300B90E62 /* Assets.xcassets */,
@@ -347,6 +352,15 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		A3837F6A263A23950053951E /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				A3837F6C263A239F0053951E /* reset.mp3 */,
+				A3837F6B263A239F0053951E /* next.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		A39033EB2568599B004CB638 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
@@ -429,6 +443,8 @@
 				A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */,
 				A32285F7255A06E400FF3200 /* left.stl in Resources */,
 				A324162B2554E1B8008D4B90 /* CalibrationViewController.xib in Resources */,
+				A3837F6E263A239F0053951E /* reset.mp3 in Resources */,
+				A3837F6D263A239F0053951E /* next.mp3 in Resources */,
 				A324161F2554DABE008D4B90 /* InitialViewController.xib in Resources */,
 				A328D979253CE54E00B90E62 /* MixedRealityConnectionViewController.xib in Resources */,
 				A3A50C0D25F57AB700413E01 /* ProjectionPickerViewController.xib in Resources */,

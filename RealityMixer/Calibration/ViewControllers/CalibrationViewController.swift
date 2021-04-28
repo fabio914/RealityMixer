@@ -7,6 +7,7 @@
 
 import UIKit
 import ARKit
+import AVFoundation
 import SwiftSocket
 
 enum CalibrationState {
@@ -45,6 +46,9 @@ final class CalibrationViewController: UIViewController {
     private weak var rightControllerNode: SCNNode?
     private weak var headsetNode: SCNNode?
 
+    private var nextSoundPlayer: AVAudioPlayer?
+    private var resetSoundPlayer: AVAudioPlayer?
+
     override var prefersStatusBarHidden: Bool {
         true
     }
@@ -81,11 +85,23 @@ final class CalibrationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureSounds()
         configureDisplay()
         configureDisplayLink()
         configureCalibrationSource()
         configureBackgroundEvent()
         didUpdate(state)
+    }
+
+    private func configureSounds() {
+        nextSoundPlayer = loadSound(named: "next")
+        resetSoundPlayer = loadSound(named: "reset")
+    }
+
+    private func loadSound(named name: String) -> AVAudioPlayer? {
+        Bundle.main
+            .url(forResource: name, withExtension: "mp3")
+            .flatMap({ try? AVAudioPlayer(contentsOf: $0, fileTypeHint: AVFileType.mp3.rawValue) })
     }
 
     private func configureDisplay() {
@@ -247,12 +263,14 @@ extension CalibrationViewController: OculusCalibrationDelegate {
         switch state {
         case .started:
             if let rightHand = lastPoseUpdate?.rightHand {
+                nextSoundPlayer?.play()
                 self.state = .cameraOriginSet(rightHand.position)
             }
         case .cameraOriginSet(let cameraOrigin):
             if let poseUpdate = lastPoseUpdate,
                let rightHand = poseUpdate.rightHand,
                let frame = sceneView.session.currentFrame {
+                nextSoundPlayer?.play()
                 self.state = .controllerPositionSet(
                     cameraOrigin,
                     rightHand.position,
@@ -267,6 +285,7 @@ extension CalibrationViewController: OculusCalibrationDelegate {
 
     func oculusCalibrationDidPressSecondaryButton(_ oculusCalibration: OculusCalibration) {
         if case .controllerPositionSet = state { return }
+        resetSoundPlayer?.play()
         reset()
     }
 
