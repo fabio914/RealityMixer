@@ -17,6 +17,10 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
 | The Thrill of the Fight | [Link](https://youtu.be/aPSBmej4ppc) | <img src="Images/the_thrill_of_the_fight/1.jpg" width="300" /> <img src="Images/the_thrill_of_the_fight/2.jpg" width="300" /> |
 | Space Pirate Trainer | [Link](https://youtu.be/44Nmv7Es5yI) | <img src="Images/space_pirate_trainer/1.jpg" width="300" /> <img src="Images/space_pirate_trainer/2.jpg" width="300" /> |
 
+## How to use it?
+
+You can find instructions and tutorials [on this page](Instructions.md).
+
 ## Requirements
 
  - Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed.
@@ -63,10 +67,6 @@ DEVELOPMENT_TEAM = YOUR_TEAM_ID
 ORGANIZATION_IDENTIFIER = com.yourcompany
 ```
 
-## Instructions
-
-[Link](Instructions.md)
-
 ## TO-DOs
 
  - [ ] Investigate the audio delay;
@@ -96,3 +96,5 @@ This project is based on the [Oculus MRC plugin for OBS](https://github.com/face
 It uses [SwiftSocket](https://github.com/swiftsocket/SwiftSocket) to handle the TCP connection with the Oculus Quest, FFMPEG with Apple's VideoToolbox to decode the stream, and ARKit for the "virtual green screen". 
 
 The right and left controller models are modified versions of the `oculus-touch-v3` models from the [WebXR Input Profiles](https://github.com/immersive-web/webxr-input-profiles).
+
+This project also uses sounds from [Notification Sounds](https://notificationsounds.com).
