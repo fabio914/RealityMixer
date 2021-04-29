@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A32226F6262A70B6004629CC /* avatar.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A32226F5262A70B6004629CC /* avatar.usdz */; };
 		A32226FC262C5229004629CC /* MixedRealityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */; };
 		A32226FD262C5229004629CC /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FB262C5229004629CC /* Preference.swift */; };
 		A32226FF262C5253004629CC /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FE262C5253004629CC /* Skeleton.swift */; };
@@ -60,6 +59,10 @@
 		A3798AE125D9F6CA00B3BFBC /* CameraPoseSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */; };
 		A3837F6D263A239F0053951E /* next.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A3837F6B263A239F0053951E /* next.mp3 */; };
 		A3837F6E263A239F0053951E /* reset.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A3837F6C263A239F0053951E /* reset.mp3 */; };
+		A3837F78263A4C810053951E /* avatar1.scn in Resources */ = {isa = PBXBuildFile; fileRef = A3837F77263A4C810053951E /* avatar1.scn */; };
+		A3837F80263A54020053951E /* avatar2.scn in Resources */ = {isa = PBXBuildFile; fileRef = A3837F7F263A54020053951E /* avatar2.scn */; };
+		A3837F82263A540A0053951E /* avatar3.scn in Resources */ = {isa = PBXBuildFile; fileRef = A3837F81263A540A0053951E /* avatar3.scn */; };
+		A3837F84263A54130053951E /* avatar4.scn in Resources */ = {isa = PBXBuildFile; fileRef = A3837F83263A54130053951E /* avatar4.scn */; };
 		A39033ED256859A8004CB638 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39033EC256859A8004CB638 /* Shaders.swift */; };
 		A3A50C0725F4945700413E01 /* SwiftlyAttributedStrings in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */; };
 		A3A50C0C25F57AB700413E01 /* ProjectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */; };
@@ -83,7 +86,6 @@
 
 /* Begin PBXFileReference section */
 		3E1B214525678AF60084847C /* RealityMixer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = RealityMixer.xcconfig; sourceTree = "<group>"; };
-		A32226F5262A70B6004629CC /* avatar.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar.usdz; sourceTree = "<group>"; };
 		A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MixedRealityConfiguration.swift; sourceTree = "<group>"; };
 		A32226FB262C5229004629CC /* Preference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
 		A32226FE262C5253004629CC /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
@@ -145,6 +147,10 @@
 		A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPoseSender.swift; sourceTree = "<group>"; };
 		A3837F6B263A239F0053951E /* next.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = next.mp3; sourceTree = "<group>"; };
 		A3837F6C263A239F0053951E /* reset.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = reset.mp3; sourceTree = "<group>"; };
+		A3837F77263A4C810053951E /* avatar1.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = avatar1.scn; sourceTree = "<group>"; };
+		A3837F7F263A54020053951E /* avatar2.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = avatar2.scn; sourceTree = "<group>"; };
+		A3837F81263A540A0053951E /* avatar3.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = avatar3.scn; sourceTree = "<group>"; };
+		A3837F83263A54130053951E /* avatar4.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = avatar4.scn; sourceTree = "<group>"; };
 		A39033EC256859A8004CB638 /* Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
 		A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectionPickerViewController.swift; sourceTree = "<group>"; };
 		A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectionPickerViewController.xib; sourceTree = "<group>"; };
@@ -186,9 +192,12 @@
 		A32285E62559F87B00FF3200 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A32226F5262A70B6004629CC /* avatar.usdz */,
 				A3222706262CDDDC004629CC /* tpose.usdz */,
 				A344D5B62621444C0026924F /* robot.usdz */,
+				A3837F77263A4C810053951E /* avatar1.scn */,
+				A3837F7F263A54020053951E /* avatar2.scn */,
+				A3837F81263A540A0053951E /* avatar3.scn */,
+				A3837F83263A54130053951E /* avatar4.scn */,
 				A3837F6A263A23950053951E /* Sounds */,
 				A32285F5255A06E400FF3200 /* left.stl */,
 				A32285F6255A06E400FF3200 /* right.stl */,
@@ -470,12 +479,15 @@
 				A32285F8255A06E400FF3200 /* right.stl in Resources */,
 				A3222707262CDDDC004629CC /* tpose.usdz in Resources */,
 				A32416262554DFD4008D4B90 /* CalibrationConnectionViewController.xib in Resources */,
+				A3837F84263A54130053951E /* avatar4.scn in Resources */,
 				A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */,
 				A32285F7255A06E400FF3200 /* left.stl in Resources */,
-				A32226F6262A70B6004629CC /* avatar.usdz in Resources */,
+				A3837F80263A54020053951E /* avatar2.scn in Resources */,
+				A3837F78263A4C810053951E /* avatar1.scn in Resources */,
 				A324162B2554E1B8008D4B90 /* CalibrationViewController.xib in Resources */,
 				A3837F6E263A239F0053951E /* reset.mp3 in Resources */,
 				A3837F6D263A239F0053951E /* next.mp3 in Resources */,
+				A3837F82263A540A0053951E /* avatar3.scn in Resources */,
 				A324161F2554DABE008D4B90 /* InitialViewController.xib in Resources */,
 				A328D979253CE54E00B90E62 /* MixedRealityConnectionViewController.xib in Resources */,
 				A3A50C0D25F57AB700413E01 /* ProjectionPickerViewController.xib in Resources */,
