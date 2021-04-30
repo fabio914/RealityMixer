@@ -7,6 +7,7 @@
 
 import UIKit
 import ARKit
+import ReplayKit
 import AVFoundation
 import SwiftSocket
 
@@ -314,7 +315,23 @@ final class MixedRealityViewController: UIViewController {
 
     private func disconnect() {
         invalidate()
-        dismiss(animated: false, completion: nil)
+
+        let parentViewController = (presentingViewController?.children.first as? MixedRealityConnectionViewController)
+
+        dismiss(animated: false, completion: {
+            let screenRecorder = RPScreenRecorder.shared()
+
+            if screenRecorder.isRecording {
+                screenRecorder.stopRecording(handler: { (previewViewController, error) in
+                    // TODO: Present error alert to the user if this fails.
+                    guard let previewViewController = previewViewController else { return }
+
+                    // TODO: Set delegate
+                    previewViewController.popoverPresentationController?.sourceView = parentViewController?.showOptionsButton
+                    parentViewController?.present(previewViewController, animated: true, completion: nil)
+                })
+            }
+        })
     }
 
     @objc private func willResignActive() {
