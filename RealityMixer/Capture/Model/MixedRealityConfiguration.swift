@@ -27,6 +27,7 @@ struct MixedRealityConfiguration: Codable, Equatable {
         let visibility: BackgroundVisibility
     }
 
+    let shouldRecord: Bool
     let enableAudio: Bool
     let enableAutoFocus: Bool
     let enablePersonSegmentation: Bool
@@ -36,6 +37,7 @@ struct MixedRealityConfiguration: Codable, Equatable {
     let backgroundLayerOptions: BackgroundLayerOptions
 
     static let defaultConfiguration = MixedRealityConfiguration(
+        shouldRecord: true,
         enableAudio: true,
         enableAutoFocus: true,
         enablePersonSegmentation: true,

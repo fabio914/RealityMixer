@@ -7,6 +7,7 @@
 
 import UIKit
 import ARKit
+import ReplayKit
 import SwiftSocket
 
 final class MixedRealityConnectionViewController: UIViewController {
@@ -31,7 +32,10 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var backgroundChromaKeySection: UIStackView!
     @IBOutlet private weak var backgroundChromaKeySegmentedControl: UISegmentedControl!
 
-    @IBOutlet private weak var showOptionsButton: UIButton!
+    // MARK: - Recording options
+    @IBOutlet private weak var recordingSwitch: UISwitch!
+
+    @IBOutlet /*private*/ weak var showOptionsButton: UIButton!
     @IBOutlet private weak var resetOptionsButton: UIButton!
 
     @IBOutlet private weak var infoLabel: UILabel!
@@ -122,6 +126,7 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     private func didUpdate(configuration: MixedRealityConfiguration) {
+        recordingSwitch.isOn = configuration.shouldRecord
         audioSwitch.isOn = configuration.enableAudio
         autoFocusSwitch.isOn = configuration.enableAutoFocus
         personSegmentationSwitch.isOn = configuration.enablePersonSegmentation
@@ -169,6 +174,7 @@ final class MixedRealityConnectionViewController: UIViewController {
 
     private func updateConfiguration(enablePersonSegmentation: Bool) {
         configuration = MixedRealityConfiguration(
+            shouldRecord: recordingSwitch.isOn,
             enableAudio: audioSwitch.isOn,
             enableAutoFocus: autoFocusSwitch.isOn,
             enablePersonSegmentation: enablePersonSegmentation,
@@ -238,6 +244,12 @@ final class MixedRealityConnectionViewController: UIViewController {
                 try? self.preferenceStorage.save(preference: .init(address: address))
                 let cameraPoseSender = CameraPoseSender(address: address)
                 let configuration = self.configuration
+
+                let screenRecorder = RPScreenRecorder.shared()
+                if configuration.shouldRecord, screenRecorder.isAvailable, !screenRecorder.isRecording {
+                    // TODO: Present alert to the user if this fails
+                    screenRecorder.startRecording(handler: nil)
+                }
 
                 connectionAlert.dismiss(animated: false, completion: { [weak self] in
 
