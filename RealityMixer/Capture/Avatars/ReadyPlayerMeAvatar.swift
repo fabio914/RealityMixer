@@ -110,14 +110,13 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
     private(set) var mainNode: SCNNode
     private var hipsNode: SCNNode
     private let corrections: [String: Quaternion]
-    private let avatarCorrections: [String: Quaternion]
 
     init?(bodyAnchor: ARBodyAnchor) {
 
         let skeleton = bodyAnchor.skeleton
 
         let maybeAvatarReferenceNode = Bundle.main
-            .url(forResource: "avatar1", withExtension: "scn")
+            .url(forResource: "avatar4", withExtension: "usdz")
             .flatMap(SCNReferenceNode.init(url:))
 
         guard let avatarNode = maybeAvatarReferenceNode,
@@ -139,7 +138,6 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
         let jointLocalTransforms = skeleton.jointLocalTransforms
 
         var corrections: [String: Quaternion] = [:]
-        var avatarCorrections: [String: Quaternion] = [:]
 
         for (i, _) in jointLocalTransforms.enumerated() {
             let parentIndex = skeleton.definition.parentIndices[i]
@@ -157,29 +155,15 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
             let parentName = skeleton.definition.jointNames[parentIndex]
             let parentCorrection = corrections[parentName] ?? Quaternion(x: 0, y: 0, z: 0, w: 1)
 
-            let nodeTransform: Quaternion = {
-                guard let nodeName = ReadyPlayerMeAvatar.node(forJoint: jointName),
-                    let node = hipsNode.childNode(withName: nodeName, recursively: true)
-                else {
-                    return Quaternion(x: 0, y: 0, z: 0, w: 1)
-                }
-
-                return Quaternion(rotationMatrix: node.transform)
-            }()
-
-            avatarCorrections[jointName] = nodeTransform
             corrections[jointName] = parentCorrection * Quaternion(rotationMatrix: .init(referenceTransform))
         }
 
         self.corrections = corrections
-        self.avatarCorrections = avatarCorrections
         self.hipsNode = hipsNode
         mainNode = avatarNode
     }
 
     func update(bodyAnchor: ARBodyAnchor) {
-        // FIXME: The avatar glasses are disappearing sometimes
-
         hipsNode.transform = SCNMatrix4(bodyAnchor.transform)
 
         let skeleton = bodyAnchor.skeleton
@@ -194,8 +178,7 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
             guard parentIndex != -1,
                 jointName != "root",
                 jointName != "hips_joint",
-                let correction = corrections[jointName],
-                let avatarCorrection = avatarCorrections[jointName]
+                let correction = corrections[jointName]
             else {
                 continue
             }
@@ -210,7 +193,7 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
                 continue
             }
 
-            let correctedOrientation = parentOrientation.inverse * Quaternion(rotationMatrix: SCNMatrix4(jointModelTransform)) * correction.inverse * avatarCorrection
+            let correctedOrientation = parentOrientation.inverse * Quaternion(rotationMatrix: SCNMatrix4(jointModelTransform)) * correction.inverse
             node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
 
             // FIXME: Set positions
