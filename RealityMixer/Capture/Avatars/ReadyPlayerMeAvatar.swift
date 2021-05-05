@@ -116,7 +116,7 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
         let skeleton = bodyAnchor.skeleton
 
         let maybeAvatarReferenceNode = Bundle.main
-            .url(forResource: "tpose", withExtension: "usdz")
+            .url(forResource: "avatar4", withExtension: "usdz")
             .flatMap(SCNReferenceNode.init(url:))
 
         guard let avatarNode = maybeAvatarReferenceNode,
@@ -146,8 +146,6 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
             guard parentIndex != -1,
                 jointName != "root",
                 jointName != "hips_joint",
-//                let nodeName = Avatar.node(forJoint: jointName),
-//                let node = hipsNode.childNode(withName: nodeName, recursively: true),
                 let referenceTransform = neutralBodySkeleton.localTransform(for: .init(rawValue: jointName))
             else {
                 continue
@@ -157,7 +155,7 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
             let parentName = skeleton.definition.jointNames[parentIndex]
             let parentCorrection = corrections[parentName] ?? Quaternion(x: 0, y: 0, z: 0, w: 1)
 
-            corrections[jointName] = parentCorrection * Quaternion(rotationMatrix: .init(referenceTransform)) /* * Quaternion(rotationMatrix: node.transform) */
+            corrections[jointName] = parentCorrection * Quaternion(rotationMatrix: .init(referenceTransform))
         }
 
         self.corrections = corrections

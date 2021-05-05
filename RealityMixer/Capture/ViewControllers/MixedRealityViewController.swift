@@ -392,7 +392,7 @@ extension MixedRealityViewController: ARSessionDelegate {
         if let avatar = avatar {
             avatar.update(bodyAnchor: bodyAnchor)
         } else {
-            avatar = RobotAvatar(bodyAnchor: bodyAnchor) //ReadyPlayerMeAvatar(bodyAnchor: bodyAnchor) //Skeleton(bodyAnchor: bodyAnchor)
+            avatar = ReadyPlayerMeAvatar(bodyAnchor: bodyAnchor) //RobotAvatar(bodyAnchor: bodyAnchor) //Skeleton(bodyAnchor: bodyAnchor)
             if let mainNode = avatar?.mainNode {
                 sceneView.scene.rootNode.addChildNode(mainNode)
             }

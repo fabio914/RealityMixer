@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A32226F6262A70B6004629CC /* avatar.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A32226F5262A70B6004629CC /* avatar.usdz */; };
+		A31C0A2026435F980059A492 /* avatar2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1C26435F980059A492 /* avatar2.usdz */; };
+		A31C0A2126435F980059A492 /* avatar1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1D26435F980059A492 /* avatar1.usdz */; };
+		A31C0A2226435F980059A492 /* avatar4.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1E26435F980059A492 /* avatar4.usdz */; };
+		A31C0A28264362D30059A492 /* avatar3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A27264362D30059A492 /* avatar3.usdz */; };
 		A32226FC262C5229004629CC /* MixedRealityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */; };
 		A32226FD262C5229004629CC /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FB262C5229004629CC /* Preference.swift */; };
 		A32226FF262C5253004629CC /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FE262C5253004629CC /* Skeleton.swift */; };
@@ -83,7 +86,10 @@
 
 /* Begin PBXFileReference section */
 		3E1B214525678AF60084847C /* RealityMixer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = RealityMixer.xcconfig; sourceTree = "<group>"; };
-		A32226F5262A70B6004629CC /* avatar.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar.usdz; sourceTree = "<group>"; };
+		A31C0A1C26435F980059A492 /* avatar2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar2.usdz; sourceTree = "<group>"; };
+		A31C0A1D26435F980059A492 /* avatar1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar1.usdz; sourceTree = "<group>"; };
+		A31C0A1E26435F980059A492 /* avatar4.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar4.usdz; sourceTree = "<group>"; };
+		A31C0A27264362D30059A492 /* avatar3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar3.usdz; sourceTree = "<group>"; };
 		A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MixedRealityConfiguration.swift; sourceTree = "<group>"; };
 		A32226FB262C5229004629CC /* Preference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
 		A32226FE262C5253004629CC /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
@@ -186,9 +192,12 @@
 		A32285E62559F87B00FF3200 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A32226F5262A70B6004629CC /* avatar.usdz */,
 				A3222706262CDDDC004629CC /* tpose.usdz */,
 				A344D5B62621444C0026924F /* robot.usdz */,
+				A31C0A1D26435F980059A492 /* avatar1.usdz */,
+				A31C0A1C26435F980059A492 /* avatar2.usdz */,
+				A31C0A27264362D30059A492 /* avatar3.usdz */,
+				A31C0A1E26435F980059A492 /* avatar4.usdz */,
 				A3837F6A263A23950053951E /* Sounds */,
 				A32285F5255A06E400FF3200 /* left.stl */,
 				A32285F6255A06E400FF3200 /* right.stl */,
@@ -471,10 +480,12 @@
 				A3222707262CDDDC004629CC /* tpose.usdz in Resources */,
 				A32416262554DFD4008D4B90 /* CalibrationConnectionViewController.xib in Resources */,
 				A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */,
+				A31C0A28264362D30059A492 /* avatar3.usdz in Resources */,
 				A32285F7255A06E400FF3200 /* left.stl in Resources */,
-				A32226F6262A70B6004629CC /* avatar.usdz in Resources */,
+				A31C0A2126435F980059A492 /* avatar1.usdz in Resources */,
 				A324162B2554E1B8008D4B90 /* CalibrationViewController.xib in Resources */,
 				A3837F6E263A239F0053951E /* reset.mp3 in Resources */,
+				A31C0A2226435F980059A492 /* avatar4.usdz in Resources */,
 				A3837F6D263A239F0053951E /* next.mp3 in Resources */,
 				A324161F2554DABE008D4B90 /* InitialViewController.xib in Resources */,
 				A328D979253CE54E00B90E62 /* MixedRealityConnectionViewController.xib in Resources */,
@@ -482,6 +493,7 @@
 				A32285AB2558050600FF3200 /* AboutViewController.xib in Resources */,
 				A344D5B72621444C0026924F /* robot.usdz in Resources */,
 				A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */,
+				A31C0A2026435F980059A492 /* avatar2.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
