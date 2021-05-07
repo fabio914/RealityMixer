@@ -110,6 +110,7 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
     private(set) var mainNode: SCNNode
     private var hipsNode: SCNNode
     private let corrections: [String: Quaternion]
+    private let distances: [String: Float]
 
     init?(bodyAnchor: ARBodyAnchor) {
 
@@ -159,16 +160,32 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
         }
 
         self.corrections = corrections
+
+        // Computing distances between Avatar nodes
+        var distances = [String: Float]()
+
+        hipsNode.enumerateChildNodes { (node, _) in
+            guard let parentNode = node.parent, let nodeName = node.name else {
+                return
+            }
+
+            distances[nodeName] = simd_distance(parentNode.simdWorldPosition, node.simdWorldPosition)
+        }
+
+        self.distances = distances
         self.hipsNode = hipsNode
         mainNode = avatarNode
     }
 
     func update(bodyAnchor: ARBodyAnchor) {
         hipsNode.transform = SCNMatrix4(bodyAnchor.transform)
+//        let modelOrigin = simd_make_float3(bodyAnchor.transform.columns.3)
 
         let skeleton = bodyAnchor.skeleton
         let jointModelTransforms = skeleton.jointModelTransforms
 
+        var parentNodeModelPositions = [String: simd_float3]()
+        var parentScales = [String: Float]()
         var parentOrientations = [String: Quaternion]()
 
         for (i, jointModelTransform) in jointModelTransforms.enumerated() {
@@ -196,8 +213,28 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
             let correctedOrientation = parentOrientation.inverse * Quaternion(rotationMatrix: SCNMatrix4(jointModelTransform)) * correction.inverse
             node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
 
+
+            // Scaling instead of moving the world position of the node (to avoid distorting the model)
+
+            let nodeModelPosition = simd_make_float3(jointModelTransform.columns.3)
+            parentNodeModelPositions[nodeName] = nodeModelPosition
+
+            guard let parentNodeName = node.parent?.name,
+                let parentNodeModelPosition = parentNodeModelPositions[parentNodeName],
+                let avatarDistance = distances[nodeName]
+            else {
+                continue
+            }
+
+            let bodyTrackingDistance = simd_distance(parentNodeModelPosition, nodeModelPosition)
+            let scaleFactor = bodyTrackingDistance/avatarDistance
+            parentScales[nodeName] = scaleFactor
+
+            let nodeScale = scaleFactor/parentScales[parentNodeName, default: 1]
+            node.scale = .init(nodeScale, nodeScale, nodeScale)
+
             // FIXME: Set positions
-//            node.position = SCNVector3(simd_make_float3(jointLocalTransform.columns.3))
+//            node.simdWorldPosition = simd_make_float3(jointModelTransform.columns.3) + modelOrigin
         }
     }
 }
