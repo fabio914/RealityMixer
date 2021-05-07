@@ -7,6 +7,9 @@
 
 import ARKit
 
+// This isn't really ideal... We should have an avatar that's properly
+// rigged for ARKit!
+
 final class ReadyPlayerMeAvatar: AvatarProtocol {
 
     static let nodes: [String: String] = [
@@ -22,12 +25,12 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
         "right_foot_joint": "RightFoot",
         "right_toes_joint": "RightToeBase",
         "right_toesEnd_joint": "RightToe_End",
-        "spine_1_joint": "Spine",
+//        "spine_1_joint": "",
 //        "spine_2_joint": "",
-//        "spine_3_joint": "",
+        "spine_3_joint": "Spine",
 //        "spine_4_joint": "",
-//        "spine_5_joint": "",
-        "spine_6_joint": "Spine1",
+        "spine_5_joint": "Spine1",
+//        "spine_6_joint": "",
         "spine_7_joint": "Spine2",
         "right_shoulder_1_joint": "RightShoulder",
         "right_arm_joint": "RightArm",
@@ -85,22 +88,22 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
         "left_handPinky_2_joint": "LeftHandPinky2",
         "left_handPinky_3_joint": "LeftHandPinky3",
         "left_handPinkyEnd_joint": "LeftHandPinky4",
-        "head_joint": "Head",
+//        "head_joint": "Head",
 //        "jaw_joint": "",
 //        "chin_joint": "",
 //        "nose_joint": "",
-        "right_eye_joint": "RightEye",
+//        "right_eye_joint": "",
 //        "right_eyeUpperLid_joint": "",
 //        "right_eyeLowerLid_joint": "",
-//        "right_eyeball_joint": "",
-        "left_eye_joint": "LeftEye",
+//        "right_eyeball_joint": "RightEye",
+//        "left_eye_joint": "",
 //        "left_eyeUpperLid_joint": "",
 //        "left_eyeLowerLid_joint": "",
-//        "left_eyeball_joint": "",
+//        "left_eyeball_joint": "LeftEye",
 //        "neck_1_joint": "",
 //        "neck_2_joint": "",
-        "neck_3_joint": "Neck",
-//        "neck_4_joint": ""
+//        "neck_3_joint": "",
+//        "neck_4_joint": "Neck"
     ]
 
     static func node(forJoint jointName: String) -> String? {
@@ -184,7 +187,7 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
         let skeleton = bodyAnchor.skeleton
         let jointModelTransforms = skeleton.jointModelTransforms
 
-        var parentNodeModelPositions = [String: simd_float3]()
+        var nodeModelPositions = [String: simd_float3]()
         var parentScales = [String: Float]()
         var parentOrientations = [String: Quaternion]()
 
@@ -214,27 +217,32 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
             node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
 
 
-            // Scaling instead of moving the world position of the node (to avoid distorting the model)
-
-            let nodeModelPosition = simd_make_float3(jointModelTransform.columns.3)
-            parentNodeModelPositions[nodeName] = nodeModelPosition
-
-            guard let parentNodeName = node.parent?.name,
-                let parentNodeModelPosition = parentNodeModelPositions[parentNodeName],
-                let avatarDistance = distances[nodeName]
-            else {
-                continue
-            }
-
-            let bodyTrackingDistance = simd_distance(parentNodeModelPosition, nodeModelPosition)
-            let scaleFactor = bodyTrackingDistance/avatarDistance
-            parentScales[nodeName] = scaleFactor
-
-            let nodeScale = scaleFactor/parentScales[parentNodeName, default: 1]
-            node.scale = .init(nodeScale, nodeScale, nodeScale)
-
-            // FIXME: Set positions
+            nodeModelPositions[nodeName] = simd_make_float3(jointModelTransform.columns.3)
 //            node.simdWorldPosition = simd_make_float3(jointModelTransform.columns.3) + modelOrigin
         }
+
+        // Scaling segments
+
+        hipsNode.enumerateChildNodes({ (node, _) in
+            guard let nodeName = node.name,
+                let parentNodeName = node.parent?.name,
+                let parentNodeModelPosition = nodeModelPositions[parentNodeName],
+                let avatarDistance = distances[nodeName]
+            else {
+                return
+            }
+
+            if let nodeModelPosition = nodeModelPositions[nodeName] {
+                let bodyTrackingDistance = simd_distance(parentNodeModelPosition, nodeModelPosition)
+                let scaleFactor = bodyTrackingDistance/avatarDistance
+                parentScales[nodeName] = scaleFactor
+
+                let nodeScale = scaleFactor/parentScales[parentNodeName, default: 1]
+                node.scale = .init(nodeScale, nodeScale, nodeScale)
+            } else {
+                let nodeScale = 1.0/parentScales[parentNodeName, default: 1.0]
+                node.scale = .init(nodeScale, nodeScale, nodeScale)
+            }
+        })
     }
 }
