@@ -115,12 +115,11 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
     private let corrections: [String: Quaternion]
     private let distances: [String: Float]
 
-    init?(bodyAnchor: ARBodyAnchor) {
-
+    init?(bodyAnchor: ARBodyAnchor, avatarName: String) {
         let skeleton = bodyAnchor.skeleton
 
         let maybeAvatarReferenceNode = Bundle.main
-            .url(forResource: "avatar4", withExtension: "usdz")
+            .url(forResource: avatarName, withExtension: "usdz")
             .flatMap(SCNReferenceNode.init(url:))
 
         guard let avatarNode = maybeAvatarReferenceNode,
@@ -182,7 +181,6 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
 
     func update(bodyAnchor: ARBodyAnchor) {
         hipsNode.transform = SCNMatrix4(bodyAnchor.transform)
-//        let modelOrigin = simd_make_float3(bodyAnchor.transform.columns.3)
 
         let skeleton = bodyAnchor.skeleton
         let jointModelTransforms = skeleton.jointModelTransforms
@@ -216,9 +214,7 @@ final class ReadyPlayerMeAvatar: AvatarProtocol {
             let correctedOrientation = parentOrientation.inverse * Quaternion(rotationMatrix: SCNMatrix4(jointModelTransform)) * correction.inverse
             node.orientation = SCNQuaternion(correctedOrientation.x, correctedOrientation.y, correctedOrientation.z, correctedOrientation.w)
 
-
             nodeModelPositions[nodeName] = simd_make_float3(jointModelTransform.columns.3)
-//            node.simdWorldPosition = simd_make_float3(jointModelTransform.columns.3) + modelOrigin
         }
 
         // Scaling segments

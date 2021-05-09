@@ -2,6 +2,21 @@ import Foundation
 
 struct MixedRealityConfiguration: Codable, Equatable {
 
+    enum CaptureMode: Codable, Equatable {
+        enum AvatarType: String, Codable, Equatable {
+            case avatar1
+            case avatar2
+            case avatar3
+            case avatar4
+            case robot
+            case skeleton
+        }
+
+        case personSegmentation
+        case bodyTracking(avatar: AvatarType)
+        case raw
+    }
+
     struct ForegroundLayerOptions: Codable, Equatable {
         enum ForegroundVisibility: Codable, Equatable {
             case visible(useMagentaAsTransparency: Bool)
@@ -27,18 +42,18 @@ struct MixedRealityConfiguration: Codable, Equatable {
         let visibility: BackgroundVisibility
     }
 
+    let captureMode: CaptureMode
     let enableAudio: Bool
     let enableAutoFocus: Bool
-    let enablePersonSegmentation: Bool
     let shouldFlipOutput: Bool
 
     let foregroundLayerOptions: ForegroundLayerOptions
     let backgroundLayerOptions: BackgroundLayerOptions
 
     static let defaultConfiguration = MixedRealityConfiguration(
+        captureMode: .personSegmentation,
         enableAudio: true,
         enableAutoFocus: true,
-        enablePersonSegmentation: true,
         shouldFlipOutput: true,
         foregroundLayerOptions: .init(visibility: .visible(useMagentaAsTransparency: false)),
         backgroundLayerOptions: .init(visibility: .visible)
@@ -46,6 +61,49 @@ struct MixedRealityConfiguration: Codable, Equatable {
 }
 
 // MARK: - Codable
+
+extension MixedRealityConfiguration.CaptureMode {
+
+    enum CodingKeys: String, CodingKey {
+        case type
+        case avatar
+    }
+
+    enum CaptureType: String, Codable {
+        case personSegmentation
+        case bodyTracking
+        case raw
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        let type = try values.decode(CaptureType.self, forKey: .type)
+
+        switch type {
+        case .personSegmentation:
+            self = .personSegmentation
+        case .bodyTracking:
+            let avatarType = try values.decode(AvatarType.self, forKey: .avatar)
+            self = .bodyTracking(avatar: avatarType)
+        case .raw:
+            self = .raw
+        }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        switch self {
+        case .personSegmentation:
+            try container.encode(CaptureType.personSegmentation, forKey: .type)
+        case .bodyTracking(let avatarType):
+            try container.encode(CaptureType.bodyTracking, forKey: .type)
+            try container.encode(avatarType, forKey: .avatar)
+        case .raw:
+            try container.encode(CaptureType.raw, forKey: .type)
+        }
+    }
+}
 
 extension MixedRealityConfiguration.ForegroundLayerOptions.ForegroundVisibility {
 
@@ -149,5 +207,24 @@ final class ConfigurationStorage {
             .flatMap({ Data(base64Encoded: $0) })
             .flatMap({ try? JSONDecoder().decode(MixedRealityConfiguration.self, from: $0) })
         ?? .defaultConfiguration
+    }
+}
+
+// MARK: - Support
+
+import ARKit
+
+extension MixedRealityConfiguration.CaptureMode {
+
+    var isSupported: Bool {
+        switch self {
+        case .personSegmentation:
+            return ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) ||
+                ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation)
+        case .bodyTracking:
+            return ARBodyTrackingConfiguration.isSupported
+        case .raw:
+            return true
+        }
     }
 }

@@ -9,6 +9,5 @@ import ARKit
 
 protocol AvatarProtocol: AnyObject {
     var mainNode: SCNNode { get }
-    init?(bodyAnchor: ARBodyAnchor)
     func update(bodyAnchor: ARBodyAnchor)
 }

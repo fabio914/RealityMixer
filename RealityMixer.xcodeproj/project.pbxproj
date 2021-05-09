@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */; };
 		A31C0A2026435F980059A492 /* avatar2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1C26435F980059A492 /* avatar2.usdz */; };
 		A31C0A2126435F980059A492 /* avatar1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1D26435F980059A492 /* avatar1.usdz */; };
 		A31C0A2226435F980059A492 /* avatar4.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1E26435F980059A492 /* avatar4.usdz */; };
@@ -14,7 +15,6 @@
 		A32226FC262C5229004629CC /* MixedRealityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */; };
 		A32226FD262C5229004629CC /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FB262C5229004629CC /* Preference.swift */; };
 		A32226FF262C5253004629CC /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FE262C5253004629CC /* Skeleton.swift */; };
-		A3222707262CDDDC004629CC /* tpose.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A3222706262CDDDC004629CC /* tpose.usdz */; };
 		A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32285A82558050600FF3200 /* AboutViewController.swift */; };
 		A32285AB2558050600FF3200 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A32285A92558050600FF3200 /* AboutViewController.xib */; };
 		A32285AF25580A8800FF3200 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32285AE25580A8800FF3200 /* Definitions.swift */; };
@@ -86,6 +86,7 @@
 
 /* Begin PBXFileReference section */
 		3E1B214525678AF60084847C /* RealityMixer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = RealityMixer.xcconfig; sourceTree = "<group>"; };
+		A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARConfigurationFactory.swift; sourceTree = "<group>"; };
 		A31C0A1C26435F980059A492 /* avatar2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar2.usdz; sourceTree = "<group>"; };
 		A31C0A1D26435F980059A492 /* avatar1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar1.usdz; sourceTree = "<group>"; };
 		A31C0A1E26435F980059A492 /* avatar4.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar4.usdz; sourceTree = "<group>"; };
@@ -93,7 +94,6 @@
 		A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MixedRealityConfiguration.swift; sourceTree = "<group>"; };
 		A32226FB262C5229004629CC /* Preference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
 		A32226FE262C5253004629CC /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
-		A3222706262CDDDC004629CC /* tpose.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = tpose.usdz; sourceTree = "<group>"; };
 		A32285A82558050600FF3200 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A32285A92558050600FF3200 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		A32285AE25580A8800FF3200 /* Definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
@@ -185,6 +185,7 @@
 				A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */,
 				A32226FB262C5229004629CC /* Preference.swift */,
 				A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */,
+				A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -192,15 +193,9 @@
 		A32285E62559F87B00FF3200 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A3222706262CDDDC004629CC /* tpose.usdz */,
-				A344D5B62621444C0026924F /* robot.usdz */,
-				A31C0A1D26435F980059A492 /* avatar1.usdz */,
-				A31C0A1C26435F980059A492 /* avatar2.usdz */,
-				A31C0A27264362D30059A492 /* avatar3.usdz */,
-				A31C0A1E26435F980059A492 /* avatar4.usdz */,
+				A36A6D8E26489FDE008631D6 /* Models */,
+				A36A6D8D26489FCF008631D6 /* Avatars */,
 				A3837F6A263A23950053951E /* Sounds */,
-				A32285F5255A06E400FF3200 /* left.stl */,
-				A32285F6255A06E400FF3200 /* right.stl */,
 				A328D8B8253C8C4300B90E62 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -379,6 +374,27 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		A36A6D8D26489FCF008631D6 /* Avatars */ = {
+			isa = PBXGroup;
+			children = (
+				A344D5B62621444C0026924F /* robot.usdz */,
+				A31C0A1D26435F980059A492 /* avatar1.usdz */,
+				A31C0A1C26435F980059A492 /* avatar2.usdz */,
+				A31C0A27264362D30059A492 /* avatar3.usdz */,
+				A31C0A1E26435F980059A492 /* avatar4.usdz */,
+			);
+			path = Avatars;
+			sourceTree = "<group>";
+		};
+		A36A6D8E26489FDE008631D6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A32285F5255A06E400FF3200 /* left.stl */,
+				A32285F6255A06E400FF3200 /* right.stl */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		A36C9161263779D300D64107 /* Avatars */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,7 +493,6 @@
 				A328D8BC253C8C4300B90E62 /* LaunchScreen.storyboard in Resources */,
 				A32416362554E41E008D4B90 /* ProjectionViewController.xib in Resources */,
 				A32285F8255A06E400FF3200 /* right.stl in Resources */,
-				A3222707262CDDDC004629CC /* tpose.usdz in Resources */,
 				A32416262554DFD4008D4B90 /* CalibrationConnectionViewController.xib in Resources */,
 				A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */,
 				A31C0A28264362D30059A492 /* avatar3.usdz in Resources */,
@@ -513,6 +528,7 @@
 				A36C9163263779E700D64107 /* ReadyPlayerMeAvatar.swift in Sources */,
 				A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */,
 				A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */,
+				A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */,
 				A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */,
 				A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */,
 				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
@@ -676,7 +692,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/RealityMixer/Info.plist";
@@ -685,7 +701,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).reality.mixer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
@@ -703,7 +719,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/RealityMixer/Info.plist";
@@ -712,7 +728,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).reality.mixer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
