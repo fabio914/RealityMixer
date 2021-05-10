@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ARKit
 import SwiftSocket
 
 final class MixedRealityConnectionViewController: UIViewController {
@@ -15,10 +14,18 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var addressTextField: UITextField!
     @IBOutlet private weak var portTextField: UITextField!
 
+    // MARK: - Capture Mode
+    @IBOutlet private weak var captureModeSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var captureModeInfoLabel: UILabel!
+
+    // MARK: - Avatar
+    @IBOutlet private weak var avatarSection: UIStackView!
+    @IBOutlet private weak var avatarSegmentedControl: UISegmentedControl!
+
+    // MARK: - Options
     @IBOutlet private weak var optionsStackView: UIStackView!
     @IBOutlet private weak var audioSwitch: UISwitch!
     @IBOutlet private weak var autoFocusSwitch: UISwitch!
-    @IBOutlet private weak var personSegmentationSwitch: UISwitch!
     @IBOutlet private weak var unflipSwitch: UISwitch!
 
     // MARK: - Foreground layer options
@@ -40,11 +47,6 @@ final class MixedRealityConnectionViewController: UIViewController {
 
     private let preferenceStorage = PreferenceStorage()
     private let configurationStorage = ConfigurationStorage()
-
-    private var supportsSegmentation: Bool {
-        ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) ||
-        ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation)
-    }
 
     private var configuration: MixedRealityConfiguration {
         get {
@@ -122,9 +124,45 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     private func didUpdate(configuration: MixedRealityConfiguration) {
+        switch configuration.captureMode {
+        case .personSegmentation:
+            captureModeSegmentedControl.selectedSegmentIndex = 0
+            avatarSection.isHidden = true
+            avatarSegmentedControl.selectedSegmentIndex = 0
+            captureModeInfoLabel.text = """
+            This mode uses Person Segmentation to extract your body from the video without using a green screen. It works best if the camera is pointed to a wall in a well-lit environment, and if you're the only thing between the camera and the wall.
+            """
+        case .bodyTracking(let avatarType):
+            captureModeSegmentedControl.selectedSegmentIndex = 1
+            avatarSection.isHidden = false
+            captureModeInfoLabel.text = """
+            This mode uses Body Tracking to capture your movement and animate an avatar. It works best if your entire body is within frame (including your feet) and if you're facing the back camera, the avatar might not appear or animate properly otherwise.
+            """
+            switch avatarType {
+            case .avatar1:
+                avatarSegmentedControl.selectedSegmentIndex = 0
+            case .avatar2:
+                avatarSegmentedControl.selectedSegmentIndex = 1
+            case .avatar3:
+                avatarSegmentedControl.selectedSegmentIndex = 2
+            case .avatar4:
+                avatarSegmentedControl.selectedSegmentIndex = 3
+            case .robot:
+                avatarSegmentedControl.selectedSegmentIndex = 4
+            case .skeleton:
+                avatarSegmentedControl.selectedSegmentIndex = 5
+            }
+        case .raw:
+            captureModeSegmentedControl.selectedSegmentIndex = 2
+            avatarSection.isHidden = true
+            avatarSegmentedControl.selectedSegmentIndex = 0
+            captureModeInfoLabel.text = """
+            This mode only displays the raw output from the Oculus Quest. You won't be able to see the output from the camera unless you hide or filter the background layer.
+            """
+        }
+
         audioSwitch.isOn = configuration.enableAudio
         autoFocusSwitch.isOn = configuration.enableAutoFocus
-        personSegmentationSwitch.isOn = configuration.enablePersonSegmentation
         unflipSwitch.isOn = !configuration.shouldFlipOutput
 
         switch configuration.foregroundLayerOptions.visibility {
@@ -164,23 +202,47 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     private func updateConfiguration() {
-        updateConfiguration(enablePersonSegmentation: personSegmentationSwitch.isOn)
+        updateConfiguration(
+            captureMode: {
+                switch captureModeSegmentedControl.selectedSegmentIndex {
+                case 0:
+                    return .personSegmentation
+                case 1:
+                    return .bodyTracking(avatar: {
+                        switch avatarSegmentedControl.selectedSegmentIndex {
+                        case 0:
+                            return .avatar1
+                        case 1:
+                            return .avatar2
+                        case 2:
+                            return .avatar3
+                        case 3:
+                            return .avatar4
+                        case 4:
+                            return .robot
+                        default: // 5
+                            return .skeleton
+                        }
+                    }())
+                default: // 2
+                    return .raw
+                }
+            }()
+        )
     }
 
-    private func updateConfiguration(enablePersonSegmentation: Bool) {
+    private func updateConfiguration(captureMode: MixedRealityConfiguration.CaptureMode) {
         configuration = MixedRealityConfiguration(
+            captureMode: captureMode,
             enableAudio: audioSwitch.isOn,
             enableAutoFocus: autoFocusSwitch.isOn,
-            enablePersonSegmentation: enablePersonSegmentation,
             shouldFlipOutput: !unflipSwitch.isOn,
             foregroundLayerOptions: .init(
                 visibility: {
                     switch foregroundVisibilitySegmentedControl.selectedSegmentIndex {
                     case 0:
                         return .visible(useMagentaAsTransparency: magentaSwitch.isOn)
-                    case 1:
-                        return .hidden
-                    default:
+                    default: // 1
                         return .hidden
                     }
                 }()
@@ -197,7 +259,7 @@ final class MixedRealityConnectionViewController: UIViewController {
                                 return .black
                             case 1:
                                 return .green
-                            default:
+                            default: // 2
                                 return .magenta
                             }
                         }())
@@ -286,7 +348,22 @@ final class MixedRealityConnectionViewController: UIViewController {
             return
         }
 
-        if configuration.enablePersonSegmentation && !supportsSegmentation {
+        switch (configuration.captureMode, configuration.captureMode.isSupported) {
+        case (.bodyTracking, false):
+            let alert = UIAlertController(
+                title: "Sorry",
+                message: "Body tracking (avatar) requires a device with an A12 chip or newer. Would you like to continue without it?",
+                preferredStyle: .alert
+            )
+
+            alert.addAction(.init(title: "Continue", style: .default, handler: { [weak self] _ in
+                self?.updateConfiguration(captureMode: .raw)
+                self?.startConnection(address: address, port: port)
+            }))
+
+            alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+        case (.personSegmentation, false):
             let alert = UIAlertController(
                 title: "Sorry",
                 message: "Person segmentation (virtual green screen) requires a device with an A12 chip or newer. Would you like to continue without it?",
@@ -294,13 +371,13 @@ final class MixedRealityConnectionViewController: UIViewController {
             )
 
             alert.addAction(.init(title: "Continue", style: .default, handler: { [weak self] _ in
-                self?.updateConfiguration(enablePersonSegmentation: false)
+                self?.updateConfiguration(captureMode: .raw)
                 self?.startConnection(address: address, port: port)
             }))
 
             alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
-        } else {
+        default:
             startConnection(address: address, port: port)
         }
     }

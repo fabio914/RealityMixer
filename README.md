@@ -80,8 +80,6 @@ ORGANIZATION_IDENTIFIER = com.yourcompany
 These are features that could be implemented in the future:
 
  - Create a custom calibration app for the Quest to replace the Oculus MRC app, allowing the user to calibrate from VR itself;
-
- - Use ARKit's body tracking to replace the image from the camera with an avatar;
  
  - Allow the user to adjust the FOV of the mixed reality capture;
  
@@ -97,4 +95,6 @@ It uses [SwiftSocket](https://github.com/swiftsocket/SwiftSocket) to handle the 
 
 The right and left controller models are modified versions of the `oculus-touch-v3` models from the [WebXR Input Profiles](https://github.com/immersive-web/webxr-input-profiles).
 
-This project also uses sounds from [Notification Sounds](https://notificationsounds.com).
+This project also uses sounds from [Notification Sounds](https://notificationsounds.com) and avatars from [Ready Player Me](https://readyplayer.me/).
+
+<img src="Images/rpm-badge-light-dark-bg.png" width="200" />

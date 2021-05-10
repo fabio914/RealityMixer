@@ -13,6 +13,7 @@ import SwiftSocket
 final class MixedRealityViewController: UIViewController {
     private let client: TCPClient
     private let configuration: MixedRealityConfiguration
+    private let factory: ARConfigurationFactory
     private var audioEngine: AVAudioEngine?
     private var audioPlayer: AVAudioPlayerNode?
     private var displayLink: CADisplayLink?
@@ -25,6 +26,8 @@ final class MixedRealityViewController: UIViewController {
     private var foregroundNode: SCNNode?
 
     private let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+
+    private var avatar: AvatarProtocol?
 
     var first = true
 
@@ -45,6 +48,7 @@ final class MixedRealityViewController: UIViewController {
     ) {
         self.client = client
         self.configuration = configuration
+        self.factory = ARConfigurationFactory(mrConfiguration: configuration)
         self.cameraPoseSender = cameraPoseSender
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
@@ -110,6 +114,12 @@ final class MixedRealityViewController: UIViewController {
     private func configureScene() {
         sceneView.rendersCameraGrain = false
         sceneView.rendersMotionBlur = false
+
+        // Light for the model
+        if case .bodyTracking = configuration.captureMode {
+            sceneView.autoenablesDefaultLighting = true
+            sceneView.automaticallyUpdatesLighting = true
+        }
 
         let scene = SCNScene()
         sceneView.scene = scene
@@ -237,21 +247,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func prepareARConfiguration() {
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.horizontal, .vertical]
-        configuration.environmentTexturing = .none
-        configuration.isLightEstimationEnabled = true
-        configuration.isAutoFocusEnabled = self.configuration.enableAutoFocus
-
-        if self.configuration.enablePersonSegmentation {
-            if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
-                configuration.frameSemantics.insert(.personSegmentationWithDepth)
-            } else if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation) {
-                configuration.frameSemantics.insert(.personSegmentation)
-            }
-        }
-
-        sceneView.session.run(configuration)
+        sceneView.session.run(factory.build())
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -357,7 +353,6 @@ extension MixedRealityViewController: OculusMRCDelegate {
     func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer) {
         audioPlayer?.scheduleBuffer(audio, completionHandler: nil)
     }
-
 }
 
 extension MixedRealityViewController: ARSessionDelegate {
@@ -370,6 +365,20 @@ extension MixedRealityViewController: ARSessionDelegate {
             first = false
         } else {
             cameraPoseSender?.didUpdate(frame: frame)
+        }
+    }
+
+    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+        guard let bodyAnchor = anchors.compactMap({ $0 as? ARBodyAnchor }).first else { return }
+
+        if let avatar = avatar {
+            avatar.update(bodyAnchor: bodyAnchor)
+        } else {
+            avatar = factory.buildAvatar(bodyAnchor: bodyAnchor)
+            if let mainNode = avatar?.mainNode {
+                sceneView.scene.rootNode.addChildNode(mainNode)
+            }
+            avatar?.update(bodyAnchor: bodyAnchor)
         }
     }
 }
