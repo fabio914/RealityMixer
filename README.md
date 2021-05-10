@@ -97,4 +97,4 @@ The right and left controller models are modified versions of the `oculus-touch-
 
 This project also uses sounds from [Notification Sounds](https://notificationsounds.com) and avatars from [Ready Player Me](https://readyplayer.me/).
 
-<img src="Images/rpm-badge-light-dark-bg.png" width="80" />
+<img src="Images/rpm-badge-light-dark-bg.png" width="200" />
