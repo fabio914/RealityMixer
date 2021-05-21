@@ -152,8 +152,15 @@ final class MixedRealityConnectionViewController: UIViewController {
             case .skeleton:
                 avatarSegmentedControl.selectedSegmentIndex = 5
             }
-        case .raw:
+        case .greenScreen:
             captureModeSegmentedControl.selectedSegmentIndex = 2
+            avatarSection.isHidden = true
+            avatarSegmentedControl.selectedSegmentIndex = 0
+            captureModeInfoLabel.text = """
+            Use this mode if you have a physical green screen. Make sure that your green screen is lit evenly.
+            """
+        case .raw:
+            captureModeSegmentedControl.selectedSegmentIndex = 3
             avatarSection.isHidden = true
             avatarSegmentedControl.selectedSegmentIndex = 0
             captureModeInfoLabel.text = """
@@ -224,7 +231,9 @@ final class MixedRealityConnectionViewController: UIViewController {
                             return .skeleton
                         }
                     }())
-                default: // 2
+                case 2:
+                    return .greenScreen
+                default: // 3
                     return .raw
                 }
             }()

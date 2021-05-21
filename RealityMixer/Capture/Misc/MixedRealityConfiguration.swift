@@ -14,6 +14,8 @@ struct MixedRealityConfiguration: Codable, Equatable {
 
         case personSegmentation
         case bodyTracking(avatar: AvatarType)
+        // TODO: Add options to customize green screen color, threshold and mask
+        case greenScreen
         case raw
     }
 
@@ -72,6 +74,7 @@ extension MixedRealityConfiguration.CaptureMode {
     enum CaptureType: String, Codable {
         case personSegmentation
         case bodyTracking
+        case greenScreen
         case raw
     }
 
@@ -85,6 +88,8 @@ extension MixedRealityConfiguration.CaptureMode {
         case .bodyTracking:
             let avatarType = try values.decode(AvatarType.self, forKey: .avatar)
             self = .bodyTracking(avatar: avatarType)
+        case .greenScreen:
+            self = .greenScreen
         case .raw:
             self = .raw
         }
@@ -99,6 +104,8 @@ extension MixedRealityConfiguration.CaptureMode {
         case .bodyTracking(let avatarType):
             try container.encode(CaptureType.bodyTracking, forKey: .type)
             try container.encode(avatarType, forKey: .avatar)
+        case .greenScreen:
+            try container.encode(CaptureType.greenScreen, forKey: .type)
         case .raw:
             try container.encode(CaptureType.raw, forKey: .type)
         }
@@ -223,7 +230,7 @@ extension MixedRealityConfiguration.CaptureMode {
                 ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation)
         case .bodyTracking:
             return ARBodyTrackingConfiguration.isSupported
-        case .raw:
+        case .greenScreen, .raw:
             return true
         }
     }

@@ -123,6 +123,7 @@
                                                             <segments>
                                                                 <segment title="Virtual Green Screen"/>
                                                                 <segment title="Avatar"/>
+                                                                <segment title="Green Screen"/>
                                                                 <segment title="Raw"/>
                                                             </segments>
                                                             <color key="selectedSegmentTintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

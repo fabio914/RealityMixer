@@ -23,6 +23,7 @@ final class MixedRealityViewController: UIViewController {
     @IBOutlet private weak var sceneView: ARSCNView!
     private var textureCache: CVMetalTextureCache?
     private var backgroundNode: SCNNode?
+    private var middlePlaneNode: SCNNode?
     private var foregroundNode: SCNNode?
 
     private let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
@@ -212,6 +213,20 @@ final class MixedRealityViewController: UIViewController {
         self.backgroundNode = backgroundPlaneNode
     }
 
+    private func configureMiddle(with frame: ARFrame) {
+        guard case .greenScreen = configuration.captureMode else { return }
+        let middlePlaneNode = makePlaneNodeForDistance(0.2, frame: frame)
+
+        middlePlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
+
+        middlePlaneNode.geometry?.firstMaterial?.shaderModifiers = [
+            .surface: Shaders.surfaceChromaKey(red: 0, green: 1, blue: 0)
+        ]
+
+        sceneView.pointOfView?.addChildNode(middlePlaneNode)
+        self.middlePlaneNode = middlePlaneNode
+    }
+
     private func configureForeground(with frame: ARFrame) {
         guard case .visible(let useMagentaAsTransparency) = configuration.foregroundLayerOptions.visibility else { return }
         let foregroundPlaneNode = makePlaneNodeForDistance(0.1, frame: frame)
@@ -239,6 +254,26 @@ final class MixedRealityViewController: UIViewController {
 
         sceneView.pointOfView?.addChildNode(foregroundPlaneNode)
         self.foregroundNode = foregroundPlaneNode
+    }
+
+    private func updateForegroundBackground(with pixelBuffer: CVPixelBuffer) {
+        let luma = texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0)
+        let chroma = texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1)
+
+        backgroundNode?.geometry?.firstMaterial?.transparent.contents = luma
+        backgroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+
+        foregroundNode?.geometry?.firstMaterial?.transparent.contents = luma
+        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+    }
+
+    private func updateMiddle(with pixelBuffer: CVPixelBuffer) {
+        guard case .greenScreen = configuration.captureMode else { return }
+        let luma = texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0)
+        let chroma = texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1)
+
+        middlePlaneNode?.geometry?.firstMaterial?.transparent.contents = luma
+        middlePlaneNode?.geometry?.firstMaterial?.diffuse.contents = chroma
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -270,8 +305,8 @@ final class MixedRealityViewController: UIViewController {
 
     private func texture(from pixelBuffer: CVPixelBuffer, format: MTLPixelFormat, planeIndex: Int) -> MTLTexture? {
         guard let textureCache = textureCache,
-              planeIndex >= 0, planeIndex < CVPixelBufferGetPlaneCount(pixelBuffer),
-              CVPixelBufferGetPixelFormatType(pixelBuffer) == kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
+              planeIndex >= 0, planeIndex < CVPixelBufferGetPlaneCount(pixelBuffer) //,
+//              CVPixelBufferGetPixelFormatType(pixelBuffer) == kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
         else {
             return nil
         }
@@ -340,14 +375,7 @@ final class MixedRealityViewController: UIViewController {
 extension MixedRealityViewController: OculusMRCDelegate {
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceive pixelBuffer: CVPixelBuffer) {
-        let luma = texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0)
-        let chroma = texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1)
-
-        backgroundNode?.geometry?.firstMaterial?.transparent.contents = luma
-        backgroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
-
-        foregroundNode?.geometry?.firstMaterial?.transparent.contents = luma
-        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+        updateForegroundBackground(with: pixelBuffer)
     }
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer) {
@@ -361,11 +389,14 @@ extension MixedRealityViewController: ARSessionDelegate {
 
         if first {
             configureBackground(with: frame)
+            configureMiddle(with: frame)
             configureForeground(with: frame)
             first = false
         } else {
             cameraPoseSender?.didUpdate(frame: frame)
         }
+
+        updateMiddle(with: frame.capturedImage)
     }
 
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
