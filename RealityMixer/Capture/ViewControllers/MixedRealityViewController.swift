@@ -220,7 +220,7 @@ final class MixedRealityViewController: UIViewController {
         middlePlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 
         middlePlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: Shaders.surfaceChromaKey(red: 0, green: 1, blue: 0)
+            .surface: Shaders.surfaceChromaKey(red: 0, green: 1, blue: 0, threshold: 0.53)
         ]
 
         sceneView.pointOfView?.addChildNode(middlePlaneNode)
