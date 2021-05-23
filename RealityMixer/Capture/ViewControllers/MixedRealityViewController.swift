@@ -13,6 +13,7 @@ import SwiftSocket
 final class MixedRealityViewController: UIViewController {
     private let client: TCPClient
     private let configuration: MixedRealityConfiguration
+    private let chromaConfiguration: ChromaKeyConfiguration
     private let factory: ARConfigurationFactory
     private var audioEngine: AVAudioEngine?
     private var audioPlayer: AVAudioPlayerNode?
@@ -45,10 +46,12 @@ final class MixedRealityViewController: UIViewController {
     init(
         client: TCPClient,
         configuration: MixedRealityConfiguration,
+        chromaConfiguration: ChromaKeyConfiguration,
         cameraPoseSender: CameraPoseSender?
     ) {
         self.client = client
         self.configuration = configuration
+        self.chromaConfiguration = chromaConfiguration
         self.factory = ARConfigurationFactory(mrConfiguration: configuration)
         self.cameraPoseSender = cameraPoseSender
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
@@ -220,7 +223,21 @@ final class MixedRealityViewController: UIViewController {
         middlePlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 
         middlePlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: Shaders.surfaceChromaKey(red: 0, green: 1, blue: 0, threshold: 0.53)
+            .surface: { () -> String in
+                let color = chromaConfiguration.color
+                switch chromaConfiguration.mode {
+                case .smooth(let sensitivity, let smoothness):
+                    return Shaders.surfaceChromaKey(
+                        red: color.red, green: color.green, blue: color.blue,
+                        sensitivity: sensitivity, smoothness: smoothness
+                    )
+                case .threshold(let value):
+                    return Shaders.surfaceChromaKey(
+                        red: color.red, green: color.green, blue: color.blue,
+                        threshold: value
+                    )
+                }
+            }()
         ]
 
         sceneView.pointOfView?.addChildNode(middlePlaneNode)

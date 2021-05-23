@@ -47,6 +47,7 @@ final class MixedRealityConnectionViewController: UIViewController {
 
     private let networkConfigurationStorage = NetworkConfigurationStorage()
     private let mixedRealityConfigurationStorage = MixedRealityConfigurationStorage()
+    private let chromaConfigurationStorage = ChromaKeyConfigurationStorage()
 
     private var configuration: MixedRealityConfiguration {
         get {
@@ -309,12 +310,14 @@ final class MixedRealityConnectionViewController: UIViewController {
                 try? self.networkConfigurationStorage.save(configuration: .init(address: address))
                 let cameraPoseSender = CameraPoseSender(address: address)
                 let configuration = self.configuration
+                let chromaConfiguration = self.chromaConfigurationStorage.configuration
 
                 connectionAlert.dismiss(animated: false, completion: { [weak self] in
 
                     let viewController = MixedRealityViewController(
                         client: client,
                         configuration: configuration,
+                        chromaConfiguration: chromaConfiguration,
                         cameraPoseSender: cameraPoseSender
                     )
 

@@ -57,6 +57,7 @@
 		A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98D253CF2EE00B90E62 /* ARKit.framework */; };
 		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
 		A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */; };
+		A338B35D265AE1E300099827 /* ChromaKeyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */; };
 		A344D5B72621444C0026924F /* robot.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A344D5B62621444C0026924F /* robot.usdz */; };
 		A36C9163263779E700D64107 /* ReadyPlayerMeAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C9162263779E700D64107 /* ReadyPlayerMeAvatar.swift */; };
 		A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C916426377A3000D64107 /* AvatarProtocol.swift */; };
@@ -145,6 +146,7 @@
 		A328D98D253CF2EE00B90E62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		A328D98F253CF2F400B90E62 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
+		A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfiguration.swift; sourceTree = "<group>"; };
 		A344D5B62621444C0026924F /* robot.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = robot.usdz; sourceTree = "<group>"; };
 		A36C9162263779E700D64107 /* ReadyPlayerMeAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyPlayerMeAvatar.swift; sourceTree = "<group>"; };
 		A36C916426377A3000D64107 /* AvatarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarProtocol.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */,
 				A32226FB262C5229004629CC /* NetworkConfiguration.swift */,
 				A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */,
+				A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */,
 				A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */,
 				A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */,
+				A338B35D265AE1E300099827 /* ChromaKeyConfiguration.swift in Sources */,
 				A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */,
 				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
 				A36C916726377C0900D64107 /* RobotAvatar.swift in Sources */,

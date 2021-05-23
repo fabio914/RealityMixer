@@ -1,3 +1,10 @@
+//
+//  MixedRealityConfiguration.swift
+//  RealityMixer
+//
+//  Created by Fabio de Albuquerque Dela Antonio on 12/01/2021.
+//
+
 import Foundation
 
 struct MixedRealityConfiguration: Codable, Equatable {
