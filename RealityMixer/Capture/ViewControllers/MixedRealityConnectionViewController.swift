@@ -22,6 +22,9 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var avatarSection: UIStackView!
     @IBOutlet private weak var avatarSegmentedControl: UISegmentedControl!
 
+    // MARK: - Chroma Key Options
+    @IBOutlet private weak var chromaKeySection: UIStackView!
+
     // MARK: - Options
     @IBOutlet private weak var optionsStackView: UIStackView!
     @IBOutlet private weak var audioSwitch: UISwitch!
@@ -125,11 +128,13 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     private func didUpdate(configuration: MixedRealityConfiguration) {
+        avatarSection.isHidden = true
+        avatarSegmentedControl.selectedSegmentIndex = 0
+        chromaKeySection.isHidden = true
+
         switch configuration.captureMode {
         case .personSegmentation:
             captureModeSegmentedControl.selectedSegmentIndex = 0
-            avatarSection.isHidden = true
-            avatarSegmentedControl.selectedSegmentIndex = 0
             captureModeInfoLabel.text = """
             This mode uses Person Segmentation to extract your body from the video without using a green screen. It works best if the camera is pointed to a wall in a well-lit environment, and if you're the only thing between the camera and the wall.
             """
@@ -155,15 +160,12 @@ final class MixedRealityConnectionViewController: UIViewController {
             }
         case .greenScreen:
             captureModeSegmentedControl.selectedSegmentIndex = 2
-            avatarSection.isHidden = true
-            avatarSegmentedControl.selectedSegmentIndex = 0
+            chromaKeySection.isHidden = false
             captureModeInfoLabel.text = """
             Use this mode if you have a physical green screen. Make sure that your green screen is lit evenly.
             """
         case .raw:
             captureModeSegmentedControl.selectedSegmentIndex = 3
-            avatarSection.isHidden = true
-            avatarSegmentedControl.selectedSegmentIndex = 0
             captureModeInfoLabel.text = """
             This mode only displays the raw output from the Oculus Quest. You won't be able to see the output from the camera unless you hide or filter the background layer.
             """
@@ -341,6 +343,10 @@ final class MixedRealityConnectionViewController: UIViewController {
         UIView.animate(withDuration: 0.1, animations: {
             self.view.layoutIfNeeded()
         })
+    }
+
+    @IBAction func showChromaKeyOptions(_ sender: Any) {
+        // TODO
     }
 
     @IBAction func configurationValueDidChange(_ sender: Any) {
