@@ -195,25 +195,15 @@ extension MixedRealityConfiguration.BackgroundLayerOptions.BackgroundVisibility 
 
 // MARK: - Storage
 
-final class ConfigurationStorage {
-    private let defaults: UserDefaults
-    private let key = "MRConfiguration"
-
-    init(defaults: UserDefaults = .standard) {
-        self.defaults = defaults
-    }
+final class MixedRealityConfigurationStorage {
+    private let storage = UserDefaultsStorage<MixedRealityConfiguration>(key: "MRConfiguration")
 
     func save(configuration: MixedRealityConfiguration) throws {
-        let data = try JSONEncoder().encode(configuration)
-        let string = data.base64EncodedString()
-        defaults.setValue(string, forKey: key)
+        try storage.save(configuration)
     }
 
     var configuration: MixedRealityConfiguration {
-        defaults.string(forKey: key)
-            .flatMap({ Data(base64Encoded: $0) })
-            .flatMap({ try? JSONDecoder().decode(MixedRealityConfiguration.self, from: $0) })
-        ?? .defaultConfiguration
+        storage.object ?? .defaultConfiguration
     }
 }
 

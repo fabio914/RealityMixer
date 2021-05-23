@@ -45,12 +45,12 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
 
-    private let preferenceStorage = PreferenceStorage()
-    private let configurationStorage = ConfigurationStorage()
+    private let networkConfigurationStorage = NetworkConfigurationStorage()
+    private let mixedRealityConfigurationStorage = MixedRealityConfigurationStorage()
 
     private var configuration: MixedRealityConfiguration {
         get {
-            configurationStorage.configuration
+            mixedRealityConfigurationStorage.configuration
         }
         set {
             guard newValue != configuration else { return }
@@ -58,7 +58,7 @@ final class MixedRealityConnectionViewController: UIViewController {
             UIView.animate(withDuration: 0.1, animations: {
                 self.view.layoutIfNeeded()
             })
-            try? configurationStorage.save(configuration: newValue)
+            try? mixedRealityConfigurationStorage.save(configuration: newValue)
         }
     }
 
@@ -77,8 +77,8 @@ final class MixedRealityConnectionViewController: UIViewController {
         addressTextField.delegate = self
         portTextField.delegate = self
 
-        if let preferences = preferenceStorage.preference {
-            addressTextField.text = preferences.address
+        if let networkConfiguration = networkConfigurationStorage.configuration {
+            addressTextField.text = networkConfiguration.address
         }
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backAction))
@@ -306,7 +306,7 @@ final class MixedRealityConnectionViewController: UIViewController {
                 })
 
             case .success:
-                try? self.preferenceStorage.save(preference: .init(address: address))
+                try? self.networkConfigurationStorage.save(configuration: .init(address: address))
                 let cameraPoseSender = CameraPoseSender(address: address)
                 let configuration = self.configuration
 

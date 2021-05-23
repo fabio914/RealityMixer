@@ -13,7 +13,7 @@
 		A31C0A2226435F980059A492 /* avatar4.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1E26435F980059A492 /* avatar4.usdz */; };
 		A31C0A28264362D30059A492 /* avatar3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A27264362D30059A492 /* avatar3.usdz */; };
 		A32226FC262C5229004629CC /* MixedRealityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */; };
-		A32226FD262C5229004629CC /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FB262C5229004629CC /* Preference.swift */; };
+		A32226FD262C5229004629CC /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FB262C5229004629CC /* NetworkConfiguration.swift */; };
 		A32226FF262C5253004629CC /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FE262C5253004629CC /* Skeleton.swift */; };
 		A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32285A82558050600FF3200 /* AboutViewController.swift */; };
 		A32285AB2558050600FF3200 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A32285A92558050600FF3200 /* AboutViewController.xib */; };
@@ -56,6 +56,7 @@
 		A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */; };
 		A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98D253CF2EE00B90E62 /* ARKit.framework */; };
 		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
+		A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */; };
 		A344D5B72621444C0026924F /* robot.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A344D5B62621444C0026924F /* robot.usdz */; };
 		A36C9163263779E700D64107 /* ReadyPlayerMeAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C9162263779E700D64107 /* ReadyPlayerMeAvatar.swift */; };
 		A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C916426377A3000D64107 /* AvatarProtocol.swift */; };
@@ -92,7 +93,7 @@
 		A31C0A1E26435F980059A492 /* avatar4.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar4.usdz; sourceTree = "<group>"; };
 		A31C0A27264362D30059A492 /* avatar3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar3.usdz; sourceTree = "<group>"; };
 		A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MixedRealityConfiguration.swift; sourceTree = "<group>"; };
-		A32226FB262C5229004629CC /* Preference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
+		A32226FB262C5229004629CC /* NetworkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		A32226FE262C5253004629CC /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
 		A32285A82558050600FF3200 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A32285A92558050600FF3200 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
@@ -143,6 +144,7 @@
 		A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MixedRealityViewController.xib; sourceTree = "<group>"; };
 		A328D98D253CF2EE00B90E62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		A328D98F253CF2F400B90E62 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		A344D5B62621444C0026924F /* robot.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = robot.usdz; sourceTree = "<group>"; };
 		A36C9162263779E700D64107 /* ReadyPlayerMeAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyPlayerMeAvatar.swift; sourceTree = "<group>"; };
 		A36C916426377A3000D64107 /* AvatarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarProtocol.swift; sourceTree = "<group>"; };
@@ -182,8 +184,6 @@
 		A32226F9262C5213004629CC /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */,
-				A32226FB262C5229004629CC /* Preference.swift */,
 				A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */,
 				A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */,
 			);
@@ -260,6 +260,7 @@
 		A32416122554D7F5008D4B90 /* Capture */ = {
 			isa = PBXGroup;
 			children = (
+				A338B35B265AE14600099827 /* Configuration */,
 				A36C9161263779D300D64107 /* Avatars */,
 				A32226F9262C5213004629CC /* Misc */,
 				A39033EB2568599B004CB638 /* Shaders */,
@@ -372,6 +373,16 @@
 				A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		A338B35B265AE14600099827 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */,
+				A32226FB262C5229004629CC /* NetworkConfiguration.swift */,
+				A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 		A36A6D8D26489FCF008631D6 /* Avatars */ = {
@@ -529,6 +540,7 @@
 				A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */,
 				A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */,
 				A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */,
+				A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */,
 				A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */,
 				A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */,
 				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
@@ -549,7 +561,7 @@
 				A3798AE125D9F6CA00B3BFBC /* CameraPoseSender.swift in Sources */,
 				A32226FC262C5229004629CC /* MixedRealityConfiguration.swift in Sources */,
 				A32416082554D326008D4B90 /* CalibrationPayload.swift in Sources */,
-				A32226FD262C5229004629CC /* Preference.swift in Sources */,
+				A32226FD262C5229004629CC /* NetworkConfiguration.swift in Sources */,
 				A32416352554E41E008D4B90 /* ProjectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
