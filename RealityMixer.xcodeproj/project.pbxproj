@@ -58,6 +58,9 @@
 		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
 		A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */; };
 		A338B35D265AE1E300099827 /* ChromaKeyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */; };
+		A338B360265B250100099827 /* ChromaKeyConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B35E265B250100099827 /* ChromaKeyConfigurationViewController.swift */; };
+		A338B361265B250100099827 /* ChromaKeyConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A338B35F265B250100099827 /* ChromaKeyConfigurationViewController.xib */; };
+		A338B363265B25E500099827 /* ARKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B362265B25E500099827 /* ARKitHelpers.swift */; };
 		A344D5B72621444C0026924F /* robot.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A344D5B62621444C0026924F /* robot.usdz */; };
 		A36C9163263779E700D64107 /* ReadyPlayerMeAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C9162263779E700D64107 /* ReadyPlayerMeAvatar.swift */; };
 		A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C916426377A3000D64107 /* AvatarProtocol.swift */; };
@@ -147,6 +150,9 @@
 		A328D98F253CF2F400B90E62 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfiguration.swift; sourceTree = "<group>"; };
+		A338B35E265B250100099827 /* ChromaKeyConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfigurationViewController.swift; sourceTree = "<group>"; };
+		A338B35F265B250100099827 /* ChromaKeyConfigurationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChromaKeyConfigurationViewController.xib; sourceTree = "<group>"; };
+		A338B362265B25E500099827 /* ARKitHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARKitHelpers.swift; sourceTree = "<group>"; };
 		A344D5B62621444C0026924F /* robot.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = robot.usdz; sourceTree = "<group>"; };
 		A36C9162263779E700D64107 /* ReadyPlayerMeAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyPlayerMeAvatar.swift; sourceTree = "<group>"; };
 		A36C916426377A3000D64107 /* AvatarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarProtocol.swift; sourceTree = "<group>"; };
@@ -188,6 +194,7 @@
 			children = (
 				A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */,
 				A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */,
+				A338B362265B25E500099827 /* ARKitHelpers.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -373,6 +380,8 @@
 				A328D978253CE54E00B90E62 /* MixedRealityConnectionViewController.xib */,
 				A328D97D253CE63B00B90E62 /* MixedRealityViewController.swift */,
 				A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */,
+				A338B35E265B250100099827 /* ChromaKeyConfigurationViewController.swift */,
+				A338B35F265B250100099827 /* ChromaKeyConfigurationViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -511,6 +520,7 @@
 				A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */,
 				A31C0A28264362D30059A492 /* avatar3.usdz in Resources */,
 				A32285F7255A06E400FF3200 /* left.stl in Resources */,
+				A338B361265B250100099827 /* ChromaKeyConfigurationViewController.xib in Resources */,
 				A31C0A2126435F980059A492 /* avatar1.usdz in Resources */,
 				A324162B2554E1B8008D4B90 /* CalibrationViewController.xib in Resources */,
 				A3837F6E263A239F0053951E /* reset.mp3 in Resources */,
@@ -540,6 +550,7 @@
 				A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */,
 				A328D8D1253C917300B90E62 /* OculusMRC.mm in Sources */,
 				A36C9163263779E700D64107 /* ReadyPlayerMeAvatar.swift in Sources */,
+				A338B363265B25E500099827 /* ARKitHelpers.swift in Sources */,
 				A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */,
 				A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */,
 				A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */,
@@ -547,6 +558,7 @@
 				A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */,
 				A338B35D265AE1E300099827 /* ChromaKeyConfiguration.swift in Sources */,
 				A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */,
+				A338B360265B250100099827 /* ChromaKeyConfigurationViewController.swift in Sources */,
 				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
 				A36C916726377C0900D64107 /* RobotAvatar.swift in Sources */,
 				A324163D2554E520008D4B90 /* CGPoint+Extensions.swift in Sources */,

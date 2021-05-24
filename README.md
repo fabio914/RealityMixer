@@ -71,8 +71,6 @@ ORGANIZATION_IDENTIFIER = com.yourcompany
 
  - [ ] Improve the calibration screen and fix the positioning of the controller models;
  
- - [ ] Add a "green screen mode" that will allow the user to use the app with a regular green screen, allowing the app to run on devices without an A12 chip;
- 
 ## Wishlist
 
 These are features that could be implemented in the future:

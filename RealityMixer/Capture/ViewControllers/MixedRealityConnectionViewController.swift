@@ -346,7 +346,9 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     @IBAction func showChromaKeyOptions(_ sender: Any) {
-        // TODO
+        let viewController = ChromaKeyConfigurationViewController()
+        viewController.modalPresentationStyle = .overFullScreen
+        present(viewController, animated: true, completion: nil)
     }
 
     @IBAction func configurationValueDidChange(_ sender: Any) {
