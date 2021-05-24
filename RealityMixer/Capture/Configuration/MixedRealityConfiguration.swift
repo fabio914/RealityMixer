@@ -21,7 +21,6 @@ struct MixedRealityConfiguration: Codable, Equatable {
 
         case personSegmentation
         case bodyTracking(avatar: AvatarType)
-        // TODO: Add options to customize green screen color, threshold and mask
         case greenScreen
         case raw
     }
