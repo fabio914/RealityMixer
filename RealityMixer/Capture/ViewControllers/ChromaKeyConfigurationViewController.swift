@@ -26,9 +26,12 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         true
     }
 
-    var first = true
+    var currentConfiguration: ChromaKeyConfiguration
+
+    private var first = true
 
     init() {
+        currentConfiguration = chromaConfigurationStorage.configuration ?? .defaultConfiguration
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -40,6 +43,8 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         super.viewDidLoad()
         configureDisplay()
         configureScene()
+
+        // TODO: Set current view state accordingly (depending on the current configuration)
     }
 
     private func configureDisplay() {
@@ -119,6 +124,17 @@ final class ChromaKeyConfigurationViewController: UIViewController {
 
     // MARK: - Actions
 
+    @IBAction private func editMaskAction(_ sender: Any) {
+        guard let currentFrame = sceneView.session.currentFrame else {
+            return
+        }
+
+        // TODO: Pass the current mask
+        let viewController = MaskEditorViewController(frame: currentFrame, chromaConfiguration: currentConfiguration)
+        viewController.modalPresentationStyle = .overFullScreen
+        present(viewController, animated: true, completion: nil)
+    }
+
     @IBAction private func saveAction(_ sender: Any) {
         // TODO: - Implement
     }
@@ -132,6 +148,8 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         planeNode?.geometry?.firstMaterial?.shaderModifiers = [
             .surface: Shaders.surfaceChromaKey(red: 0, green: 1, blue: 0, threshold: slider.value)
         ]
+
+        self.currentConfiguration = .init(color: .init(red: 0, green: 1, blue: 0), mode: .threshold(slider.value))
     }
 }
 

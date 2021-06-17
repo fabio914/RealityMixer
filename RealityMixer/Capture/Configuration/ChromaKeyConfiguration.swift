@@ -113,7 +113,7 @@ final class ChromaKeyConfigurationStorage {
         try storage.save(configuration)
     }
 
-    var configuration: ChromaKeyConfiguration {
-        storage.object ?? .defaultConfiguration
+    var configuration: ChromaKeyConfiguration? {
+        storage.object
     }
 }

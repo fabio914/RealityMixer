@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A30A698C267AB6E8002647C5 /* MaskEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30A698A267AB6E8002647C5 /* MaskEditorViewController.swift */; };
+		A30A698D267AB6E8002647C5 /* MaskEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A30A698B267AB6E8002647C5 /* MaskEditorViewController.xib */; };
+		A30A6990267AB94A002647C5 /* UIColor+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30A698F267AB94A002647C5 /* UIColor+Image.swift */; };
 		A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */; };
 		A31C0A2026435F980059A492 /* avatar2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1C26435F980059A492 /* avatar2.usdz */; };
 		A31C0A2126435F980059A492 /* avatar1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1D26435F980059A492 /* avatar1.usdz */; };
@@ -91,6 +94,9 @@
 
 /* Begin PBXFileReference section */
 		3E1B214525678AF60084847C /* RealityMixer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = RealityMixer.xcconfig; sourceTree = "<group>"; };
+		A30A698A267AB6E8002647C5 /* MaskEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskEditorViewController.swift; sourceTree = "<group>"; };
+		A30A698B267AB6E8002647C5 /* MaskEditorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MaskEditorViewController.xib; sourceTree = "<group>"; };
+		A30A698F267AB94A002647C5 /* UIColor+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Image.swift"; sourceTree = "<group>"; };
 		A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARConfigurationFactory.swift; sourceTree = "<group>"; };
 		A31C0A1C26435F980059A492 /* avatar2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar2.usdz; sourceTree = "<group>"; };
 		A31C0A1D26435F980059A492 /* avatar1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar1.usdz; sourceTree = "<group>"; };
@@ -189,6 +195,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A30A698E267AB92B002647C5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A30A698F267AB94A002647C5 /* UIColor+Image.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		A32226F9262C5213004629CC /* Misc */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +283,7 @@
 		A32416122554D7F5008D4B90 /* Capture */ = {
 			isa = PBXGroup;
 			children = (
+				A30A698E267AB92B002647C5 /* Extensions */,
 				A338B35B265AE14600099827 /* Configuration */,
 				A36C9161263779D300D64107 /* Avatars */,
 				A32226F9262C5213004629CC /* Misc */,
@@ -382,6 +397,8 @@
 				A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */,
 				A338B35E265B250100099827 /* ChromaKeyConfigurationViewController.swift */,
 				A338B35F265B250100099827 /* ChromaKeyConfigurationViewController.xib */,
+				A30A698A267AB6E8002647C5 /* MaskEditorViewController.swift */,
+				A30A698B267AB6E8002647C5 /* MaskEditorViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -515,6 +532,7 @@
 			files = (
 				A328D8BC253C8C4300B90E62 /* LaunchScreen.storyboard in Resources */,
 				A32416362554E41E008D4B90 /* ProjectionViewController.xib in Resources */,
+				A30A698D267AB6E8002647C5 /* MaskEditorViewController.xib in Resources */,
 				A32285F8255A06E400FF3200 /* right.stl in Resources */,
 				A32416262554DFD4008D4B90 /* CalibrationConnectionViewController.xib in Resources */,
 				A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */,
@@ -553,6 +571,7 @@
 				A338B363265B25E500099827 /* ARKitHelpers.swift in Sources */,
 				A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */,
 				A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */,
+				A30A698C267AB6E8002647C5 /* MaskEditorViewController.swift in Sources */,
 				A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */,
 				A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */,
 				A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */,
@@ -569,6 +588,7 @@
 				A324162A2554E1B8008D4B90 /* CalibrationViewController.swift in Sources */,
 				A324160B2554D3AB008D4B90 /* CalibrationResult.swift in Sources */,
 				A328D97F253CE63B00B90E62 /* MixedRealityViewController.swift in Sources */,
+				A30A6990267AB94A002647C5 /* UIColor+Image.swift in Sources */,
 				A328D8CC253C914500B90E62 /* frame.cpp in Sources */,
 				A328D8B0253C8C4000B90E62 /* AppDelegate.swift in Sources */,
 				A32416252554DFD4008D4B90 /* CalibrationConnectionViewController.swift in Sources */,

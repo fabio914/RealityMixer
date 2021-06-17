@@ -22,27 +22,41 @@
                     <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                 </arscnView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3df-dJ-Ng5">
-                    <rect key="frame" x="477" y="724" width="240" height="70"/>
+                    <rect key="frame" x="432.5" y="734" width="329" height="60"/>
                     <subviews>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rOw-AW-zlo">
-                            <rect key="frame" x="18" y="20" width="204" height="31"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="200" id="B8j-6z-YFD"/>
-                            </constraints>
-                            <connections>
-                                <action selector="sliderValueChanged:" destination="-1" eventType="valueChanged" id="lNM-DL-ceN"/>
-                            </connections>
-                        </slider>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eJR-3f-Yb6">
+                            <rect key="frame" x="20" y="5" width="289" height="50"/>
+                            <subviews>
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rOw-AW-zlo">
+                                    <rect key="frame" x="-2" y="0.0" width="204" height="51"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="200" id="B8j-6z-YFD"/>
+                                    </constraints>
+                                    <connections>
+                                        <action selector="sliderValueChanged:" destination="-1" eventType="valueChanged" id="lNM-DL-ceN"/>
+                                    </connections>
+                                </slider>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpa-mG-W5A">
+                                    <rect key="frame" x="220" y="0.0" width="69" height="50"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                    <state key="normal" title="Edit Mask">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="editMaskAction:" destination="-1" eventType="touchUpInside" id="olO-54-kpf"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="rOw-AW-zlo" firstAttribute="centerX" secondItem="3df-dJ-Ng5" secondAttribute="centerX" id="2S5-PE-l8C"/>
+                        <constraint firstItem="eJR-3f-Yb6" firstAttribute="top" secondItem="3df-dJ-Ng5" secondAttribute="top" constant="5" id="58c-zp-Jl4"/>
+                        <constraint firstAttribute="trailing" secondItem="eJR-3f-Yb6" secondAttribute="trailing" constant="20" id="FT7-JC-itn"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="KRM-vu-lHr"/>
-                        <constraint firstItem="rOw-AW-zlo" firstAttribute="top" secondItem="3df-dJ-Ng5" secondAttribute="top" constant="20" id="QEo-dw-DCh"/>
-                        <constraint firstItem="rOw-AW-zlo" firstAttribute="leading" secondItem="3df-dJ-Ng5" secondAttribute="leading" constant="20" id="SYE-j4-PY3"/>
-                        <constraint firstAttribute="bottom" secondItem="rOw-AW-zlo" secondAttribute="bottom" constant="20" id="Wzk-XT-oHR"/>
-                        <constraint firstAttribute="trailing" secondItem="rOw-AW-zlo" secondAttribute="trailing" constant="20" id="aPK-7Q-DJu"/>
+                        <constraint firstAttribute="bottom" secondItem="eJR-3f-Yb6" secondAttribute="bottom" constant="5" id="b4B-LO-p4B"/>
                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="q9g-5G-Iya"/>
+                        <constraint firstItem="eJR-3f-Yb6" firstAttribute="leading" secondItem="3df-dJ-Ng5" secondAttribute="leading" constant="20" id="ze4-Ui-FvM"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
