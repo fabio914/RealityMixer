@@ -8,6 +8,8 @@ Click on [this link](https://apps.apple.com/us/app/reality-mixer/id1539307552) t
 
 Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
 
+[![Trailer](Images/video.jpg)](https://www.youtube.com/watch?v=KhoyKABFvzA "Trailer")
+
 ## Examples
 
 | Game | YouTube video | Photos |
