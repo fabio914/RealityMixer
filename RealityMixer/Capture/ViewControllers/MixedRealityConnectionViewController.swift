@@ -298,15 +298,13 @@ final class MixedRealityConnectionViewController: UIViewController {
 
             case .success:
                 try? self.preferenceStorage.save(preference: .init(address: address))
-                let cameraPoseSender = CameraPoseSender(address: address)
                 let configuration = self.configuration
 
                 connectionAlert.dismiss(animated: false, completion: { [weak self] in
 
                     let viewController = MixedRealityViewController(
                         client: client,
-                        configuration: configuration,
-                        cameraPoseSender: cameraPoseSender
+                        configuration: configuration
                     )
 
                     viewController.modalPresentationStyle = .overFullScreen
