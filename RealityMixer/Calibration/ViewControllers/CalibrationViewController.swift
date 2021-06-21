@@ -240,6 +240,7 @@ final class CalibrationViewController: UIViewController {
             alert.addAction(.init(title: "OK", style: .default, handler: { [weak self] _ in
                 guard let self = self else { return }
                 self.displayLink?.invalidate()
+                TemporaryCalibrationStorage.shared.save(calibration: calibration)
                 self.delegate?.calibrationDidFinish(self)
             }))
             present(alert, animated: true, completion: nil)

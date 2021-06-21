@@ -153,11 +153,15 @@ final class CameraPoseSender {
         let inverseRotation: Quaternion
     }
 
-    private var initial: InitialPose? //(InitialPose, CameraIntrinsicsPayload)?
-
     private var initialReliableCameraPose: InitialPose?
+    private let initialCalibration: CalibrationResult
 
-    init(client: TCPClient) {
+    init?(client: TCPClient) {
+        guard let calibration = TemporaryCalibrationStorage.shared.calibration else {
+            return nil
+        }
+
+        self.initialCalibration = calibration
         self.client = client
     }
 
@@ -168,10 +172,7 @@ final class CameraPoseSender {
     }
 
     func didUpdate(frame: ARFrame) {
-        if let initial = initial {
-//            let (initialReliableCameraPose, intrinsics) = initial
-            let initialReliableCameraPose = initial
-
+        if let initialReliableCameraPose = initialReliableCameraPose {
             switch frame.camera.trackingState {
             case .normal, .limited:
                 let position = frame.camera.transform.columns.3
@@ -190,7 +191,8 @@ final class CameraPoseSender {
                     rotation: rotationDelta
                 )
 
-                sendCameraUpdate(pose: pose /*, intrinsics: intrinsics*/)
+                let poseResult = initialCalibration.pose * pose
+                sendCameraUpdate(pose: poseResult /*, intrinsics: intrinsics*/)
             default:
                 break
             }
@@ -202,27 +204,35 @@ final class CameraPoseSender {
             if case .normal = frame.camera.trackingState {
                 let position = frame.camera.transform.columns.3
 
-                let imageResolution = frame.camera.imageResolution
-                let (_, yFov) = CalibrationBuilder.fov(from: frame)
-
-                initial = //(
-                    InitialPose(
-                        position: .init(
-                            x: .init(position.x),
-                            y: .init(position.y),
-                            z: .init(position.z)
-                        ),
-                        inverseRotation: Quaternion(
-                            rotationMatrix: SCNMatrix4(frame.camera.transform)
-                        ).inverse
-                    )//,
-//                    // TODO: Use the same scale factor as the one used during the calibration
-//                    CameraIntrinsicsPayload(
-//                        yFov: yFov,
-//                        imageSize: Size(width: Int(imageResolution.width), height: Int(imageResolution.height))
-//                    )
-//                )
+                initialReliableCameraPose = InitialPose(
+                    position: .init(
+                        x: .init(position.x),
+                        y: .init(position.y),
+                        z: .init(position.z)
+                    ),
+                    inverseRotation: Quaternion(
+                        rotationMatrix: SCNMatrix4(frame.camera.transform)
+                    ).inverse
+                )
             }
         }
+    }
+}
+
+// TODO: Improve this...
+final class TemporaryCalibrationStorage {
+    static let shared = TemporaryCalibrationStorage()
+
+    // We could update the stored calibration at the end of a session
+    // so that the user doesn't need to calibrate again when starting a
+    // new session (if they've moved the camera).
+    //
+    // Ideally, we should be tracking the current orientation all the
+    // time, so that the user just needs to calibrate once and so that
+    // they can move the device between sessions.
+    private(set) var calibration: CalibrationResult?
+
+    func save(calibration: CalibrationResult) {
+        self.calibration = calibration
     }
 }

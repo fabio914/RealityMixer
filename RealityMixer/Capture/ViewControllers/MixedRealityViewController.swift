@@ -39,7 +39,7 @@ final class MixedRealityViewController: UIViewController {
         true
     }
 
-    private let cameraPoseSender: CameraPoseSender
+    private let cameraPoseSender: CameraPoseSender?
 
     init(
         client: TCPClient,
@@ -363,7 +363,7 @@ extension MixedRealityViewController: ARSessionDelegate {
             configureForeground(with: frame)
             first = false
         } else {
-            cameraPoseSender.didUpdate(frame: frame)
+            cameraPoseSender?.didUpdate(frame: frame)
         }
     }
 

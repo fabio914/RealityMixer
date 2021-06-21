@@ -15,7 +15,7 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
  - Mixed Reality capture without green screen (using ARKit's person segmentation).
  - Avatars (using ARKit's body tracking) and Ready Player Me avatars. [Example](https://www.youtube.com/watch?v=fOPpnZKSK4I).
  - "AR" mode. [Example](https://www.youtube.com/watch?v=jWCI-Ha1IJU).
- - Moving camera (only with games/apps that implement [this protocol](https://github.com/fabio914/RealityMixer/blob/main/Extras/CameraTestServer.cs)). [Example](https://www.youtube.com/watch?v=_FSoRw4pILk).
+ - Moving camera. [Example](https://www.youtube.com/watch?v=_FSoRw4pILk).
  - Spectator camera. [Example](https://www.youtube.com/watch?v=inp_TRWU5QM).
  - Mixed Reality with green screen (**coming soon**)
 
