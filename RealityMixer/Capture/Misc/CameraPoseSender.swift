@@ -236,3 +236,61 @@ final class TemporaryCalibrationStorage {
         self.calibration = calibration
     }
 }
+
+final class RotatingCamera {
+
+    private weak var client: TCPClient?
+
+    private let radiansPerSecond = .pi/12.0
+    private let radius = 3.0
+    private let height = 2.0
+    private let center = Vector3(x: 0, y: 1.5, z: 0)
+
+    private var currentAngle = 0.0
+
+    private var currentPosition: Vector3 {
+        .init(x: cos(currentAngle) * radius, y: height, z: sin(currentAngle) * radius)
+    }
+
+    init(client: TCPClient) {
+        self.client = client
+    }
+
+    private func sendCameraUpdate(pose: Pose) {
+        _ = client?.send(data: CameraPositionPayload(position: pose.position).data)
+        _ = client?.send(data: CameraRotationPayload(rotation: pose.rotation).data)
+    }
+
+    private func lookAt(_ cameraPosition: Vector3, center: Vector3, up: Vector3 = Vector3(x: 0, y: 1, z: 0)) -> SCNMatrix4 {
+        let forward = (center - cameraPosition).normalized
+        let right = forward.cross(up).normalized
+        let updatedUp = right.cross(forward)
+
+        return SCNMatrix4(
+            m11: Float(right.x),
+            m12: Float(right.y),
+            m13: Float(right.z),
+            m14: 0.0,
+            m21: Float(updatedUp.x),
+            m22: Float(updatedUp.y),
+            m23: Float(updatedUp.z),
+            m24: 0.0,
+            m31: Float(-forward.x),
+            m32: Float(-forward.y),
+            m33: Float(-forward.z),
+            m34: 0.0,
+            m41: 0.0,
+            m42: 0.0,
+            m43: 0.0,
+            m44: 1.0
+        )
+    }
+
+    func update(elapsedTime: TimeInterval) {
+        currentAngle += elapsedTime * radiansPerSecond
+        let currentPosition = self.currentPosition
+        sendCameraUpdate(
+            pose: .init(position: currentPosition, rotation: Quaternion(rotationMatrix: lookAt(currentPosition, center: center)))
+        )
+    }
+}

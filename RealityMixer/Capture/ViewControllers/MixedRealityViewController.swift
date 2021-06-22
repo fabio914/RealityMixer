@@ -39,7 +39,8 @@ final class MixedRealityViewController: UIViewController {
         true
     }
 
-    private let cameraPoseSender: CameraPoseSender?
+//    private let cameraPoseSender: CameraPoseSender?
+    private let rotatingCamera: RotatingCamera
 
     init(
         client: TCPClient,
@@ -48,7 +49,8 @@ final class MixedRealityViewController: UIViewController {
         self.client = client
         self.configuration = configuration
         self.factory = ARConfigurationFactory(mrConfiguration: configuration)
-        self.cameraPoseSender = CameraPoseSender(client: client)
+        self.rotatingCamera = RotatingCamera(client: client)
+//        self.cameraPoseSender = CameraPoseSender(client: client)
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -255,6 +257,8 @@ final class MixedRealityViewController: UIViewController {
     }
 
     @objc func update(with sender: CADisplayLink) {
+        let interval = sender.targetTimestamp - sender.timestamp
+        rotatingCamera.update(elapsedTime: interval)
         receiveData()
         oculusMRC?.update()
     }
@@ -363,7 +367,7 @@ extension MixedRealityViewController: ARSessionDelegate {
             configureForeground(with: frame)
             first = false
         } else {
-            cameraPoseSender?.didUpdate(frame: frame)
+//            cameraPoseSender?.didUpdate(frame: frame)
         }
     }
 
