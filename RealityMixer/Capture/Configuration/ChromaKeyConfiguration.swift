@@ -13,11 +13,25 @@ struct ChromaKeyConfiguration: Codable {
         let red: Float // 0 .. 1
         let green: Float // 0 .. 1
         let blue: Float // 0 .. 1
+
+        init(uiColor: UIColor) {
+            var red: CGFloat = 0
+            var green: CGFloat = 0
+            var blue: CGFloat = 0
+            uiColor.getRed(&red, green: &green, blue: &blue, alpha: nil)
+            self.red = Float(red)
+            self.green = Float(green)
+            self.blue = Float(blue)
+        }
+
+        var uiColor: UIColor {
+            UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: 0)
+        }
     }
 
     enum ChromaKeyMode: Codable {
         case smooth(
-            sensisitivty: Float, // 0 .. 1
+            sensitivity: Float, // 0 .. 1
             smoothness: Float // 0 .. 1
         )
         case threshold(Float) // 0 .. 1
@@ -28,11 +42,6 @@ struct ChromaKeyConfiguration: Codable {
 
     // TODO: Add support for a Mask texture to allow the users
     // to hide parts of the video outside of the green screen.
-
-    static let defaultConfiguration = ChromaKeyConfiguration(
-        color: .init(red: 0, green: 1, blue: 0),
-        mode: .threshold(0.53)
-    )
 }
 
 // MARK: - Codable
@@ -82,7 +91,7 @@ extension ChromaKeyConfiguration.ChromaKeyMode {
         case .smooth:
             let sensitivity = max(0.0, min(1.0, try values.decode(Float.self, forKey: .sensitivity)))
             let smoothness = max(0.0, min(1.0, try values.decode(Float.self, forKey: .smoothness)))
-            self = .smooth(sensisitivty: sensitivity, smoothness: smoothness)
+            self = .smooth(sensitivity: sensitivity, smoothness: smoothness)
         case .threshold:
             let threshold = max(0.0, min(1.0, try values.decode(Float.self, forKey: .threshold)))
             self = .threshold(threshold)

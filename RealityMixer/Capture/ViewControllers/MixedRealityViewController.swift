@@ -13,7 +13,7 @@ import SwiftSocket
 final class MixedRealityViewController: UIViewController {
     private let client: TCPClient
     private let configuration: MixedRealityConfiguration
-    private let chromaConfiguration: ChromaKeyConfiguration
+    private let chromaConfiguration: ChromaKeyConfiguration?
     private let factory: ARConfigurationFactory
     private var audioEngine: AVAudioEngine?
     private var audioPlayer: AVAudioPlayerNode?
@@ -46,7 +46,7 @@ final class MixedRealityViewController: UIViewController {
     init(
         client: TCPClient,
         configuration: MixedRealityConfiguration,
-        chromaConfiguration: ChromaKeyConfiguration,
+        chromaConfiguration: ChromaKeyConfiguration?,
         cameraPoseSender: CameraPoseSender?
     ) {
         self.client = client
@@ -178,7 +178,9 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureMiddle(with frame: ARFrame) {
-        guard case .greenScreen = configuration.captureMode else { return }
+        guard case .greenScreen = configuration.captureMode,
+            let chromaConfiguration = chromaConfiguration
+        else { return }
         let middlePlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.2, frame: frame)
 
         middlePlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero

@@ -321,7 +321,7 @@ final class MixedRealityConnectionViewController: UIViewController {
                         configuration: configuration,
                         // TODO: Warn the user if there's no configuration, and ask them
                         // to configure before continuing
-                        chromaConfiguration: chromaConfiguration ?? .defaultConfiguration,
+                        chromaConfiguration: chromaConfiguration,
                         cameraPoseSender: cameraPoseSender
                     )
 
