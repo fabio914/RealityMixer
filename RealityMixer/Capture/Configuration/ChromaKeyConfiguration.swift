@@ -29,16 +29,9 @@ struct ChromaKeyConfiguration: Codable {
         }
     }
 
-    enum ChromaKeyMode: Codable {
-        case smooth(
-            sensitivity: Float, // 0 .. 1
-            smoothness: Float // 0 .. 1
-        )
-        case threshold(Float) // 0 .. 1
-    }
-
     let color: Color
-    let mode: ChromaKeyMode
+    let sensitivity: Float // 0 .. 1
+    let smoothness: Float // 0 .. 1
 
     // TODO: Add support for a Mask texture to allow the users
     // to hide parts of the video outside of the green screen.
@@ -69,47 +62,15 @@ extension ChromaKeyConfiguration.Color {
     }
 }
 
-extension ChromaKeyConfiguration.ChromaKeyMode {
+// MARK: - Shader
 
-    enum CodingKeys: String, CodingKey {
-        case type
-        case sensitivity
-        case smoothness
-        case threshold
-    }
+extension ChromaKeyConfiguration {
 
-    enum ChromaKeyType: String, Codable {
-        case smooth
-        case threshold
-    }
-
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        let type = try values.decode(ChromaKeyType.self, forKey: .type)
-
-        switch type {
-        case .smooth:
-            let sensitivity = max(0.0, min(1.0, try values.decode(Float.self, forKey: .sensitivity)))
-            let smoothness = max(0.0, min(1.0, try values.decode(Float.self, forKey: .smoothness)))
-            self = .smooth(sensitivity: sensitivity, smoothness: smoothness)
-        case .threshold:
-            let threshold = max(0.0, min(1.0, try values.decode(Float.self, forKey: .threshold)))
-            self = .threshold(threshold)
-        }
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-
-        switch self {
-        case .smooth(let sensitivity, let smoothness):
-            try container.encode(ChromaKeyType.smooth, forKey: .type)
-            try container.encode(sensitivity, forKey: .sensitivity)
-            try container.encode(smoothness, forKey: .smoothness)
-        case .threshold(let value):
-            try container.encode(ChromaKeyType.threshold, forKey: .type)
-            try container.encode(value, forKey: .threshold)
-        }
+    var surfaceShader: String {
+        return Shaders.surfaceChromaKey(
+            red: color.red, green: color.green, blue: color.blue,
+            sensitivity: sensitivity, smoothness: smoothness
+        )
     }
 }
 

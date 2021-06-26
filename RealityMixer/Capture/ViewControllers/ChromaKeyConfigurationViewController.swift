@@ -13,14 +13,10 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     private let chromaConfigurationStorage = ChromaKeyConfigurationStorage()
 
     @IBOutlet private weak var sceneView: ARSCNView!
-    @IBOutlet private weak var modeSegmentedControl: UISegmentedControl!
-
-    @IBOutlet private weak var thresholdContainer: UIStackView!
-    @IBOutlet private weak var thresholdSlider: UISlider!
-
-    @IBOutlet private weak var smoothContainer: UIStackView!
     @IBOutlet private weak var sensitivitySlider: UISlider!
+    @IBOutlet private weak var sensitivityLabel: UILabel!
     @IBOutlet private weak var smoothnessSlider: UISlider!
+    @IBOutlet private weak var smoothnessLabel: UILabel!
 
     private var chromaColor: UIColor = .init(red: 0, green: 1, blue: 0, alpha: 0)
     // TODO: Add reference to the current Mask
@@ -52,24 +48,21 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         configureDisplay()
         configureScene()
 
+        sensitivitySlider.minimumValue = 0.0
+        sensitivitySlider.maximumValue = 1.0
+        sensitivitySlider.value = 0.5
+
         smoothnessSlider.minimumValue = 0
         smoothnessSlider.maximumValue = 0.1
+        smoothnessSlider.value = 0
 
         if let currentConfiguration = chromaConfigurationStorage.configuration {
-            switch currentConfiguration.mode {
-            case .threshold(let threshold):
-                modeSegmentedControl.selectedSegmentIndex = 0
-                thresholdSlider.value = threshold
-            case .smooth(let sensitivity, let smoothness):
-                modeSegmentedControl.selectedSegmentIndex = 1
-                sensitivitySlider.value = sensitivity
-                smoothnessSlider.value = smoothness
-            }
-
-            self.chromaColor = currentConfiguration.color.uiColor
+            sensitivitySlider.value = currentConfiguration.sensitivity
+            smoothnessSlider.value = currentConfiguration.smoothness
+            chromaColor = currentConfiguration.color.uiColor
         }
 
-        updateMode()
+        updateLabels()
     }
 
     private func configureDisplay() {
@@ -109,20 +102,9 @@ final class ChromaKeyConfigurationViewController: UIViewController {
 
     private func configurePlane(with frame: ARFrame) {
         let planeNode = ARKitHelpers.makePlaneNodeForDistance(0.1, frame: frame)
-
         planeNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
-
-        planeNode.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: Shaders.surfaceChromaKey(red: 0, green: 0, blue: 0, threshold: 0)
-        ]
-
         sceneView.pointOfView?.addChildNode(planeNode)
         self.planeNode = planeNode
-    }
-
-    func updateMode() {
-        thresholdContainer.isHidden = modeSegmentedControl.selectedSegmentIndex == 1
-        smoothContainer.isHidden = modeSegmentedControl.selectedSegmentIndex == 0
     }
 
     func updatePlaneImage(with pixelBuffer: CVPixelBuffer) {
@@ -133,9 +115,12 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         planeNode?.geometry?.firstMaterial?.diffuse.contents = chroma
     }
 
-    func didUpdateValues() {
-        updateMode()
+    func updateLabels() {
+        sensitivityLabel.text = String(format: "%.2lf", sensitivitySlider.value)
+        smoothnessLabel.text = String(format: "%.2lf", smoothnessSlider.value)
+    }
 
+    func didUpdateValues() {
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0
@@ -143,41 +128,23 @@ final class ChromaKeyConfigurationViewController: UIViewController {
 
         // TODO: Avoid updating the shader all the time (pass these as
         // parameters)
-        if modeSegmentedControl.selectedSegmentIndex == 0 {
+        planeNode?.geometry?.firstMaterial?.shaderModifiers = [
+            .surface: Shaders.surfaceChromaKey(
+                red: Float(red), green: Float(green), blue: Float(blue),
+                sensitivity: sensitivitySlider.value,
+                smoothness: smoothnessSlider.value
+            )
+        ]
 
-            planeNode?.geometry?.firstMaterial?.shaderModifiers = [
-                .surface: Shaders.surfaceChromaKey(
-                    red: Float(red), green: Float(green), blue: Float(blue),
-                    threshold: thresholdSlider.value
-                )
-            ]
-        } else {
-
-            planeNode?.geometry?.firstMaterial?.shaderModifiers = [
-                .surface: Shaders.surfaceChromaKey(
-                    red: Float(red), green: Float(green), blue: Float(blue),
-                    sensitivity: sensitivitySlider.value,
-                    smoothness: smoothnessSlider.value
-                )
-            ]
-        }
+        updateLabels()
     }
 
     func currentConfiguration() -> ChromaKeyConfiguration {
-        if modeSegmentedControl.selectedSegmentIndex == 0 {
-            return .init(
-                color: .init(uiColor: chromaColor),
-                mode: .threshold(thresholdSlider.value)
-            )
-        } else {
-            return .init(
-                color: .init(uiColor: chromaColor),
-                mode: .smooth(
-                    sensitivity: sensitivitySlider.value,
-                    smoothness: smoothnessSlider.value
-                )
-            )
-        }
+        .init(
+            color: .init(uiColor: chromaColor),
+            sensitivity: sensitivitySlider.value,
+            smoothness: smoothnessSlider.value
+        )
     }
 
     override func viewDidAppear(_ animated: Bool) {

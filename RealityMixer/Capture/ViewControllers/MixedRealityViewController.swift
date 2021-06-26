@@ -186,21 +186,7 @@ final class MixedRealityViewController: UIViewController {
         middlePlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 
         middlePlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: { () -> String in
-                let color = chromaConfiguration.color
-                switch chromaConfiguration.mode {
-                case .smooth(let sensitivity, let smoothness):
-                    return Shaders.surfaceChromaKey(
-                        red: color.red, green: color.green, blue: color.blue,
-                        sensitivity: sensitivity, smoothness: smoothness
-                    )
-                case .threshold(let value):
-                    return Shaders.surfaceChromaKey(
-                        red: color.red, green: color.green, blue: color.blue,
-                        threshold: value
-                    )
-                }
-            }()
+            .surface: chromaConfiguration.surfaceShader
         ]
 
         sceneView.pointOfView?.addChildNode(middlePlaneNode)
