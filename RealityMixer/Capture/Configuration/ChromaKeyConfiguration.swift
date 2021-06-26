@@ -25,7 +25,7 @@ struct ChromaKeyConfiguration: Codable {
         }
 
         var uiColor: UIColor {
-            UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: 0)
+            UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: 1)
         }
     }
 

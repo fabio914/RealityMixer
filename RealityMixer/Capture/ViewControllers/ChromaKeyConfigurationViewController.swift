@@ -17,8 +17,11 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     @IBOutlet private weak var sensitivityLabel: UILabel!
     @IBOutlet private weak var smoothnessSlider: UISlider!
     @IBOutlet private weak var smoothnessLabel: UILabel!
+    @IBOutlet private weak var colorWell: UIColorWell!
 
-    private var chromaColor: UIColor = .init(red: 0, green: 1, blue: 0, alpha: 0)
+    private static let defaultChromaColor = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
+
+    private var chromaColor: UIColor
     // TODO: Add reference to the current Mask
 
     private var textureCache: CVMetalTextureCache?
@@ -36,6 +39,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     private var first = true
 
     init() {
+        self.chromaColor = Self.defaultChromaColor
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -47,22 +51,16 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         super.viewDidLoad()
         configureDisplay()
         configureScene()
-
-        sensitivitySlider.minimumValue = 0.0
-        sensitivitySlider.maximumValue = 1.0
-        sensitivitySlider.value = 0.5
-
-        smoothnessSlider.minimumValue = 0
-        smoothnessSlider.maximumValue = 0.1
-        smoothnessSlider.value = 0
+        configureColorWell()
+        resetValues()
 
         if let currentConfiguration = chromaConfigurationStorage.configuration {
             sensitivitySlider.value = currentConfiguration.sensitivity
             smoothnessSlider.value = currentConfiguration.smoothness
             chromaColor = currentConfiguration.color.uiColor
+            colorWell.selectedColor = chromaColor
+            updateLabels()
         }
-
-        updateLabels()
     }
 
     private func configureDisplay() {
@@ -78,6 +76,27 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         sceneView.session.delegate = self
 
         ARKitHelpers.create(textureCache: &textureCache, for: sceneView)
+    }
+
+    private func configureColorWell() {
+        colorWell.supportsAlpha = false
+        colorWell.addTarget(self, action: #selector(valueChanged(_:)), for: .valueChanged)
+    }
+
+    private func configureSliders() {
+        sensitivitySlider.minimumValue = 0.0
+        sensitivitySlider.maximumValue = 1.0
+
+        smoothnessSlider.minimumValue = 0
+        smoothnessSlider.maximumValue = 0.1
+    }
+
+    private func resetValues() {
+        sensitivitySlider.value = 0.5
+        smoothnessSlider.value = 0
+        chromaColor = Self.defaultChromaColor
+        colorWell.selectedColor = chromaColor
+        updateLabels()
     }
 
     private func configureBackgroundPlane(with frame: ARFrame) {
@@ -121,6 +140,10 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     }
 
     func didUpdateValues() {
+        if let selectedColor = colorWell.selectedColor {
+            chromaColor = selectedColor
+        }
+
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0
@@ -168,8 +191,9 @@ final class ChromaKeyConfigurationViewController: UIViewController {
 
     // MARK: - Actions
 
-    @IBAction func pickColorAction(_ sender: Any) {
-        // TODO
+    @IBAction func resetValuesAction(_ sender: Any) {
+        resetValues()
+        didUpdateValues()
     }
 
     @IBAction private func editMaskAction(_ sender: Any) {

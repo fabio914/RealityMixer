@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChromaKeyConfigurationViewController" customModule="RealityMixer" customModuleProvider="target">
             <connections>
+                <outlet property="colorWell" destination="miV-9L-OUu" id="vQL-Ca-1wX"/>
                 <outlet property="sceneView" destination="NjE-D6-Hlz" id="b2G-1v-4au"/>
                 <outlet property="sensitivityLabel" destination="gyP-YM-mMp" id="FRk-nl-IXk"/>
                 <outlet property="sensitivitySlider" destination="LO9-Kc-beV" id="cUe-5X-JVp"/>
@@ -26,13 +27,49 @@
                     <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                 </arscnView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3df-dJ-Ng5">
-                    <rect key="frame" x="20" y="130" width="528" height="170"/>
+                    <rect key="frame" x="20" y="128" width="528" height="172"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eJR-3f-Yb6">
-                            <rect key="frame" x="20" y="20" width="488" height="130"/>
+                            <rect key="frame" x="20" y="20" width="488" height="132"/>
                             <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gdQ-Yv-MvA">
+                                    <rect key="frame" x="0.0" y="0.0" width="488" height="32"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zj-WF-oL1" userLabel="Reset">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="32"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                            <state key="normal" title="Reset">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="resetValuesAction:" destination="-1" eventType="touchUpInside" id="dBf-gJ-K61"/>
+                                            </connections>
+                                        </button>
+                                        <view contentMode="scaleToFill" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="tVp-CI-7TV">
+                                            <rect key="frame" x="60" y="0.0" width="287" height="32"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpa-mG-W5A">
+                                            <rect key="frame" x="367" y="0.0" width="69" height="32"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                            <state key="normal" title="Edit Mask">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="editMaskAction:" destination="-1" eventType="touchUpInside" id="olO-54-kpf"/>
+                                            </connections>
+                                        </button>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="miV-9L-OUu" customClass="UIColorWell">
+                                            <rect key="frame" x="456" y="0.0" width="32" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="32" id="Urh-6F-IaH"/>
+                                                <constraint firstAttribute="height" constant="32" id="mDr-TF-MGk"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="HCc-Ix-UZP">
-                                    <rect key="frame" x="0.0" y="0.0" width="488" height="30"/>
+                                    <rect key="frame" x="0.0" y="52" width="488" height="30"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sensitivity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HeM-bh-jXk">
                                             <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
@@ -64,7 +101,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="OOb-wA-FtZ">
-                                    <rect key="frame" x="0.0" y="50" width="488" height="30"/>
+                                    <rect key="frame" x="0.0" y="102" width="488" height="30"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smoothness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uA7-HD-vCg">
                                             <rect key="frame" x="0.0" y="0.0" width="84" height="30"/>
@@ -93,31 +130,6 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                    </subviews>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gdQ-Yv-MvA">
-                                    <rect key="frame" x="0.0" y="100" width="488" height="30"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpa-mG-W5A">
-                                            <rect key="frame" x="0.0" y="0.0" width="234" height="30"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                            <state key="normal" title="Edit Mask">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="editMaskAction:" destination="-1" eventType="touchUpInside" id="olO-54-kpf"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aZ2-gl-DVF">
-                                            <rect key="frame" x="254" y="0.0" width="234" height="30"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                            <state key="normal" title="Pick Color">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="pickColorAction:" destination="-1" eventType="touchUpInside" id="bUS-RU-iBH"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                 </stackView>
                             </subviews>
