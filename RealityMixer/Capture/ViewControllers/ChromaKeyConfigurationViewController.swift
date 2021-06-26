@@ -122,6 +122,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     private func configurePlane(with frame: ARFrame) {
         let planeNode = ARKitHelpers.makePlaneNodeForDistance(0.1, frame: frame)
         planeNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
+        planeNode.geometry?.firstMaterial?.shaderModifiers = [.surface: Shaders.surfaceChromaKey()]
         sceneView.pointOfView?.addChildNode(planeNode)
         self.planeNode = planeNode
     }
@@ -149,15 +150,20 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         var blue: CGFloat = 0
         chromaColor.getRed(&red, green: &green, blue: &blue, alpha: nil)
 
-        // TODO: Avoid updating the shader all the time (pass these as
-        // parameters)
-        planeNode?.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: Shaders.surfaceChromaKey(
-                red: Float(red), green: Float(green), blue: Float(blue),
-                sensitivity: sensitivitySlider.value,
-                smoothness: smoothnessSlider.value
-            )
-        ]
+        planeNode?.geometry?.firstMaterial?.setValue(
+            SCNVector3(red, green, blue),
+            forKey: "maskColor"
+        )
+
+        planeNode?.geometry?.firstMaterial?.setValue(
+            sensitivitySlider.value,
+            forKey: "sensitivity"
+        )
+
+        planeNode?.geometry?.firstMaterial?.setValue(
+            smoothnessSlider.value,
+            forKey: "smoothness"
+        )
 
         updateLabels()
     }

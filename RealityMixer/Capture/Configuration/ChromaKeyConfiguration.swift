@@ -62,18 +62,6 @@ extension ChromaKeyConfiguration.Color {
     }
 }
 
-// MARK: - Shader
-
-extension ChromaKeyConfiguration {
-
-    var surfaceShader: String {
-        return Shaders.surfaceChromaKey(
-            red: color.red, green: color.green, blue: color.blue,
-            sensitivity: sensitivity, smoothness: smoothness
-        )
-    }
-}
-
 // MARK: - Storage
 
 final class ChromaKeyConfigurationStorage {

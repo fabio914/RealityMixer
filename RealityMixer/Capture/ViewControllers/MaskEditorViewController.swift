@@ -85,8 +85,25 @@ final class MaskEditorViewController: UIViewController {
         planeNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 
         planeNode.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: chromaConfiguration.surfaceShader
+            .surface: Shaders.surfaceChromaKey()
         ]
+
+        let color = chromaConfiguration.color
+
+        planeNode.geometry?.firstMaterial?.setValue(
+            SCNVector3(color.red, color.green, color.blue),
+            forKey: "maskColor"
+        )
+
+        planeNode.geometry?.firstMaterial?.setValue(
+            chromaConfiguration.sensitivity,
+            forKey: "sensitivity"
+        )
+
+        planeNode.geometry?.firstMaterial?.setValue(
+            chromaConfiguration.smoothness,
+            forKey: "smoothness"
+        )
 
         let luma = ARKitHelpers.texture(from: framePixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
         let chroma = ARKitHelpers.texture(from: framePixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)

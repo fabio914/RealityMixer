@@ -108,10 +108,15 @@ struct Shaders {
         """
     }
 
-    static func surfaceChromaKey(red: Float, green: Float, blue: Float, sensitivity: Float, smoothness: Float) -> String {
+    static func surfaceChromaKey() -> String {
         """
         \(yCrCbToRGB)
         \(smoothChromaKey)
+
+        #pragma arguments
+        uniform vec3 maskColor;
+        uniform float sensitivity;
+        uniform float smoothness;
 
         #pragma body
 
@@ -121,7 +126,7 @@ struct Shaders {
         vec4 textureColor = yCbCrToRGB(luma, chroma);
         _surface.diffuse = textureColor;
 
-        float blendValue = smoothChromaKey(textureColor.rgb, vec3(\(red), \(green), \(blue)), \(sensitivity), \(smoothness));
+        float blendValue = smoothChromaKey(textureColor.rgb, maskColor, sensitivity, smoothness);
         _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
         """
     }
