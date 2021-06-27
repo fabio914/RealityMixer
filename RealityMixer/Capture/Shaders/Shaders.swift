@@ -127,7 +127,68 @@ struct Shaders {
         _surface.diffuse = textureColor;
 
         float blendValue = smoothChromaKey(textureColor.rgb, maskColor, sensitivity, smoothness);
-        _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
+
+        float maskTextureValue = texture2D(u_ambientTexture, _surface.diffuseTexcoord).r;
+        _surface.ambient = vec4(1.0, 1.0, 1.0, 1.0);
+
+        if (maskTextureValue > 0.5) {
+            _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
+        } else {
+            _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
+        }
+        """
+    }
+
+    static func surfaceChromaKeyConfiguration() -> String {
+        """
+        \(yCrCbToRGB)
+        \(smoothChromaKey)
+
+        #pragma arguments
+        uniform vec3 maskColor;
+        uniform float sensitivity;
+        uniform float smoothness;
+
+        #pragma body
+
+        float luma = texture2D(u_transparentTexture, _surface.diffuseTexcoord).r;
+        vec2 chroma = texture2D(u_diffuseTexture, _surface.diffuseTexcoord).rg;
+
+        vec4 textureColor = yCbCrToRGB(luma, chroma);
+        _surface.diffuse = textureColor;
+
+        float blendValue = smoothChromaKey(textureColor.rgb, maskColor, sensitivity, smoothness);
+
+        float maskTextureValue = texture2D(u_ambientTexture, _surface.diffuseTexcoord).r;
+        _surface.ambient = vec4(1.0, 1.0, 1.0, 1.0);
+
+        if (maskTextureValue > 0.5) {
+            _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
+        } else {
+            _surface.diffuse = vec4(0.0, 0.0, 0.0, 1.0);
+            _surface.transparent = vec4(0.75, 0.75, 0.75, 1.0);
+        }
+        """
+    }
+
+    static func maskChromaKey() -> String {
+        """
+        \(yCrCbToRGB)
+        \(smoothChromaKey)
+
+        #pragma arguments
+        uniform vec3 maskColor;
+        uniform float sensitivity;
+
+        #pragma body
+
+        float luma = texture2D(u_transparentTexture, _surface.diffuseTexcoord).r;
+        vec2 chroma = texture2D(u_diffuseTexture, _surface.diffuseTexcoord).rg;
+        vec4 textureColor = yCbCrToRGB(luma, chroma);
+
+        float blendValue = smoothChromaKey(textureColor.rgb, maskColor, sensitivity, 0.0);
+        _surface.diffuse = _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
+        _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
         """
     }
 

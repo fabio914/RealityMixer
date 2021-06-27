@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChromaKeyConfigurationViewController" customModule="RealityMixer" customModuleProvider="target">
             <connections>
                 <outlet property="colorWell" destination="miV-9L-OUu" id="vQL-Ca-1wX"/>
+                <outlet property="editMaskButton" destination="Zpa-mG-W5A" id="kKj-mx-hfK"/>
                 <outlet property="sceneView" destination="NjE-D6-Hlz" id="b2G-1v-4au"/>
                 <outlet property="sensitivityLabel" destination="gyP-YM-mMp" id="FRk-nl-IXk"/>
                 <outlet property="sensitivitySlider" destination="LO9-Kc-beV" id="cUe-5X-JVp"/>
@@ -35,30 +36,66 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gdQ-Yv-MvA">
                                     <rect key="frame" x="0.0" y="0.0" width="488" height="32"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zj-WF-oL1" userLabel="Reset">
-                                            <rect key="frame" x="0.0" y="0.0" width="40" height="32"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                            <state key="normal" title="Reset">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="resetValuesAction:" destination="-1" eventType="touchUpInside" id="dBf-gJ-K61"/>
-                                            </connections>
-                                        </button>
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rqo-Mc-Oen">
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="32"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zj-WF-oL1" userLabel="Reset">
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="32"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <state key="normal" title="Reset Values">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="resetValuesAction:" destination="-1" eventType="touchUpInside" id="dBf-gJ-K61"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="4zj-WF-oL1" secondAttribute="bottom" id="38s-k9-De2"/>
+                                                <constraint firstItem="4zj-WF-oL1" firstAttribute="top" secondItem="rqo-Mc-Oen" secondAttribute="top" id="N9h-ir-yLQ"/>
+                                                <constraint firstItem="4zj-WF-oL1" firstAttribute="leading" secondItem="rqo-Mc-Oen" secondAttribute="leading" id="Py2-Nn-1zP"/>
+                                                <constraint firstAttribute="width" constant="120" id="g3R-9p-rxN"/>
+                                                <constraint firstAttribute="trailing" secondItem="4zj-WF-oL1" secondAttribute="trailing" id="x6A-wh-8Gp"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
                                         <view contentMode="scaleToFill" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="tVp-CI-7TV">
-                                            <rect key="frame" x="60" y="0.0" width="287" height="32"/>
+                                            <rect key="frame" x="140" y="0.0" width="156" height="32"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpa-mG-W5A">
-                                            <rect key="frame" x="367" y="0.0" width="69" height="32"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                            <state key="normal" title="Edit Mask">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="editMaskAction:" destination="-1" eventType="touchUpInside" id="olO-54-kpf"/>
-                                            </connections>
-                                        </button>
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pRl-cY-ads">
+                                            <rect key="frame" x="316" y="0.0" width="120" height="32"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpa-mG-W5A">
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="32"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <state key="normal" title="Remove Mask">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="editMaskAction:" destination="-1" eventType="touchUpInside" id="olO-54-kpf"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="Zpa-mG-W5A" firstAttribute="top" secondItem="pRl-cY-ads" secondAttribute="top" id="8mg-D4-Miz"/>
+                                                <constraint firstItem="Zpa-mG-W5A" firstAttribute="leading" secondItem="pRl-cY-ads" secondAttribute="leading" id="UCm-PA-qzn"/>
+                                                <constraint firstAttribute="bottom" secondItem="Zpa-mG-W5A" secondAttribute="bottom" id="VhC-dy-tTN"/>
+                                                <constraint firstAttribute="width" constant="120" id="dzw-bn-YvW"/>
+                                                <constraint firstAttribute="trailing" secondItem="Zpa-mG-W5A" secondAttribute="trailing" id="wny-Pa-6ab"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="miV-9L-OUu" customClass="UIColorWell">
                                             <rect key="frame" x="456" y="0.0" width="32" height="32"/>
                                             <constraints>

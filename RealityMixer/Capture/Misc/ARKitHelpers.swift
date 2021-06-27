@@ -39,6 +39,11 @@ struct ARKitHelpers {
             return false
         }
 
+        return create(textureCache: &textureCache, forDevice: metalDevice)
+    }
+
+    @discardableResult
+    static func create(textureCache: inout CVMetalTextureCache?, forDevice metalDevice: MTLDevice) -> Bool {
         let result = CVMetalTextureCacheCreate(
             kCFAllocatorDefault,
             nil,

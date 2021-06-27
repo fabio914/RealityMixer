@@ -18,11 +18,12 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     @IBOutlet private weak var smoothnessSlider: UISlider!
     @IBOutlet private weak var smoothnessLabel: UILabel!
     @IBOutlet private weak var colorWell: UIColorWell!
+    @IBOutlet private weak var editMaskButton: UIButton!
 
     private static let defaultChromaColor = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
 
     private var chromaColor: UIColor
-    // TODO: Add reference to the current Mask
+    private var maskImage: UIImage?
 
     private var textureCache: CVMetalTextureCache?
     private var backgroundPlaneNode: SCNNode?
@@ -39,6 +40,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     private var first = true
 
     init() {
+        // TODO: Load mask image
         self.chromaColor = Self.defaultChromaColor
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
@@ -59,8 +61,10 @@ final class ChromaKeyConfigurationViewController: UIViewController {
             smoothnessSlider.value = currentConfiguration.smoothness
             chromaColor = currentConfiguration.color.uiColor
             colorWell.selectedColor = chromaColor
-            updateLabels()
+            updateValueLabels()
         }
+
+        updateMaskButton()
     }
 
     private func configureDisplay() {
@@ -96,7 +100,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         smoothnessSlider.value = 0
         chromaColor = Self.defaultChromaColor
         colorWell.selectedColor = chromaColor
-        updateLabels()
+        updateValueLabels()
     }
 
     private func configureBackgroundPlane(with frame: ARFrame) {
@@ -122,7 +126,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     private func configurePlane(with frame: ARFrame) {
         let planeNode = ARKitHelpers.makePlaneNodeForDistance(0.1, frame: frame)
         planeNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
-        planeNode.geometry?.firstMaterial?.shaderModifiers = [.surface: Shaders.surfaceChromaKey()]
+        planeNode.geometry?.firstMaterial?.shaderModifiers = [.surface: Shaders.surfaceChromaKeyConfiguration()]
         sceneView.pointOfView?.addChildNode(planeNode)
         self.planeNode = planeNode
     }
@@ -133,11 +137,25 @@ final class ChromaKeyConfigurationViewController: UIViewController {
 
         planeNode?.geometry?.firstMaterial?.transparent.contents = luma
         planeNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+
+        if let maskImage = maskImage {
+            planeNode?.geometry?.firstMaterial?.ambient.contents = maskImage
+        } else {
+            planeNode?.geometry?.firstMaterial?.ambient.contents = UIColor.white
+        }
     }
 
-    func updateLabels() {
+    func updateValueLabels() {
         sensitivityLabel.text = String(format: "%.2lf", sensitivitySlider.value)
         smoothnessLabel.text = String(format: "%.2lf", smoothnessSlider.value)
+    }
+
+    func updateMaskButton() {
+        if maskImage != nil {
+            editMaskButton.setTitle("Remove Mask", for: .normal)
+        } else {
+            editMaskButton.setTitle("Add Mask", for: .normal)
+        }
     }
 
     func didUpdateValues() {
@@ -165,7 +183,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
             forKey: "smoothness"
         )
 
-        updateLabels()
+        updateValueLabels()
     }
 
     func currentConfiguration() -> ChromaKeyConfiguration {
@@ -203,18 +221,22 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     }
 
     @IBAction private func editMaskAction(_ sender: Any) {
-        guard let currentFrame = sceneView.session.currentFrame else {
-            return
+        if maskImage == nil {
+            guard let currentFrame = sceneView.session.currentFrame else {
+                return
+            }
+
+            self.maskImage = ChromaKeyMaskBuilder.buildMask(for: currentFrame, chromaConfiguration: currentConfiguration())
+        } else {
+            self.maskImage = nil
         }
 
-        // TODO: Pass the current mask
-        let viewController = MaskEditorViewController(frame: currentFrame, chromaConfiguration: currentConfiguration())
-        viewController.modalPresentationStyle = .overFullScreen
-        present(viewController, animated: true, completion: nil)
+        updateMaskButton()
     }
 
     @IBAction private func saveAction(_ sender: Any) {
         try? chromaConfigurationStorage.save(configuration: currentConfiguration())
+        // TODO: Save mask
         dismiss(animated: true, completion: nil)
     }
 

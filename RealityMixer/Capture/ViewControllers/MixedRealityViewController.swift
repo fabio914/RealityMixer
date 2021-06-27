@@ -257,6 +257,9 @@ final class MixedRealityViewController: UIViewController {
 
         middlePlaneNode?.geometry?.firstMaterial?.transparent.contents = luma
         middlePlaneNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+
+        // TODO: Load mask (if available)
+        middlePlaneNode?.geometry?.firstMaterial?.ambient.contents = UIColor.white
     }
 
     override func viewDidAppear(_ animated: Bool) {

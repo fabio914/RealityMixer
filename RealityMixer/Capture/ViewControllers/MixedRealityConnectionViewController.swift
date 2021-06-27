@@ -370,6 +370,7 @@ final class MixedRealityConnectionViewController: UIViewController {
             return
         }
 
+        // TODO: Update these alerts, and offer Green screen mode or Raw mode.
         switch (configuration.captureMode, configuration.captureMode.isSupported) {
         case (.bodyTracking, false):
             let alert = UIAlertController(
