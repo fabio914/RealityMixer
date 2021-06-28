@@ -15,8 +15,20 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var portTextField: UITextField!
 
     // MARK: - Capture Mode
-    @IBOutlet private weak var captureModeSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var captureModeInfoLabel: UILabel!
+    @IBOutlet private weak var virtualGreenScreenModeView: UIView!
+    @IBOutlet private weak var avatarModeView: UIView!
+    @IBOutlet private weak var greenScreenModeView: UIView!
+    @IBOutlet private weak var rawModeView: UIView!
+
+    enum Mode {
+        case personSegmentation
+        case bodyTracking
+        case greenScreen
+        case raw
+    }
+
+    private var selectedMode: Mode = .personSegmentation
 
     // MARK: - Avatar
     @IBOutlet private weak var avatarSection: UIStackView!
@@ -132,14 +144,21 @@ final class MixedRealityConnectionViewController: UIViewController {
         avatarSegmentedControl.selectedSegmentIndex = 0
         chromaKeySection.isHidden = true
 
+        virtualGreenScreenModeView.backgroundColor = UIColor.clear
+        avatarModeView.backgroundColor = UIColor.clear
+        greenScreenModeView.backgroundColor = UIColor.clear
+        rawModeView.backgroundColor = UIColor.clear
+
         switch configuration.captureMode {
         case .personSegmentation:
-            captureModeSegmentedControl.selectedSegmentIndex = 0
+            selectedMode = .personSegmentation
+            virtualGreenScreenModeView.backgroundColor = UIColor.white
             captureModeInfoLabel.text = """
             This mode uses Person Segmentation to extract your body from the video without using a green screen. It works best if the camera is pointed to a wall in a well-lit environment, and if you're the only thing between the camera and the wall.
             """
         case .bodyTracking(let avatarType):
-            captureModeSegmentedControl.selectedSegmentIndex = 1
+            selectedMode = .bodyTracking
+            avatarModeView.backgroundColor = UIColor.white
             avatarSection.isHidden = false
             captureModeInfoLabel.text = """
             This mode uses Body Tracking to capture your movement and animate an avatar. It works best if your entire body is within frame (including your feet) and if you're facing the back camera, the avatar might not appear or animate properly otherwise.
@@ -159,13 +178,15 @@ final class MixedRealityConnectionViewController: UIViewController {
                 avatarSegmentedControl.selectedSegmentIndex = 5
             }
         case .greenScreen:
-            captureModeSegmentedControl.selectedSegmentIndex = 2
+            selectedMode = .greenScreen
+            greenScreenModeView.backgroundColor = UIColor.white
             chromaKeySection.isHidden = false
             captureModeInfoLabel.text = """
             Use this mode if you have a physical green screen. Make sure that your green screen is lit evenly.
             """
         case .raw:
-            captureModeSegmentedControl.selectedSegmentIndex = 3
+            selectedMode = .raw
+            rawModeView.backgroundColor = UIColor.white
             captureModeInfoLabel.text = """
             This mode only displays the raw output from the Oculus Quest. You won't be able to see the output from the camera unless you hide or filter the background layer.
             """
@@ -214,10 +235,10 @@ final class MixedRealityConnectionViewController: UIViewController {
     private func updateConfiguration() {
         updateConfiguration(
             captureMode: {
-                switch captureModeSegmentedControl.selectedSegmentIndex {
-                case 0:
+                switch selectedMode {
+                case .personSegmentation:
                     return .personSegmentation
-                case 1:
+                case .bodyTracking:
                     return .bodyTracking(avatar: {
                         switch avatarSegmentedControl.selectedSegmentIndex {
                         case 0:
@@ -234,9 +255,9 @@ final class MixedRealityConnectionViewController: UIViewController {
                             return .skeleton
                         }
                     }())
-                case 2:
+                case .greenScreen:
                     return .greenScreen
-                default: // 3
+                case .raw:
                     return .raw
                 }
             }()
@@ -333,6 +354,26 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     // MARK: - Actions
+
+    @IBAction private func selectVirtualGreenScreenAction(_ sender: Any) {
+        selectedMode = .personSegmentation
+        updateConfiguration()
+    }
+
+    @IBAction private func selectAvatarAction(_ sender: Any) {
+        selectedMode = .bodyTracking
+        updateConfiguration()
+    }
+
+    @IBAction private func selectGreenScreenAction(_ sender: Any) {
+        selectedMode = .greenScreen
+        updateConfiguration()
+    }
+
+    @IBAction func selectRawAction(_ sender: Any) {
+        selectedMode = .raw
+        updateConfiguration()
+    }
 
     @objc private func backAction() {
         navigationController?.dismiss(animated: true, completion: nil)

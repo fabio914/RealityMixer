@@ -53,6 +53,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         super.viewDidLoad()
         configureDisplay()
         configureScene()
+        configureSliders()
         configureColorWell()
         resetValues()
 
