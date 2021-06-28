@@ -17,7 +17,7 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
  - "AR" mode. [Example](https://www.youtube.com/watch?v=jWCI-Ha1IJU).
  - Moving camera (only with games/apps that implement [this protocol](https://github.com/fabio914/RealityMixer/blob/main/Extras/CameraTestServer.cs)). [Example](https://www.youtube.com/watch?v=_FSoRw4pILk).
  - Spectator camera. [Example](https://www.youtube.com/watch?v=inp_TRWU5QM).
- - Mixed Reality with green screen (**coming soon**)
+ - Mixed Reality with green screen.
 
 ## Examples
 

@@ -108,6 +108,8 @@ struct Shaders {
         """
     }
 
+    // FIXME: avoid converting from yCbCr to RGB and then back to yCbCr...
+
     static func surfaceChromaKey() -> String {
         """
         \(yCrCbToRGB)

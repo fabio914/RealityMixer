@@ -59,7 +59,7 @@ struct MixedRealityConfiguration: Codable, Equatable {
     let backgroundLayerOptions: BackgroundLayerOptions
 
     static let defaultConfiguration = MixedRealityConfiguration(
-        captureMode: .personSegmentation,
+        captureMode: CaptureMode.personSegmentation.isSupported ? .personSegmentation:.greenScreen,
         enableAudio: true,
         enableAutoFocus: false,
         shouldFlipOutput: true,

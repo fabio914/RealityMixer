@@ -33,6 +33,7 @@
                 <outlet property="scrollView" destination="Fl1-MX-Dh0" id="nAb-23-e3d"/>
                 <outlet property="secondInfoLabel" destination="i5n-Pa-HjL" id="phQ-wk-zIK"/>
                 <outlet property="showOptionsButton" destination="zAL-RL-fM1" id="D2c-Ue-cAh"/>
+                <outlet property="specialModesContainer" destination="j2Z-Ip-SMX" id="YpI-Cl-Oh4"/>
                 <outlet property="thirdInfoLabel" destination="IU3-yK-ZhP" id="TuP-Ji-w80"/>
                 <outlet property="unflipSwitch" destination="YfJ-I6-mox" id="W2V-XS-nee"/>
                 <outlet property="view" destination="iN0-l3-epB" id="MVq-9T-B2W"/>

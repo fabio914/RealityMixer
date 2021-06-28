@@ -16,6 +16,7 @@ final class MixedRealityConnectionViewController: UIViewController {
 
     // MARK: - Capture Mode
     @IBOutlet private weak var captureModeInfoLabel: UILabel!
+    @IBOutlet private weak var specialModesContainer: UIView!
     @IBOutlet private weak var virtualGreenScreenModeView: UIView!
     @IBOutlet private weak var avatarModeView: UIView!
     @IBOutlet private weak var greenScreenModeView: UIView!
@@ -103,6 +104,7 @@ final class MixedRealityConnectionViewController: UIViewController {
         optionsStackView.isHidden = true
 
         configureInfoLabel()
+        configureModes()
         didUpdate(configuration: configuration)
     }
 
@@ -137,6 +139,19 @@ final class MixedRealityConnectionViewController: UIViewController {
 
          • After your mixed reality session is over, tap on the screen once to display the options on the top left side of the screen, and then tap on "Disconnect".
         """
+    }
+
+    private func configureModes() {
+        let personSegmentationSupported = MixedRealityConfiguration.CaptureMode.personSegmentation.isSupported
+        let bodyTrackingSupported = MixedRealityConfiguration.CaptureMode.bodyTracking(avatar: .avatar1).isSupported
+
+        if personSegmentationSupported || bodyTrackingSupported {
+            virtualGreenScreenModeView.isHidden = !personSegmentationSupported
+            avatarModeView.isHidden = !bodyTrackingSupported
+            specialModesContainer.isHidden = false
+        } else {
+            specialModesContainer.isHidden = true
+        }
     }
 
     private func didUpdate(configuration: MixedRealityConfiguration) {
@@ -233,7 +248,7 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     private func updateConfiguration() {
-        updateConfiguration(
+        configuration = MixedRealityConfiguration(
             captureMode: {
                 switch selectedMode {
                 case .personSegmentation:
@@ -260,13 +275,7 @@ final class MixedRealityConnectionViewController: UIViewController {
                 case .raw:
                     return .raw
                 }
-            }()
-        )
-    }
-
-    private func updateConfiguration(captureMode: MixedRealityConfiguration.CaptureMode) {
-        configuration = MixedRealityConfiguration(
-            captureMode: captureMode,
+            }(),
             enableAudio: audioSwitch.isOn,
             enableAutoFocus: autoFocusSwitch.isOn,
             shouldFlipOutput: !unflipSwitch.isOn,
@@ -340,8 +349,6 @@ final class MixedRealityConnectionViewController: UIViewController {
                     let viewController = MixedRealityViewController(
                         client: client,
                         configuration: configuration,
-                        // TODO: Warn the user if there's no configuration, and ask them
-                        // to configure before continuing
                         chromaConfiguration: chromaConfiguration,
                         cameraPoseSender: cameraPoseSender
                     )
@@ -351,6 +358,12 @@ final class MixedRealityConnectionViewController: UIViewController {
                 })
             }
         })
+    }
+
+    private func presentChromaKeyOptions() {
+        let viewController = ChromaKeyConfigurationViewController()
+        viewController.modalPresentationStyle = .overFullScreen
+        present(viewController, animated: true, completion: nil)
     }
 
     // MARK: - Actions
@@ -389,9 +402,7 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     @IBAction func showChromaKeyOptions(_ sender: Any) {
-        let viewController = ChromaKeyConfigurationViewController()
-        viewController.modalPresentationStyle = .overFullScreen
-        present(viewController, animated: true, completion: nil)
+        presentChromaKeyOptions()
     }
 
     @IBAction func configurationValueDidChange(_ sender: Any) {
@@ -406,44 +417,34 @@ final class MixedRealityConnectionViewController: UIViewController {
 
         guard let address = addressTextField.text, !address.isEmpty,
             let portText = portTextField.text, !portText.isEmpty,
-            let port = Int32(portText)
+            let port = Int32(portText),
+            configuration.captureMode.isSupported
         else {
             return
         }
 
-        // TODO: Update these alerts, and offer Green screen mode or Raw mode.
-        switch (configuration.captureMode, configuration.captureMode.isSupported) {
-        case (.bodyTracking, false):
-            let alert = UIAlertController(
-                title: "Sorry",
-                message: "Body tracking (avatar) requires a device with an A12 chip or newer. Would you like to continue without it?",
+        if case .greenScreen = configuration.captureMode,
+           chromaConfigurationStorage.configuration == nil {
+
+            let missingConfigurationAlert = UIAlertController(
+                title: "Chroma Key",
+                message: "You'll need to configure the Chroma Key effect before you can continue.",
                 preferredStyle: .alert
             )
 
-            alert.addAction(.init(title: "Continue", style: .default, handler: { [weak self] _ in
-                self?.updateConfiguration(captureMode: .raw)
-                self?.startConnection(address: address, port: port)
-            }))
-
-            alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
-        case (.personSegmentation, false):
-            let alert = UIAlertController(
-                title: "Sorry",
-                message: "Person segmentation (virtual green screen) requires a device with an A12 chip or newer. Would you like to continue without it?",
-                preferredStyle: .alert
+            missingConfigurationAlert.addAction(
+                .init(title: "Configure Chroma Key", style: .default, handler: { [weak self] _ in
+                    self?.presentChromaKeyOptions()
+                })
             )
 
-            alert.addAction(.init(title: "Continue", style: .default, handler: { [weak self] _ in
-                self?.updateConfiguration(captureMode: .raw)
-                self?.startConnection(address: address, port: port)
-            }))
+            missingConfigurationAlert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
 
-            alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
-        default:
-            startConnection(address: address, port: port)
+            present(missingConfigurationAlert, animated: true, completion: nil)
+            return
         }
+
+        startConnection(address: address, port: port)
     }
 
     @IBAction private func startCalibrationAction(_ sender: Any) {

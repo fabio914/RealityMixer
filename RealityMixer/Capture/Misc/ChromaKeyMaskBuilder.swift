@@ -81,7 +81,7 @@ final class ChromaKeyMaskBuilder {
         let ciImage = CIImage(image: initialMask)
         let filter = CIFilter.morphologyMinimum()
         filter.inputImage = ciImage
-        filter.radius = 5 // TODO: Increase erosion
+        filter.radius = 10
         return filter.outputImage.flatMap(uiImage(from:))
     }
 
