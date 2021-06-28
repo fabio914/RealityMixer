@@ -11,6 +11,7 @@ import ARKit
 final class ChromaKeyConfigurationViewController: UIViewController {
 
     private let chromaConfigurationStorage = ChromaKeyConfigurationStorage()
+    private let maskStorage = ChromaKeyMaskStorage()
 
     @IBOutlet private weak var sceneView: ARSCNView!
     @IBOutlet private weak var sensitivitySlider: UISlider!
@@ -40,7 +41,6 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     private var first = true
 
     init() {
-        // TODO: Load mask image
         self.chromaColor = Self.defaultChromaColor
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
@@ -65,6 +65,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
             updateValueLabels()
         }
 
+        maskImage = maskStorage.load()
         updateMaskButton()
     }
 
@@ -237,7 +238,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
 
     @IBAction private func saveAction(_ sender: Any) {
         try? chromaConfigurationStorage.save(configuration: currentConfiguration())
-        // TODO: Save mask
+        try? maskStorage.update(mask: maskImage)
         dismiss(animated: true, completion: nil)
     }
 

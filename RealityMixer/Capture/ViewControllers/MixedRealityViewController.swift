@@ -206,6 +206,14 @@ final class MixedRealityViewController: UIViewController {
             forKey: "smoothness"
         )
 
+        let maskStorage = ChromaKeyMaskStorage()
+
+        if let maskImage = maskStorage.load() {
+            middlePlaneNode.geometry?.firstMaterial?.ambient.contents = maskImage
+        } else {
+            middlePlaneNode.geometry?.firstMaterial?.ambient.contents = UIColor.white
+        }
+
         sceneView.pointOfView?.addChildNode(middlePlaneNode)
         self.middlePlaneNode = middlePlaneNode
     }
@@ -257,9 +265,6 @@ final class MixedRealityViewController: UIViewController {
 
         middlePlaneNode?.geometry?.firstMaterial?.transparent.contents = luma
         middlePlaneNode?.geometry?.firstMaterial?.diffuse.contents = chroma
-
-        // TODO: Load mask (if available)
-        middlePlaneNode?.geometry?.firstMaterial?.ambient.contents = UIColor.white
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -75,3 +75,28 @@ final class ChromaKeyConfigurationStorage {
         storage.object
     }
 }
+
+final class ChromaKeyMaskStorage {
+    private let manager = FileManager.default
+
+    var maskURL: URL? {
+        manager
+            .urls(for: .documentDirectory, in: .userDomainMask)
+            .first?
+            .appendingPathComponent("mask.png")
+    }
+
+    func update(mask: UIImage?) throws {
+        guard let maskURL = maskURL else { return }
+
+        if let mask = mask {
+            try mask.pngData()?.write(to: maskURL)
+        } else {
+            try manager.removeItem(at: maskURL)
+        }
+    }
+
+    func load() -> UIImage? {
+        maskURL.flatMap({ try? Data(contentsOf: $0) }).flatMap(UIImage.init(data:))
+    }
+}
