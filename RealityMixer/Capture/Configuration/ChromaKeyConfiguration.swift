@@ -32,9 +32,6 @@ struct ChromaKeyConfiguration: Codable {
     let color: Color
     let sensitivity: Float // 0 .. 1
     let smoothness: Float // 0 .. 1
-
-    // TODO: Add support for a Mask texture to allow the users
-    // to hide parts of the video outside of the green screen.
 }
 
 // MARK: - Codable
