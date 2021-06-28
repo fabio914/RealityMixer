@@ -61,7 +61,7 @@ struct MixedRealityConfiguration: Codable, Equatable {
     static let defaultConfiguration = MixedRealityConfiguration(
         captureMode: .personSegmentation,
         enableAudio: true,
-        enableAutoFocus: true,
+        enableAutoFocus: false,
         shouldFlipOutput: true,
         foregroundLayerOptions: .init(visibility: .visible(useMagentaAsTransparency: false)),
         backgroundLayerOptions: .init(visibility: .visible)
