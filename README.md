@@ -17,7 +17,7 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
  - "AR" mode. [Example](https://www.youtube.com/watch?v=jWCI-Ha1IJU).
  - Moving camera (only with games/apps that implement [this protocol](https://github.com/fabio914/RealityMixer/blob/main/Extras/CameraTestServer.cs)). [Example](https://www.youtube.com/watch?v=_FSoRw4pILk).
  - Spectator camera. [Example](https://www.youtube.com/watch?v=inp_TRWU5QM).
- - Mixed Reality with green screen (**coming soon**)
+ - Mixed Reality with green screen. (**coming soon**)
 
 ## Examples
 
@@ -81,8 +81,6 @@ ORGANIZATION_IDENTIFIER = com.yourcompany
  - [ ] Investigate the audio delay;
 
  - [ ] Improve the calibration screen and fix the positioning of the controller models;
- 
- - [ ] Add a "green screen mode" that will allow the user to use the app with a regular green screen, allowing the app to run on devices without an A12 chip;
  
 ## Wishlist
 

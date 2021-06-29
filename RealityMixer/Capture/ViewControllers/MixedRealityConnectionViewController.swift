@@ -15,12 +15,28 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var portTextField: UITextField!
 
     // MARK: - Capture Mode
-    @IBOutlet private weak var captureModeSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var captureModeInfoLabel: UILabel!
+    @IBOutlet private weak var specialModesContainer: UIView!
+    @IBOutlet private weak var virtualGreenScreenModeView: UIView!
+    @IBOutlet private weak var avatarModeView: UIView!
+    @IBOutlet private weak var greenScreenModeView: UIView!
+    @IBOutlet private weak var rawModeView: UIView!
+
+    enum Mode {
+        case personSegmentation
+        case bodyTracking
+        case greenScreen
+        case raw
+    }
+
+    private var selectedMode: Mode = .personSegmentation
 
     // MARK: - Avatar
     @IBOutlet private weak var avatarSection: UIStackView!
     @IBOutlet private weak var avatarSegmentedControl: UISegmentedControl!
+
+    // MARK: - Chroma Key Options
+    @IBOutlet private weak var chromaKeySection: UIStackView!
 
     // MARK: - Options
     @IBOutlet private weak var optionsStackView: UIStackView!
@@ -45,12 +61,13 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
 
-    private let preferenceStorage = PreferenceStorage()
-    private let configurationStorage = ConfigurationStorage()
+    private let networkConfigurationStorage = NetworkConfigurationStorage()
+    private let mixedRealityConfigurationStorage = MixedRealityConfigurationStorage()
+    private let chromaConfigurationStorage = ChromaKeyConfigurationStorage()
 
     private var configuration: MixedRealityConfiguration {
         get {
-            configurationStorage.configuration
+            mixedRealityConfigurationStorage.configuration
         }
         set {
             guard newValue != configuration else { return }
@@ -58,7 +75,7 @@ final class MixedRealityConnectionViewController: UIViewController {
             UIView.animate(withDuration: 0.1, animations: {
                 self.view.layoutIfNeeded()
             })
-            try? configurationStorage.save(configuration: newValue)
+            try? mixedRealityConfigurationStorage.save(configuration: newValue)
         }
     }
 
@@ -77,8 +94,8 @@ final class MixedRealityConnectionViewController: UIViewController {
         addressTextField.delegate = self
         portTextField.delegate = self
 
-        if let preferences = preferenceStorage.preference {
-            addressTextField.text = preferences.address
+        if let networkConfiguration = networkConfigurationStorage.configuration {
+            addressTextField.text = networkConfiguration.address
         }
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backAction))
@@ -87,6 +104,7 @@ final class MixedRealityConnectionViewController: UIViewController {
         optionsStackView.isHidden = true
 
         configureInfoLabel()
+        configureModes()
         didUpdate(configuration: configuration)
     }
 
@@ -123,17 +141,39 @@ final class MixedRealityConnectionViewController: UIViewController {
         """
     }
 
+    private func configureModes() {
+        let personSegmentationSupported = MixedRealityConfiguration.CaptureMode.personSegmentation.isSupported
+        let bodyTrackingSupported = MixedRealityConfiguration.CaptureMode.bodyTracking(avatar: .avatar1).isSupported
+
+        if personSegmentationSupported || bodyTrackingSupported {
+            virtualGreenScreenModeView.isHidden = !personSegmentationSupported
+            avatarModeView.isHidden = !bodyTrackingSupported
+            specialModesContainer.isHidden = false
+        } else {
+            specialModesContainer.isHidden = true
+        }
+    }
+
     private func didUpdate(configuration: MixedRealityConfiguration) {
+        avatarSection.isHidden = true
+        avatarSegmentedControl.selectedSegmentIndex = 0
+        chromaKeySection.isHidden = true
+
+        virtualGreenScreenModeView.backgroundColor = UIColor.clear
+        avatarModeView.backgroundColor = UIColor.clear
+        greenScreenModeView.backgroundColor = UIColor.clear
+        rawModeView.backgroundColor = UIColor.clear
+
         switch configuration.captureMode {
         case .personSegmentation:
-            captureModeSegmentedControl.selectedSegmentIndex = 0
-            avatarSection.isHidden = true
-            avatarSegmentedControl.selectedSegmentIndex = 0
+            selectedMode = .personSegmentation
+            virtualGreenScreenModeView.backgroundColor = UIColor.white
             captureModeInfoLabel.text = """
             This mode uses Person Segmentation to extract your body from the video without using a green screen. It works best if the camera is pointed to a wall in a well-lit environment, and if you're the only thing between the camera and the wall.
             """
         case .bodyTracking(let avatarType):
-            captureModeSegmentedControl.selectedSegmentIndex = 1
+            selectedMode = .bodyTracking
+            avatarModeView.backgroundColor = UIColor.white
             avatarSection.isHidden = false
             captureModeInfoLabel.text = """
             This mode uses Body Tracking to capture your movement and animate an avatar. It works best if your entire body is within frame (including your feet) and if you're facing the back camera, the avatar might not appear or animate properly otherwise.
@@ -152,10 +192,16 @@ final class MixedRealityConnectionViewController: UIViewController {
             case .skeleton:
                 avatarSegmentedControl.selectedSegmentIndex = 5
             }
+        case .greenScreen:
+            selectedMode = .greenScreen
+            greenScreenModeView.backgroundColor = UIColor.white
+            chromaKeySection.isHidden = false
+            captureModeInfoLabel.text = """
+            Use this mode if you have a physical green screen. Make sure that your green screen is lit evenly.
+            """
         case .raw:
-            captureModeSegmentedControl.selectedSegmentIndex = 2
-            avatarSection.isHidden = true
-            avatarSegmentedControl.selectedSegmentIndex = 0
+            selectedMode = .raw
+            rawModeView.backgroundColor = UIColor.white
             captureModeInfoLabel.text = """
             This mode only displays the raw output from the Oculus Quest. You won't be able to see the output from the camera unless you hide or filter the background layer.
             """
@@ -202,12 +248,12 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     private func updateConfiguration() {
-        updateConfiguration(
+        configuration = MixedRealityConfiguration(
             captureMode: {
-                switch captureModeSegmentedControl.selectedSegmentIndex {
-                case 0:
+                switch selectedMode {
+                case .personSegmentation:
                     return .personSegmentation
-                case 1:
+                case .bodyTracking:
                     return .bodyTracking(avatar: {
                         switch avatarSegmentedControl.selectedSegmentIndex {
                         case 0:
@@ -224,16 +270,12 @@ final class MixedRealityConnectionViewController: UIViewController {
                             return .skeleton
                         }
                     }())
-                default: // 2
+                case .greenScreen:
+                    return .greenScreen
+                case .raw:
                     return .raw
                 }
-            }()
-        )
-    }
-
-    private func updateConfiguration(captureMode: MixedRealityConfiguration.CaptureMode) {
-        configuration = MixedRealityConfiguration(
-            captureMode: captureMode,
+            }(),
             enableAudio: audioSwitch.isOn,
             enableAutoFocus: autoFocusSwitch.isOn,
             shouldFlipOutput: !unflipSwitch.isOn,
@@ -297,15 +339,17 @@ final class MixedRealityConnectionViewController: UIViewController {
                 })
 
             case .success:
-                try? self.preferenceStorage.save(preference: .init(address: address))
+                try? self.networkConfigurationStorage.save(configuration: .init(address: address))
                 let cameraPoseSender = CameraPoseSender(address: address)
                 let configuration = self.configuration
+                let chromaConfiguration = self.chromaConfigurationStorage.configuration
 
                 connectionAlert.dismiss(animated: false, completion: { [weak self] in
 
                     let viewController = MixedRealityViewController(
                         client: client,
                         configuration: configuration,
+                        chromaConfiguration: chromaConfiguration,
                         cameraPoseSender: cameraPoseSender
                     )
 
@@ -316,7 +360,33 @@ final class MixedRealityConnectionViewController: UIViewController {
         })
     }
 
+    private func presentChromaKeyOptions() {
+        let viewController = ChromaKeyConfigurationViewController()
+        viewController.modalPresentationStyle = .overFullScreen
+        present(viewController, animated: true, completion: nil)
+    }
+
     // MARK: - Actions
+
+    @IBAction private func selectVirtualGreenScreenAction(_ sender: Any) {
+        selectedMode = .personSegmentation
+        updateConfiguration()
+    }
+
+    @IBAction private func selectAvatarAction(_ sender: Any) {
+        selectedMode = .bodyTracking
+        updateConfiguration()
+    }
+
+    @IBAction private func selectGreenScreenAction(_ sender: Any) {
+        selectedMode = .greenScreen
+        updateConfiguration()
+    }
+
+    @IBAction func selectRawAction(_ sender: Any) {
+        selectedMode = .raw
+        updateConfiguration()
+    }
 
     @objc private func backAction() {
         navigationController?.dismiss(animated: true, completion: nil)
@@ -331,6 +401,10 @@ final class MixedRealityConnectionViewController: UIViewController {
         })
     }
 
+    @IBAction func showChromaKeyOptions(_ sender: Any) {
+        presentChromaKeyOptions()
+    }
+
     @IBAction func configurationValueDidChange(_ sender: Any) {
         updateConfiguration()
     }
@@ -343,43 +417,34 @@ final class MixedRealityConnectionViewController: UIViewController {
 
         guard let address = addressTextField.text, !address.isEmpty,
             let portText = portTextField.text, !portText.isEmpty,
-            let port = Int32(portText)
+            let port = Int32(portText),
+            configuration.captureMode.isSupported
         else {
             return
         }
 
-        switch (configuration.captureMode, configuration.captureMode.isSupported) {
-        case (.bodyTracking, false):
-            let alert = UIAlertController(
-                title: "Sorry",
-                message: "Body tracking (avatar) requires a device with an A12 chip or newer. Would you like to continue without it?",
+        if case .greenScreen = configuration.captureMode,
+           chromaConfigurationStorage.configuration == nil {
+
+            let missingConfigurationAlert = UIAlertController(
+                title: "Chroma Key",
+                message: "You'll need to configure the Chroma Key effect before you can continue.",
                 preferredStyle: .alert
             )
 
-            alert.addAction(.init(title: "Continue", style: .default, handler: { [weak self] _ in
-                self?.updateConfiguration(captureMode: .raw)
-                self?.startConnection(address: address, port: port)
-            }))
-
-            alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
-        case (.personSegmentation, false):
-            let alert = UIAlertController(
-                title: "Sorry",
-                message: "Person segmentation (virtual green screen) requires a device with an A12 chip or newer. Would you like to continue without it?",
-                preferredStyle: .alert
+            missingConfigurationAlert.addAction(
+                .init(title: "Configure Chroma Key", style: .default, handler: { [weak self] _ in
+                    self?.presentChromaKeyOptions()
+                })
             )
 
-            alert.addAction(.init(title: "Continue", style: .default, handler: { [weak self] _ in
-                self?.updateConfiguration(captureMode: .raw)
-                self?.startConnection(address: address, port: port)
-            }))
+            missingConfigurationAlert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
 
-            alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
-        default:
-            startConnection(address: address, port: port)
+            present(missingConfigurationAlert, animated: true, completion: nil)
+            return
         }
+
+        startConnection(address: address, port: port)
     }
 
     @IBAction private func startCalibrationAction(_ sender: Any) {
