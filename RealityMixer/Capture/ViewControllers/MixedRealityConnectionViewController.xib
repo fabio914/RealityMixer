@@ -11,7 +11,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MixedRealityConnectionViewController" customModule="RealityMixer" customModuleProvider="target">
             <connections>
                 <outlet property="addressTextField" destination="DZi-cu-2ge" id="Klz-WA-Xd6"/>
-                <outlet property="audioSwitch" destination="gwP-RT-jgL" id="Gao-5y-rvF"/>
                 <outlet property="autoFocusSwitch" destination="fRb-fd-8Um" id="fLl-Fj-27i"/>
                 <outlet property="avatarModeView" destination="yAx-1z-Kay" id="3F7-j5-Lcd"/>
                 <outlet property="avatarSection" destination="5Za-Fr-XKN" id="vKc-n6-YmB"/>
@@ -26,6 +25,7 @@
                 <outlet property="greenScreenModeView" destination="KbJ-1g-D1a" id="ObN-Fu-PF4"/>
                 <outlet property="infoLabel" destination="Cvo-ep-K0W" id="ZvL-Zh-Kd4"/>
                 <outlet property="magentaSwitch" destination="mmC-l6-vWp" id="Uda-GP-MSq"/>
+                <outlet property="movingCameraSwitch" destination="gwP-RT-jgL" id="OSB-NU-Rca"/>
                 <outlet property="optionsStackView" destination="JdO-4j-7D3" id="hyp-LZ-l9o"/>
                 <outlet property="portTextField" destination="Lky-ae-zSD" id="2KE-UZ-PBo"/>
                 <outlet property="rawModeView" destination="Wf3-dP-xtz" id="963-3B-V0f"/>
@@ -399,7 +399,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2VB-LH-Qd3">
                                                             <rect key="frame" x="0.0" y="24.5" width="500" height="31"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Audio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DmM-e2-Ex5">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Moving Camera" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DmM-e2-Ex5">
                                                                     <rect key="frame" x="0.0" y="0.0" width="451" height="31"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -40,7 +40,7 @@ final class MixedRealityConnectionViewController: UIViewController {
 
     // MARK: - Options
     @IBOutlet private weak var optionsStackView: UIStackView!
-    @IBOutlet private weak var audioSwitch: UISwitch!
+    @IBOutlet private weak var movingCameraSwitch: UISwitch!
     @IBOutlet private weak var autoFocusSwitch: UISwitch!
     @IBOutlet private weak var unflipSwitch: UISwitch!
 
@@ -207,7 +207,7 @@ final class MixedRealityConnectionViewController: UIViewController {
             """
         }
 
-        audioSwitch.isOn = configuration.enableAudio
+        movingCameraSwitch.isOn = configuration.enableMovingCamera
         autoFocusSwitch.isOn = configuration.enableAutoFocus
         unflipSwitch.isOn = !configuration.shouldFlipOutput
 
@@ -276,7 +276,7 @@ final class MixedRealityConnectionViewController: UIViewController {
                     return .raw
                 }
             }(),
-            enableAudio: audioSwitch.isOn,
+            enableMovingCamera: movingCameraSwitch.isOn,
             enableAutoFocus: autoFocusSwitch.isOn,
             shouldFlipOutput: !unflipSwitch.isOn,
             foregroundLayerOptions: .init(

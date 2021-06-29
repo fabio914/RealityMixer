@@ -52,7 +52,7 @@ final class MixedRealityViewController: UIViewController {
         self.configuration = configuration
         self.chromaConfiguration = chromaConfiguration
         self.factory = ARConfigurationFactory(mrConfiguration: configuration)
-        self.cameraPoseSender = CameraPoseSender(client: client)
+        self.cameraPoseSender = configuration.enableMovingCamera ? CameraPoseSender(client: client):nil
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -76,8 +76,6 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureAudio() {
-        guard configuration.enableAudio else { return }
-
         guard let audioFormat = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 2) else {
             return
         }
@@ -110,7 +108,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureOculusMRC() {
-        self.oculusMRC = OculusMRC(audio: configuration.enableAudio)
+        self.oculusMRC = OculusMRC()
         oculusMRC?.delegate = self
     }
 

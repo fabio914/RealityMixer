@@ -12,7 +12,7 @@ struct CameraIntrinsicsPayload {
     let payloadLength: UInt32 = 0x34
 
     // Payload
-    let unknown1: UInt32 = 100 // Timestamp?
+    let unknown1: UInt32 = 100 // Timestamp? Delay?
     let unknown2: UInt32 = 0
     let unknown3: UInt32 = 0 // type = intrinsics?
     let length: UInt32 = 0x24
@@ -89,7 +89,7 @@ struct CameraPositionPayload {
     let payloadLength: UInt32 = 0x1c
 
     // Payload
-    let unknown1: UInt32 = 100 // Timestamp?
+    let unknown1: UInt32 = 100 // Timestamp? Delay?
     let unknown2: UInt32 = 0
     let unknown3: UInt32 = 2 // type = position?
     let length: UInt32 = 0x0c
@@ -120,7 +120,7 @@ struct CameraRotationPayload {
     let payloadLength: UInt32 = 0x20
 
     // Payload
-    let unknown1: UInt32 = 100 // Timestamp?
+    let unknown1: UInt32 = 100 // Timestamp? Delay?
     let unknown2: UInt32 = 0
     let unknown3: UInt32 = 3 // type = position?
     let length: UInt32 = 0x10

@@ -51,7 +51,7 @@ struct MixedRealityConfiguration: Codable, Equatable {
     }
 
     let captureMode: CaptureMode
-    let enableAudio: Bool
+    let enableMovingCamera: Bool
     let enableAutoFocus: Bool
     let shouldFlipOutput: Bool
 
@@ -60,7 +60,7 @@ struct MixedRealityConfiguration: Codable, Equatable {
 
     static let defaultConfiguration = MixedRealityConfiguration(
         captureMode: CaptureMode.personSegmentation.isSupported ? .personSegmentation:.greenScreen,
-        enableAudio: true,
+        enableMovingCamera: false,
         enableAutoFocus: false,
         shouldFlipOutput: true,
         foregroundLayerOptions: .init(visibility: .visible(useMagentaAsTransparency: false)),
