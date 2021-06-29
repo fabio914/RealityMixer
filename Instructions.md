@@ -2,11 +2,18 @@
 
 ## Requirements
 
- - Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed. This application is only necessary for the calibration step.
- - iPhone or iPad with an A12 chip or newer, running iOS 14. The LiDAR sensor is optional but recommended for better results.
- - 5 Ghz WiFi network (802.11ac).
- - A [compatible Quest VR application/game](Compatibility.md).
+- Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed.
+- **Virtual Green Screen and Avatars**: iPhone or iPad with an A12 chip or newer, running iOS 14. The LiDAR sensor is optional but recommended for better results.
+- **Green Screen and Spectator**: iPhone or iPad runnning iOS 14.
+- 5 Ghz WiFi network (802.11ac).
+- A [compatible Quest VR application/game](Compatibility.md).
  
+ ## YouTube Tutorials
+
+ * Fabio [Tutorial: Mixed Reality with an iPhone and an Oculus Quest (no green screen)](https://www.youtube.com/watch?v=iRLwhK1Oees)
+
+ * Disco-VR [Mixed Reality on iPhone without Green Screen! Tutorial for Beat Saber using Oculus Quest 2](https://www.youtube.com/watch?v=NH5xAwQ9UY4)
+
 ## Calibration, what is this?
 
 This is the process to indicate to the Oculus Quest the iPhone/iPad camera's position and orientation inside the virtual world. You'll need to calibrate whenever you move your iPhone/iPad and whenever you reset/redefine your Guardian boundary. 
@@ -118,9 +125,3 @@ Follow the instructions below if you don't have the record option inside your "C
  - Make sure that your device is not on Low Power mode. It is recommended that you keep your device connected to a power outlet while using the app.
  
  - Select a small resolution scale factor (`0.5x` or `0.25x`) and then calibrate again.
-
-## YouTube Tutorials
-
-* Disco-VR  [Mixed Reality on iPhone without Green Screen! Tutorial for Beat Saber using Oculus Quest 2](https://www.youtube.com/watch?v=NH5xAwQ9UY4)
-
-* Fabio [Tutorial: Mixed Reality with an iPhone and an Oculus Quest (no green screen)](https://www.youtube.com/watch?v=iRLwhK1Oees)
