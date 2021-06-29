@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A30A6990267AB94A002647C5 /* UIColor+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30A698F267AB94A002647C5 /* UIColor+Image.swift */; };
 		A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */; };
 		A31C0A2026435F980059A492 /* avatar2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1C26435F980059A492 /* avatar2.usdz */; };
 		A31C0A2126435F980059A492 /* avatar1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1D26435F980059A492 /* avatar1.usdz */; };
 		A31C0A2226435F980059A492 /* avatar4.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1E26435F980059A492 /* avatar4.usdz */; };
 		A31C0A28264362D30059A492 /* avatar3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A27264362D30059A492 /* avatar3.usdz */; };
 		A32226FC262C5229004629CC /* MixedRealityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */; };
-		A32226FD262C5229004629CC /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FB262C5229004629CC /* Preference.swift */; };
+		A32226FD262C5229004629CC /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FB262C5229004629CC /* NetworkConfiguration.swift */; };
 		A32226FF262C5253004629CC /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32226FE262C5253004629CC /* Skeleton.swift */; };
 		A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32285A82558050600FF3200 /* AboutViewController.swift */; };
 		A32285AB2558050600FF3200 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A32285A92558050600FF3200 /* AboutViewController.xib */; };
@@ -56,6 +57,11 @@
 		A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */; };
 		A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98D253CF2EE00B90E62 /* ARKit.framework */; };
 		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
+		A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */; };
+		A338B35D265AE1E300099827 /* ChromaKeyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */; };
+		A338B360265B250100099827 /* ChromaKeyConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B35E265B250100099827 /* ChromaKeyConfigurationViewController.swift */; };
+		A338B361265B250100099827 /* ChromaKeyConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A338B35F265B250100099827 /* ChromaKeyConfigurationViewController.xib */; };
+		A338B363265B25E500099827 /* ARKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B362265B25E500099827 /* ARKitHelpers.swift */; };
 		A344D5B72621444C0026924F /* robot.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A344D5B62621444C0026924F /* robot.usdz */; };
 		A36C9163263779E700D64107 /* ReadyPlayerMeAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C9162263779E700D64107 /* ReadyPlayerMeAvatar.swift */; };
 		A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C916426377A3000D64107 /* AvatarProtocol.swift */; };
@@ -69,6 +75,7 @@
 		A3A50C0D25F57AB700413E01 /* ProjectionPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */; };
 		A3A50C4125F5B3B100413E01 /* SwiftSocket in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C4025F5B3B100413E01 /* SwiftSocket */; };
 		A3A50C4525F5B71000413E01 /* FFmpeg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */; };
+		A3EEFFBF26890AE300A0DC19 /* ChromaKeyMaskBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -86,13 +93,14 @@
 
 /* Begin PBXFileReference section */
 		3E1B214525678AF60084847C /* RealityMixer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = RealityMixer.xcconfig; sourceTree = "<group>"; };
+		A30A698F267AB94A002647C5 /* UIColor+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Image.swift"; sourceTree = "<group>"; };
 		A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARConfigurationFactory.swift; sourceTree = "<group>"; };
 		A31C0A1C26435F980059A492 /* avatar2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar2.usdz; sourceTree = "<group>"; };
 		A31C0A1D26435F980059A492 /* avatar1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar1.usdz; sourceTree = "<group>"; };
 		A31C0A1E26435F980059A492 /* avatar4.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar4.usdz; sourceTree = "<group>"; };
 		A31C0A27264362D30059A492 /* avatar3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar3.usdz; sourceTree = "<group>"; };
 		A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MixedRealityConfiguration.swift; sourceTree = "<group>"; };
-		A32226FB262C5229004629CC /* Preference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
+		A32226FB262C5229004629CC /* NetworkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		A32226FE262C5253004629CC /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
 		A32285A82558050600FF3200 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A32285A92558050600FF3200 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
@@ -143,6 +151,11 @@
 		A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MixedRealityViewController.xib; sourceTree = "<group>"; };
 		A328D98D253CF2EE00B90E62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		A328D98F253CF2F400B90E62 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
+		A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfiguration.swift; sourceTree = "<group>"; };
+		A338B35E265B250100099827 /* ChromaKeyConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfigurationViewController.swift; sourceTree = "<group>"; };
+		A338B35F265B250100099827 /* ChromaKeyConfigurationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChromaKeyConfigurationViewController.xib; sourceTree = "<group>"; };
+		A338B362265B25E500099827 /* ARKitHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARKitHelpers.swift; sourceTree = "<group>"; };
 		A344D5B62621444C0026924F /* robot.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = robot.usdz; sourceTree = "<group>"; };
 		A36C9162263779E700D64107 /* ReadyPlayerMeAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyPlayerMeAvatar.swift; sourceTree = "<group>"; };
 		A36C916426377A3000D64107 /* AvatarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarProtocol.swift; sourceTree = "<group>"; };
@@ -155,6 +168,7 @@
 		A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectionPickerViewController.swift; sourceTree = "<group>"; };
 		A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectionPickerViewController.xib; sourceTree = "<group>"; };
 		A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FFmpeg.xcframework; path = Frameworks/FFmpeg.xcframework; sourceTree = "<group>"; };
+		A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyMaskBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,13 +193,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A30A698E267AB92B002647C5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A30A698F267AB94A002647C5 /* UIColor+Image.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		A32226F9262C5213004629CC /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */,
-				A32226FB262C5229004629CC /* Preference.swift */,
 				A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */,
 				A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */,
+				A338B362265B25E500099827 /* ARKitHelpers.swift */,
+				A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -260,6 +282,8 @@
 		A32416122554D7F5008D4B90 /* Capture */ = {
 			isa = PBXGroup;
 			children = (
+				A30A698E267AB92B002647C5 /* Extensions */,
+				A338B35B265AE14600099827 /* Configuration */,
 				A36C9161263779D300D64107 /* Avatars */,
 				A32226F9262C5213004629CC /* Misc */,
 				A39033EB2568599B004CB638 /* Shaders */,
@@ -370,8 +394,21 @@
 				A328D978253CE54E00B90E62 /* MixedRealityConnectionViewController.xib */,
 				A328D97D253CE63B00B90E62 /* MixedRealityViewController.swift */,
 				A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */,
+				A338B35E265B250100099827 /* ChromaKeyConfigurationViewController.swift */,
+				A338B35F265B250100099827 /* ChromaKeyConfigurationViewController.xib */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		A338B35B265AE14600099827 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */,
+				A32226FB262C5229004629CC /* NetworkConfiguration.swift */,
+				A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */,
+				A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 		A36A6D8D26489FCF008631D6 /* Avatars */ = {
@@ -497,6 +534,7 @@
 				A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */,
 				A31C0A28264362D30059A492 /* avatar3.usdz in Resources */,
 				A32285F7255A06E400FF3200 /* left.stl in Resources */,
+				A338B361265B250100099827 /* ChromaKeyConfigurationViewController.xib in Resources */,
 				A31C0A2126435F980059A492 /* avatar1.usdz in Resources */,
 				A324162B2554E1B8008D4B90 /* CalibrationViewController.xib in Resources */,
 				A3837F6E263A239F0053951E /* reset.mp3 in Resources */,
@@ -526,13 +564,18 @@
 				A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */,
 				A328D8D1253C917300B90E62 /* OculusMRC.mm in Sources */,
 				A36C9163263779E700D64107 /* ReadyPlayerMeAvatar.swift in Sources */,
+				A338B363265B25E500099827 /* ARKitHelpers.swift in Sources */,
 				A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */,
 				A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */,
 				A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */,
+				A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */,
 				A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */,
+				A338B35D265AE1E300099827 /* ChromaKeyConfiguration.swift in Sources */,
 				A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */,
+				A338B360265B250100099827 /* ChromaKeyConfigurationViewController.swift in Sources */,
 				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
 				A36C916726377C0900D64107 /* RobotAvatar.swift in Sources */,
+				A3EEFFBF26890AE300A0DC19 /* ChromaKeyMaskBuilder.swift in Sources */,
 				A324163D2554E520008D4B90 /* CGPoint+Extensions.swift in Sources */,
 				A39033ED256859A8004CB638 /* Shaders.swift in Sources */,
 				A3A50C0C25F57AB700413E01 /* ProjectionPickerViewController.swift in Sources */,
@@ -541,6 +584,7 @@
 				A324162A2554E1B8008D4B90 /* CalibrationViewController.swift in Sources */,
 				A324160B2554D3AB008D4B90 /* CalibrationResult.swift in Sources */,
 				A328D97F253CE63B00B90E62 /* MixedRealityViewController.swift in Sources */,
+				A30A6990267AB94A002647C5 /* UIColor+Image.swift in Sources */,
 				A328D8CC253C914500B90E62 /* frame.cpp in Sources */,
 				A328D8B0253C8C4000B90E62 /* AppDelegate.swift in Sources */,
 				A32416252554DFD4008D4B90 /* CalibrationConnectionViewController.swift in Sources */,
@@ -549,7 +593,7 @@
 				A3798AE125D9F6CA00B3BFBC /* CameraPoseSender.swift in Sources */,
 				A32226FC262C5229004629CC /* MixedRealityConfiguration.swift in Sources */,
 				A32416082554D326008D4B90 /* CalibrationPayload.swift in Sources */,
-				A32226FD262C5229004629CC /* Preference.swift in Sources */,
+				A32226FD262C5229004629CC /* NetworkConfiguration.swift in Sources */,
 				A32416352554E41E008D4B90 /* ProjectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -692,7 +736,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/RealityMixer/Info.plist";
@@ -701,7 +745,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 0.4.0;
+				MARKETING_VERSION = 0.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).reality.mixer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
@@ -719,7 +763,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/RealityMixer/Info.plist";
@@ -728,7 +772,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 0.4.0;
+				MARKETING_VERSION = 0.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).reality.mixer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";

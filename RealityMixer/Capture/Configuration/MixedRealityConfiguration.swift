@@ -1,3 +1,10 @@
+//
+//  MixedRealityConfiguration.swift
+//  RealityMixer
+//
+//  Created by Fabio de Albuquerque Dela Antonio on 12/01/2021.
+//
+
 import Foundation
 
 struct MixedRealityConfiguration: Codable, Equatable {
@@ -14,6 +21,7 @@ struct MixedRealityConfiguration: Codable, Equatable {
 
         case personSegmentation
         case bodyTracking(avatar: AvatarType)
+        case greenScreen
         case raw
     }
 
@@ -51,9 +59,9 @@ struct MixedRealityConfiguration: Codable, Equatable {
     let backgroundLayerOptions: BackgroundLayerOptions
 
     static let defaultConfiguration = MixedRealityConfiguration(
-        captureMode: .personSegmentation,
+        captureMode: CaptureMode.personSegmentation.isSupported ? .personSegmentation:.greenScreen,
         enableAudio: true,
-        enableAutoFocus: true,
+        enableAutoFocus: false,
         shouldFlipOutput: true,
         foregroundLayerOptions: .init(visibility: .visible(useMagentaAsTransparency: false)),
         backgroundLayerOptions: .init(visibility: .visible)
@@ -72,6 +80,7 @@ extension MixedRealityConfiguration.CaptureMode {
     enum CaptureType: String, Codable {
         case personSegmentation
         case bodyTracking
+        case greenScreen
         case raw
     }
 
@@ -85,6 +94,8 @@ extension MixedRealityConfiguration.CaptureMode {
         case .bodyTracking:
             let avatarType = try values.decode(AvatarType.self, forKey: .avatar)
             self = .bodyTracking(avatar: avatarType)
+        case .greenScreen:
+            self = .greenScreen
         case .raw:
             self = .raw
         }
@@ -99,6 +110,8 @@ extension MixedRealityConfiguration.CaptureMode {
         case .bodyTracking(let avatarType):
             try container.encode(CaptureType.bodyTracking, forKey: .type)
             try container.encode(avatarType, forKey: .avatar)
+        case .greenScreen:
+            try container.encode(CaptureType.greenScreen, forKey: .type)
         case .raw:
             try container.encode(CaptureType.raw, forKey: .type)
         }
@@ -188,25 +201,15 @@ extension MixedRealityConfiguration.BackgroundLayerOptions.BackgroundVisibility 
 
 // MARK: - Storage
 
-final class ConfigurationStorage {
-    private let defaults: UserDefaults
-    private let key = "MRConfiguration"
-
-    init(defaults: UserDefaults = .standard) {
-        self.defaults = defaults
-    }
+final class MixedRealityConfigurationStorage {
+    private let storage = UserDefaultsStorage<MixedRealityConfiguration>(key: "MRConfiguration")
 
     func save(configuration: MixedRealityConfiguration) throws {
-        let data = try JSONEncoder().encode(configuration)
-        let string = data.base64EncodedString()
-        defaults.setValue(string, forKey: key)
+        try storage.save(configuration)
     }
 
     var configuration: MixedRealityConfiguration {
-        defaults.string(forKey: key)
-            .flatMap({ Data(base64Encoded: $0) })
-            .flatMap({ try? JSONDecoder().decode(MixedRealityConfiguration.self, from: $0) })
-        ?? .defaultConfiguration
+        storage.object ?? .defaultConfiguration
     }
 }
 
@@ -223,7 +226,7 @@ extension MixedRealityConfiguration.CaptureMode {
                 ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation)
         case .bodyTracking:
             return ARBodyTrackingConfiguration.isSupported
-        case .raw:
+        case .greenScreen, .raw:
             return true
         }
     }

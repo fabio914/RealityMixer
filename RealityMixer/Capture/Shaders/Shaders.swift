@@ -47,26 +47,29 @@ struct Shaders {
 
     """
 
-    static let chromaKey = """
-    float chromaKey(vec3 c, vec3 maskColor) {
-        float maskY = 0.2989 * maskColor.r + 0.5866 * maskColor.g + 0.1145 * maskColor.b;
-        float maskCr = 0.7132 * (maskColor.r - maskY);
-        float maskCb = 0.5647 * (maskColor.b - maskY);
+    static let rgbToYCrCb = """
+    vec3 rgbToYCrCb(vec3 c) {
+        float y = 0.2989 * c.r + 0.5866 * c.g + 0.1145 * c.b;
+        float cr = 0.7132 * (c.r - y);
+        float cb = 0.5647 * (c.b - y);
+        return vec3(y, cr, cb);
+    }
 
-        float Y = 0.2989 * c.r + 0.5866 * c.g + 0.1145 * c.b;
-        float Cr = 0.7132 * (c.r - Y);
-        float Cb = 0.5647 * (c.b - Y);
+    """
 
-        if (distance(vec2(Cr, Cb), vec2(maskCr, maskCb)) < 0.18) {
-            return 1.0;
-        } else {
-            return 0.0;
-        }
+    static let smoothChromaKey = """
+    \(rgbToYCrCb)
 
-        //float sensitivity = 0.18; // 0 ... 1.0
-        //float smooth = 0.1; // 0 ... 1.0
+    float smoothChromaKey(vec3 c, vec3 maskColor, float sensitivity, float smoothness) {
+        vec3 convertedMask = rgbToYCrCb(maskColor);
+        float maskCr = convertedMask.g;
+        float maskCb = convertedMask.b;
 
-        //return 1.0 - smoothstep(sensitivity, sensitivity + smooth, distance(vec2(Cr, Cb), vec2(maskCr, maskCb)));
+        vec3 convertedColor = rgbToYCrCb(c);
+        float Cr = convertedColor.g;
+        float Cb = convertedColor.b;
+
+        return 1.0 - smoothstep(sensitivity, sensitivity + smoothness, distance(vec2(Cr, Cb), vec2(maskCr, maskCb)));
     }
 
     """
@@ -85,10 +88,11 @@ struct Shaders {
     _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
     """
 
+    // Consider setting the smoothness
     static func backgroundSurfaceChromaKey(red: Float, green: Float, blue: Float) -> String {
         """
         \(yCrCbToRGB)
-        \(chromaKey)
+        \(smoothChromaKey)
 
         #pragma body
 
@@ -100,8 +104,93 @@ struct Shaders {
         vec4 textureColor = yCbCrToRGB(luma, chroma);
         _surface.diffuse = textureColor;
 
-        float blendValue = chromaKey(textureColor.rgb, vec3(\(red), \(green), \(blue)));
+        float blendValue = smoothChromaKey(textureColor.rgb, vec3(\(red), \(green), \(blue)), 0.18, 0.0);
         _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
+        """
+    }
+
+    // FIXME: avoid converting from yCbCr to RGB and then back to yCbCr...
+    static func surfaceChromaKey() -> String {
+        """
+        \(yCrCbToRGB)
+        \(smoothChromaKey)
+
+        #pragma arguments
+        uniform vec3 maskColor;
+        uniform float sensitivity;
+        uniform float smoothness;
+
+        #pragma body
+
+        float luma = texture2D(u_transparentTexture, _surface.diffuseTexcoord).r;
+        vec2 chroma = texture2D(u_diffuseTexture, _surface.diffuseTexcoord).rg;
+
+        vec4 textureColor = yCbCrToRGB(luma, chroma);
+        _surface.diffuse = textureColor;
+
+        float blendValue = smoothChromaKey(textureColor.rgb, maskColor, sensitivity, smoothness);
+
+        float maskTextureValue = texture2D(u_ambientTexture, _surface.diffuseTexcoord).r;
+        _surface.ambient = vec4(1.0, 1.0, 1.0, 1.0);
+
+        if (maskTextureValue > 0.5) {
+            _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
+        } else {
+            _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
+        }
+        """
+    }
+
+    static func surfaceChromaKeyConfiguration() -> String {
+        """
+        \(yCrCbToRGB)
+        \(smoothChromaKey)
+
+        #pragma arguments
+        uniform vec3 maskColor;
+        uniform float sensitivity;
+        uniform float smoothness;
+
+        #pragma body
+
+        float luma = texture2D(u_transparentTexture, _surface.diffuseTexcoord).r;
+        vec2 chroma = texture2D(u_diffuseTexture, _surface.diffuseTexcoord).rg;
+
+        vec4 textureColor = yCbCrToRGB(luma, chroma);
+        _surface.diffuse = textureColor;
+
+        float blendValue = smoothChromaKey(textureColor.rgb, maskColor, sensitivity, smoothness);
+
+        float maskTextureValue = texture2D(u_ambientTexture, _surface.diffuseTexcoord).r;
+        _surface.ambient = vec4(1.0, 1.0, 1.0, 1.0);
+
+        if (maskTextureValue > 0.5) {
+            _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
+        } else {
+            _surface.diffuse = vec4(0.0, 0.0, 0.0, 1.0);
+            _surface.transparent = vec4(0.75, 0.75, 0.75, 1.0);
+        }
+        """
+    }
+
+    static func maskChromaKey() -> String {
+        """
+        \(yCrCbToRGB)
+        \(smoothChromaKey)
+
+        #pragma arguments
+        uniform vec3 maskColor;
+        uniform float sensitivity;
+
+        #pragma body
+
+        float luma = texture2D(u_transparentTexture, _surface.diffuseTexcoord).r;
+        vec2 chroma = texture2D(u_diffuseTexture, _surface.diffuseTexcoord).rg;
+        vec4 textureColor = yCbCrToRGB(luma, chroma);
+
+        float blendValue = smoothChromaKey(textureColor.rgb, maskColor, sensitivity, 0.0);
+        _surface.diffuse = _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
+        _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
         """
     }
 
@@ -159,8 +248,9 @@ struct Shaders {
     _surface.transparent = vec4(value, value, value, 1.0);
     """
 
+    // Consider setting the smoothness
     static let magentaForegroundSurface = """
-    \(chromaKey)
+    \(smoothChromaKey)
     \(foregroundSurfaceShared)
 
     vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.5, _surface.transparentTexcoord.y);
@@ -170,7 +260,7 @@ struct Shaders {
 
     vec4 alphaColor = yCbCrToRGB(luma2, chroma2);
 
-    float blendValue = chromaKey(alphaColor.rgb, vec3(1.0, 0.0, 1.0));
+    float blendValue = smoothChromaKey(alphaColor.rgb, vec3(1.0, 0.0, 1.0), 0.18, 0.0);
     _surface.transparent = vec4(blendValue, blendValue, blendValue, 1.0);
     """
 }

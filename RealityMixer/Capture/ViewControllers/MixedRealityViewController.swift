@@ -13,6 +13,7 @@ import SwiftSocket
 final class MixedRealityViewController: UIViewController {
     private let client: TCPClient
     private let configuration: MixedRealityConfiguration
+    private let chromaConfiguration: ChromaKeyConfiguration?
     private let factory: ARConfigurationFactory
     private var audioEngine: AVAudioEngine?
     private var audioPlayer: AVAudioPlayerNode?
@@ -23,6 +24,7 @@ final class MixedRealityViewController: UIViewController {
     @IBOutlet private weak var sceneView: ARSCNView!
     private var textureCache: CVMetalTextureCache?
     private var backgroundNode: SCNNode?
+    private var middlePlaneNode: SCNNode?
     private var foregroundNode: SCNNode?
 
     private let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
@@ -43,10 +45,12 @@ final class MixedRealityViewController: UIViewController {
 
     init(
         client: TCPClient,
-        configuration: MixedRealityConfiguration
+        configuration: MixedRealityConfiguration,
+        chromaConfiguration: ChromaKeyConfiguration?
     ) {
         self.client = client
         self.configuration = configuration
+        self.chromaConfiguration = chromaConfiguration
         self.factory = ARConfigurationFactory(mrConfiguration: configuration)
         self.cameraPoseSender = CameraPoseSender(client: client)
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
@@ -125,22 +129,10 @@ final class MixedRealityViewController: UIViewController {
         sceneView.session.delegate = self
 
         if case .visible = configuration.backgroundLayerOptions.visibility {
-            sceneView.pointOfView?.addChildNode(makePlane(size: .init(width: 9999, height: 9999), distance: 120))
+            sceneView.pointOfView?.addChildNode(ARKitHelpers.makePlane(size: .init(width: 9999, height: 9999), distance: 120))
         }
 
-        if let metalDevice = sceneView.device {
-            let result = CVMetalTextureCacheCreate(
-                kCFAllocatorDefault,
-                nil,
-                metalDevice,
-                nil,
-                &textureCache
-            )
-
-            if result != kCVReturnSuccess {
-                print("Unable to create metal texture cache!")
-            }
-        }
+        ARKitHelpers.create(textureCache: &textureCache, for: sceneView)
     }
 
     private func configureTap() {
@@ -151,36 +143,9 @@ final class MixedRealityViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
-    private func planeSizeForDistance(_ distance: Float, frame: ARFrame) -> CGSize {
-        let projection = frame.camera.projectionMatrix
-        let yScale = projection[1,1]
-        let imageResolution = frame.camera.imageResolution
-        let width = (2.0 * distance) * tan(atan(1/yScale) * Float(imageResolution.width / imageResolution.height))
-
-        // Assuming the same aspect ratio as the camera (this might be different if the Quest was
-        // calibrated with the PC app)
-        let height = width * Float(imageResolution.height / imageResolution.width)
-        return CGSize(width: CGFloat(width), height: CGFloat(height))
-    }
-
-    private func makePlane(size: CGSize, distance: Float) -> SCNNode {
-        let plane = SCNPlane(width: size.width, height: size.height)
-        plane.cornerRadius = 0
-        plane.firstMaterial?.lightingModel = .constant
-        plane.firstMaterial?.diffuse.contents = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-
-        let planeNode = SCNNode(geometry: plane)
-        planeNode.position = .init(0, 0, -distance)
-        return planeNode
-    }
-
-    private func makePlaneNodeForDistance(_ distance: Float, frame: ARFrame) -> SCNNode {
-        makePlane(size: planeSizeForDistance(distance, frame: frame), distance: distance)
-    }
-
     private func configureBackground(with frame: ARFrame) {
         if case .hidden = configuration.backgroundLayerOptions.visibility { return }
-        let backgroundPlaneNode = makePlaneNodeForDistance(100.0, frame: frame)
+        let backgroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(100.0, frame: frame)
 
         // Flipping image
         if configuration.shouldFlipOutput {
@@ -211,9 +176,50 @@ final class MixedRealityViewController: UIViewController {
         self.backgroundNode = backgroundPlaneNode
     }
 
+    private func configureMiddle(with frame: ARFrame) {
+        guard case .greenScreen = configuration.captureMode,
+            let chromaConfiguration = chromaConfiguration
+        else { return }
+        let middlePlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.02, frame: frame)
+
+        middlePlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
+
+        middlePlaneNode.geometry?.firstMaterial?.shaderModifiers = [
+            .surface: Shaders.surfaceChromaKey()
+        ]
+
+        let color = chromaConfiguration.color
+
+        middlePlaneNode.geometry?.firstMaterial?.setValue(
+            SCNVector3(color.red, color.green, color.blue),
+            forKey: "maskColor"
+        )
+
+        middlePlaneNode.geometry?.firstMaterial?.setValue(
+            chromaConfiguration.sensitivity,
+            forKey: "sensitivity"
+        )
+
+        middlePlaneNode.geometry?.firstMaterial?.setValue(
+            chromaConfiguration.smoothness,
+            forKey: "smoothness"
+        )
+
+        let maskStorage = ChromaKeyMaskStorage()
+
+        if let maskImage = maskStorage.load() {
+            middlePlaneNode.geometry?.firstMaterial?.ambient.contents = maskImage
+        } else {
+            middlePlaneNode.geometry?.firstMaterial?.ambient.contents = UIColor.white
+        }
+
+        sceneView.pointOfView?.addChildNode(middlePlaneNode)
+        self.middlePlaneNode = middlePlaneNode
+    }
+
     private func configureForeground(with frame: ARFrame) {
         guard case .visible(let useMagentaAsTransparency) = configuration.foregroundLayerOptions.visibility else { return }
-        let foregroundPlaneNode = makePlaneNodeForDistance(0.1, frame: frame)
+        let foregroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.01, frame: frame)
 
         // Flipping image
         if configuration.shouldFlipOutput {
@@ -238,6 +244,26 @@ final class MixedRealityViewController: UIViewController {
 
         sceneView.pointOfView?.addChildNode(foregroundPlaneNode)
         self.foregroundNode = foregroundPlaneNode
+    }
+
+    private func updateForegroundBackground(with pixelBuffer: CVPixelBuffer) {
+        let luma = ARKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
+        let chroma = ARKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
+
+        backgroundNode?.geometry?.firstMaterial?.transparent.contents = luma
+        backgroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+
+        foregroundNode?.geometry?.firstMaterial?.transparent.contents = luma
+        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+    }
+
+    private func updateMiddle(with pixelBuffer: CVPixelBuffer) {
+        guard case .greenScreen = configuration.captureMode else { return }
+        let luma = ARKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
+        let chroma = ARKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
+
+        middlePlaneNode?.geometry?.firstMaterial?.transparent.contents = luma
+        middlePlaneNode?.geometry?.firstMaterial?.diffuse.contents = chroma
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -265,40 +291,6 @@ final class MixedRealityViewController: UIViewController {
         while let data = client.read(65536, timeout: 0), data.count > 0 {
             oculusMRC?.addData(data, length: Int32(data.count))
         }
-    }
-
-    private func texture(from pixelBuffer: CVPixelBuffer, format: MTLPixelFormat, planeIndex: Int) -> MTLTexture? {
-        guard let textureCache = textureCache,
-              planeIndex >= 0, planeIndex < CVPixelBufferGetPlaneCount(pixelBuffer),
-              CVPixelBufferGetPixelFormatType(pixelBuffer) == kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
-        else {
-            return nil
-        }
-
-        var texture: MTLTexture?
-
-        let width =  CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex)
-        let height = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex)
-
-        var textureRef : CVMetalTexture?
-
-        let result = CVMetalTextureCacheCreateTextureFromImage(
-            nil,
-            textureCache,
-            pixelBuffer,
-            nil,
-            format,
-            width,
-            height,
-            planeIndex,
-            &textureRef
-        )
-
-        if result == kCVReturnSuccess, let textureRef = textureRef {
-            texture = CVMetalTextureGetTexture(textureRef)
-        }
-
-        return texture
     }
 
     // MARK: - Actions
@@ -339,14 +331,7 @@ final class MixedRealityViewController: UIViewController {
 extension MixedRealityViewController: OculusMRCDelegate {
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceive pixelBuffer: CVPixelBuffer) {
-        let luma = texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0)
-        let chroma = texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1)
-
-        backgroundNode?.geometry?.firstMaterial?.transparent.contents = luma
-        backgroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
-
-        foregroundNode?.geometry?.firstMaterial?.transparent.contents = luma
-        foregroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+        updateForegroundBackground(with: pixelBuffer)
     }
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer) {
@@ -360,11 +345,14 @@ extension MixedRealityViewController: ARSessionDelegate {
 
         if first {
             configureBackground(with: frame)
+            configureMiddle(with: frame)
             configureForeground(with: frame)
             first = false
         } else {
             cameraPoseSender?.didUpdate(frame: frame)
         }
+
+        updateMiddle(with: frame.capturedImage)
     }
 
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {

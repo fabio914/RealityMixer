@@ -21,7 +21,7 @@ final class ARConfigurationFactory {
             return buildPersonSegmentationConfiguration()
         case .bodyTracking:
             return buildBodyTrackingConfiguration()
-        case .raw:
+        case .greenScreen, .raw:
             return buildWorldTrackingConfiguration()
         }
     }

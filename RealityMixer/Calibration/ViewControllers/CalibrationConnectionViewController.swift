@@ -19,7 +19,7 @@ final class CalibrationConnectionViewController: UIViewController {
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
-    private let storage = PreferenceStorage()
+    private let networkConfigurationStorage = NetworkConfigurationStorage()
 
     init() {
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
@@ -36,8 +36,8 @@ final class CalibrationConnectionViewController: UIViewController {
         addressTextField.delegate = self
         portTextField.delegate = self
 
-        if let preferences = storage.preference {
-            addressTextField.text = preferences.address
+        if let networkConfiguration = networkConfigurationStorage.configuration {
+            addressTextField.text = networkConfiguration.address
         }
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backAction))
@@ -114,7 +114,7 @@ final class CalibrationConnectionViewController: UIViewController {
                 })
 
             case .success:
-                try? self.storage.save(preference: .init(address: address))
+                try? self.networkConfigurationStorage.save(configuration: .init(address: address))
 
                 let scaleFactor = (Double(self.scaleSegmentedControl.selectedSegmentIndex) + 1.0)/Double(self.scaleSegmentedControl.numberOfSegments)
 
