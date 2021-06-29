@@ -181,7 +181,7 @@ final class MixedRealityViewController: UIViewController {
         guard case .greenScreen = configuration.captureMode,
             let chromaConfiguration = chromaConfiguration
         else { return }
-        let middlePlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.2, frame: frame)
+        let middlePlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.02, frame: frame)
 
         middlePlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 
@@ -220,7 +220,7 @@ final class MixedRealityViewController: UIViewController {
 
     private func configureForeground(with frame: ARFrame) {
         guard case .visible(let useMagentaAsTransparency) = configuration.foregroundLayerOptions.visibility else { return }
-        let foregroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.1, frame: frame)
+        let foregroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.01, frame: frame)
 
         // Flipping image
         if configuration.shouldFlipOutput {

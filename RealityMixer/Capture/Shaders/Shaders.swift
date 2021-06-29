@@ -88,6 +88,7 @@ struct Shaders {
     _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
     """
 
+    // Consider setting the smoothness
     static func backgroundSurfaceChromaKey(red: Float, green: Float, blue: Float) -> String {
         """
         \(yCrCbToRGB)
@@ -109,7 +110,6 @@ struct Shaders {
     }
 
     // FIXME: avoid converting from yCbCr to RGB and then back to yCbCr...
-
     static func surfaceChromaKey() -> String {
         """
         \(yCrCbToRGB)
@@ -248,6 +248,7 @@ struct Shaders {
     _surface.transparent = vec4(value, value, value, 1.0);
     """
 
+    // Consider setting the smoothness
     static let magentaForegroundSurface = """
     \(smoothChromaKey)
     \(foregroundSurfaceShared)

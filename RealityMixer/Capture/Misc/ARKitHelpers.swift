@@ -9,6 +9,7 @@ import ARKit
 
 struct ARKitHelpers {
 
+    // FIXME: Check this.
     static func planeSizeForDistance(_ distance: Float, frame: ARFrame) -> CGSize {
         let projection = frame.camera.projectionMatrix
         let yScale = projection[1,1]

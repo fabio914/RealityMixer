@@ -90,6 +90,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     }
 
     private func configureSliders() {
+        // TODO: Update these intervals!
         sensitivitySlider.minimumValue = 0.0
         sensitivitySlider.maximumValue = 1.0
 
@@ -206,7 +207,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         configuration.planeDetection = [.horizontal, .vertical]
         configuration.environmentTexturing = .none
         configuration.isLightEstimationEnabled = true
-        configuration.isAutoFocusEnabled = true
+        configuration.isAutoFocusEnabled = true // Consider changing to false
         sceneView.session.run(configuration)
     }
 
