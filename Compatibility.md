@@ -17,6 +17,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Drop Dead: Dual Strike Edition](https://www.oculus.com/experiences/quest/1935017546592600) | 4 | 3 | [Tweet](https://twitter.com/Seaglemaniac/status/1352082534084055041) | Audio works but is lagged. Game is confused and retains message to "walk back into play area" |
 | [Eleven Table Tennis](https://www.oculus.com/experiences/quest/1995434190525828) | ? | ? | [Tweet](https://twitter.com/OnvrNewMedia/status/1349682761251098625) | ? |
 | [Epic Roller Coasters](https://www.oculus.com/experiences/quest/2299465166734471) | 5 | 5 | ? | ? |
+| [Eternal Starlight](https://www.oculus.com/experiences/quest/1918967004876383/) | ? | ? | [Tweet](https://twitter.com/e_starlight_vr/status/1390649718204768259) | ? |
 | [ForeVR Bowl](https://www.oculus.com/experiences/quest/3420508614708029/) | ? | ? | [Tweet](https://twitter.com/Seaglemaniac/status/1397623804956975109) | ? |
 | [FitXR](https://www.oculus.com/experiences/quest/2327205800645550) | 5 | 0 | [Tweet](https://twitter.com/sacha81/status/1387791648260870144) | The audio doesn't work. |
 | [Gadgeteer](https://www.oculus.com/experiences/quest/2567395559960697) | ? | ? | ? | ? |
