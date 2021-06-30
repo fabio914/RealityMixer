@@ -154,14 +154,14 @@ final class CameraPoseSender {
     }
 
     private var initialReliableCameraPose: InitialPose?
-    private let initialCalibration: CalibrationResult
+    private let initialCalibrationPose: Pose
 
     init?(client: TCPClient) {
-        guard let calibration = TemporaryCalibrationStorage.shared.calibration else {
+        guard let pose = TemporaryCalibrationStorage.shared.calibrationPose else {
             return nil
         }
 
-        self.initialCalibration = calibration
+        self.initialCalibrationPose = pose
         self.client = client
     }
 
@@ -169,6 +169,10 @@ final class CameraPoseSender {
 //        _ = client?.send(data: intrinsics.data)
         _ = client?.send(data: CameraPositionPayload(position: pose.position).data)
         _ = client?.send(data: CameraRotationPayload(rotation: pose.rotation).data)
+    }
+
+    private func updateCached(pose: Pose) {
+        TemporaryCalibrationStorage.shared.update(pose: pose)
     }
 
     func didUpdate(frame: ARFrame) {
@@ -191,8 +195,9 @@ final class CameraPoseSender {
                     rotation: rotationDelta
                 )
 
-                let poseResult = initialCalibration.pose * pose
+                let poseResult = initialCalibrationPose * pose
                 sendCameraUpdate(pose: poseResult /*, intrinsics: intrinsics*/)
+                updateCached(pose: poseResult)
             default:
                 break
             }
@@ -223,16 +228,25 @@ final class CameraPoseSender {
 final class TemporaryCalibrationStorage {
     static let shared = TemporaryCalibrationStorage()
 
-    // We could update the stored calibration at the end of a session
-    // so that the user doesn't need to calibrate again when starting a
-    // new session (if they've moved the camera).
-    //
     // Ideally, we should be tracking the current orientation all the
     // time, so that the user just needs to calibrate once and so that
     // they can move the device between sessions.
-    private(set) var calibration: CalibrationResult?
+    //
+    // This won't work if the user has moved the camera between Mixed Reality
+    // sessions.
+//    private(set) var calibration: CalibrationResult?
+    private(set) var calibrationPose: Pose?
+
+    var hasCalibration: Bool {
+        calibrationPose != nil
+    }
 
     func save(calibration: CalibrationResult) {
-        self.calibration = calibration
+//        self.calibration = calibration
+        self.calibrationPose = calibration.pose
+    }
+
+    func update(pose: Pose) {
+        self.calibrationPose = pose
     }
 }

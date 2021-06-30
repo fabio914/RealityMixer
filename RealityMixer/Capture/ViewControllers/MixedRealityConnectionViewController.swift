@@ -364,6 +364,14 @@ final class MixedRealityConnectionViewController: UIViewController {
         present(viewController, animated: true, completion: nil)
     }
 
+    private func presentCalibration() {
+        let otherNavigationController = UINavigationController(rootViewController: CalibrationConnectionViewController())
+        otherNavigationController.modalPresentationStyle = .overFullScreen
+        otherNavigationController.modalTransitionStyle = .crossDissolve
+
+        present(otherNavigationController, animated: true, completion: nil)
+    }
+
     // MARK: - Actions
 
     @IBAction private func selectVirtualGreenScreenAction(_ sender: Any) {
@@ -421,6 +429,27 @@ final class MixedRealityConnectionViewController: UIViewController {
             return
         }
 
+        if configuration.enableMovingCamera,
+           !TemporaryCalibrationStorage.shared.hasCalibration {
+
+            let missingCalibrationAlert = UIAlertController(
+                title: "Calibration",
+                message: "You'll need to complete the calibration before you can continue.",
+                preferredStyle: .alert
+            )
+
+            missingCalibrationAlert.addAction(
+                .init(title: "Calibrate", style: .default, handler: { [weak self] _ in
+                    self?.presentCalibration()
+                })
+            )
+
+            missingCalibrationAlert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+
+            present(missingCalibrationAlert, animated: true, completion: nil)
+            return
+        }
+
         if case .greenScreen = configuration.captureMode,
            chromaConfigurationStorage.configuration == nil {
 
@@ -446,11 +475,7 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     @IBAction private func startCalibrationAction(_ sender: Any) {
-        let otherNavigationController = UINavigationController(rootViewController: CalibrationConnectionViewController())
-        otherNavigationController.modalPresentationStyle = .overFullScreen
-        otherNavigationController.modalTransitionStyle = .crossDissolve
-
-        present(otherNavigationController, animated: true, completion: nil)
+        presentCalibration()
     }
 
     @IBAction func openSettingsAction(_ sender: Any) {
