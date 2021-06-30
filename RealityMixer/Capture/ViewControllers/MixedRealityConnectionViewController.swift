@@ -40,7 +40,7 @@ final class MixedRealityConnectionViewController: UIViewController {
 
     // MARK: - Options
     @IBOutlet private weak var optionsStackView: UIStackView!
-    @IBOutlet private weak var audioSwitch: UISwitch!
+    @IBOutlet private weak var movingCameraSwitch: UISwitch!
     @IBOutlet private weak var autoFocusSwitch: UISwitch!
     @IBOutlet private weak var unflipSwitch: UISwitch!
 
@@ -207,7 +207,7 @@ final class MixedRealityConnectionViewController: UIViewController {
             """
         }
 
-        audioSwitch.isOn = configuration.enableAudio
+        movingCameraSwitch.isOn = configuration.enableMovingCamera
         autoFocusSwitch.isOn = configuration.enableAutoFocus
         unflipSwitch.isOn = !configuration.shouldFlipOutput
 
@@ -276,7 +276,7 @@ final class MixedRealityConnectionViewController: UIViewController {
                     return .raw
                 }
             }(),
-            enableAudio: audioSwitch.isOn,
+            enableMovingCamera: movingCameraSwitch.isOn,
             enableAutoFocus: autoFocusSwitch.isOn,
             shouldFlipOutput: !unflipSwitch.isOn,
             foregroundLayerOptions: .init(
@@ -340,7 +340,6 @@ final class MixedRealityConnectionViewController: UIViewController {
 
             case .success:
                 try? self.networkConfigurationStorage.save(configuration: .init(address: address))
-                let cameraPoseSender = CameraPoseSender(address: address)
                 let configuration = self.configuration
                 let chromaConfiguration = self.chromaConfigurationStorage.configuration
 
@@ -349,8 +348,7 @@ final class MixedRealityConnectionViewController: UIViewController {
                     let viewController = MixedRealityViewController(
                         client: client,
                         configuration: configuration,
-                        chromaConfiguration: chromaConfiguration,
-                        cameraPoseSender: cameraPoseSender
+                        chromaConfiguration: chromaConfiguration
                     )
 
                     viewController.modalPresentationStyle = .overFullScreen
@@ -364,6 +362,14 @@ final class MixedRealityConnectionViewController: UIViewController {
         let viewController = ChromaKeyConfigurationViewController()
         viewController.modalPresentationStyle = .overFullScreen
         present(viewController, animated: true, completion: nil)
+    }
+
+    private func presentCalibration() {
+        let otherNavigationController = UINavigationController(rootViewController: CalibrationConnectionViewController())
+        otherNavigationController.modalPresentationStyle = .overFullScreen
+        otherNavigationController.modalTransitionStyle = .crossDissolve
+
+        present(otherNavigationController, animated: true, completion: nil)
     }
 
     // MARK: - Actions
@@ -423,6 +429,27 @@ final class MixedRealityConnectionViewController: UIViewController {
             return
         }
 
+        if configuration.enableMovingCamera,
+           !TemporaryCalibrationStorage.shared.hasCalibration {
+
+            let missingCalibrationAlert = UIAlertController(
+                title: "Calibration",
+                message: "You'll need to complete the calibration before you can continue.",
+                preferredStyle: .alert
+            )
+
+            missingCalibrationAlert.addAction(
+                .init(title: "Calibrate", style: .default, handler: { [weak self] _ in
+                    self?.presentCalibration()
+                })
+            )
+
+            missingCalibrationAlert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+
+            present(missingCalibrationAlert, animated: true, completion: nil)
+            return
+        }
+
         if case .greenScreen = configuration.captureMode,
            chromaConfigurationStorage.configuration == nil {
 
@@ -448,11 +475,7 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     @IBAction private func startCalibrationAction(_ sender: Any) {
-        let otherNavigationController = UINavigationController(rootViewController: CalibrationConnectionViewController())
-        otherNavigationController.modalPresentationStyle = .overFullScreen
-        otherNavigationController.modalTransitionStyle = .crossDissolve
-
-        present(otherNavigationController, animated: true, completion: nil)
+        presentCalibration()
     }
 
     @IBAction func openSettingsAction(_ sender: Any) {

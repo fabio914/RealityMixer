@@ -15,9 +15,9 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
  - Mixed Reality capture without green screen (using ARKit's person segmentation).
  - Avatars (using ARKit's body tracking) and Ready Player Me avatars. [Example](https://www.youtube.com/watch?v=fOPpnZKSK4I).
  - "AR" mode. [Example](https://www.youtube.com/watch?v=jWCI-Ha1IJU).
- - Moving camera (only with games/apps that implement [this protocol](https://github.com/fabio914/RealityMixer/blob/main/Extras/CameraTestServer.cs)). [Example](https://www.youtube.com/watch?v=_FSoRw4pILk).
+ - Moving camera. [Example](https://www.youtube.com/watch?v=_FSoRw4pILk).
  - Spectator camera. [Example](https://www.youtube.com/watch?v=inp_TRWU5QM).
- - Mixed Reality with green screen. (**coming soon**)
+ - Mixed Reality with green screen. [Example](https://twitter.com/fabio914/status/1409331072832266242)
 
 ## Examples
 
@@ -35,7 +35,8 @@ You can find instructions and tutorials [on this page](Instructions.md).
 ## Requirements
 
  - Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed.
- - iPhone or iPad with an A12 chip or newer, running iOS 14. The LiDAR sensor is optional but recommended for better results.
+ - **Virtual Green Screen and Avatars**: iPhone or iPad with an A12 chip or newer, running iOS 14. The LiDAR sensor is optional but recommended for better results.
+ - **Green Screen and Spectator**: iPhone or iPad runnning iOS 14.
  - 5 Ghz WiFi network (802.11ac).
  - A [compatible Quest VR application/game](Compatibility.md).
 

@@ -60,7 +60,6 @@ std::string GetAvErrorString(int errNum) {
 }
 
 @interface OculusMRC () {
-    BOOL _enableAudio;
     uint32_t m_width;
     uint32_t m_height;
     uint32_t m_audioSampleRate;
@@ -79,10 +78,8 @@ std::string GetAvErrorString(int errNum) {
 
 @implementation OculusMRC
 
-- (instancetype)initWithAudio:(BOOL)enableAudio {
-    self = [super init];
-    if (self) {
-        _enableAudio = enableAudio;
+- (instancetype)init {
+    if (self = [super init]) {
         m_width = OM_DEFAULT_WIDTH;
         m_height = OM_DEFAULT_HEIGHT;
         m_audioSampleRate = OM_DEFAULT_AUDIO_SAMPLERATE;

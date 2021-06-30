@@ -153,7 +153,8 @@ extension CalibrationConnectionViewController: CalibrationViewControllerDelegate
         dismiss(animated: true, completion: nil)
     }
 
-    func calibrationDidFinish(_ viewController: CalibrationViewController) {
+    func calibration(_ viewController: CalibrationViewController, didFinishWith result: CalibrationResult) {
+        TemporaryCalibrationStorage.shared.save(calibration: result)
         // Dismissing and also returning to the previous screen
         navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }

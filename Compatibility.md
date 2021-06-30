@@ -17,6 +17,8 @@ You can find a list of the officially supported games/applications [here](https:
 | [Drop Dead: Dual Strike Edition](https://www.oculus.com/experiences/quest/1935017546592600) | 4 | 3 | [Tweet](https://twitter.com/Seaglemaniac/status/1352082534084055041) | Audio works but is lagged. Game is confused and retains message to "walk back into play area" |
 | [Eleven Table Tennis](https://www.oculus.com/experiences/quest/1995434190525828) | ? | ? | [Tweet](https://twitter.com/OnvrNewMedia/status/1349682761251098625) | ? |
 | [Epic Roller Coasters](https://www.oculus.com/experiences/quest/2299465166734471) | 5 | 5 | ? | ? |
+| [ForeVR Bowl](https://www.oculus.com/experiences/quest/3420508614708029/) | ? | ? | [Tweet](https://twitter.com/Seaglemaniac/status/1397623804956975109) | ? |
+| [FitXR](https://www.oculus.com/experiences/quest/2327205800645550) | 5 | 0 | [Tweet](https://twitter.com/sacha81/status/1387791648260870144) | The audio doesn't work. |
 | [Gadgeteer](https://www.oculus.com/experiences/quest/2567395559960697) | ? | ? | ? | ? |
 | [Gun Club VR](https://www.oculus.com/experiences/quest/2285803881494677) | 5 | 5 | ? | ? |
 | [Gravity Sketch](https://www.oculus.com/experiences/quest/1587090851394426) | 5 | ? | [Tweet](https://twitter.com/fabio914/status/1354211501113008134) | Hint: set the background layer visibility to "filtered" and pick the color black, then you'll be able to record yourself in "AR" if use Gravity Sketch's "black room" preset. |
@@ -28,7 +30,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Immersed VR](https://immersedvr.com) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=rhAepGvSMf4) | There was some latency but it still worked really well. | 
 | [Kingspray](https://www.oculus.com/experiences/quest/2082941345119152) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=_0aYmo2Ytac) | Works perfectly. |
 | [OhShape](https://www.oculus.com/experiences/quest/2522558964527688) | ? | ? | [Tweet](https://twitter.com/Seaglemaniac/status/1351727338661273600) | ? |
-| [Open Brush](https://www.oculus.com/experiences/quest/3600360710032222) |  |  |  | Version 0.3.0 supports Mixed Reality Capture. You can try [this version](https://github.com/fabio914/open-brush/releases/tag/0.2.1) if you wish to use the "moving camera". | 
+| [Open Brush](https://www.oculus.com/experiences/quest/3600360710032222) |  |  | [YouTube video](https://www.youtube.com/watch?v=_FSoRw4pILk) | Version 0.3.0 supports Mixed Reality Capture. You can try [this version](https://github.com/fabio914/open-brush/releases/tag/0.2.1) if you wish to use the "moving camera" with Reality Mixer 0.2.1, 0.3.0 or 0.4.0. | 
 | [Peco Peco](https://benthamrealities.itch.io/pecopeco) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=Zrf2i6FvkrU) | Works perfectly. |
 | [Pistol Whip](https://www.oculus.com/experiences/quest/2104963472963790) | 2 | 0 | [Tweet](https://twitter.com/fabio914/status/1326699860146401284) | The audio didn't work and the video was showing a first person POV. |
 | [Premium Bowling](https://www.oculus.com/experiences/quest/2773034772778845/) | 4 | 4 | [YouTube Video](https://www.youtube.com/watch?v=lGYBMq5yf2Q) | Audio slightly out of sync. |
@@ -38,9 +40,10 @@ You can find a list of the officially supported games/applications [here](https:
 | [Racket: Nx](https://www.oculus.com/experiences/quest/2255408847836468) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=u05jGAV-V_Q) | Works perfectly. |
 | [Real VR Fishing](https://www.oculus.com/experiences/quest/2582932495064035) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=xMbj-JThgoc) | Works perfectly. |
 | [Richie's Plank Experience](https://www.oculus.com/experiences/quest/1642239225880682) | ? | ? | [Tweet](https://twitter.com/FreekTeunen/status/1327673218891649024) | ? |
-| [SUPERHOT](https://www.oculus.com/experiences/quest/1921533091289407/) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=ZnOY8juMw4k) | Works perfectly. |
+| [Smash Drums](https://www.oculus.com/experiences/quest/3630025217090808/) | ? | ? | ? | ? |
 | [Space Pirate Trainer](https://www.oculus.com/experiences/quest/1663790613725314) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=44Nmv7Es5yI) | Works perfectly. |
 | [Space Slurpies](https://sidequestvr.com/app/2618/space-slurpies) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=6boK3My_tmE) | Works perfectly. |
+| [SUPERHOT](https://www.oculus.com/experiences/quest/1921533091289407/) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=ZnOY8juMw4k) | Works perfectly. |
 | [Synth Riders](https://www.oculus.com/experiences/quest/2436558143118760) | 5 | 5 | [YouTube video](https://youtu.be/ss7L1vqUp0I) | Works perfectly. |
 | [Tetris Effect](https://www.oculus.com/experiences/quest/3386618894743567) | 0 | 0 | ? | The camera position was incorrect. |
 | [The Thrill of the Fight](https://www.oculus.com/experiences/quest/3008315795852749) | 4 | 5 | [YouTube video](https://www.youtube.com/watch?v=aPSBmej4ppc) | You'll have to use the "Use magenta for transparency" option. |
