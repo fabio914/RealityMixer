@@ -4,12 +4,13 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChromaKeyConfigurationViewController" customModule="RealityMixer" customModuleProvider="target">
             <connections>
-                <outlet property="colorWell" destination="miV-9L-OUu" id="vQL-Ca-1wX"/>
+                <outlet property="colorIndicator" destination="Pjd-wc-qZB" id="jt0-G8-EP9"/>
                 <outlet property="editMaskButton" destination="Zpa-mG-W5A" id="kKj-mx-hfK"/>
                 <outlet property="sceneView" destination="NjE-D6-Hlz" id="b2G-1v-4au"/>
                 <outlet property="sensitivityLabel" destination="gyP-YM-mMp" id="FRk-nl-IXk"/>
@@ -33,7 +34,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eJR-3f-Yb6">
                             <rect key="frame" x="20" y="20" width="488" height="132"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gdQ-Yv-MvA">
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gdQ-Yv-MvA">
                                     <rect key="frame" x="0.0" y="0.0" width="488" height="32"/>
                                     <subviews>
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rqo-Mc-Oen">
@@ -65,11 +66,11 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <view contentMode="scaleToFill" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="tVp-CI-7TV">
-                                            <rect key="frame" x="140" y="0.0" width="156" height="32"/>
+                                            <rect key="frame" x="130" y="0.0" width="56" height="32"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pRl-cY-ads">
-                                            <rect key="frame" x="316" y="0.0" width="120" height="32"/>
+                                            <rect key="frame" x="196" y="0.0" width="120" height="32"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpa-mG-W5A">
                                                     <rect key="frame" x="0.0" y="0.0" width="120" height="32"/>
@@ -96,33 +97,60 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MrE-d7-YeS">
-                                            <rect key="frame" x="456" y="0.0" width="32" height="32"/>
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxh-cH-QEo">
+                                            <rect key="frame" x="326" y="0.0" width="120" height="32"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="miV-9L-OUu" customClass="UIColorWell">
-                                                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                                                </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Gf-jj-qV6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ONu-Kd-I1T">
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="32"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <state key="normal" title="Pick Color">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
                                                     <connections>
-                                                        <action selector="pickColorAction:" destination="-1" eventType="touchUpInside" id="0SJ-bC-aVn"/>
+                                                        <action selector="pickColorAction:" destination="-1" eventType="touchUpInside" id="7jF-fl-cEa"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="miV-9L-OUu" firstAttribute="height" secondItem="MrE-d7-YeS" secondAttribute="height" id="0uI-KX-7wq"/>
-                                                <constraint firstAttribute="trailing" secondItem="9Gf-jj-qV6" secondAttribute="trailing" id="5ec-n6-uAb"/>
-                                                <constraint firstItem="miV-9L-OUu" firstAttribute="centerY" secondItem="MrE-d7-YeS" secondAttribute="centerY" id="6Yc-xg-l4Q"/>
-                                                <constraint firstAttribute="bottom" secondItem="9Gf-jj-qV6" secondAttribute="bottom" id="9Rn-hX-gPW"/>
-                                                <constraint firstItem="9Gf-jj-qV6" firstAttribute="top" secondItem="MrE-d7-YeS" secondAttribute="top" id="Db1-IN-fo0"/>
-                                                <constraint firstItem="miV-9L-OUu" firstAttribute="width" secondItem="MrE-d7-YeS" secondAttribute="width" id="P5X-vA-so5"/>
-                                                <constraint firstAttribute="width" constant="32" id="Zoj-Ji-0n7"/>
-                                                <constraint firstItem="9Gf-jj-qV6" firstAttribute="leading" secondItem="MrE-d7-YeS" secondAttribute="leading" id="ap4-6e-mfl"/>
-                                                <constraint firstAttribute="height" constant="32" id="i8k-1T-6Ae"/>
-                                                <constraint firstItem="miV-9L-OUu" firstAttribute="centerX" secondItem="MrE-d7-YeS" secondAttribute="centerX" id="iYN-KE-V5v"/>
+                                                <constraint firstAttribute="bottom" secondItem="ONu-Kd-I1T" secondAttribute="bottom" id="DOw-0e-EvV"/>
+                                                <constraint firstItem="ONu-Kd-I1T" firstAttribute="top" secondItem="lxh-cH-QEo" secondAttribute="top" id="L8t-6N-Ir1"/>
+                                                <constraint firstItem="ONu-Kd-I1T" firstAttribute="leading" secondItem="lxh-cH-QEo" secondAttribute="leading" id="lML-me-cst"/>
+                                                <constraint firstAttribute="width" constant="120" id="mOS-bc-hi4"/>
+                                                <constraint firstAttribute="trailing" secondItem="ONu-Kd-I1T" secondAttribute="trailing" id="qsi-rh-edk"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjd-wc-qZB">
+                                            <rect key="frame" x="456" y="0.0" width="32" height="32"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ta2-S6-vnR">
+                                                    <rect key="frame" x="-7" y="0.0" width="46" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="pickColorAction:" destination="-1" eventType="touchUpInside" id="JUd-BX-HKm"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="32" id="6se-Mh-qq8"/>
+                                                <constraint firstAttribute="width" constant="32" id="bjb-2J-qH0"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="6"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </view>
                                     </subviews>
                                 </stackView>
@@ -295,4 +323,9 @@
             <point key="canvasLocation" x="-200" y="84"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

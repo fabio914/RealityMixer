@@ -18,7 +18,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     @IBOutlet private weak var sensitivityLabel: UILabel!
     @IBOutlet private weak var smoothnessSlider: UISlider!
     @IBOutlet private weak var smoothnessLabel: UILabel!
-    @IBOutlet private weak var colorWell: UIColorWell!
+    @IBOutlet private weak var colorIndicator: UIView!
     @IBOutlet private weak var editMaskButton: UIButton!
 
     private static let defaultChromaColor = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
@@ -55,14 +55,13 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         configureDisplay()
         configureScene()
         configureSliders()
-        configureColorWell()
         resetValues()
 
         if let currentConfiguration = chromaConfigurationStorage.configuration {
             sensitivitySlider.value = currentConfiguration.sensitivity
             smoothnessSlider.value = currentConfiguration.smoothness
             chromaColor = currentConfiguration.color.uiColor
-            colorWell.selectedColor = chromaColor
+            colorIndicator.backgroundColor = chromaColor
             updateValueLabels()
         }
 
@@ -85,11 +84,6 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         ARKitHelpers.create(textureCache: &textureCache, for: sceneView)
     }
 
-    private func configureColorWell() {
-        colorWell.supportsAlpha = false
-        colorWell.addTarget(self, action: #selector(valueChanged(_:)), for: .valueChanged)
-    }
-
     private func configureSliders() {
         // TODO: Update these intervals!
         sensitivitySlider.minimumValue = 0.0
@@ -103,7 +97,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         sensitivitySlider.value = 0.5
         smoothnessSlider.value = 0
         chromaColor = Self.defaultChromaColor
-        colorWell.selectedColor = chromaColor
+        colorIndicator.backgroundColor = chromaColor
         updateValueLabels()
     }
 
@@ -231,7 +225,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         pickerController.supportsAlpha = false
 
         pickerController.modalPresentationStyle = .popover
-        pickerController.popoverPresentationController?.sourceView = colorWell
+        pickerController.popoverPresentationController?.sourceView = colorIndicator
         pickerController.popoverPresentationController?.delegate = self
 
         present(pickerController, animated: true, completion: nil)
@@ -297,7 +291,7 @@ extension ChromaKeyConfigurationViewController: UIColorPickerViewControllerDeleg
 
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         chromaColor = viewController.selectedColor
-        colorWell.selectedColor = chromaColor
+        colorIndicator.backgroundColor = chromaColor
         didUpdateValues()
     }
 }
