@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="landscape" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -96,11 +96,32 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="miV-9L-OUu" customClass="UIColorWell">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MrE-d7-YeS">
                                             <rect key="frame" x="456" y="0.0" width="32" height="32"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="miV-9L-OUu" customClass="UIColorWell">
+                                                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Gf-jj-qV6">
+                                                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <connections>
+                                                        <action selector="pickColorAction:" destination="-1" eventType="touchUpInside" id="0SJ-bC-aVn"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="32" id="Urh-6F-IaH"/>
-                                                <constraint firstAttribute="height" constant="32" id="mDr-TF-MGk"/>
+                                                <constraint firstItem="miV-9L-OUu" firstAttribute="height" secondItem="MrE-d7-YeS" secondAttribute="height" id="0uI-KX-7wq"/>
+                                                <constraint firstAttribute="trailing" secondItem="9Gf-jj-qV6" secondAttribute="trailing" id="5ec-n6-uAb"/>
+                                                <constraint firstItem="miV-9L-OUu" firstAttribute="centerY" secondItem="MrE-d7-YeS" secondAttribute="centerY" id="6Yc-xg-l4Q"/>
+                                                <constraint firstAttribute="bottom" secondItem="9Gf-jj-qV6" secondAttribute="bottom" id="9Rn-hX-gPW"/>
+                                                <constraint firstItem="9Gf-jj-qV6" firstAttribute="top" secondItem="MrE-d7-YeS" secondAttribute="top" id="Db1-IN-fo0"/>
+                                                <constraint firstItem="miV-9L-OUu" firstAttribute="width" secondItem="MrE-d7-YeS" secondAttribute="width" id="P5X-vA-so5"/>
+                                                <constraint firstAttribute="width" constant="32" id="Zoj-Ji-0n7"/>
+                                                <constraint firstItem="9Gf-jj-qV6" firstAttribute="leading" secondItem="MrE-d7-YeS" secondAttribute="leading" id="ap4-6e-mfl"/>
+                                                <constraint firstAttribute="height" constant="32" id="i8k-1T-6Ae"/>
+                                                <constraint firstItem="miV-9L-OUu" firstAttribute="centerX" secondItem="MrE-d7-YeS" secondAttribute="centerX" id="iYN-KE-V5v"/>
                                             </constraints>
                                         </view>
                                     </subviews>
