@@ -18,7 +18,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     @IBOutlet private weak var sensitivityLabel: UILabel!
     @IBOutlet private weak var smoothnessSlider: UISlider!
     @IBOutlet private weak var smoothnessLabel: UILabel!
-    @IBOutlet private weak var colorWell: UIColorWell!
+    @IBOutlet private weak var colorIndicator: UIView!
     @IBOutlet private weak var editMaskButton: UIButton!
 
     private static let defaultChromaColor = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
@@ -39,6 +39,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     }
 
     private var first = true
+    private var isPresentingColorPicker = false
 
     init() {
         self.chromaColor = Self.defaultChromaColor
@@ -54,14 +55,13 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         configureDisplay()
         configureScene()
         configureSliders()
-        configureColorWell()
         resetValues()
 
         if let currentConfiguration = chromaConfigurationStorage.configuration {
             sensitivitySlider.value = currentConfiguration.sensitivity
             smoothnessSlider.value = currentConfiguration.smoothness
             chromaColor = currentConfiguration.color.uiColor
-            colorWell.selectedColor = chromaColor
+            colorIndicator.backgroundColor = chromaColor
             updateValueLabels()
         }
 
@@ -84,11 +84,6 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         ARKitHelpers.create(textureCache: &textureCache, for: sceneView)
     }
 
-    private func configureColorWell() {
-        colorWell.supportsAlpha = false
-        colorWell.addTarget(self, action: #selector(valueChanged(_:)), for: .valueChanged)
-    }
-
     private func configureSliders() {
         // TODO: Update these intervals!
         sensitivitySlider.minimumValue = 0.0
@@ -102,7 +97,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         sensitivitySlider.value = 0.5
         smoothnessSlider.value = 0
         chromaColor = Self.defaultChromaColor
-        colorWell.selectedColor = chromaColor
+        colorIndicator.backgroundColor = chromaColor
         updateValueLabels()
     }
 
@@ -128,6 +123,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
 
     private func configurePlane(with frame: ARFrame) {
         let planeNode = ARKitHelpers.makePlaneNodeForDistance(0.1, frame: frame)
+        planeNode.geometry?.firstMaterial?.lightingModel = .constant
         planeNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
         planeNode.geometry?.firstMaterial?.shaderModifiers = [.surface: Shaders.surfaceChromaKeyConfiguration()]
         sceneView.pointOfView?.addChildNode(planeNode)
@@ -140,12 +136,6 @@ final class ChromaKeyConfigurationViewController: UIViewController {
 
         planeNode?.geometry?.firstMaterial?.transparent.contents = luma
         planeNode?.geometry?.firstMaterial?.diffuse.contents = chroma
-
-        if let maskImage = maskImage {
-            planeNode?.geometry?.firstMaterial?.ambient.contents = maskImage
-        } else {
-            planeNode?.geometry?.firstMaterial?.ambient.contents = UIColor.white
-        }
     }
 
     func updateValueLabels() {
@@ -162,29 +152,36 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     }
 
     func didUpdateValues() {
-        if let selectedColor = colorWell.selectedColor {
-            chromaColor = selectedColor
-        }
-
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0
         chromaColor.getRed(&red, green: &green, blue: &blue, alpha: nil)
+
+        if let maskImage = maskImage, !isPresentingColorPicker {
+            planeNode?.geometry?.firstMaterial?.ambient.contents = maskImage
+        } else {
+            planeNode?.geometry?.firstMaterial?.ambient.contents = UIColor.white
+        }
 
         planeNode?.geometry?.firstMaterial?.setValue(
             SCNVector3(red, green, blue),
             forKey: "maskColor"
         )
 
-        planeNode?.geometry?.firstMaterial?.setValue(
-            sensitivitySlider.value,
-            forKey: "sensitivity"
-        )
+        if isPresentingColorPicker {
+            planeNode?.geometry?.firstMaterial?.setValue(0.0, forKey: "sensitivity")
+            planeNode?.geometry?.firstMaterial?.setValue(0.0, forKey: "smoothness")
+        } else {
+            planeNode?.geometry?.firstMaterial?.setValue(
+                sensitivitySlider.value,
+                forKey: "sensitivity"
+            )
 
-        planeNode?.geometry?.firstMaterial?.setValue(
-            smoothnessSlider.value,
-            forKey: "smoothness"
-        )
+            planeNode?.geometry?.firstMaterial?.setValue(
+                smoothnessSlider.value,
+                forKey: "smoothness"
+            )
+        }
 
         updateValueLabels()
     }
@@ -206,7 +203,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.horizontal, .vertical]
         configuration.environmentTexturing = .none
-        configuration.isLightEstimationEnabled = true
+        configuration.isLightEstimationEnabled = false
         configuration.isAutoFocusEnabled = true // Consider changing to false
         sceneView.session.run(configuration)
     }
@@ -217,6 +214,22 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     }
 
     // MARK: - Actions
+
+    @IBAction func pickColorAction(_ sender: Any) {
+        isPresentingColorPicker = true
+        didUpdateValues()
+
+        let pickerController = UIColorPickerViewController()
+        pickerController.delegate = self
+        pickerController.selectedColor = chromaColor
+        pickerController.supportsAlpha = false
+
+        pickerController.modalPresentationStyle = .popover
+        pickerController.popoverPresentationController?.sourceView = colorIndicator
+        pickerController.popoverPresentationController?.delegate = self
+
+        present(pickerController, animated: true, completion: nil)
+    }
 
     @IBAction func resetValuesAction(_ sender: Any) {
         resetValues()
@@ -235,6 +248,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         }
 
         updateMaskButton()
+        didUpdateValues()
     }
 
     @IBAction private func saveAction(_ sender: Any) {
@@ -263,5 +277,29 @@ extension ChromaKeyConfigurationViewController: ARSessionDelegate {
         }
 
         updatePlaneImage(with: frame.capturedImage)
+    }
+}
+
+extension ChromaKeyConfigurationViewController: UIColorPickerViewControllerDelegate {
+
+    // This won't get called if the user dismisses the View Controller without tapping
+    // on the close button, thanks Apple.
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        isPresentingColorPicker = false
+        didUpdateValues()
+    }
+
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        chromaColor = viewController.selectedColor
+        colorIndicator.backgroundColor = chromaColor
+        didUpdateValues()
+    }
+}
+
+extension ChromaKeyConfigurationViewController: UIPopoverPresentationControllerDelegate {
+
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        isPresentingColorPicker = false
+        didUpdateValues()
     }
 }
