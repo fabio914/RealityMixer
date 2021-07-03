@@ -29,6 +29,7 @@ final class MixedRealityViewController: UIViewController {
 
     private let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
 
+    private var currentAudioTime: UInt64 = 0
     private var avatar: AvatarProtocol?
 
     var first = true
@@ -332,8 +333,11 @@ extension MixedRealityViewController: OculusMRCDelegate {
         updateForegroundBackground(with: pixelBuffer)
     }
 
-    func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer) {
-        audioPlayer?.scheduleBuffer(audio, completionHandler: nil)
+    // This `timestamp` appears to be the duration of the sample...
+    func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer, timestamp: UInt64) {
+        let audioTime = AVAudioTime(hostTime: mach_absolute_time(), sampleTime: AVAudioFramePosition(currentAudioTime), atRate: 48000)
+        self.currentAudioTime = currentAudioTime + timestamp
+        audioPlayer?.scheduleBuffer(audio, at: audioTime, options: [], completionHandler: nil)
     }
 }
 

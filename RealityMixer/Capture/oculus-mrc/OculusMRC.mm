@@ -196,7 +196,7 @@ std::string GetAvErrorString(int errNum) {
 
                         if (audioDataHeader->channels == 1 || audioDataHeader->channels == 2) {
                             float * data = (float *)((uint8_t *)audioFrame->m_payload.data() + sizeof(AudioDataHeader));
-                            [_delegate oculusMRC: self didReceiveAudio: pcmBufferFrom(audioDataHeader, m_audioSampleRate, data)];
+                            [_delegate oculusMRC: self didReceiveAudio: pcmBufferFrom(audioDataHeader, m_audioSampleRate, data) timestamp:audioDataHeader->timestamp];
                         } else {
                             fprintf(stderr, "[AUDIO_DATA] unimplemented audio channels %d", audioDataHeader->channels);
                         }
