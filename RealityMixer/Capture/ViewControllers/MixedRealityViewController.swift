@@ -29,7 +29,7 @@ final class MixedRealityViewController: UIViewController {
 
     private let flipTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
 
-    private var currentAudioTime: UInt64 = 0
+    private var initialAudioTime: UInt64?
     private var avatar: AvatarProtocol?
 
     var first = true
@@ -333,11 +333,34 @@ extension MixedRealityViewController: OculusMRCDelegate {
         updateForegroundBackground(with: pixelBuffer)
     }
 
-    // This `timestamp` appears to be the duration of the sample...
+    func nanoseconds() -> UInt64? {
+        let absoluteTime = mach_absolute_time()
+        var baseInfo = mach_timebase_info_data_t(numer: 0, denom: 0)
+        guard mach_timebase_info(&baseInfo) == KERN_SUCCESS else  { return nil }
+        return absoluteTime * UInt64(baseInfo.numer) / UInt64(baseInfo.denom)
+    }
+
     func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer, timestamp: UInt64) {
-        let audioTime = AVAudioTime(hostTime: mach_absolute_time(), sampleTime: AVAudioFramePosition(currentAudioTime), atRate: 48000)
-        self.currentAudioTime = currentAudioTime + timestamp
-        audioPlayer?.scheduleBuffer(audio, at: audioTime, options: [], completionHandler: nil)
+        guard let currentNanoseconds = nanoseconds() else { return }
+
+        guard let initialAudioTime = initialAudioTime else {
+            audioPlayer?.scheduleBuffer(audio, at: nil, options: [], completionHandler: nil)
+            self.initialAudioTime = currentNanoseconds
+            return
+        }
+
+        let maximumDelay: UInt64 = 100000 // 100ms
+        print("SOUND: \(timestamp)")
+
+        if currentNanoseconds > initialAudioTime + timestamp + maximumDelay {
+//            print("SOUND: RESYNC \(timestamp)")
+            audioPlayer?.scheduleBuffer(audio, at: nil, options: .interrupts, completionHandler: nil)
+            // Assuming currentNanoseconds is always > timestamp
+            self.initialAudioTime = currentNanoseconds - timestamp // FIXME
+        } else {
+//            print("SOUND: NORMAL \(timestamp)")
+            audioPlayer?.scheduleBuffer(audio, at: nil, options: [], completionHandler: nil)
+        }
     }
 }
 
