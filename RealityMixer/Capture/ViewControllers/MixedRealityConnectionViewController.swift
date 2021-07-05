@@ -57,6 +57,9 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var showOptionsButton: UIButton!
     @IBOutlet private weak var resetOptionsButton: UIButton!
 
+    // MARK: - Info
+    @IBOutlet private weak var showInstructionsButton: UIButton!
+    @IBOutlet private weak var instructionsContainer: UIStackView!
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
@@ -93,6 +96,9 @@ final class MixedRealityConnectionViewController: UIViewController {
 
         addressTextField.delegate = self
         portTextField.delegate = self
+
+        showInstructionsButton.isHidden = false
+        instructionsContainer.isHidden = true
 
         if let networkConfiguration = networkConfigurationStorage.configuration {
             addressTextField.text = networkConfiguration.address
@@ -401,6 +407,15 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBAction private func showOptionsAction(_ sender: Any) {
         showOptionsButton.isHidden = true
         optionsStackView.isHidden = false
+        scrollView.flashScrollIndicators()
+        UIView.animate(withDuration: 0.1, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+
+    @IBAction func showInstructionsAction(_ sender: Any) {
+        showInstructionsButton.isHidden = true
+        instructionsContainer.isHidden = false
         scrollView.flashScrollIndicators()
         UIView.animate(withDuration: 0.1, animations: {
             self.view.layoutIfNeeded()

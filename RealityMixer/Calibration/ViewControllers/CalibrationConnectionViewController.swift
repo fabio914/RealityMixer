@@ -16,9 +16,15 @@ final class CalibrationConnectionViewController: UIViewController {
 
     @IBOutlet private weak var scaleSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var poorPerformanceWarningLabel: UILabel!
+
+
+    @IBOutlet private weak var showInstructionsButton: UIButton!
+    @IBOutlet private weak var instructionsContainer: UIStackView!
+
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
+
     private let networkConfigurationStorage = NetworkConfigurationStorage()
 
     init() {
@@ -32,6 +38,8 @@ final class CalibrationConnectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Calibration"
+        showInstructionsButton.isHidden = false
+        instructionsContainer.isHidden = true
 
         addressTextField.delegate = self
         portTextField.delegate = self
@@ -144,6 +152,15 @@ final class CalibrationConnectionViewController: UIViewController {
     @IBAction private func openSettings(_ sender: Any) {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
+    @IBAction func showInstructionsAction(_ sender: Any) {
+        showInstructionsButton.isHidden = true
+        instructionsContainer.isHidden = false
+        scrollView.flashScrollIndicators()
+        UIView.animate(withDuration: 0.1, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
 }
 
