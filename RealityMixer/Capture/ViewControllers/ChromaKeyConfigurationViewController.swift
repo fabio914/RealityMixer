@@ -13,6 +13,11 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     private let chromaConfigurationStorage = ChromaKeyConfigurationStorage()
     private let maskStorage = ChromaKeyMaskStorage()
 
+    @IBOutlet private weak var mainContainer: UIView!
+    @IBOutlet private weak var cancelButtonContainer: UIView!
+    @IBOutlet private weak var saveButtonContainer: UIView!
+    @IBOutlet private weak var instructionsContainer: UIView!
+
     @IBOutlet private weak var sceneView: ARSCNView!
     @IBOutlet private weak var sensitivitySlider: UISlider!
     @IBOutlet private weak var sensitivityLabel: UILabel!
@@ -52,6 +57,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        showInstructions(false)
         configureDisplay()
         configureScene()
         configureSliders()
@@ -91,6 +97,13 @@ final class ChromaKeyConfigurationViewController: UIViewController {
 
         smoothnessSlider.minimumValue = 0
         smoothnessSlider.maximumValue = 0.1
+    }
+
+    private func showInstructions(_ shouldShow: Bool) {
+        mainContainer.isHidden = shouldShow
+        cancelButtonContainer.isHidden = shouldShow
+        saveButtonContainer.isHidden = shouldShow
+        instructionsContainer.isHidden = !shouldShow
     }
 
     private func resetValues() {
@@ -204,7 +217,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         configuration.planeDetection = [.horizontal, .vertical]
         configuration.environmentTexturing = .none
         configuration.isLightEstimationEnabled = false
-        configuration.isAutoFocusEnabled = true // Consider changing to false
+        configuration.isAutoFocusEnabled = false
         sceneView.session.run(configuration)
     }
 
@@ -263,6 +276,14 @@ final class ChromaKeyConfigurationViewController: UIViewController {
 
     @IBAction func valueChanged(_ sender: Any) {
         didUpdateValues()
+    }
+
+    @IBAction private func showInstructionsAction(_ sender: Any) {
+        showInstructions(true)
+    }
+
+    @IBAction private func hideInstructionsAction(_ sender: Any) {
+        showInstructions(false)
     }
 }
 
