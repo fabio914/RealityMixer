@@ -152,7 +152,7 @@ final class CalibrationViewController: UIViewController {
             sceneView.scene.rootNode.enumerateChildNodes({ (node, _) in node.removeFromParentNode() })
             sceneView.pointOfView?.enumerateChildNodes({ (node, _) in node.removeFromParentNode() })
 
-            updateInfo("Step 1 of 4: Put your headset on, face the camera, and move your right controller's trigger button as close as possible to the device's camera, then press the \"A\" button or the right controller's trigger button.")
+            updateInfo("Step 1 of 4: Put your headset on, face the camera, touch the tip of the right controller (next to the trigger button) on the device's camera, then press the \"A\" button or the right controller's trigger button.")
         case .cameraOriginSet:
             saveButtonContainer.isHidden = true
             updateInfo("Step 2 of 4: Put your headset on, move 1.5 meters (5 feet) away from the camera, face the camera, stay still and then press the \"A\" button or the right controller's trigger button.")

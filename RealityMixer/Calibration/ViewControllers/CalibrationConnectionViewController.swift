@@ -17,10 +17,8 @@ final class CalibrationConnectionViewController: UIViewController {
     @IBOutlet private weak var scaleSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var poorPerformanceWarningLabel: UILabel!
 
-
     @IBOutlet private weak var showInstructionsButton: UIButton!
     @IBOutlet private weak var instructionsContainer: UIStackView!
-
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
@@ -112,7 +110,13 @@ final class CalibrationConnectionViewController: UIViewController {
 
                     let alert = UIAlertController(
                         title: "Error",
-                        message: "Unable to connect: \(error)",
+                        message: """
+                        Unable to connect (\(error)).
+
+                        • Make sure that this device and the Quest are connected to the same WiFi network.
+
+                        • Make sure that the Quest is running the Oculus MRC calibration app.
+                        """,
                         preferredStyle: .alert
                     )
 
@@ -143,6 +147,21 @@ final class CalibrationConnectionViewController: UIViewController {
 
     @IBAction private func scaleFactorChanged(_ sender: Any) {
         poorPerformanceWarningLabel.isHidden = scaleSegmentedControl.selectedSegmentIndex < 2
+    }
+
+    @IBAction private func openScaleFactorInstructions(_ sender: Any) {
+        let alert = UIAlertController(
+            title: "Resolution Scale Factor",
+            message: """
+            Use this setting to select the resolution of the Mixed Reality video.
+
+            Smaller factors will result in better performance and lower quality.
+            """,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(.init(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 
     @IBAction private func downloadMRCAction(_ sender: Any) {

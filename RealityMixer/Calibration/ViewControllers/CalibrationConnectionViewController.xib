@@ -108,6 +108,9 @@
                                                             <state key="normal">
                                                                 <imageReference key="image" image="info.circle.fill" catalog="system" symbolScale="large"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="openScaleFactorInstructions:" destination="-1" eventType="touchUpInside" id="BjJ-Fz-RrK"/>
+                                                            </connections>
                                                         </button>
                                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="fQR-NO-g7h">
                                                             <rect key="frame" x="285" y="0.0" width="215" height="32"/>

@@ -40,7 +40,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
 - Take your headset and the right controller.
 
-- Now, put your headset on and walk in front of the camera, then bring your right controller's trigger button as close as possible to the camera and press the right controller's trigger button or the "A" button.
+- Now, put your headset on and walk in front of the camera, bring your right controller's trigger button as close as possible to the camera, touch the tip of the right controller on the camera, and then press the right controller's trigger button or the "A" button.
 
 <img src="Images/instructions/calibration_2.jpg" width="300" />
 
