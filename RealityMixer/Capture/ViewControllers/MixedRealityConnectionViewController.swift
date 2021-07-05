@@ -541,11 +541,35 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     @IBAction private func openBackgroundVisibilityInstructions(_ sender: Any) {
+        let alert = UIAlertController(
+            title: "Background Layer",
+            message: """
+            You can use this setting to achieve an "augmented reality" effect by hiding/filtering the background layer of the Mixed Reality video.
 
+            This is useful when the game/app you want to capture allows you to customize the color of its environment.
+
+            You can pick the color black, green or magenta for the background and then use the "filtered" setting to map that color to transparency, or you can hide the background layer completely.
+            """,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(.init(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 
     @IBAction private func openForegroundVisibilityInstructions(_ sender: Any) {
+        let alert = UIAlertController(
+            title: "Foreground Layer",
+            message: """
+            You can use this setting to hide the foreground layer of the Mixed Reality video. This layer contains everything that's between the camera and the headset.
 
+            This is useful when you're using the "Raw / Spectator" mode and you're only interested in displaying the background layer.
+            """,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(.init(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 
     @IBAction private func openMagentaForTransparencyInstructions(_ sender: Any) {
@@ -554,7 +578,7 @@ final class MixedRealityConnectionViewController: UIViewController {
             message: """
             Some old games/apps use the color magenta to indicate the areas of the foreground layer that should be transparent.
 
-            Use this setting if that's the case for the game/app you're connecting to. Remember to switch it off before connecting to a game that doesn't require it.
+            Use this setting if that's the case for the game/app you want to capture. Remember to switch it off before connecting to a game that doesn't require it.
             """,
             preferredStyle: .alert
         )
