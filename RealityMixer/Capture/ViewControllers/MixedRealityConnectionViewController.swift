@@ -335,7 +335,17 @@ final class MixedRealityConnectionViewController: UIViewController {
 
                     let alert = UIAlertController(
                         title: "Error",
-                        message: "Unable to connect: \(error)",
+                        message: """
+                        Unable to connect (\(error)).
+
+                        • Make sure that this device and the Quest are connected to the same WiFi network.
+
+                        • Make sure that you've completed and saved the Calibration.
+
+                        • Make sure that the Quest is running a game/app that supports Mixed Reality Capture.
+
+                        • Some games/apps require you to enable Mixed Reality Capture first before you can connect.
+                        """,
                         preferredStyle: .alert
                     )
 
@@ -496,6 +506,61 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBAction func openSettingsAction(_ sender: Any) {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
+    @IBAction private func openMovingCameraInstructions(_ sender: Any) {
+        let alert = UIAlertController(
+            title: "Moving Camera",
+            message: """
+            Enable this setting if you wish to be able to move the camera around the scene.
+
+            This might not work with every game/app, and you can only move this device during a Mixed Reality session.
+
+            You'll need to recalibrate if you move this device while not connected to a Quest game/app.
+            """,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(.init(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    @IBAction private func openUnflipOutputInstructions(_ sender: Any) {
+        let alert = UIAlertController(
+            title: "Unflip Output",
+            message: """
+            Use this setting if the Mixed Reality video appears to be upside down.
+
+            This is necessary for a few games/apps. Remember to switch it off before connecting to a game that doesn't require it.
+            """,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(.init(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    @IBAction private func openBackgroundVisibilityInstructions(_ sender: Any) {
+
+    }
+
+    @IBAction private func openForegroundVisibilityInstructions(_ sender: Any) {
+
+    }
+
+    @IBAction private func openMagentaForTransparencyInstructions(_ sender: Any) {
+        let alert = UIAlertController(
+            title: "Magenta for Transparency",
+            message: """
+            Some old games/apps use the color magenta to indicate the areas of the foreground layer that should be transparent.
+
+            Use this setting if that's the case for the game/app you're connecting to. Remember to switch it off before connecting to a game that doesn't require it.
+            """,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(.init(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
 

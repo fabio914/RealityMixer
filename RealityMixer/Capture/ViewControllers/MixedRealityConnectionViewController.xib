@@ -417,6 +417,9 @@
                                                                     <state key="normal">
                                                                         <imageReference key="image" image="info.circle.fill" catalog="system" symbolScale="large"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="openMovingCameraInstructions:" destination="-1" eventType="touchUpInside" id="tC6-zl-Ili"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gwP-RT-jgL">
                                                                     <rect key="frame" x="451" y="0.0" width="51" height="31"/>
@@ -465,6 +468,9 @@
                                                                     <state key="normal">
                                                                         <imageReference key="image" image="info.circle.fill" catalog="system" symbolScale="large"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="openUnflipOutputInstructions:" destination="-1" eventType="touchUpInside" id="5X7-7j-26g"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YfJ-I6-mox">
                                                                     <rect key="frame" x="451" y="0.0" width="51" height="31"/>
@@ -509,6 +515,9 @@
                                                                     <state key="normal">
                                                                         <imageReference key="image" image="info.circle.fill" catalog="system" symbolScale="large"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="openBackgroundVisibilityInstructions:" destination="-1" eventType="touchUpInside" id="cl7-SL-PXk"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VoQ-fX-dX1">
                                                                     <rect key="frame" x="300" y="0.0" width="200" height="32"/>
@@ -591,6 +600,9 @@
                                                                     <state key="normal">
                                                                         <imageReference key="image" image="info.circle.fill" catalog="system" symbolScale="large"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="openForegroundVisibilityInstructions:" destination="-1" eventType="touchUpInside" id="flr-pE-c2h"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="c42-Mm-Aw4">
                                                                     <rect key="frame" x="373" y="0.0" width="127" height="32"/>
@@ -627,6 +639,9 @@
                                                                     <state key="normal">
                                                                         <imageReference key="image" image="info.circle.fill" catalog="system" symbolScale="large"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="openMagentaForTransparencyInstructions:" destination="-1" eventType="touchUpInside" id="nbn-ww-9Q0"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="mmC-l6-vWp">
                                                                     <rect key="frame" x="451" y="0.0" width="51" height="31"/>
