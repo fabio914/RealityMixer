@@ -17,7 +17,7 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
  - "AR" mode. [Example](https://www.youtube.com/watch?v=jWCI-Ha1IJU).
  - Moving camera. [Example](https://www.youtube.com/watch?v=_FSoRw4pILk).
  - Spectator camera. [Example](https://www.youtube.com/watch?v=inp_TRWU5QM).
- - Mixed Reality with green screen. [Example](https://twitter.com/fabio914/status/1409331072832266242)
+ - Mixed Reality with green screen. [Example](https://twitter.com/fabio914/status/1409331072832266242).
 
 ## Examples
 
@@ -56,13 +56,13 @@ The app is currently only compatible with the Oculus Quest 1 and 2, check this [
  
  - Open the camera app on your iPhone/iPad and scan this QR code:
 
-![download](https://user-images.githubusercontent.com/2430631/117596483-61630c00-b13b-11eb-9724-9cdb457f1fb8.png)
+![download](https://user-images.githubusercontent.com/2430631/124528900-417d5b00-de01-11eb-9603-19d6aa8e2086.png)
 
 **OR**
 
 - Open this URL on your iPhone/iPad: 
 
-`altstore://install?url=https://github.com/fabio914/OculusQuestMixedRealityForiOS/releases/download/0.4.0/RealityMixer.ipa`
+`altstore://install?url=https://github.com/fabio914/RealityMixer/releases/download/0.5.0/RealityMixer.ipa`
 
 ### TestFlight
 
