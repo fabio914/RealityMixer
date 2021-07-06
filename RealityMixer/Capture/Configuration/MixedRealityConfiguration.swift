@@ -55,6 +55,13 @@ struct MixedRealityConfiguration: Codable, Equatable {
     let enableAutoFocus: Bool
     let shouldFlipOutput: Bool
 
+    enum FrameRate: Int, Codable, Equatable {
+        case thirty = 30
+        case sixty = 60
+    }
+
+    let frameRate: FrameRate
+
     let foregroundLayerOptions: ForegroundLayerOptions
     let backgroundLayerOptions: BackgroundLayerOptions
 
@@ -63,6 +70,7 @@ struct MixedRealityConfiguration: Codable, Equatable {
         enableMovingCamera: false,
         enableAutoFocus: false,
         shouldFlipOutput: true,
+        frameRate: .sixty,
         foregroundLayerOptions: .init(visibility: .visible(useMagentaAsTransparency: false)),
         backgroundLayerOptions: .init(visibility: .visible)
     )

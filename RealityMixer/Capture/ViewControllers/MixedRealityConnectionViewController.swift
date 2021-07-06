@@ -43,6 +43,7 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var movingCameraSwitch: UISwitch!
     @IBOutlet private weak var autoFocusSwitch: UISwitch!
     @IBOutlet private weak var unflipSwitch: UISwitch!
+    @IBOutlet private weak var fpsSegmentedControl: UISegmentedControl!
 
     // MARK: - Foreground layer options
     @IBOutlet private weak var foregroundVisibilitySegmentedControl: UISegmentedControl!
@@ -219,6 +220,13 @@ final class MixedRealityConnectionViewController: UIViewController {
         autoFocusSwitch.isOn = configuration.enableAutoFocus
         unflipSwitch.isOn = !configuration.shouldFlipOutput
 
+        switch configuration.frameRate {
+        case .thirty:
+            fpsSegmentedControl.selectedSegmentIndex = 0
+        case .sixty:
+            fpsSegmentedControl.selectedSegmentIndex = 1
+        }
+
         switch configuration.foregroundLayerOptions.visibility {
         case .visible(let magentaAsTransparency):
             foregroundVisibilitySegmentedControl.selectedSegmentIndex = 0
@@ -287,6 +295,14 @@ final class MixedRealityConnectionViewController: UIViewController {
             enableMovingCamera: movingCameraSwitch.isOn,
             enableAutoFocus: autoFocusSwitch.isOn,
             shouldFlipOutput: !unflipSwitch.isOn,
+            frameRate: {
+                switch fpsSegmentedControl.selectedSegmentIndex {
+                case 0:
+                    return .thirty
+                default: // 1
+                    return .sixty
+                }
+            }(),
             foregroundLayerOptions: .init(
                 visibility: {
                     switch foregroundVisibilitySegmentedControl.selectedSegmentIndex {
@@ -548,6 +564,10 @@ final class MixedRealityConnectionViewController: UIViewController {
 
         alert.addAction(.init(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+
+    @IBAction private func openFrameRateInstructions(_ sender: Any) {
+
     }
 
     @IBAction private func openBackgroundVisibilityInstructions(_ sender: Any) {
