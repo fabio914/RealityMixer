@@ -82,19 +82,7 @@ final class CalibrationConnectionViewController: UIViewController {
         """
     }
 
-    @objc private func backAction() {
-        navigationController?.dismiss(animated: true, completion: nil)
-    }
-
-    @IBAction func connectAction(_ sender: Any) {
-
-        guard let address = addressTextField.text, !address.isEmpty,
-            let portText = portTextField.text, !portText.isEmpty,
-            let port = Int32(portText)
-        else {
-            return
-        }
-
+    private func startConnection(address: String, port: Int32) {
         let connectionAlert = UIAlertController(title: "Connecting...", message: nil, preferredStyle: .alert)
 
         present(connectionAlert, animated: true, completion: { [weak self] in
@@ -142,6 +130,26 @@ final class CalibrationConnectionViewController: UIViewController {
                     self?.present(viewController, animated: true, completion: nil)
                 })
             }
+        })
+    }
+
+    // MARK: - Actions
+
+    @objc private func backAction() {
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+
+    @IBAction func connectAction(_ sender: Any) {
+
+        guard let address = addressTextField.text, !address.isEmpty,
+            let portText = portTextField.text, !portText.isEmpty,
+            let port = Int32(portText)
+        else {
+            return
+        }
+
+        CameraPermissionHelper.ensurePermission(from: self, completion: { [weak self] in
+            self?.startConnection(address: address, port: port)
         })
     }
 

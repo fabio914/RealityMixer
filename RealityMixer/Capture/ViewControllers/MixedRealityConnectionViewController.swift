@@ -64,6 +64,8 @@ final class MixedRealityConnectionViewController: UIViewController {
     @IBOutlet private weak var secondInfoLabel: UILabel!
     @IBOutlet private weak var thirdInfoLabel: UILabel!
 
+    private let feedbackGenerator = UISelectionFeedbackGenerator()
+
     private let networkConfigurationStorage = NetworkConfigurationStorage()
     private let mixedRealityConfigurationStorage = MixedRealityConfigurationStorage()
     private let chromaConfigurationStorage = ChromaKeyConfigurationStorage()
@@ -375,9 +377,11 @@ final class MixedRealityConnectionViewController: UIViewController {
     }
 
     private func presentChromaKeyOptions() {
-        let viewController = ChromaKeyConfigurationViewController()
-        viewController.modalPresentationStyle = .overFullScreen
-        present(viewController, animated: true, completion: nil)
+        CameraPermissionHelper.ensurePermission(from: self, completion: { [weak self] in
+            let viewController = ChromaKeyConfigurationViewController()
+            viewController.modalPresentationStyle = .overFullScreen
+            self?.present(viewController, animated: true, completion: nil)
+        })
     }
 
     private func presentCalibration() {
@@ -392,21 +396,25 @@ final class MixedRealityConnectionViewController: UIViewController {
 
     @IBAction private func selectVirtualGreenScreenAction(_ sender: Any) {
         selectedMode = .personSegmentation
+        feedbackGenerator.selectionChanged()
         updateConfiguration()
     }
 
     @IBAction private func selectAvatarAction(_ sender: Any) {
         selectedMode = .bodyTracking
+        feedbackGenerator.selectionChanged()
         updateConfiguration()
     }
 
     @IBAction private func selectGreenScreenAction(_ sender: Any) {
         selectedMode = .greenScreen
+        feedbackGenerator.selectionChanged()
         updateConfiguration()
     }
 
     @IBAction func selectRawAction(_ sender: Any) {
         selectedMode = .raw
+        feedbackGenerator.selectionChanged()
         updateConfiguration()
     }
 
@@ -496,7 +504,9 @@ final class MixedRealityConnectionViewController: UIViewController {
             return
         }
 
-        startConnection(address: address, port: port)
+        CameraPermissionHelper.ensurePermission(from: self, completion: { [weak self] in
+            self?.startConnection(address: address, port: port)
+        })
     }
 
     @IBAction private func startCalibrationAction(_ sender: Any) {
