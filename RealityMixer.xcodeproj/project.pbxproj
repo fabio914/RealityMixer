@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A30A6990267AB94A002647C5 /* UIColor+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30A698F267AB94A002647C5 /* UIColor+Image.swift */; };
+		A30B22EA2693D9F2005EB78F /* CameraPermissionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30B22E92693D9F2005EB78F /* CameraPermissionHelper.swift */; };
 		A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */; };
 		A31C0A2026435F980059A492 /* avatar2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1C26435F980059A492 /* avatar2.usdz */; };
 		A31C0A2126435F980059A492 /* avatar1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A31C0A1D26435F980059A492 /* avatar1.usdz */; };
@@ -94,6 +95,7 @@
 /* Begin PBXFileReference section */
 		3E1B214525678AF60084847C /* RealityMixer.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = RealityMixer.xcconfig; sourceTree = "<group>"; };
 		A30A698F267AB94A002647C5 /* UIColor+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Image.swift"; sourceTree = "<group>"; };
+		A30B22E92693D9F2005EB78F /* CameraPermissionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionHelper.swift; sourceTree = "<group>"; };
 		A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARConfigurationFactory.swift; sourceTree = "<group>"; };
 		A31C0A1C26435F980059A492 /* avatar2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar2.usdz; sourceTree = "<group>"; };
 		A31C0A1D26435F980059A492 /* avatar1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = avatar1.usdz; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */,
 				A338B362265B25E500099827 /* ARKitHelpers.swift */,
 				A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */,
+				A30B22E92693D9F2005EB78F /* CameraPermissionHelper.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				A3228605255B864900FF3200 /* AudioDataHeader.m in Sources */,
 				A328D8B4253C8C4000B90E62 /* MixedRealityConnectionViewController.swift in Sources */,
 				A324161E2554DABE008D4B90 /* InitialViewController.swift in Sources */,
+				A30B22EA2693D9F2005EB78F /* CameraPermissionHelper.swift in Sources */,
 				A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */,
 				A328D8D1253C917300B90E62 /* OculusMRC.mm in Sources */,
 				A36C9163263779E700D64107 /* ReadyPlayerMeAvatar.swift in Sources */,

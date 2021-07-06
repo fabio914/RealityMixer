@@ -13,6 +13,9 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     private let chromaConfigurationStorage = ChromaKeyConfigurationStorage()
     private let maskStorage = ChromaKeyMaskStorage()
 
+    @IBOutlet private weak var mainContainer: UIView!
+    @IBOutlet private weak var instructionsContainer: UIView!
+
     @IBOutlet private weak var sceneView: ARSCNView!
     @IBOutlet private weak var sensitivitySlider: UISlider!
     @IBOutlet private weak var sensitivityLabel: UILabel!
@@ -52,6 +55,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        showInstructions(false)
         configureDisplay()
         configureScene()
         configureSliders()
@@ -85,16 +89,20 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     }
 
     private func configureSliders() {
-        // TODO: Update these intervals!
         sensitivitySlider.minimumValue = 0.0
-        sensitivitySlider.maximumValue = 1.0
+        sensitivitySlider.maximumValue = 0.6
 
         smoothnessSlider.minimumValue = 0
         smoothnessSlider.maximumValue = 0.1
     }
 
+    private func showInstructions(_ shouldShow: Bool) {
+        mainContainer.isHidden = shouldShow
+        instructionsContainer.isHidden = !shouldShow
+    }
+
     private func resetValues() {
-        sensitivitySlider.value = 0.5
+        sensitivitySlider.value = 0.15
         smoothnessSlider.value = 0
         chromaColor = Self.defaultChromaColor
         colorIndicator.backgroundColor = chromaColor
@@ -204,7 +212,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         configuration.planeDetection = [.horizontal, .vertical]
         configuration.environmentTexturing = .none
         configuration.isLightEstimationEnabled = false
-        configuration.isAutoFocusEnabled = true // Consider changing to false
+        configuration.isAutoFocusEnabled = false
         sceneView.session.run(configuration)
     }
 
@@ -218,15 +226,13 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     @IBAction func pickColorAction(_ sender: Any) {
         isPresentingColorPicker = true
         didUpdateValues()
+        mainContainer.isHidden = true
 
         let pickerController = UIColorPickerViewController()
         pickerController.delegate = self
         pickerController.selectedColor = chromaColor
         pickerController.supportsAlpha = false
-
-        pickerController.modalPresentationStyle = .popover
-        pickerController.popoverPresentationController?.sourceView = colorIndicator
-        pickerController.popoverPresentationController?.delegate = self
+        pickerController.presentationController?.delegate = self
 
         present(pickerController, animated: true, completion: nil)
     }
@@ -264,6 +270,14 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     @IBAction func valueChanged(_ sender: Any) {
         didUpdateValues()
     }
+
+    @IBAction private func showInstructionsAction(_ sender: Any) {
+        showInstructions(true)
+    }
+
+    @IBAction private func hideInstructionsAction(_ sender: Any) {
+        showInstructions(false)
+    }
 }
 
 extension ChromaKeyConfigurationViewController: ARSessionDelegate {
@@ -287,6 +301,7 @@ extension ChromaKeyConfigurationViewController: UIColorPickerViewControllerDeleg
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         isPresentingColorPicker = false
         didUpdateValues()
+        mainContainer.isHidden = false
     }
 
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
@@ -296,10 +311,11 @@ extension ChromaKeyConfigurationViewController: UIColorPickerViewControllerDeleg
     }
 }
 
-extension ChromaKeyConfigurationViewController: UIPopoverPresentationControllerDelegate {
+extension ChromaKeyConfigurationViewController: UIAdaptivePresentationControllerDelegate {
 
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         isPresentingColorPicker = false
         didUpdateValues()
+        mainContainer.isHidden = false
     }
 }
