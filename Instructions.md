@@ -1,11 +1,17 @@
 # Instructions
 
 [Requirements](#requirements)
+
 [YouTube Tutorials](#youtube-tutorials)
+
 [Calibration, what is this?](#calibration)
+
 [How to calibrate?](#calibration-howto)
+
 [How to start the mixed reality capture?](#mixedreality-howto)
+
 [How to record a video?](#recording-howto)
+
 [How to improve performance?](#performance-howto)
 
 ## Requirements <a name="requirements"></a>
