@@ -5,7 +5,14 @@
 - [Calibration, what is this?](#calibration)
 - [How to calibrate?](#calibration-howto)
 - [How to start the mixed reality capture?](#mixedreality-howto)
+   - [Virtual Green Screen](#virtual-green-screen)
+   - [Avatar](#avatar)
+   - [Green Screen](#green-screen)
+   - [Spectator](#spectator)
 - [How to record a video?](#recording-howto)
+- [Advanced options](#advanced)
+  - ["Augmented Reality" effect](#ar-effect)
+  - [Moving the camera around the scene](#moving-camera)
 - [How to improve performance?](#performance-howto)
 
 ## Requirements <a name="requirements"></a>
