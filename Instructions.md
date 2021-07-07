@@ -1,6 +1,14 @@
 # Instructions
 
-## Requirements
+[Requirements](#requirements)
+[YouTube Tutorials](#youtube-tutorials)
+[Calibration, what is this?](#calibration)
+[How to calibrate?](#calibration-howto)
+[How to start the mixed reality capture?](#mixedreality-howto)
+[How to record a video?](#recording-howto)
+[How to improve performance?](#performance-howto)
+
+## Requirements <a name="requirements"></a>
 
 - Oculus Quest 1 or 2 with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed.
 - **Virtual Green Screen and Avatars**: iPhone or iPad with an A12 chip or newer, running iOS 14. The LiDAR sensor is optional but recommended for better results.
@@ -8,19 +16,19 @@
 - 5 Ghz WiFi network (802.11ac).
 - A [compatible Quest VR application/game](Compatibility.md).
  
- ## YouTube Tutorials
+ ## YouTube Tutorials <a name="youtube-tutorials"></a>
 
  * Fabio [Tutorial: Mixed Reality with an iPhone and an Oculus Quest (no green screen)](https://www.youtube.com/watch?v=iRLwhK1Oees)
 
  * Disco-VR [Mixed Reality on iPhone without Green Screen! Tutorial for Beat Saber using Oculus Quest 2](https://www.youtube.com/watch?v=NH5xAwQ9UY4)
 
-## Calibration, what is this?
+## Calibration, what is this? <a name="calibration"></a>
 
 This is the process to indicate to the Oculus Quest the iPhone/iPad camera's position and orientation inside the virtual world. You'll need to calibrate whenever you move your iPhone/iPad and whenever you reset/redefine your Guardian boundary. 
 
 You might also need to calibrate again after you install a new VR application/game that supports mixed reality, or else the Reality Mixer app won't be able to connect to that new application/game.
 
-## How to calibrate?
+## How to calibrate? <a name="calibration-howto"></a>
 
 - Start the app, and tap on "Start Calibration".
 
@@ -62,7 +70,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
 - You should now **quit** the Mixed Reality Capture app on the Quest.
 
-## How to start the mixed reality capture?
+## How to start the mixed reality capture? <a name="mixedreality-howto"></a>
 
  - On the main menu, select "Start Mixed Reality".
  
@@ -94,7 +102,7 @@ You might also need to calibrate again after you install a new VR application/ga
  
  If the camera position appeared to be incorrect or you were having other issues. Try restarting your headset, defining a new Guardian boundary and calibrating again.
 
-## How to record a video?
+## How to record a video? <a name="recording-howto"></a>
 
 You can use the iPhone/iPad native "Screen Recording" feature.
 
@@ -118,7 +126,7 @@ Follow the instructions below if you don't have the record option inside your "C
  
  <img src="Images/instructions/record_4.jpg" width="300" />
 
-## How to improve performance?
+## How to improve performance? <a name="performance-howto"></a>
 
  - Make sure that your device is using a 5 GHz WiFi connection (e.g. 802.11ac), that you don't have too many devices using the network at the same time while you're using the app, and that you have a strong signal.
  
