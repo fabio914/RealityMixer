@@ -292,15 +292,10 @@ final class MixedRealityViewController: UIViewController {
     }
 
     @objc func update(with sender: CADisplayLink) {
-        receiveData()
         oculusMRC?.update()
-    }
 
-    // MARK: - Helpers
-
-    private func receiveData() {
-        while let data = client.read(65536, timeout: 0), data.count > 0 {
-            oculusMRC?.addData(data, length: Int32(data.count))
+        if let lastFrame = lastFrame {
+            updateForegroundBackground(with: lastFrame)
         }
     }
 
