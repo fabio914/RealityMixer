@@ -19,6 +19,8 @@ final class MixedRealityViewController: UIViewController {
     private var audioPlayer: AVAudioPlayerNode?
     private var displayLink: CADisplayLink?
     private var oculusMRC: OculusMRC?
+    private var networkThread: Thread?
+    private var lastFrame: CVPixelBuffer?
 
     @IBOutlet private weak var optionsContainer: UIView!
     @IBOutlet private weak var sceneView: ARSCNView!
@@ -110,6 +112,17 @@ final class MixedRealityViewController: UIViewController {
     private func configureOculusMRC() {
         self.oculusMRC = OculusMRC()
         oculusMRC?.delegate = self
+
+        networkThread = Thread(block: { [weak oculusMRC, weak client] in
+            let thread = Thread.current
+            while !thread.isCancelled {
+                while let data = client?.read(65536, timeout: 0), data.count > 0, !thread.isCancelled {
+                    oculusMRC?.addData(data, length: Int32(data.count))
+                }
+            }
+         })
+
+         networkThread?.start()
     }
 
     private func configureScene() {
@@ -315,6 +328,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     func invalidate() {
+        networkThread?.cancel()
         audioPlayer?.stop()
         audioEngine?.stop()
         displayLink?.invalidate()
@@ -329,7 +343,7 @@ final class MixedRealityViewController: UIViewController {
 extension MixedRealityViewController: OculusMRCDelegate {
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceive pixelBuffer: CVPixelBuffer) {
-        updateForegroundBackground(with: pixelBuffer)
+        lastFrame = pixelBuffer
     }
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer) {
