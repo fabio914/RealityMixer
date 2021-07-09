@@ -134,7 +134,7 @@ This mode is only available on devices with an A12 chip or newer.
 
 ### Green Screen <a name="green-screen"></a>
 
-Use this mode if you have a regular green screen. You'll need to follow the steps below to configure your green screen before you can start the mixed reality connection. Example: [Synth Riders](https://www.youtube.com/watch?v=ov5VCmVuMGo). 
+Use this mode if you have a regular green screen. You'll need to follow the steps below to configure your green screen before you can start the mixed reality connection. Example: [Beat Saber](https://twitter.com/fabio914/status/1412241599426449408), [Synth Riders](https://www.youtube.com/watch?v=ov5VCmVuMGo). 
 
 * Place your green screen behind the camera, select the green screen mode, and tap on "Configure Chroma Key". Do not move your device during this process if you've already completed the calibration, or else you'll need to recalibrate.
 
@@ -150,7 +150,9 @@ Use this mode if you have a regular green screen. You'll need to follow the step
  
 <img src="Images/instructions/green_screen_4.jpg" width="300" />
 
- * Tap on "add mask" if you wish to hide everything outside of your green screen. We don't recommend using the [moving camera option](#moving-camera) if you choose to add a mask.
+<a name="mask"></a>
+
+ * Tap on "add mask" if you wish to hide everything outside of your green screen. We don't recommend using the [moving camera option](#moving-camera) or the autofocus option if you choose to add a mask.
 
 <img src="Images/instructions/green_screen_5.jpg" width="300" />
 
@@ -158,7 +160,7 @@ Use this mode if you have a regular green screen. You'll need to follow the step
  
  <img src="Images/instructions/green_screen_6.jpg" width="300" />
  
- * Tap on "save" if everything looks good and then start the mixed reality connection. Remember, you should not wear anything green, and you should keep the camera and the green screen perfectly still if you've added a mask. 
+ * Tap on "save" if everything looks good and then start the mixed reality connection if you've already completed the calibration. Remember, you should not wear anything green, and you should keep the camera and the green screen perfectly still if you've added a mask. 
  
 ### Spectator <a name="spectator"></a>
 
@@ -172,7 +174,13 @@ TODO
 
 ### Moving the camera around the scene <a name="moving-camera"></a>
 
-TODO
+The "Enable Moving Camera" option allows you to move the camera around the Mixed Reality scene. Examples: [Beat Saber](https://www.youtube.com/watch?v=siIjiD2NH4M), [Cubism](https://www.youtube.com/watch?v=ZPduz_zqOkc), [Open Brush](https://www.youtube.com/watch?v=_FSoRw4pILk).
+
+* Complete the calibration as normal, and keep the device still. Tap on "Start Mixed Reality", "Show Options" and then "Enable Moving Camera" before starting your mixed reality connection.
+
+* You can only start moving the camera after you start the mixed reality connection. Keep in mind that you'll need to recalibrate if you move the device while not connected and after restarting the app.
+
+* This option might not work with every game/app and we don't recommend using it with the green screen mode [if you added a mask](#mask).
 
 ## How to record a video? <a name="recording-howto"></a>
 
