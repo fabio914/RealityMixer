@@ -42,7 +42,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
 <img src="Images/instructions/start_calibration.jpg" width="300" />
 
-- Launch the "Mixed Reality Capture" app on the Quest.
+- Launch the ["Mixed Reality Capture"](https://www.oculus.com/experiences/quest/2532132800176262/) app on the Quest.
 
 - Make sure that your iPhone/iPad and the Quest are both connected to the same WiFi network and fill in the Quest's IP address. This IP address should be displayed by the "Mixed Reality Capture" app, however, if it shows "127.0.0.1", then you'll need to open the Quest's WiFi settings to find the correct IP address.
 
@@ -50,7 +50,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
 <img src="Images/instructions/calibration_1.jpg" width="300" />
 
-- Position your iPhone/iPad. You won't be able to move it after this, or else you'll need to recalibrate. Using a tripod is recommended.
+- Position your iPhone/iPad. You won't be able to move it after this, or else you'll need to recalibrate. Use a tripod, if possible.
 
 - Tap on "Connect". You might be asked to give the app permission to access your local network and your camera, you should allow both.
 
@@ -136,8 +136,30 @@ This mode is only available on devices with an A12 chip or newer.
 
 Use this mode if you have a regular green screen. You'll need to follow the steps below to configure your green screen before you can start the mixed reality connection. Example: [Synth Riders](https://www.youtube.com/watch?v=ov5VCmVuMGo). 
 
-TODO: Instructions
+* Place your green screen behind the camera, select the green screen mode, and tap on "Configure Chroma Key". Do not move your device during this process if you've already completed the calibration, or else you'll need to recalibrate.
 
+<img src="Images/instructions/green_screen_1.jpg" width="300" />
+
+* Tap on "pick color" to display the color selector and then tap on the eye dropper icon <img src="Images/instructions/green_screen_2.jpg" width="20" />.
+
+* Move the circle to your green screen to pick its color, and then close the color selector.
+
+<img src="Images/instructions/green_screen_3.jpg" width="100" />
+
+ * Adjust the "sensitivity" so that your green screen (and only the green screen) becomes transparent. We recommend using values between 0.1 and 0.2.
+ 
+<img src="Images/instructions/green_screen_4.jpg" width="300" />
+
+ * Tap on "add mask" if you wish to hide everything outside of your green screen. We don't recommend using the [moving camera option](#moving-camera) if you choose to add a mask.
+
+<img src="Images/instructions/green_screen_5.jpg" width="300" />
+
+ * Move in front of the camera to double check the configuration, and adjust the "smoothness" if you notice a green border around you. We recommend using very small values (e.g. 0.01) or keeping it at zero.
+ 
+ <img src="Images/instructions/green_screen_6.jpg" width="300" />
+ 
+ * Tap on "save" if everything looks good and then start the mixed reality connection. Remember, you should not wear anything green, and you should keep the camera and the green screen perfectly still if you've added a mask. 
+ 
 ### Spectator <a name="spectator"></a>
 
 This mode only displays the raw output from the Oculus Quest, without any extra composition. You won't be able to see the output from the camera unless you hide or filter the background layer. Example: [Beat Saber](https://www.youtube.com/watch?v=inp_TRWU5QM).
