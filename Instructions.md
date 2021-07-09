@@ -124,7 +124,9 @@ This mode is only available on devices with an A12 chip or newer.
 
 ### Avatar <a name="avatar"></a>
 
-This mode uses ARKit's Body Tracking to capture your movement and animate an avatar. It works best if your entire body is within frame (including your feet) and if you're facing the back camera, the avatar might not appear or animate properly otherwise. Examples: [Beat Saber, Open Brush, Cubism](https://www.youtube.com/watch?v=iTsDkg4hbro), [Synth Riders](https://www.youtube.com/watch?v=fOPpnZKSK4I).
+This mode uses ARKit's Body Tracking to capture your movement and animate an avatar. It works best if your entire body is within frame (including your feet) and if you're facing the back camera, the avatar might not appear or animate properly otherwise. 
+
+**Examples**: [Beat Saber, Open Brush, Cubism](https://www.youtube.com/watch?v=iTsDkg4hbro), [Synth Riders](https://www.youtube.com/watch?v=fOPpnZKSK4I).
 
  - You must choose an avatar before you can start the mixed reality connection.
  
@@ -134,7 +136,9 @@ This mode is only available on devices with an A12 chip or newer.
 
 ### Green Screen <a name="green-screen"></a>
 
-Use this mode if you have a regular green screen. You'll need to follow the steps below to configure your green screen before you can start the mixed reality connection. Example: [Beat Saber](https://twitter.com/fabio914/status/1412241599426449408), [Synth Riders](https://www.youtube.com/watch?v=ov5VCmVuMGo). 
+Use this mode if you have a regular green screen. You'll need to follow the steps below to configure your green screen before you can start the mixed reality connection. 
+
+**Examples**: [Beat Saber](https://twitter.com/fabio914/status/1412241599426449408), [Synth Riders](https://www.youtube.com/watch?v=ov5VCmVuMGo). 
 
 * Place your green screen behind the camera, select the green screen mode, and tap on "Configure Chroma Key". Do not move your device during this process if you've already completed the calibration, or else you'll need to recalibrate.
 
@@ -164,7 +168,9 @@ Use this mode if you have a regular green screen. You'll need to follow the step
  
 ### Spectator <a name="spectator"></a>
 
-This mode only displays the raw output from the Oculus Quest, without any extra composition. You won't be able to see the output from the camera unless you hide or filter the background layer. Example: [Beat Saber](https://www.youtube.com/watch?v=inp_TRWU5QM).
+This mode only displays the raw output from the Oculus Quest, without any extra composition. You won't be able to see the output from the camera unless you hide or filter the background layer. 
+
+**Example**: [Beat Saber](https://www.youtube.com/watch?v=inp_TRWU5QM).
 
 ## Advanced options <a name="advanced"></a>
 
@@ -174,7 +180,9 @@ TODO
 
 ### Moving the camera around the scene <a name="moving-camera"></a>
 
-The "Enable Moving Camera" option allows you to move the camera around the Mixed Reality scene. Examples: [Beat Saber](https://www.youtube.com/watch?v=siIjiD2NH4M), [Cubism](https://www.youtube.com/watch?v=ZPduz_zqOkc), [Open Brush](https://www.youtube.com/watch?v=_FSoRw4pILk).
+The "Enable Moving Camera" option allows you to move the camera around the Mixed Reality scene. 
+
+**Examples**: [Beat Saber](https://www.youtube.com/watch?v=siIjiD2NH4M), [Cubism](https://www.youtube.com/watch?v=ZPduz_zqOkc), [Open Brush](https://www.youtube.com/watch?v=_FSoRw4pILk).
 
 * Complete the calibration as normal, and keep the device still. Tap on "Start Mixed Reality", "Show Options" and then "Enable Moving Camera" before starting your mixed reality connection.
 
