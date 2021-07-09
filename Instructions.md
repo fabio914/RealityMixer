@@ -88,11 +88,11 @@ You might also need to calibrate again after you install a new VR application/ga
  
  - Fill in the Quest's IP address.
 
-<img src="Images/instructions/mixed_reality_1.jpg" width="300" /> TODO: Update
+<img src="Images/instructions/mixed_reality_1.jpg" width="300" />
 
  - Tap on "Show Options" to reveal the extra options and then select the desired mode. Some modes might require some extra configuration before you can start the mixed reality connection, check the [modes](#modes) section below for more information.
  
- TODO: Add Image
+ <img src="Images/instructions/mixed_reality_2.jpg" width="300" />
  
  - Some games, such as The Thrill of the Fight, use the color magenta for transparency. Make sure to use the "use magenta for transparency" option under "foreground layer options" if you're playing games like this.
 
@@ -104,11 +104,11 @@ You might also need to calibrate again after you install a new VR application/ga
  
  - You should now see a blank screen. Put your headset on again and start playing, the screen will update and it'll display your gameplay in mixed reality.
  
- <img src="Images/instructions/mixed_reality_2.jpg" width="300" />
+ <img src="Images/instructions/mixed_reality_3.jpg" width="300" />
  
  - Tap on the screen to display the other options, and tap on "Disconnect" on the top left when you're finished.
  
- <img src="Images/instructions/mixed_reality_3.jpg" width="300" />
+ <img src="Images/instructions/mixed_reality_4.jpg" width="300" />
  
  - You can now close your application/game on the Quest.
  
@@ -124,23 +124,23 @@ This mode is only available on devices with an A12 chip or newer.
 
 ### Avatar <a name="avatar"></a>
 
-This mode uses ARKit's Body Tracking to capture your movement and animate an avatar. It works best if your entire body is within frame (including your feet) and if you're facing the back camera, the avatar might not appear or animate properly otherwise. [Example]()
+This mode uses ARKit's Body Tracking to capture your movement and animate an avatar. It works best if your entire body is within frame (including your feet) and if you're facing the back camera, the avatar might not appear or animate properly otherwise. Examples: [Beat Saber, Open Brush, Cubism](https://www.youtube.com/watch?v=iTsDkg4hbro), [Synth Riders](https://www.youtube.com/watch?v=fOPpnZKSK4I).
 
  - You must choose an avatar before you can start the mixed reality connection.
  
- TODO: Avatar picker here
+ <img src="Images/instructions/avatars_1.jpg" width="300" />
 
 This mode is only available on devices with an A12 chip or newer. 
 
 ### Green Screen <a name="green-screen"></a>
 
-Use this mode if you have a regular green screen. You'll need to follow the steps below to configure your green screen before you can start the mixed reality connection.
+Use this mode if you have a regular green screen. You'll need to follow the steps below to configure your green screen before you can start the mixed reality connection. Example: [Synth Riders](https://www.youtube.com/watch?v=ov5VCmVuMGo). 
 
 TODO: Instructions
 
-### Spectator <a name="spectator></a>
+### Spectator <a name="spectator"></a>
 
-This mode only displays the raw output from the Oculus Quest, without any extra composition. You won't be able to see the output from the camera unless you hide or filter the background layer. 
+This mode only displays the raw output from the Oculus Quest, without any extra composition. You won't be able to see the output from the camera unless you hide or filter the background layer. Example: [Beat Saber](https://www.youtube.com/watch?v=inp_TRWU5QM).
 
 ## Advanced options <a name="advanced"></a>
 
