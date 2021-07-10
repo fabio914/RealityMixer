@@ -14,6 +14,7 @@
    - ["Augmented Reality" effect](#ar-effect)
    - [Moving the camera around the scene](#moving-camera)
 - [How to record a video?](#recording-howto)
+- [How to live stream?](#livestream-howto)
 - [How to improve performance?](#performance-howto)
 
 # Requirements <a name="requirements"></a>
@@ -182,7 +183,7 @@ TODO
 
 The "Moving Camera" option allows you to move the camera around the Mixed Reality scene. 
 
-**Examples**: [Beat Saber](https://www.youtube.com/watch?v=siIjiD2NH4M), [Cubism](https://www.youtube.com/watch?v=ZPduz_zqOkc), [Open Brush](https://www.youtube.com/watch?v=_FSoRw4pILk).
+**Examples**: [Beat Saber](https://www.youtube.com/watch?v=siIjiD2NH4M), [Cubism](https://www.youtube.com/watch?v=ZPduz_zqOkc), [Open Brush](https://www.youtube.com/watch?v=_FSoRw4pILk), [Peco Peco](https://www.youtube.com/watch?v=WLcJx2A647Y).
 
 * Complete the calibration as normal, and keep the device still. Tap on "Start Mixed Reality", "Show Options" and then "Enable Moving Camera" before starting your mixed reality connection.
 
@@ -204,6 +205,8 @@ You can use the iPhone/iPad native "Screen Recording" feature.
 
 When you're finished, you can open "Control Center" and tap on the same button again to finish recording. You'll find your recording in the "Photos" app.
 
+<a name="record-option"></a>
+
 Follow the instructions below if you don't have the record option inside your "Control Center":
 
  - Open the iPhone/iPad Settings app, and navigate to "Control Center"
@@ -213,6 +216,20 @@ Follow the instructions below if you don't have the record option inside your "C
  - Scroll down to "More Controls" and tap on the "+" button beside "Screen Recording".
  
  <img src="Images/instructions/record_4.jpg" width="300" />
+ 
+# How to live stream? <a name="livestream-howto"></a>
+
+**Example**: [Immersed and Zoom](https://www.youtube.com/watch?v=rhAepGvSMf4)
+
+- First, make sure that you have the [record option](#record-option) inside your "Control Center".
+
+- Before you start the mixed reality connection, open the "Control Center" and long press the record button, and you'll see a list of apps that support streaming.
+
+<img src="Images/instructions/livestream_1.jpg" width="300" />
+
+- Choose an app that supports streaming to your favorite streaming service and then tap on "Start Broadcast". For example, you can use the app [Omlet Arcade](https://apps.apple.com/us/app/omlet-arcade-livestream-games/id1152185878) to live stream to YouTube or Twitch.
+
+- You can now start the mixed reality connection.
 
 # How to improve performance? <a name="performance-howto"></a>
 
