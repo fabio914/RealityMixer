@@ -35,6 +35,8 @@
 
  * Disco-VR [Mixed Reality on iPhone without Green Screen! Tutorial for Beat Saber using Oculus Quest 2](https://www.youtube.com/watch?v=NH5xAwQ9UY4)
 
+ * Disco-VR [Augmented Reality using Oculus Quest 2 and iPhone!](https://www.youtube.com/watch?v=ImhIWuEFcIk)
+
 <a name="calibration"></a>
 
 # Calibration, what is this? 
@@ -135,7 +137,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
 This mode uses ARKit's "person segmentation" to extract your body from the video without using a green screen. It works best if the camera is pointed to a wall in a well-lit environment, and if you're the only thing between the camera and the wall.
 
-This mode is only available on devices with an A12 chip or newer. 
+*This mode is only available on devices with an A12 chip or newer.*
 
 <a name="avatar"></a>
 
@@ -149,7 +151,7 @@ This mode uses ARKit's Body Tracking to capture your movement and animate an ava
  
  <img src="Images/instructions/avatars_1.jpg" width="300" />
 
-This mode is only available on devices with an A12 chip or newer. 
+*This mode is only available on devices with an A12 chip or newer.*
 
 <a name="green-screen"></a>
 
@@ -216,7 +218,7 @@ Some games and apps allow you to customize the color of their environment, you c
 | Beat Saber | [YouTube](https://www.youtube.com/watch?v=jWCI-Ha1IJU) | Pick the color black as the color of both light sources. Increase the color saturation of the red and blue blocks. Turn on static lights, turn off the note spawning effect and all other effects, and reduce the trail intensity to zero. Set the "background visibility" to "filtered" and "color to alpha" to "black" on Reality Mixer. |
 | Cubism | [YouTube](https://www.youtube.com/watch?v=EXDu0yhvCaI) | Folow [these instructions](https://github.com/cubismvr/Mods/tree/main/CustomTheme#using-custom-themes-on-quest-for-faux-ar-mixed-reality-using-reality-mixer). |
 | Gravity Sketch | [YouTube](https://www.youtube.com/watch?v=-qPdet8VncU) | Use the "black room" preset. Set the "background visibility" to "filtered" and "color to alpha" to "black" on Reality Mixer. |
-| Open Brush | [YouTube](https://www.youtube.com/watch?v=-qPdet8VncU) | Choose the black environment and paint with bright colors. Set the "background visibility" to "filtered" and "color to alpha" to "black" on Reality Mixer. |
+| Open Brush | [YouTube](https://www.youtube.com/watch?v=_FSoRw4pILk) | Choose the black environment and paint with bright colors. Set the "background visibility" to "filtered" and "color to alpha" to "black" on Reality Mixer. |
 | Space Slurpies | [YouTube](https://www.youtube.com/watch?v=2amt8r5QSGk) | Select the "Mixie Mix-Up" level from the "VR Friends" map pack. Set the "background visibility" to "filtered" and "color to alpha" to "green" on Reality Mixer. |
 
 <a name="moving-camera"></a>
