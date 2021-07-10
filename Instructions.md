@@ -163,7 +163,7 @@ Use this mode if you have a regular green screen. You'll need to follow the step
 
  * Move in front of the camera to double check the configuration, and adjust the "smoothness" if you notice a green border around you. We recommend using very small values (e.g. 0.01) or keeping it at zero.
  
- <img src="Images/instructions/green_screen_6.jpg" width="300" />
+<img src="Images/instructions/green_screen_6.jpg" width="300" />
  
  * Tap on "save" if everything looks good and then start the mixed reality connection if you've already completed the calibration. Remember, you should not wear anything green, and you should keep the camera and the green screen perfectly still if you've added a mask. 
  
@@ -177,7 +177,23 @@ This mode only displays the raw output from the Oculus Quest, without any extra 
 
 ## "Augmented Reality" effect <a name="ar-effect"></a>
 
-TODO
+Some games and apps allow you to customize the color of their environment, you can use this to make the background disappear and achieve an "augmented reality" effect. 
+
+ - To achieve this effect, change the "background visibility" to "filtered" and select the appropriate "color to alpha".
+
+<img src="Images/instructions/ar_effect_0.jpg" width="300" />
+
+ - Alternatively, you can change the "background visibility" to "hidden", however, if do so, you'll only be able to see the virtual objects between yourself and the camera.
+
+**Examples**
+
+| Game/App | Video | Instructions |
+|--------------|--------|---------------|
+| Beat Saber | [YouTube](https://www.youtube.com/watch?v=jWCI-Ha1IJU) | Pick the color black as the color of both light sources. Increase the color saturation of the red and blue blocks. Turn on static lights, turn off the note spawning effect and all other effects, and reduce the trail intensity to zero. Set the "background visibility" to "filtered" and "color to alpha" to "black" on Reality Mixer. |
+| Cubism | [YouTube](https://www.youtube.com/watch?v=EXDu0yhvCaI) | Folow [these instructions](https://github.com/cubismvr/Mods/tree/main/CustomTheme#using-custom-themes-on-quest-for-faux-ar-mixed-reality-using-reality-mixer). |
+| Gravity Sketch | [YouTube](https://www.youtube.com/watch?v=-qPdet8VncU) | Use the "black room" preset. Set the "background visibility" to "filtered" and "color to alpha" to "black" on Reality Mixer. |
+| Open Brush | [YouTube](https://www.youtube.com/watch?v=-qPdet8VncU) | Choose the black environment and paint with bright colors. Set the "background visibility" to "filtered" and "color to alpha" to "black" on Reality Mixer. |
+| Space Slurpies | [YouTube](https://www.youtube.com/watch?v=2amt8r5QSGk) | Select the "Mixie Mix-Up" level from the "VR Friends" map pack. Set the "background visibility" to "filtered" and "color to alpha" to "green" on Reality Mixer. |
 
 ## Moving the camera around the scene <a name="moving-camera"></a>
 
