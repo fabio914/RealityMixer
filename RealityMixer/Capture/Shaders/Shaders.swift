@@ -131,13 +131,21 @@ struct Shaders {
 
         float maskTextureValue = texture2D(u_ambientTexture, _surface.diffuseTexcoord).r;
         _surface.ambient = vec4(1.0, 1.0, 1.0, 1.0);
+        _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
 
         if (maskTextureValue > 0.5) {
-            _surface.transparent = vec4(1.0 - blendValue, 1.0 - blendValue, 1.0 - blendValue, 1.0);
-            _surface.diffuse = vec4(1.0, 0.0, 1.0, 1.0);
+            if (blendValue > 0.5) {
+                _surface.diffuse = vec4(1.0, 1.0, 0.0, 1.0);
+            } else {
+                if (luma > 0.82) {
+                    _surface.diffuse = vec4(1.0, 1.0, 1.0, 1.0);
+                } else {
+                    _surface.diffuse = vec4(0.0, 0.0, 0.0, 1.0);
+                }
+            }
         } else {
             _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
-            _surface.diffuse = vec4(1.0, 0.0, 1.0, 1.0);
+            _surface.diffuse = vec4(1.0, 1.0, 0.0, 1.0);
         }
         """
     }
