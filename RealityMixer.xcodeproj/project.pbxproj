@@ -71,6 +71,9 @@
 		A3837F6D263A239F0053951E /* next.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A3837F6B263A239F0053951E /* next.mp3 */; };
 		A3837F6E263A239F0053951E /* reset.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A3837F6C263A239F0053951E /* reset.mp3 */; };
 		A39033ED256859A8004CB638 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39033EC256859A8004CB638 /* Shaders.swift */; };
+		A39F72CD269D277800501C49 /* QuickCalibrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39F72CB269D277800501C49 /* QuickCalibrationViewController.swift */; };
+		A39F72CE269D277800501C49 /* QuickCalibrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A39F72CC269D277800501C49 /* QuickCalibrationViewController.xib */; };
+		A39F72D1269D306900501C49 /* UIScreenExtension in Frameworks */ = {isa = PBXBuildFile; productRef = A39F72D0269D306900501C49 /* UIScreenExtension */; };
 		A3A50C0725F4945700413E01 /* SwiftlyAttributedStrings in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */; };
 		A3A50C0C25F57AB700413E01 /* ProjectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */; };
 		A3A50C0D25F57AB700413E01 /* ProjectionPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */; };
@@ -167,6 +170,8 @@
 		A3837F6B263A239F0053951E /* next.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = next.mp3; sourceTree = "<group>"; };
 		A3837F6C263A239F0053951E /* reset.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = reset.mp3; sourceTree = "<group>"; };
 		A39033EC256859A8004CB638 /* Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
+		A39F72CB269D277800501C49 /* QuickCalibrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickCalibrationViewController.swift; sourceTree = "<group>"; };
+		A39F72CC269D277800501C49 /* QuickCalibrationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuickCalibrationViewController.xib; sourceTree = "<group>"; };
 		A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectionPickerViewController.swift; sourceTree = "<group>"; };
 		A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectionPickerViewController.xib; sourceTree = "<group>"; };
 		A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FFmpeg.xcframework; path = Frameworks/FFmpeg.xcframework; sourceTree = "<group>"; };
@@ -186,6 +191,7 @@
 				A328D96B253C95BD00B90E62 /* AudioToolbox.framework in Frameworks */,
 				A328D96D253C95C300B90E62 /* CoreMedia.framework in Frameworks */,
 				A328D966253C95AD00B90E62 /* libiconv.tbd in Frameworks */,
+				A39F72D1269D306900501C49 /* UIScreenExtension in Frameworks */,
 				A3A50C4525F5B71000413E01 /* FFmpeg.xcframework in Frameworks */,
 				A328D969253C95B700B90E62 /* VideoToolbox.framework in Frameworks */,
 				A328D963253C95A000B90E62 /* libz.tbd in Frameworks */,
@@ -278,6 +284,8 @@
 				A32416342554E41E008D4B90 /* ProjectionViewController.xib */,
 				A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */,
 				A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */,
+				A39F72CB269D277800501C49 /* QuickCalibrationViewController.swift */,
+				A39F72CC269D277800501C49 /* QuickCalibrationViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -483,6 +491,7 @@
 			packageProductDependencies = (
 				A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */,
 				A3A50C4025F5B3B100413E01 /* SwiftSocket */,
+				A39F72D0269D306900501C49 /* UIScreenExtension */,
 			);
 			productName = MRTest2;
 			productReference = A328D8AC253C8C4000B90E62 /* RealityMixer.app */;
@@ -515,6 +524,7 @@
 			packageReferences = (
 				A3A50C0525F4945700413E01 /* XCRemoteSwiftPackageReference "swiftly-attributed-strings" */,
 				A3A50C3F25F5B3B100413E01 /* XCRemoteSwiftPackageReference "SwiftSocket" */,
+				A39F72CF269D306900501C49 /* XCRemoteSwiftPackageReference "UIScreenExtension" */,
 			);
 			productRefGroup = A328D8AD253C8C4000B90E62 /* Products */;
 			projectDirPath = "";
@@ -541,6 +551,7 @@
 				A31C0A2126435F980059A492 /* avatar1.usdz in Resources */,
 				A324162B2554E1B8008D4B90 /* CalibrationViewController.xib in Resources */,
 				A3837F6E263A239F0053951E /* reset.mp3 in Resources */,
+				A39F72CE269D277800501C49 /* QuickCalibrationViewController.xib in Resources */,
 				A31C0A2226435F980059A492 /* avatar4.usdz in Resources */,
 				A3837F6D263A239F0053951E /* next.mp3 in Resources */,
 				A324161F2554DABE008D4B90 /* InitialViewController.xib in Resources */,
@@ -563,6 +574,7 @@
 				A32285AF25580A8800FF3200 /* Definitions.swift in Sources */,
 				A3228605255B864900FF3200 /* AudioDataHeader.m in Sources */,
 				A328D8B4253C8C4000B90E62 /* MixedRealityConnectionViewController.swift in Sources */,
+				A39F72CD269D277800501C49 /* QuickCalibrationViewController.swift in Sources */,
 				A324161E2554DABE008D4B90 /* InitialViewController.swift in Sources */,
 				A30B22EA2693D9F2005EB78F /* CameraPermissionHelper.swift in Sources */,
 				A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */,
@@ -809,6 +821,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A39F72CF269D306900501C49 /* XCRemoteSwiftPackageReference "UIScreenExtension" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marchv/UIScreenExtension";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.9;
+			};
+		};
 		A3A50C0525F4945700413E01 /* XCRemoteSwiftPackageReference "swiftly-attributed-strings" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/fabio914/swiftly-attributed-strings.git";
@@ -828,6 +848,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A39F72D0269D306900501C49 /* UIScreenExtension */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A39F72CF269D306900501C49 /* XCRemoteSwiftPackageReference "UIScreenExtension" */;
+			productName = UIScreenExtension;
+		};
 		A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A3A50C0525F4945700413E01 /* XCRemoteSwiftPackageReference "swiftly-attributed-strings" */;
