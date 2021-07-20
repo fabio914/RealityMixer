@@ -42,7 +42,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Racket: Nx](https://www.oculus.com/experiences/quest/2255408847836468) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=u05jGAV-V_Q) | Works perfectly. |
 | [Real VR Fishing](https://www.oculus.com/experiences/quest/2582932495064035) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=xMbj-JThgoc) | Works perfectly. |
 | [Richie's Plank Experience](https://www.oculus.com/experiences/quest/1642239225880682) | ? | ? | [Tweet](https://twitter.com/FreekTeunen/status/1327673218891649024) | ? |
-| [Smash Drums](https://www.oculus.com/experiences/quest/3630025217090808/) | ? | ? | ? | ? |
+| [Smash Drums](https://www.oculus.com/experiences/quest/3630025217090808/) | ? | ? | [Tweet](https://twitter.com/Seaglemaniac/status/1416966195438395394?s=20) | ? |
 | [Space Pirate Trainer](https://www.oculus.com/experiences/quest/1663790613725314) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=44Nmv7Es5yI) | Works perfectly. |
 | [Space Slurpies](https://sidequestvr.com/app/2618/space-slurpies) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=6boK3My_tmE) | Works perfectly. |
 | [SUPERHOT](https://www.oculus.com/experiences/quest/1921533091289407/) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=ZnOY8juMw4k) | Works perfectly. |
