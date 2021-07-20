@@ -104,7 +104,7 @@ final class MixedRealityViewController: UIViewController {
 
     private func configureDisplayLink() {
         let displayLink = CADisplayLink(target: self, selector: #selector(update(with:)))
-        displayLink.preferredFramesPerSecond = 60
+        displayLink.preferredFramesPerSecond = 45
         displayLink.add(to: .main, forMode: .default)
         self.displayLink = displayLink
     }
@@ -115,6 +115,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureScene() {
+        sceneView.preferredFramesPerSecond = 45
         sceneView.rendersCameraGrain = false
         sceneView.rendersMotionBlur = false
 
