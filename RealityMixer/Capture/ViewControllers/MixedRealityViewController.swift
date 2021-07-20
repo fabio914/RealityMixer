@@ -41,7 +41,8 @@ final class MixedRealityViewController: UIViewController {
         true
     }
 
-    private let cameraPoseSender: CameraPoseSender?
+//    private let cameraPoseSender: CameraPoseSender?
+    private let parallaxCamera: ParallaxCamera?
 
     init(
         client: TCPClient,
@@ -52,7 +53,8 @@ final class MixedRealityViewController: UIViewController {
         self.configuration = configuration
         self.chromaConfiguration = chromaConfiguration
         self.factory = ARConfigurationFactory(mrConfiguration: configuration)
-        self.cameraPoseSender = configuration.enableMovingCamera ? CameraPoseSender(client: client):nil
+        self.parallaxCamera = ParallaxCamera(client: client)
+//        self.cameraPoseSender = configuration.enableMovingCamera ? CameraPoseSender(client: client):nil
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -279,6 +281,8 @@ final class MixedRealityViewController: UIViewController {
     }
 
     @objc func update(with sender: CADisplayLink) {
+        let interval = sender.targetTimestamp - sender.timestamp
+        parallaxCamera?.update(elapsedTime: interval)
         receiveData()
         oculusMRC?.update()
     }
@@ -347,7 +351,7 @@ extension MixedRealityViewController: ARSessionDelegate {
             configureForeground(with: frame)
             first = false
         } else {
-            cameraPoseSender?.didUpdate(frame: frame)
+//            cameraPoseSender?.didUpdate(frame: frame)
         }
 
         updateMiddle(with: frame.capturedImage)

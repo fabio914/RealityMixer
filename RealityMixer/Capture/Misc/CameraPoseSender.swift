@@ -250,3 +250,50 @@ final class TemporaryCalibrationStorage {
         self.calibrationPose = pose
     }
 }
+
+final class ParallaxCamera {
+    private weak var client: TCPClient?
+
+    private let rightEyePosition: Vector3
+    private let leftEyePosition: Vector3
+    private let rotation: Quaternion
+
+    private var count = 0
+
+    init?(client: TCPClient) {
+        guard let pose = TemporaryCalibrationStorage.shared.calibrationPose else {
+            return nil
+        }
+
+        let ipd = 0.06 // meters
+
+        let rotationMatrix = SCNMatrix4(simd_double4x4(pose.rotation))
+        let rightVector = Vector3(
+            Double(rotationMatrix.m11), Double(rotationMatrix.m12), Double(rotationMatrix.m13)
+        ).normalized
+
+        self.rightEyePosition = pose.position + (0.5 * ipd) * rightVector
+        self.leftEyePosition = pose.position - (0.5 * ipd) * rightVector
+        self.rotation = pose.rotation
+        self.client = client
+    }
+
+    private func sendCameraUpdate(pose: Pose) {
+        _ = client?.send(data: CameraPositionPayload(position: pose.position).data)
+        _ = client?.send(data: CameraRotationPayload(rotation: pose.rotation).data)
+    }
+
+    func update(elapsedTime: TimeInterval) {
+        if count == 0 {
+            sendCameraUpdate(
+                pose: .init(position: rightEyePosition, rotation: rotation)
+            )
+        } else {
+            sendCameraUpdate(
+                pose: .init(position: leftEyePosition, rotation: rotation)
+            )
+        }
+
+        count = (count + 1) % 2
+     }
+}
