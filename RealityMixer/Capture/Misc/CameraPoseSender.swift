@@ -297,23 +297,3 @@ final class ParallaxCamera {
         count = (count + 1) % 2
      }
 }
-
-/*
-
- ffmpeg -y -i test.mov -c copy -f h264 test.h264
-
- ffmpeg -y -r 45 -i test.h264 -c copy test.mp4
-
-
-
- ffmpeg -i test.mp4 -an -vcodec rawvideo -pix_fmt yuv420p rawbitstream.yuv
-
- ffmpeg -r 2 -s 1718x1200 -i rawbitstream.yuv -filter:v select="mod(n-1\,2)" -c:v rawvideo -r 1 -format rawvideo -pix_fmt yuv420p -an odd.yuv
-
- ffmpeg -r 2 -s 1718x1200 -i rawbitstream.yuv -filter:v select="not(mod(n-1\,2))" -c:v rawvideo -r 1 -format rawvideo -pix_fmt yuv420p -an even.yuv
-
- ffmpeg -f rawvideo -vcodec rawvideo -s 1718x1200 -r 22.5 -pix_fmt yuv420p -i odd.yuv -c:v libx264 -preset fast -qp 0 odd.mp4
-
- ffmpeg -f rawvideo -vcodec rawvideo -s 1718x1200 -r 22.5 -pix_fmt yuv420p -i even.yuv -c:v libx264 -preset fast -qp 0 even.mp4
-
- */
