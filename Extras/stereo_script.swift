@@ -103,6 +103,9 @@ try? rightConcatString.write(toFile: "right.ffconcat", atomically: true, encodin
 
 // ffmpeg -i right.ffconcat -r 30 -c:v libx264 -preset slow -crf 23 -vsync 2 right.mp4
 
+// After creating the left/right video, add the 3D metadata with:
+// ffmpeg -i stereo.mp4 -map 0 -c copy -metadata:s:v stereo_mode=left_right out.mkv
+
 extension CGImage {
     func colors(at: [CGPoint]) -> [NSColor]? {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
