@@ -230,6 +230,12 @@ std::string GetAvErrorString(int errNum) {
 
         } else {
             fprintf(stderr, "Unknown payload type: %u\n", frame->m_type);
+            fprintf(stderr, "Payload size: %lu\n", frame->m_payload.size());
+            unsigned char * data = (unsigned char *)frame->m_payload.data();
+
+            for(unsigned long i = 0; i < frame->m_payload.size(); i++) {
+                fprintf(stderr, "Payload [%lu]: %u\n", i, data[i]);
+            }
         }
     }
 }
