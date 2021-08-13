@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol OculusMRCDelegate <NSObject>
 - (void)oculusMRC:(OculusMRC *)oculusMRC didReceivePixelBuffer:(CVPixelBufferRef)pixelBuffer;
-- (void)oculusMRC:(OculusMRC *)oculusMRC didReceiveAudio:(AVAudioPCMBuffer *)audio;
+- (void)oculusMRC:(OculusMRC *)oculusMRC didReceiveAudio:(AVAudioPCMBuffer *)audio timestamp:(uint64_t)timestamp;
 @end
 
 @interface OculusMRC : NSObject

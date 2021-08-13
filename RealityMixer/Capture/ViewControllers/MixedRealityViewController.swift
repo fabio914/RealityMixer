@@ -15,8 +15,11 @@ final class MixedRealityViewController: UIViewController {
     private let configuration: MixedRealityConfiguration
     private let chromaConfiguration: ChromaKeyConfiguration?
     private let factory: ARConfigurationFactory
+
+    private var currentAudioFormat: AVAudioFormat?
     private var audioEngine: AVAudioEngine?
     private var audioPlayer: AVAudioPlayerNode?
+
     private var displayLink: CADisplayLink?
     private var oculusMRC: OculusMRC?
     private var networkThread: Thread?
@@ -65,7 +68,6 @@ final class MixedRealityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureDisplay()
-        configureAudio()
         configureDisplayLink()
         configureOculusMRC()
         configureScene()
@@ -77,11 +79,7 @@ final class MixedRealityViewController: UIViewController {
         UIApplication.shared.isIdleTimerDisabled = true
     }
 
-    private func configureAudio() {
-        guard let audioFormat = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 2) else {
-            return
-        }
-
+    private func configureAudio(with audioFormat: AVAudioFormat) {
         let audioEngine = AVAudioEngine()
         let player = AVAudioPlayerNode()
         let mainMixerNode = audioEngine.mainMixerNode
@@ -97,6 +95,7 @@ final class MixedRealityViewController: UIViewController {
             audioEngine.mainMixerNode.outputVolume = 1.0
             self.audioEngine = audioEngine
             self.audioPlayer = player
+            self.currentAudioFormat = audioFormat
         } catch {
             print("Unable to start audio: \(error)")
         }
@@ -341,8 +340,27 @@ extension MixedRealityViewController: OculusMRCDelegate {
         lastFrame = pixelBuffer
     }
 
-    func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer) {
-        audioPlayer?.scheduleBuffer(audio, completionHandler: nil)
+    func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer, timestamp: UInt64) {
+        if currentAudioFormat == nil {
+            configureAudio(with: audio.format)
+        }
+
+        guard let currentAudioFormat = currentAudioFormat,
+            audio.format.sampleRate == currentAudioFormat.sampleRate,
+            audio.format.channelCount == currentAudioFormat.channelCount
+        else {
+            print("Unexpected audio format")
+            return
+        }
+
+        let sampleTime = AVAudioFramePosition(Double(timestamp)/1_000_000 * currentAudioFormat.sampleRate)
+
+        let audioTime = AVAudioTime(
+            sampleTime: sampleTime,
+            atRate: currentAudioFormat.sampleRate
+        )
+
+        audioPlayer?.scheduleBuffer(audio, at: audioTime, options: .interruptsAtLoop, completionHandler: nil)
     }
 }
 
