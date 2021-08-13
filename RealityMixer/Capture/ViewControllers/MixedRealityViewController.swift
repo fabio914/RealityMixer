@@ -16,7 +16,6 @@ final class MixedRealityViewController: UIViewController {
     private let chromaConfiguration: ChromaKeyConfiguration?
     private let factory: ARConfigurationFactory
 
-//    private var initialAudioTime: UInt64 = 0
     private var currentAudioFormat: AVAudioFormat?
     private var audioEngine: AVAudioEngine?
     private var audioPlayer: AVAudioPlayerNode?
@@ -97,7 +96,6 @@ final class MixedRealityViewController: UIViewController {
             self.audioEngine = audioEngine
             self.audioPlayer = player
             self.currentAudioFormat = audioFormat
-//            self.initialAudioTime = mach_absolute_time()
         } catch {
             print("Unable to start audio: \(error)")
         }
@@ -358,7 +356,6 @@ extension MixedRealityViewController: OculusMRCDelegate {
         let sampleTime = AVAudioFramePosition(Double(timestamp)/1_000_000 * currentAudioFormat.sampleRate)
 
         let audioTime = AVAudioTime(
-//            hostTime: initialAudioTime,
             sampleTime: sampleTime,
             atRate: currentAudioFormat.sampleRate
         )
