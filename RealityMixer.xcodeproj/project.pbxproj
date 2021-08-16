@@ -58,6 +58,7 @@
 		A328D980253CE63B00B90E62 /* MixedRealityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */; };
 		A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98D253CF2EE00B90E62 /* ARKit.framework */; };
 		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
+		A32A3D0226CB0A9A0093FAC5 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32A3D0126CB0A990093FAC5 /* AudioManager.swift */; };
 		A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */; };
 		A338B35D265AE1E300099827 /* ChromaKeyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */; };
 		A338B360265B250100099827 /* ChromaKeyConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B35E265B250100099827 /* ChromaKeyConfigurationViewController.swift */; };
@@ -153,6 +154,7 @@
 		A328D97E253CE63B00B90E62 /* MixedRealityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MixedRealityViewController.xib; sourceTree = "<group>"; };
 		A328D98D253CF2EE00B90E62 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		A328D98F253CF2F400B90E62 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		A32A3D0126CB0A990093FAC5 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfiguration.swift; sourceTree = "<group>"; };
 		A338B35E265B250100099827 /* ChromaKeyConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfigurationViewController.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 		A32416122554D7F5008D4B90 /* Capture */ = {
 			isa = PBXGroup;
 			children = (
+				A32A3D0026CB09200093FAC5 /* Audio */,
 				A30A698E267AB92B002647C5 /* Extensions */,
 				A338B35B265AE14600099827 /* Configuration */,
 				A36C9161263779D300D64107 /* Avatars */,
@@ -401,6 +404,14 @@
 				A338B35F265B250100099827 /* ChromaKeyConfigurationViewController.xib */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		A32A3D0026CB09200093FAC5 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				A32A3D0126CB0A990093FAC5 /* AudioManager.swift */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 		A338B35B265AE14600099827 /* Configuration */ = {
@@ -578,6 +589,7 @@
 				A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */,
 				A338B360265B250100099827 /* ChromaKeyConfigurationViewController.swift in Sources */,
 				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
+				A32A3D0226CB0A9A0093FAC5 /* AudioManager.swift in Sources */,
 				A36C916726377C0900D64107 /* RobotAvatar.swift in Sources */,
 				A3EEFFBF26890AE300A0DC19 /* ChromaKeyMaskBuilder.swift in Sources */,
 				A324163D2554E520008D4B90 /* CGPoint+Extensions.swift in Sources */,

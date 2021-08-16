@@ -37,6 +37,8 @@
 
  * Disco-VR [Augmented Reality using Oculus Quest 2 and iPhone!](https://www.youtube.com/watch?v=ImhIWuEFcIk)
 
+ * Disco-VR [EASY Mixed Reality capture on iPhone with Green Screen!](https://www.youtube.com/watch?v=38r9U58PUsA)
+
 <a name="calibration"></a>
 
 # Calibration, what is this? 
