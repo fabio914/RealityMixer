@@ -50,14 +50,17 @@ final class AudioManager {
             return
         }
 
-        let sampleTime = AVAudioFramePosition(Double(timestamp)/1_000_000 * currentAudioFormat.sampleRate)
+        // FIXME
+//        let sampleTime = AVAudioFramePosition(Double(timestamp)/1_000_000 * currentAudioFormat.sampleRate)
+//
+//        let audioTime = AVAudioTime(
+//            sampleTime: sampleTime,
+//            atRate: currentAudioFormat.sampleRate
+//        )
+//
+//        audioPlayer?.scheduleBuffer(audio, at: audioTime, options: .interruptsAtLoop, completionHandler: nil)
 
-        let audioTime = AVAudioTime(
-            sampleTime: sampleTime,
-            atRate: currentAudioFormat.sampleRate
-        )
-
-        audioPlayer?.scheduleBuffer(audio, at: audioTime, options: .interruptsAtLoop, completionHandler: nil)
+        audioPlayer?.scheduleBuffer(audio, at: nil, options: [], completionHandler: nil)
     }
 
     func invalidate() {
