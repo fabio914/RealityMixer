@@ -30,6 +30,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Hyper Dash](https://sidequestvr.com/app/807/hyper-dash) | ? | ? | ? | ? |
 | [Immersed VR](https://immersedvr.com) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=rhAepGvSMf4) | There was some latency but it still worked really well. | 
 | [Kingspray](https://www.oculus.com/experiences/quest/2082941345119152) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=_0aYmo2Ytac) | Works perfectly. |
+| [Noda](https://www.oculus.com/experiences/quest/3916601848368970) | ? | ? | [Tweet](https://twitter.com/GabRoXR/status/1424744125715320833) | Works Perfectly. |
 | [OhShape](https://www.oculus.com/experiences/quest/2522558964527688) | ? | ? | [Tweet](https://twitter.com/Seaglemaniac/status/1351727338661273600) | ? |
 | [Open Brush](https://www.oculus.com/experiences/quest/3600360710032222) |  |  | [YouTube video](https://www.youtube.com/watch?v=_FSoRw4pILk) | Version 0.3.0 supports Mixed Reality Capture. You can try [this version](https://github.com/fabio914/open-brush/releases/tag/0.2.1) if you wish to use the "moving camera" with Reality Mixer 0.2.1, 0.3.0 or 0.4.0. |
 | [Painting VR](https://www.oculus.com/experiences/quest/3106117596158066) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1416207763382968322) | Works perfectly. |
