@@ -38,11 +38,11 @@ final class ARConfigurationFactory {
     private func buildPersonSegmentationConfiguration() -> ARConfiguration {
         let configuration = buildWorldTrackingConfiguration()
 
-        if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
-            configuration.frameSemantics.insert(.personSegmentationWithDepth)
-        } else if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation) {
-            configuration.frameSemantics.insert(.personSegmentation)
-        }
+//        if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
+//            configuration.frameSemantics.insert(.personSegmentationWithDepth)
+//        } else if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentation) {
+//            configuration.frameSemantics.insert(.personSegmentation)
+//        }
 
         return configuration
     }
