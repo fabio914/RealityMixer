@@ -286,7 +286,7 @@ final class MixedRealityViewController: UIViewController {
 
     private func updatePersonSegmentationMiddle(with pixelBuffer: CVPixelBuffer) {
         let request = VNGeneratePersonSegmentationRequest()
-        request.qualityLevel = .accurate
+        request.qualityLevel = .fast
         request.outputPixelFormat = kCVPixelFormatType_OneComponent8
 
         let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
@@ -298,7 +298,8 @@ final class MixedRealityViewController: UIViewController {
                 return
             }
 
-            middlePlaneNode?.geometry?.firstMaterial?.ambient.contents = result
+            let mask = ARKitHelpers.texture(from: result, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
+            middlePlaneNode?.geometry?.firstMaterial?.ambient.contents = mask
 
             let luma = ARKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
             let chroma = ARKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
