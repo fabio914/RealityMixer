@@ -35,7 +35,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Open Brush](https://www.oculus.com/experiences/quest/3600360710032222) |  |  | [YouTube video](https://www.youtube.com/watch?v=_FSoRw4pILk) | Version 0.3.0 supports Mixed Reality Capture. You can try [this version](https://github.com/fabio914/open-brush/releases/tag/0.2.1) if you wish to use the "moving camera" with Reality Mixer 0.2.1, 0.3.0 or 0.4.0. |
 | [Painting VR](https://www.oculus.com/experiences/quest/3106117596158066) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1416207763382968322) | Works perfectly. |
 | [Peco Peco](https://benthamrealities.itch.io/pecopeco) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=Zrf2i6FvkrU) | Works perfectly. |
-| [Pistol Whip](https://www.oculus.com/experiences/quest/2104963472963790) | 2 | 0 | [Tweet](https://twitter.com/fabio914/status/1326699860146401284) | The audio didn't work and the video was showing a first person POV. |
+| [Pistol Whip](https://www.oculus.com/experiences/quest/2104963472963790) | 5 | 4 | [YouTube](https://www.youtube.com/watch?v=0ISlywtTP7M) | Make sure to start the Mixed Reality connection after starting the level. There's an issue with the audio when accessing the main menu. |
 | [Premium Bowling](https://www.oculus.com/experiences/quest/2773034772778845/) | 4 | 4 | [YouTube Video](https://www.youtube.com/watch?v=lGYBMq5yf2Q) | Audio slightly out of sync. |
 | [Puzzling Places Prototype](https://sidequestvr.com/app/809/puzzling-places-prototype) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=a8Ph-bUJFoA) | The colors appear desaturated. |
 | [QuestDraw AR](https://sidequestvr.com/app/1168) | 5 | ? | ? | ? |
