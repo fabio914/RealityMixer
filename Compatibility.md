@@ -52,6 +52,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [The Unity Cube](https://www.oculus.com/experiences/quest/3648431918540026) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1379895492117737472) | Works perfectly. |
 | [Tilt Brush](https://www.oculus.com/experiences/quest/2322529091093901) | 0 | 0 | [Tweet](https://twitter.com/fabio914/status/1332724521497931777) | We recommend using Open Brush instead. |
 | [Topgolf with Pro Putt](https://www.oculus.com/experiences/quest/2412327085529357) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1342953951453446145) | Works perfectly. | 
+| [Totally Baseball](https://www.oculus.com/experiences/quest/3256881337690839) | 5 | 5 | [Tweet](https://twitter.com/themathbook/status/1449076299503321088) | Works perfectly. | 
 | [Yupitergrad](https://www.oculus.com/experiences/quest/3622969487764448) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1392990394405822465) | |
 
 ## Application/Games that used to be compatible
