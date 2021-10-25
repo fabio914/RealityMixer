@@ -49,6 +49,8 @@ final class MixedRealityViewController: UIViewController {
     private var lastTimestamp: CFTimeInterval?
     private var recorder: VideoRecorder?
 
+    private var hideTimer: Timer?
+
     init(
         client: TCPClient,
         configuration: MixedRealityConfiguration,
@@ -302,8 +304,22 @@ final class MixedRealityViewController: UIViewController {
 
     // MARK: - Actions
 
+    private func hideOptions() {
+        hideTimer?.invalidate()
+        hideTimer = nil
+        optionsContainer.isHidden = true
+    }
+
     @objc private func tapAction() {
-        optionsContainer.isHidden = !optionsContainer.isHidden
+        if optionsContainer.isHidden {
+            hideTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false, block: { [weak self] _ in
+                self?.hideOptions()
+            })
+
+            optionsContainer.isHidden = false
+        } else {
+            hideOptions()
+        }
     }
 
     private func disconnect() {
@@ -320,7 +336,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     @IBAction private func hideAction(_ sender: Any) {
-        optionsContainer.isHidden = true
+        hideOptions()
     }
 
     func invalidate() {
@@ -328,6 +344,7 @@ final class MixedRealityViewController: UIViewController {
         networkThread?.cancel()
         audioManager.invalidate()
         displayLink?.invalidate()
+        hideTimer?.invalidate()
         client.close()
     }
 

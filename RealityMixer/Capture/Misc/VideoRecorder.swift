@@ -2,7 +2,7 @@ import UIKit
 import AVFoundation
 import VideoToolbox
 
-// Small workaround to keep the recorded in memory until we've finished
+// Small workaround to keep the recorder in memory until we've finished
 private var recorders: [String: VideoRecorder] = [:]
 
 final class VideoRecorder {
@@ -92,6 +92,7 @@ final class VideoRecorder {
         VTCompressionSessionInvalidate(compressionSession)
         videoInput.markAsFinished()
         assetWriter.finishWriting(completionHandler: { [fileName] in
+            // Consider showing feedback to the user...
             recorders[fileName] = nil
         })
     }
