@@ -40,8 +40,10 @@ You can find a list of the officially supported games/applications [here](https:
 | [Puzzling Places Prototype](https://sidequestvr.com/app/809/puzzling-places-prototype) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=a8Ph-bUJFoA) | The colors appear desaturated. |
 | [QuestDraw AR](https://sidequestvr.com/app/1168) | 5 | ? | ? | ? |
 | [Racket Fury](https://www.oculus.com/experiences/quest/1952355814856769) | ? | ? | ? | You'll have to use the "Unflip output" option. |
+| [Racket: Nx](https://www.oculus.com/experiences/quest/2255408847836468) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=u05jGAV-V_Q) | Works perfectly. |
 | [Real VR Fishing](https://www.oculus.com/experiences/quest/2582932495064035) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=xMbj-JThgoc) | Works perfectly. |
 | [Richie's Plank Experience](https://www.oculus.com/experiences/quest/1642239225880682) | ? | ? | [Tweet](https://twitter.com/FreekTeunen/status/1327673218891649024) | ? |
+| [SaberThing](https://sidequestvr.com/app/407/saber-thing-for-oculus-quest) | 4 | 5 | [Tweet](https://twitter.com/fabio914) | It'll look dark unless you hide the foreground layer. |
 | [Smash Drums](https://www.oculus.com/experiences/quest/3630025217090808/) | ? | ? | [Tweet](https://twitter.com/Seaglemaniac/status/1416966195438395394?s=20) | ? |
 | [Space Pirate Trainer](https://www.oculus.com/experiences/quest/1663790613725314) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=44Nmv7Es5yI) | Works perfectly. |
 | [SUPERHOT](https://www.oculus.com/experiences/quest/1921533091289407/) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=ZnOY8juMw4k) | Works perfectly. |
@@ -59,5 +61,4 @@ You can find a list of the officially supported games/applications [here](https:
 
 | Application | Video Score (0 to 5) | Audio Score (0 to 5) | Example | Notes |
 |--------------|------------------------|-------------------------|------------|--------|
-| [Racket: Nx](https://www.oculus.com/experiences/quest/2255408847836468) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=u05jGAV-V_Q) | ~Works perfectly.~ Newer versions don't support Mixed Reality Capture. |
 | [Space Slurpies](https://sidequestvr.com/app/2618/space-slurpies) | 5 | 5 | [YouTube video](https://www.youtube.com/watch?v=6boK3My_tmE) | ~Works perfectly.~ Newer versions don't support Mixed Reality Capture. |
