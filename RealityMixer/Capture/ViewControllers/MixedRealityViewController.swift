@@ -45,6 +45,10 @@ final class MixedRealityViewController: UIViewController {
 
     private let cameraPoseSender: CameraPoseSender?
 
+    private var initialTimestamp: CFTimeInterval?
+    private var lastTimestamp: CFTimeInterval?
+    private var recorder: VideoRecorder?
+
     init(
         client: TCPClient,
         configuration: MixedRealityConfiguration,
@@ -266,6 +270,29 @@ final class MixedRealityViewController: UIViewController {
     }
 
     @objc func update(with sender: CADisplayLink) {
+
+        // Recorder is always one frame behind
+        if let lastTimestamp = lastTimestamp, let initialTimestamp = initialTimestamp {
+            let currentTimestamp = sender.timestamp
+            let frameDuration = currentTimestamp - lastTimestamp
+
+            // This won't include the person segmentation...
+            let snapshot = sceneView.snapshot()
+
+            if recorder == nil {
+                recorder = VideoRecorder(size: snapshot.size)
+            }
+
+            if let pixelBuffer = snapshot.pixelBuffer {
+                recorder?.encodeFrame(pixelBuffer, presentationTime: lastTimestamp - initialTimestamp, duration: frameDuration)
+            }
+
+            self.lastTimestamp = currentTimestamp
+        } else {
+            initialTimestamp = sender.timestamp
+            lastTimestamp = sender.timestamp
+        }
+
         oculusMRC?.update()
 
         if let lastFrame = lastFrame {
@@ -297,6 +324,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     func invalidate() {
+        recorder?.finalize()
         networkThread?.cancel()
         audioManager.invalidate()
         displayLink?.invalidate()
