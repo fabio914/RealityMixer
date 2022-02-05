@@ -35,6 +35,9 @@ final class MixedRealityViewController: UIViewController {
 
     var first = true
 
+    private var keyPresses = KeyPresses()
+    private var virtualCamera = VirtualCamera()
+
     override var prefersStatusBarHidden: Bool {
         true
     }
@@ -56,7 +59,10 @@ final class MixedRealityViewController: UIViewController {
         self.configuration = configuration
         self.chromaConfiguration = chromaConfiguration
         self.factory = ARConfigurationFactory(mrConfiguration: configuration)
-        self.cameraPoseSender = configuration.enableMovingCamera ? CameraPoseSender(client: client):nil
+
+//        self.cameraPoseSender = configuration.enableMovingCamera ? CameraPoseSender(client: client):nil
+        self.cameraPoseSender = CameraPoseSender(client: client)
+
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
 
@@ -112,6 +118,10 @@ final class MixedRealityViewController: UIViewController {
         }
 
         let scene = SCNScene()
+
+        // Adding scenekit camera
+        scene.rootNode.camera = SCNCamera()
+
         sceneView.scene = scene
         sceneView.session.delegate = self
 
@@ -130,9 +140,11 @@ final class MixedRealityViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
-    private func configureBackground(with frame: ARFrame) {
+//    private func configureBackground(with frame: ARFrame) {
+    private func configureBackground(camera: SCNCamera, imageResolution: CGSize) {
         if case .hidden = configuration.backgroundLayerOptions.visibility { return }
-        let backgroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(100.0, frame: frame)
+//        let backgroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(100.0, frame: frame)
+        let backgroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(100.0, camera: camera, imageResolution: imageResolution)
 
         // Flipping image
         if configuration.shouldFlipOutput {
@@ -163,50 +175,52 @@ final class MixedRealityViewController: UIViewController {
         self.backgroundNode = backgroundPlaneNode
     }
 
-    private func configureMiddle(with frame: ARFrame) {
-        guard case .greenScreen = configuration.captureMode,
-            let chromaConfiguration = chromaConfiguration
-        else { return }
-        let middlePlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.02, frame: frame)
+//    private func configureMiddle(with frame: ARFrame) {
+//        guard case .greenScreen = configuration.captureMode,
+//            let chromaConfiguration = chromaConfiguration
+//        else { return }
+//        let middlePlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.02, frame: frame)
+//
+//        middlePlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
+//
+//        middlePlaneNode.geometry?.firstMaterial?.shaderModifiers = [
+//            .surface: Shaders.surfaceChromaKey()
+//        ]
+//
+//        let color = chromaConfiguration.color
+//
+//        middlePlaneNode.geometry?.firstMaterial?.setValue(
+//            SCNVector3(color.red, color.green, color.blue),
+//            forKey: "maskColor"
+//        )
+//
+//        middlePlaneNode.geometry?.firstMaterial?.setValue(
+//            chromaConfiguration.sensitivity,
+//            forKey: "sensitivity"
+//        )
+//
+//        middlePlaneNode.geometry?.firstMaterial?.setValue(
+//            chromaConfiguration.smoothness,
+//            forKey: "smoothness"
+//        )
+//
+//        let maskStorage = ChromaKeyMaskStorage()
+//
+//        if let maskImage = maskStorage.load() {
+//            middlePlaneNode.geometry?.firstMaterial?.ambient.contents = maskImage
+//        } else {
+//            middlePlaneNode.geometry?.firstMaterial?.ambient.contents = UIColor.white
+//        }
+//
+//        sceneView.pointOfView?.addChildNode(middlePlaneNode)
+//        self.middlePlaneNode = middlePlaneNode
+//    }
 
-        middlePlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
-
-        middlePlaneNode.geometry?.firstMaterial?.shaderModifiers = [
-            .surface: Shaders.surfaceChromaKey()
-        ]
-
-        let color = chromaConfiguration.color
-
-        middlePlaneNode.geometry?.firstMaterial?.setValue(
-            SCNVector3(color.red, color.green, color.blue),
-            forKey: "maskColor"
-        )
-
-        middlePlaneNode.geometry?.firstMaterial?.setValue(
-            chromaConfiguration.sensitivity,
-            forKey: "sensitivity"
-        )
-
-        middlePlaneNode.geometry?.firstMaterial?.setValue(
-            chromaConfiguration.smoothness,
-            forKey: "smoothness"
-        )
-
-        let maskStorage = ChromaKeyMaskStorage()
-
-        if let maskImage = maskStorage.load() {
-            middlePlaneNode.geometry?.firstMaterial?.ambient.contents = maskImage
-        } else {
-            middlePlaneNode.geometry?.firstMaterial?.ambient.contents = UIColor.white
-        }
-
-        sceneView.pointOfView?.addChildNode(middlePlaneNode)
-        self.middlePlaneNode = middlePlaneNode
-    }
-
-    private func configureForeground(with frame: ARFrame) {
+//    private func configureForeground(with frame: ARFrame) {
+    private func configureForeground(camera: SCNCamera, imageResolution: CGSize) {
         guard case .visible(let useMagentaAsTransparency) = configuration.foregroundLayerOptions.visibility else { return }
-        let foregroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.01, frame: frame)
+//        let foregroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.01, frame: frame)
+        let foregroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.01, camera: camera, imageResolution: imageResolution)
 
         // Flipping image
         if configuration.shouldFlipOutput {
@@ -244,18 +258,27 @@ final class MixedRealityViewController: UIViewController {
         foregroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
     }
 
-    private func updateMiddle(with pixelBuffer: CVPixelBuffer) {
-        guard case .greenScreen = configuration.captureMode else { return }
-        let luma = ARKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
-        let chroma = ARKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
-
-        middlePlaneNode?.geometry?.firstMaterial?.transparent.contents = luma
-        middlePlaneNode?.geometry?.firstMaterial?.diffuse.contents = chroma
-    }
+//    private func updateMiddle(with pixelBuffer: CVPixelBuffer) {
+//        guard case .greenScreen = configuration.captureMode else { return }
+//        let luma = ARKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
+//        let chroma = ARKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
+//
+//        middlePlaneNode?.geometry?.firstMaterial?.transparent.contents = luma
+//        middlePlaneNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+//    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         prepareARConfiguration()
+
+        if first {
+            let imageResolution = sceneView.frame.size
+            guard let camera = sceneView.scene.rootNode.camera else { return }
+
+            configureBackground(camera: camera, imageResolution: imageResolution)
+            configureForeground(camera: camera, imageResolution: imageResolution)
+            first = false
+        }
     }
 
     private func prepareARConfiguration() {
@@ -273,6 +296,9 @@ final class MixedRealityViewController: UIViewController {
         if let lastFrame = lastFrame {
             updateForegroundBackground(with: lastFrame)
         }
+
+        keyPresses.update(virtualCamera: virtualCamera, duration: sender.duration)
+        cameraPoseSender?.sendCameraUpdate(pose: virtualCamera.pose)
     }
 
     // MARK: - Actions
@@ -340,29 +366,211 @@ extension MixedRealityViewController: ARSessionDelegate {
 
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
 
-        if first {
-            configureBackground(with: frame)
-            configureMiddle(with: frame)
-            configureForeground(with: frame)
-            first = false
-        } else {
-            cameraPoseSender?.didUpdate(frame: frame)
-        }
-
-        updateMiddle(with: frame.capturedImage)
+//        if first {
+//            configureBackground(with: frame)
+//            configureMiddle(with: frame)
+//            configureForeground(with: frame)
+//            first = false
+//        } else {
+//            cameraPoseSender?.didUpdate(frame: frame)
+//        }
+//
+//        updateMiddle(with: frame.capturedImage)
     }
 
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
-        guard let bodyAnchor = anchors.compactMap({ $0 as? ARBodyAnchor }).first else { return }
+//        guard let bodyAnchor = anchors.compactMap({ $0 as? ARBodyAnchor }).first else { return }
+//
+//        if let avatar = avatar {
+//            avatar.update(bodyAnchor: bodyAnchor)
+//        } else {
+//            avatar = factory.buildAvatar(bodyAnchor: bodyAnchor)
+//            if let mainNode = avatar?.mainNode {
+//                sceneView.scene.rootNode.addChildNode(mainNode)
+//            }
+//            avatar?.update(bodyAnchor: bodyAnchor)
+//        }
+    }
+}
 
-        if let avatar = avatar {
-            avatar.update(bodyAnchor: bodyAnchor)
-        } else {
-            avatar = factory.buildAvatar(bodyAnchor: bodyAnchor)
-            if let mainNode = avatar?.mainNode {
-                sceneView.scene.rootNode.addChildNode(mainNode)
+extension MixedRealityViewController {
+
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        var didHandleEvent = false
+        for press in presses {
+            guard let key = press.key else { continue }
+            if key.charactersIgnoringModifiers == UIKeyCommand.inputLeftArrow {
+                keyPresses.rotateLeft = true
+                didHandleEvent = true
             }
-            avatar?.update(bodyAnchor: bodyAnchor)
+            if key.charactersIgnoringModifiers == UIKeyCommand.inputRightArrow {
+                keyPresses.rotateRight = true
+                didHandleEvent = true
+            }
+            if key.charactersIgnoringModifiers == UIKeyCommand.inputUpArrow {
+                keyPresses.rotateUp = true
+                didHandleEvent = true
+            }
+            if key.charactersIgnoringModifiers == UIKeyCommand.inputDownArrow {
+                keyPresses.rotateDown = true
+                didHandleEvent = true
+            }
+            if key.keyCode == .keyboardA {
+                keyPresses.left = true
+                didHandleEvent = true
+            }
+            if key.keyCode == .keyboardD {
+                keyPresses.right = true
+                didHandleEvent = true
+            }
+            if key.keyCode == .keyboardW {
+                keyPresses.forward = true
+                didHandleEvent = true
+            }
+            if key.keyCode == .keyboardS {
+                keyPresses.backward = true
+                didHandleEvent = true
+            }
         }
+
+        if !didHandleEvent {
+            super.pressesBegan(presses, with: event)
+        }
+    }
+
+    override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        var didHandleEvent = false
+        for press in presses {
+            guard let key = press.key else { continue }
+            if key.charactersIgnoringModifiers == UIKeyCommand.inputLeftArrow {
+                keyPresses.rotateLeft = false
+                didHandleEvent = true
+            }
+            if key.charactersIgnoringModifiers == UIKeyCommand.inputRightArrow {
+                keyPresses.rotateRight = false
+                didHandleEvent = true
+            }
+            if key.charactersIgnoringModifiers == UIKeyCommand.inputUpArrow {
+                keyPresses.rotateUp = false
+                didHandleEvent = true
+            }
+            if key.charactersIgnoringModifiers == UIKeyCommand.inputDownArrow {
+                keyPresses.rotateDown = false
+                didHandleEvent = true
+            }
+            if key.keyCode == .keyboardA {
+                keyPresses.left = false
+                didHandleEvent = true
+            }
+            if key.keyCode == .keyboardD {
+                keyPresses.right = false
+                didHandleEvent = true
+            }
+            if key.keyCode == .keyboardW {
+                keyPresses.forward = false
+                didHandleEvent = true
+            }
+            if key.keyCode == .keyboardS {
+                keyPresses.backward = false
+                didHandleEvent = true
+            }
+        }
+
+        if !didHandleEvent {
+            super.pressesEnded(presses, with: event)
+        }
+    }
+}
+
+final class KeyPresses {
+    var forward = false
+    var backward = false
+    var left = false
+    var right = false
+
+    var rotateRight = false
+    var rotateLeft = false
+    var rotateUp = false
+    var rotateDown = false
+
+    func update(virtualCamera: VirtualCamera, duration: CFTimeInterval) {
+        let verticalDelta = 2.0 /* rad per s */ * duration
+        let horizontalDelta = 2.0 /* rad per s */ * duration
+        let positionDelta = 2.0 /* m per s */ * duration
+
+        let deltaHorizontalAngle: Double
+
+        if rotateRight {
+            deltaHorizontalAngle = -horizontalDelta
+        } else if rotateLeft {
+            deltaHorizontalAngle = horizontalDelta
+        } else {
+            deltaHorizontalAngle = 0
+        }
+
+        let right2 = (Double(cos(deltaHorizontalAngle)) * virtualCamera.right) + (Double(sin(deltaHorizontalAngle)) * (virtualCamera.up.cross(virtualCamera.right)))
+
+        let deltaVerticalAngle: Double
+
+        if rotateUp {
+            deltaVerticalAngle = verticalDelta
+        } else if rotateDown {
+            deltaVerticalAngle = -verticalDelta
+        } else {
+            deltaVerticalAngle = 0
+        }
+
+        let up2 = (Double(cos(deltaVerticalAngle)) * virtualCamera.up) + (Double(sin(deltaVerticalAngle)) * (right2.cross(virtualCamera.up)))
+
+        let forward2 = up2.cross(right2)
+
+        virtualCamera.up = up2
+        virtualCamera.right = right2
+        virtualCamera.forward = forward2
+
+        if forward {
+            virtualCamera.position = virtualCamera.position + (virtualCamera.forward * positionDelta)
+        } else if backward {
+            virtualCamera.position = virtualCamera.position - (virtualCamera.forward * positionDelta)
+        }
+
+        if right {
+            virtualCamera.position = virtualCamera.position + (virtualCamera.right * positionDelta)
+        } else if left {
+            virtualCamera.position = virtualCamera.position - (virtualCamera.right * positionDelta)
+        }
+    }
+}
+
+final class VirtualCamera {
+    var position = Vector3(x: 0, y: 1.5, z: 0)
+    var up = Vector3(x: 0, y: 1, z: 0)
+    var forward = Vector3(x: 0, y: 0, z: -1)
+    var right = Vector3(x: 1, y: 0, z: 0)
+
+    var pose: Pose {
+        let rotation = SCNMatrix4(
+            m11: Float(right.x),
+            m12: Float(right.y),
+            m13: Float(right.z),
+            m14: 0.0,
+            m21: Float(up.x),
+            m22: Float(up.y),
+            m23: Float(up.z),
+            m24: 0.0,
+            m31: Float(-forward.x),
+            m32: Float(-forward.y),
+            m33: Float(-forward.z),
+            m34: 0.0,
+            m41: 0.0,
+            m42: 0.0,
+            m43: 0.0,
+            m44: 1.0
+        )
+
+        return Pose(
+            position: position,
+            rotation: Quaternion(rotationMatrix: rotation)
+        )
     }
 }

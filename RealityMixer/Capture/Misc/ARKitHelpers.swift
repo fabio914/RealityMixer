@@ -11,9 +11,15 @@ struct ARKitHelpers {
 
     // FIXME: Check this.
     static func planeSizeForDistance(_ distance: Float, frame: ARFrame) -> CGSize {
-        let projection = frame.camera.projectionMatrix
+        planeSizeForDistance(distance, projection: frame.camera.projectionMatrix, imageResolution: frame.camera.imageResolution)
+    }
+
+    static func planeSizeForDistance(_ distance: Float, camera: SCNCamera, imageResolution: CGSize) -> CGSize {
+        planeSizeForDistance(distance, projection: .init(camera.projectionTransform), imageResolution: imageResolution)
+    }
+
+    static func planeSizeForDistance(_ distance: Float, projection: simd_float4x4, imageResolution: CGSize) -> CGSize {
         let yScale = projection[1,1]
-        let imageResolution = frame.camera.imageResolution
         let width = (2.0 * distance) * tan(atan(1/yScale) * Float(imageResolution.width / imageResolution.height))
         let height = width * Float(imageResolution.height / imageResolution.width)
         return CGSize(width: CGFloat(width), height: CGFloat(height))
@@ -32,6 +38,10 @@ struct ARKitHelpers {
 
     static func makePlaneNodeForDistance(_ distance: Float, frame: ARFrame) -> SCNNode {
         makePlane(size: planeSizeForDistance(distance, frame: frame), distance: distance)
+    }
+
+    static func makePlaneNodeForDistance(_ distance: Float, camera: SCNCamera, imageResolution: CGSize) -> SCNNode {
+        makePlane(size: planeSizeForDistance(distance, camera: camera, imageResolution: imageResolution), distance: distance)
     }
 
     @discardableResult

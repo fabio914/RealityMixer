@@ -31,7 +31,7 @@ final class ARConfigurationFactory {
         configuration.planeDetection = [.horizontal, .vertical]
         configuration.environmentTexturing = .none
         configuration.isLightEstimationEnabled = true
-        configuration.isAutoFocusEnabled = mrConfiguration.enableAutoFocus
+//        configuration.isAutoFocusEnabled = mrConfiguration.enableAutoFocus
         return configuration
     }
 

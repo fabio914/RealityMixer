@@ -148,80 +148,80 @@ struct CameraRotationPayload {
 final class CameraPoseSender {
     private weak var client: TCPClient?
 
-    private struct InitialPose {
-        let position: Vector3
-        let inverseRotation: Quaternion
-    }
+//    private struct InitialPose {
+//        let position: Vector3
+//        let inverseRotation: Quaternion
+//    }
 
-    private var initialReliableCameraPose: InitialPose?
-    private let initialCalibrationPose: Pose
+//    private var initialReliableCameraPose: InitialPose?
+//    private let initialCalibrationPose: Pose
 
     init?(client: TCPClient) {
-        guard let pose = TemporaryCalibrationStorage.shared.calibrationPose else {
-            return nil
-        }
+//        guard let pose = TemporaryCalibrationStorage.shared.calibrationPose else {
+//            return nil
+//        }
 
-        self.initialCalibrationPose = pose
+//        self.initialCalibrationPose = pose
         self.client = client
     }
 
-    private func sendCameraUpdate(pose: Pose/*, intrinsics: CameraIntrinsicsPayload*/) {
+    func sendCameraUpdate(pose: Pose/*, intrinsics: CameraIntrinsicsPayload*/) {
 //        _ = client?.send(data: intrinsics.data)
         _ = client?.send(data: CameraPositionPayload(position: pose.position).data)
         _ = client?.send(data: CameraRotationPayload(rotation: pose.rotation).data)
     }
 
-    private func updateCached(pose: Pose) {
-        TemporaryCalibrationStorage.shared.update(pose: pose)
-    }
-
-    func didUpdate(frame: ARFrame) {
-        if let initialReliableCameraPose = initialReliableCameraPose {
-            switch frame.camera.trackingState {
-            case .normal, .limited:
-                let position = frame.camera.transform.columns.3
-
-                let positionVector = Vector3(
-                    x: .init(position.x),
-                    y: .init(position.y),
-                    z: .init(position.z)
-                )
-
-                let positionDelta = positionVector - initialReliableCameraPose.position
-                let rotationDelta = initialReliableCameraPose.inverseRotation * Quaternion(rotationMatrix: SCNMatrix4(frame.camera.transform))
-
-                let pose = Pose(
-                    position: positionDelta,
-                    rotation: rotationDelta
-                )
-
-                let poseResult = initialCalibrationPose * pose
-                sendCameraUpdate(pose: poseResult /*, intrinsics: intrinsics*/)
-                updateCached(pose: poseResult)
-            default:
-                break
-            }
-        } else {
-
-            // Assuming there was no movement between the first ARFrame and the first reliable
-            // camera position and orientation
-
-            if case .normal = frame.camera.trackingState {
-                let position = frame.camera.transform.columns.3
-
-                initialReliableCameraPose = InitialPose(
-                    position: .init(
-                        x: .init(position.x),
-                        y: .init(position.y),
-                        z: .init(position.z)
-                    ),
-                    inverseRotation: Quaternion(
-                        rotationMatrix: SCNMatrix4(frame.camera.transform)
-                    ).inverse
-                )
-            }
-        }
-    }
+//    private func updateCached(pose: Pose) {
+//        TemporaryCalibrationStorage.shared.update(pose: pose)
+//    }
+//
+//    func didUpdate(frame: ARFrame) {
+//        if let initialReliableCameraPose = initialReliableCameraPose {
+//            switch frame.camera.trackingState {
+//            case .normal, .limited:
+//                let position = frame.camera.transform.columns.3
+//
+//                let positionVector = Vector3(
+//                    x: .init(position.x),
+//                    y: .init(position.y),
+//                    z: .init(position.z)
+//                )
+//
+//                let positionDelta = positionVector - initialReliableCameraPose.position
+//                let rotationDelta = initialReliableCameraPose.inverseRotation * Quaternion(rotationMatrix: SCNMatrix4(frame.camera.transform))
+//
+//                let pose = Pose(
+//                    position: positionDelta,
+//                    rotation: rotationDelta
+//                )
+//
+//                let poseResult = initialCalibrationPose * pose
+//                sendCameraUpdate(pose: poseResult /*, intrinsics: intrinsics*/)
+//                updateCached(pose: poseResult)
+//            default:
+//                break
+//            }
+//        } else {
+//
+//            // Assuming there was no movement between the first ARFrame and the first reliable
+//            // camera position and orientation
+//
+//            if case .normal = frame.camera.trackingState {
+//                let position = frame.camera.transform.columns.3
+//
+//                initialReliableCameraPose = InitialPose(
+//                    position: .init(
+//                        x: .init(position.x),
+//                        y: .init(position.y),
+//                        z: .init(position.z)
+//                    ),
+//                    inverseRotation: Quaternion(
+//                        rotationMatrix: SCNMatrix4(frame.camera.transform)
+//                    ).inverse
+//                )
+//            }
+//        }
+//    }
 }
 
 // TODO: Improve this...

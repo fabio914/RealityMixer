@@ -212,7 +212,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         configuration.planeDetection = [.horizontal, .vertical]
         configuration.environmentTexturing = .none
         configuration.isLightEstimationEnabled = false
-        configuration.isAutoFocusEnabled = false
+//        configuration.isAutoFocusEnabled = false
         sceneView.session.run(configuration)
     }
 
