@@ -498,30 +498,26 @@ final class KeyPresses {
         let horizontalDelta = 2.0 /* rad per s */ * duration
         let positionDelta = 2.0 /* m per s */ * duration
 
-        let deltaHorizontalAngle: Double
-
         if rotateRight {
-            deltaHorizontalAngle = -horizontalDelta
+            virtualCamera.longitude -= horizontalDelta
         } else if rotateLeft {
-            deltaHorizontalAngle = horizontalDelta
-        } else {
-            deltaHorizontalAngle = 0
+            virtualCamera.longitude += horizontalDelta
         }
 
-        let right2 = (Double(cos(deltaHorizontalAngle)) * virtualCamera.right) + (Double(sin(deltaHorizontalAngle)) * (virtualCamera.up.cross(virtualCamera.right)))
+        let right = Vector3(x: 0, y: 0, z: 1)
+        let up = Vector3(x: 0, y: 1, z: 0)
 
-        let deltaVerticalAngle: Double
+        let right2 = (Double(cos(virtualCamera.longitude)) * right) + (Double(sin(virtualCamera.longitude)) * (up.cross(right)))
 
         if rotateUp {
-            deltaVerticalAngle = verticalDelta
+            virtualCamera.latitude += verticalDelta
+            virtualCamera.latitude = min(virtualCamera.latitude, .pi/2.0)
         } else if rotateDown {
-            deltaVerticalAngle = -verticalDelta
-        } else {
-            deltaVerticalAngle = 0
+            virtualCamera.latitude -= verticalDelta
+            virtualCamera.latitude = max(virtualCamera.latitude, -.pi/2.0)
         }
 
-        let up2 = (Double(cos(deltaVerticalAngle)) * virtualCamera.up) + (Double(sin(deltaVerticalAngle)) * (right2.cross(virtualCamera.up)))
-
+        let up2 = (Double(cos(virtualCamera.latitude)) * up) + (Double(sin(virtualCamera.latitude)) * (right2.cross(up)))
         let forward2 = up2.cross(right2)
 
         virtualCamera.up = up2
@@ -534,7 +530,7 @@ final class KeyPresses {
             virtualCamera.position = virtualCamera.position - (virtualCamera.forward * positionDelta)
         }
 
-        if right {
+        if self.right {
             virtualCamera.position = virtualCamera.position + (virtualCamera.right * positionDelta)
         } else if left {
             virtualCamera.position = virtualCamera.position - (virtualCamera.right * positionDelta)
@@ -544,6 +540,10 @@ final class KeyPresses {
 
 final class VirtualCamera {
     var position = Vector3(x: 0, y: 1.5, z: 0)
+
+    var latitude = 0.0
+    var longitude = 0.0
+
     var up = Vector3(x: 0, y: 1, z: 0)
     var forward = Vector3(x: 0, y: 0, z: -1)
     var right = Vector3(x: 1, y: 0, z: 0)
