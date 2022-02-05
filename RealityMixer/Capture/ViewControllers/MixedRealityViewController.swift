@@ -23,7 +23,7 @@ final class MixedRealityViewController: UIViewController {
     private var lastFrame: CVPixelBuffer?
 
     @IBOutlet private weak var optionsContainer: UIView!
-    @IBOutlet private weak var sceneView: ARSCNView!
+    @IBOutlet private weak var sceneView: SCNView!
     private var textureCache: CVMetalTextureCache?
     private var backgroundNode: SCNNode?
     private var middlePlaneNode: SCNNode?
@@ -108,14 +108,14 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureScene() {
-        sceneView.rendersCameraGrain = false
-        sceneView.rendersMotionBlur = false
-
-        // Light for the model
-        if case .bodyTracking = configuration.captureMode {
-            sceneView.autoenablesDefaultLighting = true
-            sceneView.automaticallyUpdatesLighting = true
-        }
+//        sceneView.rendersCameraGrain = false
+//        sceneView.rendersMotionBlur = false
+//
+//        // Light for the model
+//        if case .bodyTracking = configuration.captureMode {
+//            sceneView.autoenablesDefaultLighting = true
+//            sceneView.automaticallyUpdatesLighting = true
+//        }
 
         let scene = SCNScene()
 
@@ -123,7 +123,7 @@ final class MixedRealityViewController: UIViewController {
         scene.rootNode.camera = SCNCamera()
 
         sceneView.scene = scene
-        sceneView.session.delegate = self
+//        sceneView.session.delegate = self
 
         if case .visible = configuration.backgroundLayerOptions.visibility {
             sceneView.pointOfView?.addChildNode(ARKitHelpers.makePlane(size: .init(width: 9999, height: 9999), distance: 120))
@@ -273,7 +273,7 @@ final class MixedRealityViewController: UIViewController {
 
         if first {
             let imageResolution = sceneView.frame.size
-            guard let camera = sceneView.scene.rootNode.camera else { return }
+            guard let camera = sceneView.scene?.rootNode.camera else { return }
 
             configureBackground(camera: camera, imageResolution: imageResolution)
             configureForeground(camera: camera, imageResolution: imageResolution)
@@ -282,12 +282,12 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func prepareARConfiguration() {
-        sceneView.session.run(factory.build())
+//        sceneView.session.run(factory.build())
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        sceneView.session.pause()
+//        sceneView.session.pause()
     }
 
     @objc func update(with sender: CADisplayLink) {
