@@ -86,7 +86,7 @@ final class MixedRealityViewController: UIViewController {
 
     private func configureDisplayLink() {
         let displayLink = CADisplayLink(target: self, selector: #selector(update(with:)))
-        displayLink.preferredFramesPerSecond = 60
+        displayLink.preferredFramesPerSecond = 0
         displayLink.add(to: .main, forMode: .default)
         self.displayLink = displayLink
     }
@@ -95,16 +95,16 @@ final class MixedRealityViewController: UIViewController {
         self.oculusMRC = OculusMRC()
         oculusMRC?.delegate = self
 
-        networkThread = Thread(block: { [weak oculusMRC, weak client] in
-            let thread = Thread.current
-            while !thread.isCancelled {
-                while let data = client?.read(65536, timeout: 0), data.count > 0, !thread.isCancelled {
-                    oculusMRC?.addData(data, length: Int32(data.count))
-                }
-            }
-         })
-
-         networkThread?.start()
+//        networkThread = Thread(block: { [weak oculusMRC, weak client] in
+//            let thread = Thread.current
+//            while !thread.isCancelled {
+//                while let data = client?.read(65536, timeout: 0), data.count > 0, !thread.isCancelled {
+//                    oculusMRC?.addData(data, length: Int32(data.count))
+//                }
+//            }
+//         })
+//
+//        networkThread?.start()
     }
 
     private func configureScene() {
@@ -291,6 +291,11 @@ final class MixedRealityViewController: UIViewController {
     }
 
     @objc func update(with sender: CADisplayLink) {
+
+        while let data = client.read(65536, timeout: 0), data.count > 0 {
+            oculusMRC?.addData(data, length: Int32(data.count))
+        }
+
         oculusMRC?.update()
 
         if let lastFrame = lastFrame {
