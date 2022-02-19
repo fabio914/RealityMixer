@@ -16,6 +16,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Dead and Buried II](https://www.oculus.com/experiences/quest/2134077359973067) | ? | ? | ? | ? |
 | [Death Horizon: Reloaded](https://www.oculus.com/experiences/quest/2115015981923610) | ? | ? | ? | ? |
 | [Drop Dead: Dual Strike Edition](https://www.oculus.com/experiences/quest/1935017546592600) | 4 | 3 | [Tweet](https://twitter.com/Seaglemaniac/status/1352082534084055041) | Audio works but is lagged. Game is confused and retains message to "walk back into play area" |
+| [Drums Rock](https://www.oculus.com/experiences/quest/6378164228868127/) | 5 | 5 | [Youtube video](https://www.youtube.com/watch?v=JXn1G8rc9fU) | Works very well, no lag or issues." |
 | [Eleven Table Tennis](https://www.oculus.com/experiences/quest/1995434190525828) | ? | ? | [Tweet](https://twitter.com/OnvrNewMedia/status/1349682761251098625) | ? |
 | [Epic Roller Coasters](https://www.oculus.com/experiences/quest/2299465166734471) | 5 | 5 | ? | ? |
 | [Eternal Starlight](https://www.oculus.com/experiences/quest/1918967004876383/) | ? | ? | [Tweet](https://twitter.com/e_starlight_vr/status/1390649718204768259) | ? |
