@@ -57,6 +57,7 @@ You can find a list of the officially supported games/applications [here](https:
 | [Tilt Brush](https://www.oculus.com/experiences/quest/2322529091093901) | 0 | 0 | [Tweet](https://twitter.com/fabio914/status/1332724521497931777) | We recommend using Open Brush instead. |
 | [Topgolf with Pro Putt](https://www.oculus.com/experiences/quest/2412327085529357) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1342953951453446145) | Works perfectly. | 
 | [Totally Baseball](https://www.oculus.com/experiences/quest/3256881337690839) | 5 | 5 | [Tweet](https://twitter.com/themathbook/status/1449076299503321088) | Works perfectly. | 
+| [Unplugged: Air Guitar](https://www.oculus.com/experiences/quest/4714094898617280/) | 5 | 4 | [YouTube video](https://www.youtube.com/watch?v=prr0r1iKX7o) | There is a slight audio delay. Can be easily fixed shifting the whole audio track in post. |
 | [Yupitergrad](https://www.oculus.com/experiences/quest/3622969487764448) | 5 | 5 | [Tweet](https://twitter.com/fabio914/status/1392990394405822465) | |
 
 ## Application/Games that used to be compatible
