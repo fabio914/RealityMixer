@@ -141,6 +141,29 @@ struct Shaders {
         """
     }
 
+    static func surfaceSegmentation() -> String {
+        """
+        \(yCrCbToRGB)
+
+        #pragma body
+
+        float luma = texture2D(u_transparentTexture, _surface.diffuseTexcoord).r;
+        vec2 chroma = texture2D(u_diffuseTexture, _surface.diffuseTexcoord).rg;
+
+        vec4 textureColor = yCbCrToRGB(luma, chroma);
+        _surface.diffuse = textureColor;
+
+        float maskTextureValue = texture2D(u_ambientTexture, _surface.diffuseTexcoord).r;
+        _surface.ambient = vec4(1.0, 1.0, 1.0, 1.0);
+
+        if (maskTextureValue > 0.5) {
+            _surface.transparent = vec4(0.0, 0.0, 0.0, 1.0);
+        } else {
+            _surface.transparent = vec4(1.0, 1.0, 1.0, 1.0);
+        }
+        """
+    }
+
     static func surfaceChromaKeyConfiguration() -> String {
         """
         \(yCrCbToRGB)

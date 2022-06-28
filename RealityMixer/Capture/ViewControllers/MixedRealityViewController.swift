@@ -8,6 +8,7 @@
 import UIKit
 import ARKit
 import AVFoundation
+import Vision
 import SwiftSocket
 
 final class MixedRealityViewController: UIViewController {
@@ -164,9 +165,16 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureMiddle(with frame: ARFrame) {
-        guard case .greenScreen = configuration.captureMode,
-            let chromaConfiguration = chromaConfiguration
-        else { return }
+
+        if case .greenScreen = configuration.captureMode,
+           let chromaConfiguration = chromaConfiguration {
+            configureGreenScreenMiddle(with: frame, chromaConfiguration: chromaConfiguration)
+        } else if case .personSegmentation = configuration.captureMode {
+            configurePersonSegmentationMiddle(with: frame)
+        }
+    }
+
+    private func configureGreenScreenMiddle(with frame: ARFrame, chromaConfiguration: ChromaKeyConfiguration) {
         let middlePlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.02, frame: frame)
 
         middlePlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
@@ -199,6 +207,21 @@ final class MixedRealityViewController: UIViewController {
         } else {
             middlePlaneNode.geometry?.firstMaterial?.ambient.contents = UIColor.white
         }
+
+        sceneView.pointOfView?.addChildNode(middlePlaneNode)
+        self.middlePlaneNode = middlePlaneNode
+    }
+
+    private func configurePersonSegmentationMiddle(with frame: ARFrame) {
+        let middlePlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.02, frame: frame)
+
+        middlePlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
+
+        middlePlaneNode.geometry?.firstMaterial?.shaderModifiers = [
+            .surface: Shaders.surfaceSegmentation()
+        ]
+
+        middlePlaneNode.geometry?.firstMaterial?.ambient.contents = UIColor.white
 
         sceneView.pointOfView?.addChildNode(middlePlaneNode)
         self.middlePlaneNode = middlePlaneNode
@@ -245,12 +268,49 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func updateMiddle(with pixelBuffer: CVPixelBuffer) {
-        guard case .greenScreen = configuration.captureMode else { return }
+        switch configuration.captureMode {
+        case .greenScreen:
+            updateChromaKeyMiddle(with: pixelBuffer)
+        case .personSegmentation:
+            updatePersonSegmentationMiddle(with: pixelBuffer)
+        default:
+            break
+        }
+    }
+
+    private func updateChromaKeyMiddle(with pixelBuffer: CVPixelBuffer) {
         let luma = ARKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
         let chroma = ARKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
 
         middlePlaneNode?.geometry?.firstMaterial?.transparent.contents = luma
         middlePlaneNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+    }
+
+    private func updatePersonSegmentationMiddle(with pixelBuffer: CVPixelBuffer) {
+        let request = VNGeneratePersonSegmentationRequest()
+        request.qualityLevel = .fast
+        request.outputPixelFormat = kCVPixelFormatType_OneComponent8
+
+        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
+
+        do {
+            try handler.perform([request])
+
+            guard let result = request.results?.first?.pixelBuffer else {
+                return
+            }
+
+            let mask = ARKitHelpers.texture(from: result, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
+            middlePlaneNode?.geometry?.firstMaterial?.ambient.contents = mask
+
+            let luma = ARKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
+            let chroma = ARKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
+
+            middlePlaneNode?.geometry?.firstMaterial?.transparent.contents = luma
+            middlePlaneNode?.geometry?.firstMaterial?.diffuse.contents = chroma
+        } catch {
+            print("Error: \(error)")
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
