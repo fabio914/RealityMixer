@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CalibrationConnectionViewController" customModule="RealityMixer" customModuleProvider="target">
             <connections>
                 <outlet property="addressTextField" destination="eFC-9F-oZU" id="lbd-IU-Lro"/>
+                <outlet property="calibrationTypeSegmentedControl" destination="qy2-do-gk3" id="Ohh-VR-GAB"/>
                 <outlet property="infoLabel" destination="sKq-OU-2qL" id="Ajv-84-17Q"/>
                 <outlet property="instructionsContainer" destination="HjO-92-aht" id="ILK-63-bst"/>
                 <outlet property="poorPerformanceWarningLabel" destination="5YI-78-h9Z" id="YQk-7e-chV"/>
@@ -36,10 +37,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="568" height="288"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdd-Db-gt8">
-                            <rect key="frame" x="0.0" y="0.0" width="568" height="706.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="568" height="757.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="RiB-QT-Baj">
-                                    <rect key="frame" x="34" y="40" width="500" height="626.5"/>
+                                    <rect key="frame" x="34" y="40" width="500" height="677.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="62H-A8-eMS">
                                             <rect key="frame" x="0.0" y="0.0" width="500" height="52.5"/>
@@ -139,8 +140,48 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6VX-u3-68y">
+                                            <rect key="frame" x="0.0" y="123.5" width="500" height="31"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calibration type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjS-Iu-611">
+                                                    <rect key="frame" x="0.0" y="0.0" width="105.5" height="31"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5AJ-jU-aJM">
+                                                    <rect key="frame" x="110.5" y="0.0" width="196.5" height="31"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Suh-xT-aGy">
+                                                    <rect key="frame" x="312" y="0.0" width="32" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="32" id="jZJ-9E-L86"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal">
+                                                        <imageReference key="image" image="info.circle.fill" catalog="system" symbolScale="large"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="openCalibrationTypeInstructions:" destination="-1" eventType="touchUpInside" id="sLQ-6e-mk5"/>
+                                                    </connections>
+                                                </button>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qy2-do-gk3">
+                                                    <rect key="frame" x="349" y="0.0" width="151" height="32"/>
+                                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <segments>
+                                                        <segment title="Standard"/>
+                                                        <segment title="Quick"/>
+                                                    </segments>
+                                                    <color key="selectedSegmentTintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="31" id="J80-Qh-ok3"/>
+                                            </constraints>
+                                        </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Khk-NM-EnK">
-                                            <rect key="frame" x="0.0" y="123.5" width="500" height="40"/>
+                                            <rect key="frame" x="0.0" y="174.5" width="500" height="40"/>
                                             <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="Viw-rX-eGM"/>
@@ -159,7 +200,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="65x-Yf-f7P">
-                                            <rect key="frame" x="0.0" y="183.5" width="500" height="40"/>
+                                            <rect key="frame" x="0.0" y="234.5" width="500" height="40"/>
                                             <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="N1n-XW-VHd"/>
@@ -178,7 +219,7 @@
                                             </connections>
                                         </button>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="HjO-92-aht">
-                                            <rect key="frame" x="0.0" y="243.5" width="500" height="235"/>
+                                            <rect key="frame" x="0.0" y="294.5" width="500" height="235"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnd-2p-K2r">
                                                     <rect key="frame" x="0.0" y="0.0" width="500" height="1"/>
@@ -246,7 +287,7 @@
                                             </subviews>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Hb-dK-cSB">
-                                            <rect key="frame" x="0.0" y="498.5" width="500" height="128"/>
+                                            <rect key="frame" x="0.0" y="549.5" width="500" height="128"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="128" id="GQ1-Tb-dbu"/>

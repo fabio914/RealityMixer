@@ -8,6 +8,11 @@
 import UIKit
 import SwiftSocket
 
+enum CalibrationType {
+    case quick
+    case standard
+}
+
 final class CalibrationConnectionViewController: UIViewController {
 
     @IBOutlet private weak var scrollView: UIScrollView!
@@ -16,6 +21,8 @@ final class CalibrationConnectionViewController: UIViewController {
 
     @IBOutlet private weak var scaleSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var poorPerformanceWarningLabel: UILabel!
+
+    @IBOutlet private weak var calibrationTypeSegmentedControl: UISegmentedControl!
 
     @IBOutlet private weak var showInstructionsButton: UIButton!
     @IBOutlet private weak var instructionsContainer: UIStackView!
@@ -82,7 +89,7 @@ final class CalibrationConnectionViewController: UIViewController {
         """
     }
 
-    private func startConnection(address: String, port: Int32) {
+    private func startConnection(address: String, port: Int32, calibrationType: CalibrationType) {
         let connectionAlert = UIAlertController(title: "Connecting...", message: nil, preferredStyle: .alert)
 
         present(connectionAlert, animated: true, completion: { [weak self] in
@@ -119,12 +126,22 @@ final class CalibrationConnectionViewController: UIViewController {
                 let scaleFactor = (Double(self.scaleSegmentedControl.selectedSegmentIndex) + 1.0)/Double(self.scaleSegmentedControl.numberOfSegments)
 
                 connectionAlert.dismiss(animated: false, completion: { [weak self] in
+                    let viewController: UIViewController
 
-                    let viewController = CalibrationViewController(
-                        client: client,
-                        scaleFactor: scaleFactor,
-                        delegate: self
-                    )
+                    switch calibrationType {
+                    case .quick:
+                        viewController = QuickCalibrationViewController(
+                            client: client,
+                            scaleFactor: scaleFactor,
+                            delegate: self
+                        )
+                    case .standard:
+                        viewController = CalibrationViewController(
+                            client: client,
+                            scaleFactor: scaleFactor,
+                            delegate: self
+                        )
+                    }
 
                     viewController.modalPresentationStyle = .overFullScreen
                     self?.present(viewController, animated: true, completion: nil)
@@ -148,8 +165,10 @@ final class CalibrationConnectionViewController: UIViewController {
             return
         }
 
+        let calibrationType: CalibrationType = calibrationTypeSegmentedControl.selectedSegmentIndex == 0 ? .standard:.quick
+
         CameraPermissionHelper.ensurePermission(from: self, completion: { [weak self] in
-            self?.startConnection(address: address, port: port)
+            self?.startConnection(address: address, port: port, calibrationType: calibrationType)
         })
     }
 
@@ -164,6 +183,20 @@ final class CalibrationConnectionViewController: UIViewController {
             Use this setting to select the resolution of the Mixed Reality video.
 
             Smaller factors will result in better performance and lower quality.
+            """,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(.init(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    @IBAction private func openCalibrationTypeInstructions(_ sender: Any) {
+        // TODO
+        let alert = UIAlertController(
+            title: "TODO",
+            message: """
+            TODO
             """,
             preferredStyle: .alert
         )
