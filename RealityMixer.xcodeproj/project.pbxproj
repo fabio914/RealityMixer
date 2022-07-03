@@ -78,6 +78,9 @@
 		A3A50C4125F5B3B100413E01 /* SwiftSocket in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C4025F5B3B100413E01 /* SwiftSocket */; };
 		A3A50C4525F5B71000413E01 /* FFmpeg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */; };
 		A3EEFFBF26890AE300A0DC19 /* ChromaKeyMaskBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */; };
+		EFC69F4F2872396F00B7ECF4 /* CaptureFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC69F4E2872396F00B7ECF4 /* CaptureFrame.swift */; };
+		EFC69F5128723BDA00B7ECF4 /* OculusCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC69F5028723BDA00B7ECF4 /* OculusCapture.swift */; };
+		EFC69F532872421100B7ECF4 /* CapturePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC69F522872421100B7ECF4 /* CapturePayload.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -173,6 +176,9 @@
 		A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectionPickerViewController.xib; sourceTree = "<group>"; };
 		A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FFmpeg.xcframework; path = Frameworks/FFmpeg.xcframework; sourceTree = "<group>"; };
 		A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyMaskBuilder.swift; sourceTree = "<group>"; };
+		EFC69F4E2872396F00B7ECF4 /* CaptureFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureFrame.swift; sourceTree = "<group>"; };
+		EFC69F5028723BDA00B7ECF4 /* OculusCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OculusCapture.swift; sourceTree = "<group>"; };
+		EFC69F522872421100B7ECF4 /* CapturePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturePayload.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +293,7 @@
 		A32416122554D7F5008D4B90 /* Capture */ = {
 			isa = PBXGroup;
 			children = (
+				EFC69F4D2872371C00B7ECF4 /* MRC */,
 				A32A3D0026CB09200093FAC5 /* Audio */,
 				A30A698E267AB92B002647C5 /* Extensions */,
 				A338B35B265AE14600099827 /* Configuration */,
@@ -474,6 +481,16 @@
 			path = Shaders;
 			sourceTree = "<group>";
 		};
+		EFC69F4D2872371C00B7ECF4 /* MRC */ = {
+			isa = PBXGroup;
+			children = (
+				EFC69F4E2872396F00B7ECF4 /* CaptureFrame.swift */,
+				EFC69F5028723BDA00B7ECF4 /* OculusCapture.swift */,
+				EFC69F522872421100B7ECF4 /* CapturePayload.swift */,
+			);
+			path = MRC;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -581,12 +598,14 @@
 				A36C9163263779E700D64107 /* ReadyPlayerMeAvatar.swift in Sources */,
 				A338B363265B25E500099827 /* ARKitHelpers.swift in Sources */,
 				A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */,
+				EFC69F4F2872396F00B7ECF4 /* CaptureFrame.swift in Sources */,
 				A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */,
 				A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */,
 				A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */,
 				A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */,
 				A338B35D265AE1E300099827 /* ChromaKeyConfiguration.swift in Sources */,
 				A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */,
+				EFC69F5128723BDA00B7ECF4 /* OculusCapture.swift in Sources */,
 				A338B360265B250100099827 /* ChromaKeyConfigurationViewController.swift in Sources */,
 				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
 				A32A3D0226CB0A9A0093FAC5 /* AudioManager.swift in Sources */,
@@ -603,6 +622,7 @@
 				A30A6990267AB94A002647C5 /* UIColor+Image.swift in Sources */,
 				A328D8CC253C914500B90E62 /* frame.cpp in Sources */,
 				A328D8B0253C8C4000B90E62 /* AppDelegate.swift in Sources */,
+				EFC69F532872421100B7ECF4 /* CapturePayload.swift in Sources */,
 				A32416252554DFD4008D4B90 /* CalibrationConnectionViewController.swift in Sources */,
 				A32416312554E340008D4B90 /* CalibrationSceneNodeBuilder.swift in Sources */,
 				A32226FF262C5253004629CC /* Skeleton.swift in Sources */,
