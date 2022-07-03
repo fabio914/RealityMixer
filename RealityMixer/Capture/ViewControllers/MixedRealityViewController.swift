@@ -272,7 +272,7 @@ final class MixedRealityViewController: UIViewController {
         prepareARConfiguration()
 
         if first {
-            let imageResolution = sceneView.frame.size
+            let imageResolution = CGSize(width: 1920, height: 1080) //sceneView.frame.size
             guard let camera = sceneView.scene?.rootNode.camera else { return }
 
             configureBackground(camera: camera, imageResolution: imageResolution)
