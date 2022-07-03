@@ -20,10 +20,16 @@ enum CapturePayload {
         let height: Int32
     }
 
+    struct AudioDataHeader {
+        let timestamp: UInt64
+        let channels: Int32
+        let dataLength: Int32
+    }
+
     case videoDimension(VideoDimension)
     case videoData(Data)
     case audioSampleRate(UInt32)
-    case audioData(Data)
+    case audioData(AudioDataHeader, Data)
 
     init?(from frame: CaptureFrame) {
         guard let payloadType = CapturePayloadType(rawValue: frame.payloadType) else { return nil }
@@ -40,7 +46,15 @@ enum CapturePayload {
             let sampleRate = frame.data.withUnsafeBytes({ $0.load(as: UInt32.self) })
             self = .audioSampleRate(sampleRate)
         case .audioData:
-            self = .audioData(frame.data)
+            let headerLength = MemoryLayout<AudioDataHeader>.size
+            guard frame.data.count >= headerLength else { return nil }
+            let headerData = frame.data.subdata(in: 0 ..< headerLength)
+            let header = headerData.withUnsafeBytes({ $0.load(as: AudioDataHeader.self) })
+
+            let totalLength = headerLength + Int(header.dataLength)
+            guard frame.data.count == totalLength else { return nil }
+            let audioData = frame.data.subdata(in: headerLength ..< totalLength)
+            self = .audioData(header, audioData)
         }
     }
 }

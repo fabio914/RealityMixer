@@ -41,8 +41,8 @@ final class OculusCapture {
             print("[NEW CAPTURE] Received Video Data \(data.count)")
         case .audioSampleRate(let samplerate):
             print("[NEW CAPTURE] Received Audio Sample rate \(samplerate)")
-        case .audioData(let data):
-            print("[NEW CAPTURE] Received Audio Data \(data.count)")
+        case .audioData(let audioHeader, let audioData):
+            print("[NEW CAPTURE] Received Audio Data \(audioHeader.channels) \(audioData.count)")
         }
     }
 }
