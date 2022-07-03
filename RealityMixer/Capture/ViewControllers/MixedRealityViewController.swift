@@ -371,12 +371,15 @@ extension MixedRealityViewController: OculusMRCDelegate {
     }
 
     func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer, timestamp: UInt64) {
-        audioManager.play(audio: audio, timestamp: timestamp)
+//        audioManager.play(audio: audio, timestamp: timestamp)
     }
 }
 
 extension MixedRealityViewController: OculusCaptureDelegate {
 
+    func oculusCapture(_ oculusCapture: OculusCapture, didReceiveAudio audio: AVAudioPCMBuffer, timestamp: UInt64) {
+        audioManager.play(audio: audio, timestamp: timestamp)
+    }
 }
 
 extension MixedRealityViewController: ARSessionDelegate {

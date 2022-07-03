@@ -192,14 +192,14 @@ std::string GetAvErrorString(int errNum) {
                     while (m_cachedAudioFrames.size() > 0 /*&& m_cachedAudioFrames[0].first <= m_videoFrameIndex*/) {
                         std::shared_ptr<Frame> audioFrame = m_cachedAudioFrames[0].second;
 
-                        AudioDataHeader * audioDataHeader = (AudioDataHeader *)(audioFrame->m_payload.data());
-
-                        if (audioDataHeader->channels == 1 || audioDataHeader->channels == 2) {
-                            float * data = (float *)((uint8_t *)audioFrame->m_payload.data() + sizeof(AudioDataHeader));
-                            [_delegate oculusMRC: self didReceiveAudio: pcmBufferFrom(audioDataHeader, m_audioSampleRate, data) timestamp:audioDataHeader->timestamp];
-                        } else {
-                            fprintf(stderr, "[AUDIO_DATA] unimplemented audio channels %d\n", audioDataHeader->channels);
-                        }
+//                        AudioDataHeader * audioDataHeader = (AudioDataHeader *)(audioFrame->m_payload.data());
+//
+//                        if (audioDataHeader->channels == 1 || audioDataHeader->channels == 2) {
+//                            float * data = (float *)((uint8_t *)audioFrame->m_payload.data() + sizeof(AudioDataHeader));
+//                            [_delegate oculusMRC: self didReceiveAudio: pcmBufferFrom(audioDataHeader, m_audioSampleRate, data) timestamp:audioDataHeader->timestamp];
+//                        } else {
+//                            fprintf(stderr, "[AUDIO_DATA] unimplemented audio channels %d\n", audioDataHeader->channels);
+//                        }
 
                         m_cachedAudioFrames.erase(m_cachedAudioFrames.begin());
                     }
