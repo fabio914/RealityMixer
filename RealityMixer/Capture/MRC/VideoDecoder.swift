@@ -20,11 +20,8 @@ final class VideoDecoder {
     private var formatDesc: CMVideoFormatDescription?
     private var decompressionSession: VTDecompressionSession?
 
-    private var spsSize: Int = 0
-    private var ppsSize: Int = 0
-
-    private var sps: Array<UInt8>?
-    private var pps: Array<UInt8>?
+    private var sps: [UInt8]?
+    private var pps: [UInt8]?
 
     init(delegate: DecoderDelegate? = nil) {
         self.delegate = delegate
@@ -81,11 +78,9 @@ final class VideoDecoder {
             }
         case 0x07:
             // SPS
-            spsSize = videoPacket.count - 4
             sps = Array(videoPacket[4 ..< videoPacket.count])
         case 0x08:
             // PPS
-            ppsSize = videoPacket.count - 4
             pps = Array(videoPacket[4 ..< videoPacket.count])
         default:
             // B/P frame
@@ -132,14 +127,16 @@ final class VideoDecoder {
 
         if let buffer = sampleBuffer, let session = decompressionSession, status == kCMBlockBufferNoErr {
 
-            let attachments:CFArray? = CMSampleBufferGetSampleAttachmentsArray(buffer, createIfNecessary: true)
+            let attachments: CFArray? = CMSampleBufferGetSampleAttachmentsArray(buffer, createIfNecessary: true)
 
             if let attachmentArray = attachments {
                 let dic = unsafeBitCast(CFArrayGetValueAtIndex(attachmentArray, 0), to: CFMutableDictionary.self)
 
-                CFDictionarySetValue(dic,
-                                     Unmanaged.passUnretained(kCMSampleAttachmentKey_DisplayImmediately).toOpaque(),
-                                     Unmanaged.passUnretained(kCFBooleanTrue).toOpaque())
+                CFDictionarySetValue(
+                    dic,
+                    Unmanaged.passUnretained(kCMSampleAttachmentKey_DisplayImmediately).toOpaque(),
+                    Unmanaged.passUnretained(kCFBooleanTrue).toOpaque()
+                )
             }
 
             var flagOut = VTDecodeInfoFlags(rawValue: 0)
@@ -154,13 +151,13 @@ final class VideoDecoder {
             )
 
             if status == noErr {
-                print("OK")
-            }else if(status == kVTInvalidSessionErr) {
-                print("IOS8VT: Invalid session, reset decoder session");
-            } else if(status == kVTVideoDecoderBadDataErr) {
-                print("IOS8VT: decode failed status=\(status)(Bad data)");
-            } else if(status != noErr) {
-                print("IOS8VT: decode failed status=\(status)");
+                // print("OK")
+            } else if status == kVTInvalidSessionErr {
+                print("VideoDecoder: Invalid session, reset decoder session");
+            } else if status == kVTVideoDecoderBadDataErr {
+                print("VideoDecoder: decode failed status=\(status)(Bad data)");
+            } else if status != noErr {
+                print("VideoDecoder: decode failed status=\(status)");
             }
         }
     }
@@ -217,13 +214,13 @@ final class VideoDecoder {
                     decompressionSessionOut: &videoSessionM
                 )
 
-                if(status != noErr) {
+                if status != noErr {
                     print("\t\t VTD ERROR type: \(status)")
                 }
 
                 self.decompressionSession = videoSessionM
             } else {
-                print("IOS8VT: reset decoder session failed status=\(status)")
+                print("VideoDecoder: reset decoder session failed status=\(status)")
             }
         }
 

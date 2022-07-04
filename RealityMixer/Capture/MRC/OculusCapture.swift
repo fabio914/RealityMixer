@@ -38,7 +38,7 @@ final class OculusCapture {
             if let payload = CapturePayload(from: frame) {
                 process(payload)
             } else {
-                print("[NEW CAPTURE] Unknown payload type \(frame.payloadType)")
+                // print("[NEW CAPTURE] Unknown payload type \(frame.payloadType)")
             }
         }
     }
@@ -48,15 +48,15 @@ final class OculusCapture {
         case .videoDimension(let videoDimension):
             self.videoWidth = videoDimension.width
             self.videoHeight = videoDimension.height
-            print("[NEW CAPTURE] Received Video Dimension \(videoDimension.width) \(videoDimension.height)")
+            // print("[NEW CAPTURE] Received Video Dimension \(videoDimension.width) \(videoDimension.height)")
         case .videoData(let data):
-            print("[NEW CAPTURE] Received Video Data \(data.count)")
+            // print("[NEW CAPTURE] Received Video Data \(data.count)")
             decoder.process(data)
         case .audioSampleRate(let samplerate):
-            print("[NEW CAPTURE] Received Audio Sample rate \(samplerate)")
+            // print("[NEW CAPTURE] Received Audio Sample rate \(samplerate)")
             self.audioSampleRate = samplerate
         case .audioData(let audioHeader, let audioData):
-            print("[NEW CAPTURE] Received Audio Data \(audioHeader.channels) \(audioData.count)")
+            // print("[NEW CAPTURE] Received Audio Data \(audioHeader.channels) \(audioData.count)")
             processAudio(audioHeader, data: audioData)
         }
     }

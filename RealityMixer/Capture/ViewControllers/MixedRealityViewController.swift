@@ -18,7 +18,6 @@ final class MixedRealityViewController: UIViewController {
 
     private let audioManager = AudioManager()
     private var displayLink: CADisplayLink?
-//    private var oculusMRC: OculusMRC?
     private var networkThread: Thread?
     private var lastFrame: CVPixelBuffer?
 
@@ -297,12 +296,8 @@ final class MixedRealityViewController: UIViewController {
     @objc func update(with sender: CADisplayLink) {
 
         while let data = client.read(65536, timeout: 0), data.count > 0 {
-//            oculusMRC?.addData(data, length: Int32(data.count))
-
             oculusCapture?.add(data: Data(data))
         }
-
-//        oculusMRC?.update()
 
         oculusCapture?.update()
 
@@ -363,17 +358,6 @@ final class MixedRealityViewController: UIViewController {
         invalidate()
     }
 }
-
-//extension MixedRealityViewController: OculusMRCDelegate {
-//
-//    func oculusMRC(_ oculusMRC: OculusMRC, didReceive pixelBuffer: CVPixelBuffer) {
-//        lastFrame = pixelBuffer
-//    }
-//
-//    func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer, timestamp: UInt64) {
-//        audioManager.play(audio: audio, timestamp: timestamp)
-//    }
-//}
 
 extension MixedRealityViewController: OculusCaptureDelegate {
 
