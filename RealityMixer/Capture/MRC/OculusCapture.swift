@@ -9,6 +9,7 @@ import Foundation
 import AVFoundation
 
 protocol OculusCaptureDelegate: AnyObject {
+    func oculusCapture(_ oculusCapture: OculusCapture, didReceive pixelBuffer: CVPixelBuffer)
     func oculusCapture(_ oculusCapture: OculusCapture, didReceiveAudio audio: AVAudioPCMBuffer, timestamp: UInt64)
 }
 
@@ -17,6 +18,12 @@ final class OculusCapture {
     private let frameCollection = CaptureFrameCollection()
 
     private var audioSampleRate: UInt32 = 48000
+    private var videoWidth: Int32 = 1920
+    private var videoHeight: Int32 = 1080
+
+    private lazy var decoder: VideoDecoder = {
+        VideoDecoder(delegate: self)
+    }()
 
     init(delegate: OculusCaptureDelegate? = nil) {
         self.delegate = delegate
@@ -39,9 +46,12 @@ final class OculusCapture {
     private func process(_ payload: CapturePayload) {
         switch payload {
         case .videoDimension(let videoDimension):
+            self.videoWidth = videoDimension.width
+            self.videoHeight = videoDimension.height
             print("[NEW CAPTURE] Received Video Dimension \(videoDimension.width) \(videoDimension.height)")
         case .videoData(let data):
             print("[NEW CAPTURE] Received Video Data \(data.count)")
+            decoder.process(data)
         case .audioSampleRate(let samplerate):
             print("[NEW CAPTURE] Received Audio Sample rate \(samplerate)")
             self.audioSampleRate = samplerate
@@ -81,5 +91,12 @@ final class OculusCapture {
         }
 
         delegate?.oculusCapture(self, didReceiveAudio: audioBuffer, timestamp: header.timestamp)
+    }
+}
+
+extension OculusCapture: DecoderDelegate {
+
+    func didDecodeFrame(_ buffer: CVPixelBuffer) {
+        delegate?.oculusCapture(self, didReceive: buffer)
     }
 }

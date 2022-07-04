@@ -78,6 +78,7 @@
 		A3A50C4125F5B3B100413E01 /* SwiftSocket in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C4025F5B3B100413E01 /* SwiftSocket */; };
 		A3A50C4525F5B71000413E01 /* FFmpeg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */; };
 		A3EEFFBF26890AE300A0DC19 /* ChromaKeyMaskBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */; };
+		EF2C4C0528736042001AA8DE /* VideoDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2C4C0428736042001AA8DE /* VideoDecoder.swift */; };
 		EFC69F4F2872396F00B7ECF4 /* CaptureFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC69F4E2872396F00B7ECF4 /* CaptureFrame.swift */; };
 		EFC69F5128723BDA00B7ECF4 /* OculusCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC69F5028723BDA00B7ECF4 /* OculusCapture.swift */; };
 		EFC69F532872421100B7ECF4 /* CapturePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC69F522872421100B7ECF4 /* CapturePayload.swift */; };
@@ -176,6 +177,7 @@
 		A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectionPickerViewController.xib; sourceTree = "<group>"; };
 		A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FFmpeg.xcframework; path = Frameworks/FFmpeg.xcframework; sourceTree = "<group>"; };
 		A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyMaskBuilder.swift; sourceTree = "<group>"; };
+		EF2C4C0428736042001AA8DE /* VideoDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDecoder.swift; sourceTree = "<group>"; };
 		EFC69F4E2872396F00B7ECF4 /* CaptureFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureFrame.swift; sourceTree = "<group>"; };
 		EFC69F5028723BDA00B7ECF4 /* OculusCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OculusCapture.swift; sourceTree = "<group>"; };
 		EFC69F522872421100B7ECF4 /* CapturePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturePayload.swift; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 				EFC69F4E2872396F00B7ECF4 /* CaptureFrame.swift */,
 				EFC69F5028723BDA00B7ECF4 /* OculusCapture.swift */,
 				EFC69F522872421100B7ECF4 /* CapturePayload.swift */,
+				EF2C4C0428736042001AA8DE /* VideoDecoder.swift */,
 			);
 			path = MRC;
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				A36C9163263779E700D64107 /* ReadyPlayerMeAvatar.swift in Sources */,
 				A338B363265B25E500099827 /* ARKitHelpers.swift in Sources */,
 				A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */,
+				EF2C4C0528736042001AA8DE /* VideoDecoder.swift in Sources */,
 				EFC69F4F2872396F00B7ECF4 /* CaptureFrame.swift in Sources */,
 				A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */,
 				A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */,

@@ -18,7 +18,7 @@ final class MixedRealityViewController: UIViewController {
 
     private let audioManager = AudioManager()
     private var displayLink: CADisplayLink?
-    private var oculusMRC: OculusMRC?
+//    private var oculusMRC: OculusMRC?
     private var networkThread: Thread?
     private var lastFrame: CVPixelBuffer?
 
@@ -94,8 +94,8 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureOculusMRC() {
-        self.oculusMRC = OculusMRC()
-        oculusMRC?.delegate = self
+//        self.oculusMRC = OculusMRC()
+//        oculusMRC?.delegate = self
 
         self.oculusCapture = OculusCapture(delegate: self)
 
@@ -297,12 +297,12 @@ final class MixedRealityViewController: UIViewController {
     @objc func update(with sender: CADisplayLink) {
 
         while let data = client.read(65536, timeout: 0), data.count > 0 {
-            oculusMRC?.addData(data, length: Int32(data.count))
+//            oculusMRC?.addData(data, length: Int32(data.count))
 
             oculusCapture?.add(data: Data(data))
         }
 
-        oculusMRC?.update()
+//        oculusMRC?.update()
 
         oculusCapture?.update()
 
@@ -364,18 +364,22 @@ final class MixedRealityViewController: UIViewController {
     }
 }
 
-extension MixedRealityViewController: OculusMRCDelegate {
-
-    func oculusMRC(_ oculusMRC: OculusMRC, didReceive pixelBuffer: CVPixelBuffer) {
-        lastFrame = pixelBuffer
-    }
-
-    func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer, timestamp: UInt64) {
+//extension MixedRealityViewController: OculusMRCDelegate {
+//
+//    func oculusMRC(_ oculusMRC: OculusMRC, didReceive pixelBuffer: CVPixelBuffer) {
+//        lastFrame = pixelBuffer
+//    }
+//
+//    func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer, timestamp: UInt64) {
 //        audioManager.play(audio: audio, timestamp: timestamp)
-    }
-}
+//    }
+//}
 
 extension MixedRealityViewController: OculusCaptureDelegate {
+
+    func oculusCapture(_ oculusCapture: OculusCapture, didReceive pixelBuffer: CVPixelBuffer) {
+        lastFrame = pixelBuffer
+    }
 
     func oculusCapture(_ oculusCapture: OculusCapture, didReceiveAudio audio: AVAudioPCMBuffer, timestamp: UInt64) {
         audioManager.play(audio: audio, timestamp: timestamp)
