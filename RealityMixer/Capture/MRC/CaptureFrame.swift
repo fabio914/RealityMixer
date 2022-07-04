@@ -50,10 +50,12 @@ struct CaptureFrame {
 }
 
 final class CaptureFrameCollection {
+    private let semaphore = DispatchSemaphore(value: 1)
     private var data = Data()
     private var frames: [CaptureFrame] = []
 
     func add(data: Data) {
+        semaphore.wait()
         self.data.append(data)
 
         while let frame = CaptureFrame(from: self.data) {
@@ -65,9 +67,13 @@ final class CaptureFrameCollection {
                 self.data = .init()
             }
         }
+        semaphore.signal()
     }
 
     func next() -> CaptureFrame? {
-        frames.isEmpty ? nil:frames.removeFirst()
+        semaphore.wait()
+        let nextFrame = frames.isEmpty ? nil:frames.removeFirst()
+        semaphore.signal()
+        return nextFrame
     }
 }
