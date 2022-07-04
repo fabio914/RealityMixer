@@ -22,7 +22,6 @@
 		A32285AF25580A8800FF3200 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32285AE25580A8800FF3200 /* Definitions.swift */; };
 		A32285F7255A06E400FF3200 /* left.stl in Resources */ = {isa = PBXBuildFile; fileRef = A32285F5255A06E400FF3200 /* left.stl */; };
 		A32285F8255A06E400FF3200 /* right.stl in Resources */ = {isa = PBXBuildFile; fileRef = A32285F6255A06E400FF3200 /* right.stl */; };
-		A3228605255B864900FF3200 /* AudioDataHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A3228601255B847900FF3200 /* AudioDataHeader.m */; };
 		A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32415FD2554D24B008D4B90 /* CalibrationFrame.swift */; };
 		A32416022554D296008D4B90 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416012554D296008D4B90 /* Math.swift */; };
 		A32416052554D2FE008D4B90 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32416042554D2FE008D4B90 /* Parser.swift */; };
@@ -45,8 +44,6 @@
 		A328D8B4253C8C4000B90E62 /* MixedRealityConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D8B3253C8C4000B90E62 /* MixedRealityConnectionViewController.swift */; };
 		A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A328D8B8253C8C4300B90E62 /* Assets.xcassets */; };
 		A328D8BC253C8C4300B90E62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */; };
-		A328D8CC253C914500B90E62 /* frame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A328D8CA253C914500B90E62 /* frame.cpp */; };
-		A328D8D1253C917300B90E62 /* OculusMRC.mm in Sources */ = {isa = PBXBuildFile; fileRef = A328D8D0253C917300B90E62 /* OculusMRC.mm */; };
 		A328D960253C959500B90E62 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D95F253C958D00B90E62 /* libbz2.tbd */; };
 		A328D963253C95A000B90E62 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D962253C959B00B90E62 /* libz.tbd */; };
 		A328D966253C95AD00B90E62 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D965253C95A700B90E62 /* libiconv.tbd */; };
@@ -76,8 +73,11 @@
 		A3A50C0C25F57AB700413E01 /* ProjectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */; };
 		A3A50C0D25F57AB700413E01 /* ProjectionPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */; };
 		A3A50C4125F5B3B100413E01 /* SwiftSocket in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C4025F5B3B100413E01 /* SwiftSocket */; };
-		A3A50C4525F5B71000413E01 /* FFmpeg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */; };
 		A3EEFFBF26890AE300A0DC19 /* ChromaKeyMaskBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */; };
+		EF2C4C0D28739194001AA8DE /* CaptureFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2C4C0928739194001AA8DE /* CaptureFrame.swift */; };
+		EF2C4C0E28739194001AA8DE /* OculusCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2C4C0A28739194001AA8DE /* OculusCapture.swift */; };
+		EF2C4C0F28739194001AA8DE /* CapturePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2C4C0B28739194001AA8DE /* CapturePayload.swift */; };
+		EF2C4C1028739194001AA8DE /* VideoDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2C4C0C28739194001AA8DE /* VideoDecoder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -111,8 +111,6 @@
 		A32285B62558163B00FF3200 /* Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Instructions.md; sourceTree = "<group>"; };
 		A32285F5255A06E400FF3200 /* left.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = left.stl; sourceTree = "<group>"; };
 		A32285F6255A06E400FF3200 /* right.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = right.stl; sourceTree = "<group>"; };
-		A3228600255B847900FF3200 /* AudioDataHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioDataHeader.h; sourceTree = "<group>"; };
-		A3228601255B847900FF3200 /* AudioDataHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioDataHeader.m; sourceTree = "<group>"; };
 		A32415FD2554D24B008D4B90 /* CalibrationFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationFrame.swift; sourceTree = "<group>"; };
 		A32416012554D296008D4B90 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		A32416042554D2FE008D4B90 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
@@ -138,11 +136,6 @@
 		A328D8B8253C8C4300B90E62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A328D8BB253C8C4300B90E62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A328D8BD253C8C4300B90E62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A328D8C9253C914400B90E62 /* RealityMixer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RealityMixer-Bridging-Header.h"; sourceTree = "<group>"; };
-		A328D8CA253C914500B90E62 /* frame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = frame.cpp; sourceTree = "<group>"; };
-		A328D8CB253C914500B90E62 /* frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = frame.h; sourceTree = "<group>"; };
-		A328D8CF253C917300B90E62 /* OculusMRC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OculusMRC.h; sourceTree = "<group>"; };
-		A328D8D0253C917300B90E62 /* OculusMRC.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OculusMRC.mm; sourceTree = "<group>"; };
 		A328D95F253C958D00B90E62 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		A328D962253C959B00B90E62 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		A328D965253C95A700B90E62 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
@@ -171,8 +164,11 @@
 		A39033EC256859A8004CB638 /* Shaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
 		A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectionPickerViewController.swift; sourceTree = "<group>"; };
 		A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectionPickerViewController.xib; sourceTree = "<group>"; };
-		A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FFmpeg.xcframework; path = Frameworks/FFmpeg.xcframework; sourceTree = "<group>"; };
 		A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyMaskBuilder.swift; sourceTree = "<group>"; };
+		EF2C4C0928739194001AA8DE /* CaptureFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureFrame.swift; sourceTree = "<group>"; };
+		EF2C4C0A28739194001AA8DE /* OculusCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OculusCapture.swift; sourceTree = "<group>"; };
+		EF2C4C0B28739194001AA8DE /* CapturePayload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePayload.swift; sourceTree = "<group>"; };
+		EF2C4C0C28739194001AA8DE /* VideoDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDecoder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,7 +184,6 @@
 				A328D96B253C95BD00B90E62 /* AudioToolbox.framework in Frameworks */,
 				A328D96D253C95C300B90E62 /* CoreMedia.framework in Frameworks */,
 				A328D966253C95AD00B90E62 /* libiconv.tbd in Frameworks */,
-				A3A50C4525F5B71000413E01 /* FFmpeg.xcframework in Frameworks */,
 				A328D969253C95B700B90E62 /* VideoToolbox.framework in Frameworks */,
 				A328D963253C95A000B90E62 /* libz.tbd in Frameworks */,
 			);
@@ -287,13 +282,13 @@
 		A32416122554D7F5008D4B90 /* Capture */ = {
 			isa = PBXGroup;
 			children = (
+				EF2C4C0828739194001AA8DE /* MRC */,
 				A32A3D0026CB09200093FAC5 /* Audio */,
 				A30A698E267AB92B002647C5 /* Extensions */,
 				A338B35B265AE14600099827 /* Configuration */,
 				A36C9161263779D300D64107 /* Avatars */,
 				A32226F9262C5213004629CC /* Misc */,
 				A39033EB2568599B004CB638 /* Shaders */,
-				A328D8C8253C912E00B90E62 /* oculus-mrc */,
 				A328D971253CE4AA00B90E62 /* ViewControllers */,
 			);
 			path = Capture;
@@ -355,7 +350,6 @@
 				A324161A2554DAA1008D4B90 /* Main */,
 				A32416122554D7F5008D4B90 /* Capture */,
 				A32415FA2554D1FB008D4B90 /* Calibration */,
-				A328D8C9253C914400B90E62 /* RealityMixer-Bridging-Header.h */,
 				A328D8AF253C8C4000B90E62 /* AppDelegate.swift */,
 				A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */,
 				A328D8BD253C8C4300B90E62 /* Info.plist */,
@@ -364,23 +358,9 @@
 			path = RealityMixer;
 			sourceTree = "<group>";
 		};
-		A328D8C8253C912E00B90E62 /* oculus-mrc */ = {
-			isa = PBXGroup;
-			children = (
-				A328D8CA253C914500B90E62 /* frame.cpp */,
-				A328D8CB253C914500B90E62 /* frame.h */,
-				A328D8CF253C917300B90E62 /* OculusMRC.h */,
-				A328D8D0253C917300B90E62 /* OculusMRC.mm */,
-				A3228600255B847900FF3200 /* AudioDataHeader.h */,
-				A3228601255B847900FF3200 /* AudioDataHeader.m */,
-			);
-			path = "oculus-mrc";
-			sourceTree = "<group>";
-		};
 		A328D95E253C958D00B90E62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A3A50C4425F5B71000413E01 /* FFmpeg.xcframework */,
 				A328D98F253CF2F400B90E62 /* SceneKit.framework */,
 				A328D98D253CF2EE00B90E62 /* ARKit.framework */,
 				A328D96C253C95C200B90E62 /* CoreMedia.framework */,
@@ -472,6 +452,17 @@
 				A39033EC256859A8004CB638 /* Shaders.swift */,
 			);
 			path = Shaders;
+			sourceTree = "<group>";
+		};
+		EF2C4C0828739194001AA8DE /* MRC */ = {
+			isa = PBXGroup;
+			children = (
+				EF2C4C0928739194001AA8DE /* CaptureFrame.swift */,
+				EF2C4C0A28739194001AA8DE /* OculusCapture.swift */,
+				EF2C4C0B28739194001AA8DE /* CapturePayload.swift */,
+				EF2C4C0C28739194001AA8DE /* VideoDecoder.swift */,
+			);
+			path = MRC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -572,21 +563,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				A32285AF25580A8800FF3200 /* Definitions.swift in Sources */,
-				A3228605255B864900FF3200 /* AudioDataHeader.m in Sources */,
 				A328D8B4253C8C4000B90E62 /* MixedRealityConnectionViewController.swift in Sources */,
 				A324161E2554DABE008D4B90 /* InitialViewController.swift in Sources */,
 				A30B22EA2693D9F2005EB78F /* CameraPermissionHelper.swift in Sources */,
 				A32285AA2558050600FF3200 /* AboutViewController.swift in Sources */,
-				A328D8D1253C917300B90E62 /* OculusMRC.mm in Sources */,
+				EF2C4C1028739194001AA8DE /* VideoDecoder.swift in Sources */,
 				A36C9163263779E700D64107 /* ReadyPlayerMeAvatar.swift in Sources */,
 				A338B363265B25E500099827 /* ARKitHelpers.swift in Sources */,
 				A32415FE2554D24B008D4B90 /* CalibrationFrame.swift in Sources */,
+				EF2C4C0D28739194001AA8DE /* CaptureFrame.swift in Sources */,
 				A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */,
 				A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */,
 				A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */,
 				A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */,
 				A338B35D265AE1E300099827 /* ChromaKeyConfiguration.swift in Sources */,
 				A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */,
+				EF2C4C0E28739194001AA8DE /* OculusCapture.swift in Sources */,
 				A338B360265B250100099827 /* ChromaKeyConfigurationViewController.swift in Sources */,
 				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
 				A32A3D0226CB0A9A0093FAC5 /* AudioManager.swift in Sources */,
@@ -601,8 +593,8 @@
 				A324160B2554D3AB008D4B90 /* CalibrationResult.swift in Sources */,
 				A328D97F253CE63B00B90E62 /* MixedRealityViewController.swift in Sources */,
 				A30A6990267AB94A002647C5 /* UIColor+Image.swift in Sources */,
-				A328D8CC253C914500B90E62 /* frame.cpp in Sources */,
 				A328D8B0253C8C4000B90E62 /* AppDelegate.swift in Sources */,
+				EF2C4C0F28739194001AA8DE /* CapturePayload.swift in Sources */,
 				A32416252554DFD4008D4B90 /* CalibrationConnectionViewController.swift in Sources */,
 				A32416312554E340008D4B90 /* CalibrationSceneNodeBuilder.swift in Sources */,
 				A32226FF262C5253004629CC /* Skeleton.swift in Sources */,
@@ -752,7 +744,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/RealityMixer/Info.plist";
@@ -764,7 +756,7 @@
 				MARKETING_VERSION = 0.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).reality.mixer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -779,7 +771,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/RealityMixer/Info.plist";
@@ -791,7 +783,7 @@
 				MARKETING_VERSION = 0.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).reality.mixer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "RealityMixer/RealityMixer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

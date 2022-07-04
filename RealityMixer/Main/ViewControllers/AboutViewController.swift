@@ -47,11 +47,10 @@ final class AboutViewController: UIViewController {
     private func configureInfoLabel() {
         let oculusMRCplugin = Font(.systemFont(ofSize: 15, weight: .medium)) { "Oculus Mixed Reality Capture plugin for OBS" }
         let swiftSocket = Font(.systemFont(ofSize: 15, weight: .medium)) { "SwiftSocket" }
-        let ffmpeg = Font(.systemFont(ofSize: 15, weight: .medium)) { "FFMPEG" }
-        let arkitScenekit = Font(.systemFont(ofSize: 15, weight: .medium)) { "Apple's ARKit and Robot model" }
+        let arkitScenekit = Font(.systemFont(ofSize: 15, weight: .medium)) { "Apple's ARKit, VideoToolbox and Robot model" }
         let avatars = Font(.systemFont(ofSize: 15, weight: .medium)) { "avatars powered by Ready Player Me" }
 
-        let libraries = "This project is based on the " + oculusMRCplugin + ". It also uses " + swiftSocket + ", " + ffmpeg + ", " + arkitScenekit + ", and " + avatars + ".\n\n"
+        let libraries = "This project is based on the " + oculusMRCplugin + ". It also uses " + swiftSocket + ", " + arkitScenekit + ", and " + avatars + ".\n\n"
 
         infoLabel.attributedText = (
             Font(.systemFont(ofSize: 15, weight: .medium)) {
