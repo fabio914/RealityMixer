@@ -90,21 +90,22 @@ final class VideoDecoder {
     }
 
     private func decodeVideoPacket(_ videoPacket: [UInt8]) {
-
-        let bufferPointer = UnsafeMutablePointer<UInt8>(mutating: videoPacket)
-
+        var copy = videoPacket
         var blockBuffer: CMBlockBuffer?
-        var status = CMBlockBufferCreateWithMemoryBlock(
-            allocator: kCFAllocatorDefault,
-            memoryBlock: bufferPointer,
-            blockLength: videoPacket.count,
-            blockAllocator: kCFAllocatorNull,
-            customBlockSource: nil,
-            offsetToData: 0,
-            dataLength: videoPacket.count,
-            flags: 0,
-            blockBufferOut: &blockBuffer
-        )
+
+        var status = copy.withUnsafeMutableBytes {
+            CMBlockBufferCreateWithMemoryBlock(
+                allocator: kCFAllocatorDefault,
+                memoryBlock: $0.baseAddress,
+                blockLength: videoPacket.count,
+                blockAllocator: kCFAllocatorNull,
+                customBlockSource: nil,
+                offsetToData: 0,
+                dataLength: videoPacket.count,
+                flags: 0,
+                blockBufferOut: &blockBuffer
+            )
+        }
 
         if status != kCMBlockBufferNoErr {
             return
@@ -167,26 +168,21 @@ final class VideoDecoder {
 
         if let spsData = sps, let ppsData = pps {
 
-            let pointerSPS = UnsafePointer<UInt8>(spsData)
-            let pointerPPS = UnsafePointer<UInt8>(ppsData)
+            let status = spsData.withUnsafeBufferPointer { SPS -> OSStatus in
+                ppsData.withUnsafeBufferPointer { PPS -> OSStatus in
+                    let parameterSetPointers = [SPS.baseAddress, PPS.baseAddress].compactMap({ $0 })
+                    let parameterSetSizes = [SPS.count, PPS.count]
 
-            // make pointers array
-            let dataParamArray = [pointerSPS, pointerPPS]
-            let parameterSetPointers = UnsafePointer<UnsafePointer<UInt8>>(dataParamArray)
-
-            // make parameter sizes array
-            let sizeParamArray = [spsData.count, ppsData.count]
-            let parameterSetSizes = UnsafePointer<Int>(sizeParamArray)
-
-
-            let status = CMVideoFormatDescriptionCreateFromH264ParameterSets(
-                allocator: kCFAllocatorDefault,
-                parameterSetCount: 2,
-                parameterSetPointers: parameterSetPointers,
-                parameterSetSizes: parameterSetSizes,
-                nalUnitHeaderLength: 4,
-                formatDescriptionOut: &formatDesc
-            )
+                    return CMVideoFormatDescriptionCreateFromH264ParameterSets(
+                        allocator: kCFAllocatorDefault,
+                        parameterSetCount: 2,
+                        parameterSetPointers: parameterSetPointers,
+                        parameterSetSizes: parameterSetSizes,
+                        nalUnitHeaderLength: 4,
+                        formatDescriptionOut: &formatDesc
+                    )
+                }
+            }
 
             if let desc = formatDesc, status == noErr {
 
