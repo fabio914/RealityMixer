@@ -39,7 +39,12 @@ final class VideoDecoder {
         var index = 0
 
         repeat {
-            if (index + 4) < dataArray.count, dataArray[index ..< (index + 4)] == [0, 0, 0, 1] {
+            if (index + 4) < dataArray.count,
+                dataArray[index] == 0,
+                dataArray[index + 1] == 0,
+                dataArray[index + 2] == 0,
+                dataArray[index + 3] == 1 {
+
                 if currentSlice.count > 4 {
                     slices.append(currentSlice)
                 }

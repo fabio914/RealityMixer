@@ -19,7 +19,7 @@ final class MixedRealityViewController: UIViewController {
     private let audioManager = AudioManager()
     private var displayLink: CADisplayLink?
     private var oculusCapture: OculusCapture?
-    private var networkThread: Thread?
+//    private var networkThread: Thread?
     private var lastFrame: CVPixelBuffer?
 
     @IBOutlet private weak var optionsContainer: UIView!
@@ -88,16 +88,16 @@ final class MixedRealityViewController: UIViewController {
     private func configureOculusMRC() {
         self.oculusCapture = OculusCapture(delegate: self)
 
-        networkThread = Thread(block: { [weak oculusCapture, weak client] in
-            let thread = Thread.current
-            while !thread.isCancelled {
-                while let data = client?.read(65536, timeout: 0), data.count > 0, !thread.isCancelled {
-                    oculusCapture?.add(data: .init(data))
-                }
-            }
-         })
-
-         networkThread?.start()
+//        networkThread = Thread(block: { [weak oculusCapture, weak client] in
+//            let thread = Thread.current
+//            while !thread.isCancelled {
+//                while let data = client?.read(65536, timeout: 0), data.count > 0, !thread.isCancelled {
+//                    oculusCapture?.add(data: .init(data))
+//                }
+//            }
+//         })
+//
+//         networkThread?.start()
     }
 
     private func configureScene() {
@@ -267,6 +267,10 @@ final class MixedRealityViewController: UIViewController {
     }
 
     @objc func update(with sender: CADisplayLink) {
+        if let data = client.read(65536, timeout: 0), data.count > 0 {
+            oculusCapture?.add(data: .init(data))
+        }
+
         oculusCapture?.update()
 
         if let lastFrame = lastFrame {
@@ -312,7 +316,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     func invalidate() {
-        networkThread?.cancel()
+//        networkThread?.cancel()
         audioManager.invalidate()
         displayLink?.invalidate()
         hideTimer?.invalidate()
