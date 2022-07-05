@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import RealityMixerKit
 
 struct Style {
     static let navigationBarBackgroundColor = UIColor(white: 0.1, alpha: 1.0)
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        Test().test()
 
         let titleTextAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
