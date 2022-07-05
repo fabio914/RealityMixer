@@ -267,7 +267,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     @objc func update(with sender: CADisplayLink) {
-        if let data = client.read(65536, timeout: 0), data.count > 0 {
+        while let data = client.read(65536, timeout: 0), data.count > 0 {
             oculusCapture?.add(data: .init(data))
         }
 
