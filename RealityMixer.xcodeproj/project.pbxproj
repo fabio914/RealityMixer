@@ -79,13 +79,14 @@
 		EFC0DFE22874C70E0066F6F3 /* RealityMixerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFC0DFDC2874C70E0066F6F3 /* RealityMixerKit.framework */; };
 		EFC0DFE32874C70E0066F6F3 /* RealityMixerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EFC0DFDC2874C70E0066F6F3 /* RealityMixerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EFC0DFFA2874CA900066F6F3 /* RealityMixerMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0DFF92874CA900066F6F3 /* RealityMixerMacApp.swift */; };
-		EFC0DFFC2874CA900066F6F3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0DFFB2874CA900066F6F3 /* ContentView.swift */; };
 		EFC0DFFE2874CA900066F6F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFC0DFFD2874CA900066F6F3 /* Assets.xcassets */; };
-		EFC0E0012874CA900066F6F3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFC0E0002874CA900066F6F3 /* Preview Assets.xcassets */; };
 		EFC0E0062874CACF0066F6F3 /* RealityMixerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFC0DFDC2874C70E0066F6F3 /* RealityMixerKit.framework */; };
 		EFC0E00A2874CD890066F6F3 /* RealityMixerMac.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EFC0E0092874CD890066F6F3 /* RealityMixerMac.xcconfig */; };
 		EFC0E00C2874CFD60066F6F3 /* RealityMixerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EFC0DFDC2874C70E0066F6F3 /* RealityMixerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EFC0E00E2874D0070066F6F3 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0E00D2874D0070066F6F3 /* Test.swift */; };
+		EFC0E0122874DDF60066F6F3 /* CameraSelectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0E0112874DDF60066F6F3 /* CameraSelectionScreen.swift */; };
+		EFC0E0152874DE230066F6F3 /* CameraSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0E0142874DE230066F6F3 /* CameraSelectionViewModel.swift */; };
+		EFD65FD92874F1A200344323 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FD82874F1A200344323 /* MainWindow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,12 +204,13 @@
 		EFC0DFDE2874C70E0066F6F3 /* RealityMixerKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealityMixerKit.h; sourceTree = "<group>"; };
 		EFC0DFF72874CA900066F6F3 /* RealityMixerMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealityMixerMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFC0DFF92874CA900066F6F3 /* RealityMixerMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealityMixerMacApp.swift; sourceTree = "<group>"; };
-		EFC0DFFB2874CA900066F6F3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EFC0DFFD2874CA900066F6F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		EFC0E0002874CA900066F6F3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EFC0E0022874CA900066F6F3 /* RealityMixerMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RealityMixerMac.entitlements; sourceTree = "<group>"; };
 		EFC0E0092874CD890066F6F3 /* RealityMixerMac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = RealityMixerMac.xcconfig; sourceTree = "<group>"; };
 		EFC0E00D2874D0070066F6F3 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		EFC0E0112874DDF60066F6F3 /* CameraSelectionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSelectionScreen.swift; sourceTree = "<group>"; };
+		EFC0E0142874DE230066F6F3 /* CameraSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSelectionViewModel.swift; sourceTree = "<group>"; };
+		EFD65FD82874F1A200344323 /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -534,22 +536,13 @@
 		EFC0DFF82874CA900066F6F3 /* RealityMixerMac */ = {
 			isa = PBXGroup;
 			children = (
+				EFC0E00F2874DDBE0066F6F3 /* Main */,
 				EFC0E0082874CB610066F6F3 /* Resources */,
 				EFC0DFF92874CA900066F6F3 /* RealityMixerMacApp.swift */,
-				EFC0DFFB2874CA900066F6F3 /* ContentView.swift */,
 				EFC0E0022874CA900066F6F3 /* RealityMixerMac.entitlements */,
-				EFC0DFFF2874CA900066F6F3 /* Preview Content */,
 				EFC0E0092874CD890066F6F3 /* RealityMixerMac.xcconfig */,
 			);
 			path = RealityMixerMac;
-			sourceTree = "<group>";
-		};
-		EFC0DFFF2874CA900066F6F3 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				EFC0E0002874CA900066F6F3 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		EFC0E0082874CB610066F6F3 /* Resources */ = {
@@ -558,6 +551,32 @@
 				EFC0DFFD2874CA900066F6F3 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		EFC0E00F2874DDBE0066F6F3 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				EFC0E0132874DE150066F6F3 /* ViewModels */,
+				EFC0E0102874DDDB0066F6F3 /* Screens */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		EFC0E0102874DDDB0066F6F3 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				EFC0E0112874DDF60066F6F3 /* CameraSelectionScreen.swift */,
+				EFD65FD82874F1A200344323 /* MainWindow.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		EFC0E0132874DE150066F6F3 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EFC0E0142874DE230066F6F3 /* CameraSelectionViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -718,7 +737,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFC0E0012874CA900066F6F3 /* Preview Assets.xcassets in Resources */,
 				EFC0E00A2874CD890066F6F3 /* RealityMixerMac.xcconfig in Resources */,
 				EFC0DFFE2874CA900066F6F3 /* Assets.xcassets in Resources */,
 			);
@@ -787,8 +805,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFC0DFFC2874CA900066F6F3 /* ContentView.swift in Sources */,
+				EFD65FD92874F1A200344323 /* MainWindow.swift in Sources */,
+				EFC0E0152874DE230066F6F3 /* CameraSelectionViewModel.swift in Sources */,
 				EFC0DFFA2874CA900066F6F3 /* RealityMixerMacApp.swift in Sources */,
+				EFC0E0122874DDF60066F6F3 /* CameraSelectionScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1071,11 +1091,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RealityMixerMac/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = ZTJ55TM37B;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access for Mixed Reality";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1104,11 +1125,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RealityMixerMac/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = ZTJ55TM37B;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access for Mixed Reality";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct RealityMixerMacApp: App {
+
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        WindowGroup("Reality Mixer") {
+            MainWindow()
         }
     }
 }
