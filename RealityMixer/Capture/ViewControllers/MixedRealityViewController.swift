@@ -18,8 +18,8 @@ final class MixedRealityViewController: UIViewController {
 
     private let audioManager = AudioManager()
     private var displayLink: CADisplayLink?
-    private var oculusMRC: OculusMRC?
-    private var networkThread: Thread?
+    private var oculusCapture: OculusCapture?
+//    private var networkThread: Thread?
     private var lastFrame: CVPixelBuffer?
 
     @IBOutlet private weak var optionsContainer: UIView!
@@ -86,19 +86,18 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func configureOculusMRC() {
-        self.oculusMRC = OculusMRC()
-        oculusMRC?.delegate = self
+        self.oculusCapture = OculusCapture(delegate: self)
 
-        networkThread = Thread(block: { [weak oculusMRC, weak client] in
-            let thread = Thread.current
-            while !thread.isCancelled {
-                while let data = client?.read(65536, timeout: 0), data.count > 0, !thread.isCancelled {
-                    oculusMRC?.addData(data, length: Int32(data.count))
-                }
-            }
-         })
-
-         networkThread?.start()
+//        networkThread = Thread(block: { [weak oculusCapture, weak client] in
+//            let thread = Thread.current
+//            while !thread.isCancelled {
+//                while let data = client?.read(65536, timeout: 0), data.count > 0, !thread.isCancelled {
+//                    oculusCapture?.add(data: .init(data))
+//                }
+//            }
+//         })
+//
+//         networkThread?.start()
     }
 
     private func configureScene() {
@@ -268,7 +267,11 @@ final class MixedRealityViewController: UIViewController {
     }
 
     @objc func update(with sender: CADisplayLink) {
-        oculusMRC?.update()
+        while let data = client.read(65536, timeout: 0), data.count > 0 {
+            oculusCapture?.add(data: .init(data))
+        }
+
+        oculusCapture?.update()
 
         if let lastFrame = lastFrame {
             updateForegroundBackground(with: lastFrame)
@@ -313,7 +316,7 @@ final class MixedRealityViewController: UIViewController {
     }
 
     func invalidate() {
-        networkThread?.cancel()
+//        networkThread?.cancel()
         audioManager.invalidate()
         displayLink?.invalidate()
         hideTimer?.invalidate()
@@ -325,13 +328,13 @@ final class MixedRealityViewController: UIViewController {
     }
 }
 
-extension MixedRealityViewController: OculusMRCDelegate {
+extension MixedRealityViewController: OculusCaptureDelegate {
 
-    func oculusMRC(_ oculusMRC: OculusMRC, didReceive pixelBuffer: CVPixelBuffer) {
+    func oculusCapture(_ oculusCapture: OculusCapture, didReceive pixelBuffer: CVPixelBuffer) {
         lastFrame = pixelBuffer
     }
 
-    func oculusMRC(_ oculusMRC: OculusMRC, didReceiveAudio audio: AVAudioPCMBuffer, timestamp: UInt64) {
+    func oculusCapture(_ oculusCapture: OculusCapture, didReceiveAudio audio: AVAudioPCMBuffer, timestamp: UInt64) {
         audioManager.play(audio: audio, timestamp: timestamp)
     }
 }
