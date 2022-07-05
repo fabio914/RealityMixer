@@ -141,14 +141,18 @@ final class VideoDecoder {
             }
 
             var flagOut = VTDecodeInfoFlags(rawValue: 0)
-            var outputBuffer = UnsafeMutablePointer<CVPixelBuffer>.allocate(capacity: 1)
 
             status = VTDecompressionSessionDecodeFrame(
                 session,
                 sampleBuffer: buffer,
                 flags: [._EnableAsynchronousDecompression],
-                frameRefcon: &outputBuffer,
-                infoFlagsOut: &flagOut
+                infoFlagsOut: &flagOut,
+                outputHandler: { [weak delegate] status, flags, imageBuffer, _, _ in
+                    guard let imageBuffer = imageBuffer else { return }
+                    DispatchQueue.main.async {
+                        delegate?.didDecodeFrame(imageBuffer)
+                    }
+                }
             )
 
             if status == noErr {
@@ -197,16 +201,12 @@ final class VideoDecoder {
                 let destinationPixelBufferAttributes = NSMutableDictionary()
                 destinationPixelBufferAttributes.setValue(NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange as UInt32), forKey: kCVPixelBufferPixelFormatTypeKey as String)
 
-                var outputCallback = VTDecompressionOutputCallbackRecord()
-                outputCallback.decompressionOutputCallback = decompressionSessionDecodeFrameCallback
-                outputCallback.decompressionOutputRefCon = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
-
                 let status = VTDecompressionSessionCreate(
                     allocator: kCFAllocatorDefault,
                     formatDescription: desc,
                     decoderSpecification: decoderParameters,
                     imageBufferAttributes: destinationPixelBufferAttributes,
-                    outputCallback: &outputCallback,
+                    outputCallback: nil,
                     decompressionSessionOut: &videoSessionM
                 )
 
@@ -229,22 +229,5 @@ final class VideoDecoder {
         }
 
         delegate?.didDecodeFrame(imageBuffer)
-    }
-}
-
-private func decompressionSessionDecodeFrameCallback(
-    _ decompressionOutputRefCon: UnsafeMutableRawPointer?,
-    _ sourceFrameRefCon: UnsafeMutableRawPointer?,
-    _ status: OSStatus,
-    _ infoFlags: VTDecodeInfoFlags,
-    _ imageBuffer: CVImageBuffer?,
-    _ presentationTimeStamp: CMTime,
-    _ presentationDuration: CMTime
-) {
-
-    let streamManager: VideoDecoder = unsafeBitCast(decompressionOutputRefCon, to: VideoDecoder.self)
-
-    if status == noErr {
-        streamManager.displayDecodedFrame(imageBuffer);
     }
 }
