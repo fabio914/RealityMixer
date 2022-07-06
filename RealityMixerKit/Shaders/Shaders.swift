@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Shaders {
+public struct Shaders {
 
     static let yCrCbToRGB = """
     float BT709_nonLinearNormToLinear(float normV) {
@@ -74,7 +74,7 @@ struct Shaders {
 
     """
 
-    static let backgroundSurface = """
+    public static let backgroundSurface = """
     \(yCrCbToRGB)
 
     #pragma body
@@ -110,7 +110,7 @@ struct Shaders {
     }
 
     // FIXME: avoid converting from yCbCr to RGB and then back to yCbCr...
-    static func surfaceChromaKey() -> String {
+    public static func surfaceChromaKey() -> String {
         """
         \(yCrCbToRGB)
         \(smoothChromaKey)
@@ -141,7 +141,7 @@ struct Shaders {
         """
     }
 
-    static func surfaceChromaKeyConfiguration() -> String {
+    public static func surfaceChromaKeyConfiguration() -> String {
         """
         \(yCrCbToRGB)
         \(smoothChromaKey)
@@ -194,7 +194,7 @@ struct Shaders {
         """
     }
 
-    static let backgroundSurfaceWithBlackChromaKey = """
+    public static let backgroundSurfaceWithBlackChromaKey = """
     \(yCrCbToRGB)
 
     #pragma body
@@ -214,8 +214,8 @@ struct Shaders {
 
     """
 
-    static let backgroundSurfaceWithGreenChromaKey = backgroundSurfaceChromaKey(red: 0, green: 1, blue: 0)
-    static let backgroundSurfaceWithMagentaChromaKey = backgroundSurfaceChromaKey(red: 1, green: 0, blue: 1)
+    public static let backgroundSurfaceWithGreenChromaKey = backgroundSurfaceChromaKey(red: 0, green: 1, blue: 0)
+    public static let backgroundSurfaceWithMagentaChromaKey = backgroundSurfaceChromaKey(red: 1, green: 0, blue: 1)
 
     static let foregroundSurfaceShared = """
     \(yCrCbToRGB)
@@ -230,7 +230,7 @@ struct Shaders {
     _surface.diffuse = yCbCrToRGB(luma, chroma);
     """
 
-    static let foregroundSurface = """
+    public static let foregroundSurface = """
     \(foregroundSurfaceShared)
 
     vec2 alphaCoords = vec2((_surface.transparentTexcoord.x * 0.25) + 0.75, _surface.transparentTexcoord.y);
@@ -249,7 +249,7 @@ struct Shaders {
     """
 
     // Consider setting the smoothness
-    static let magentaForegroundSurface = """
+    public static let magentaForegroundSurface = """
     \(smoothChromaKey)
     \(foregroundSurfaceShared)
 

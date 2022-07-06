@@ -9,6 +9,7 @@ import UIKit
 import ARKit
 import AVFoundation
 import SwiftSocket
+import RealityMixerKit
 
 final class MixedRealityViewController: UIViewController {
     private let client: TCPClient
@@ -115,10 +116,10 @@ final class MixedRealityViewController: UIViewController {
         sceneView.session.delegate = self
 
         if case .visible = configuration.backgroundLayerOptions.visibility {
-            sceneView.pointOfView?.addChildNode(ARKitHelpers.makePlane(size: .init(width: 9999, height: 9999), distance: 120))
+            sceneView.pointOfView?.addChildNode(SceneKitHelpers.makePlane(size: .init(width: 9999, height: 9999), distance: 120))
         }
 
-        ARKitHelpers.create(textureCache: &textureCache, for: sceneView)
+        SceneKitHelpers.create(textureCache: &textureCache, for: sceneView)
     }
 
     private func configureTap() {
@@ -233,8 +234,8 @@ final class MixedRealityViewController: UIViewController {
     }
 
     private func updateForegroundBackground(with pixelBuffer: CVPixelBuffer) {
-        let luma = ARKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
-        let chroma = ARKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
+        let luma = SceneKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
+        let chroma = SceneKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
 
         backgroundNode?.geometry?.firstMaterial?.transparent.contents = luma
         backgroundNode?.geometry?.firstMaterial?.diffuse.contents = chroma
@@ -245,8 +246,8 @@ final class MixedRealityViewController: UIViewController {
 
     private func updateMiddle(with pixelBuffer: CVPixelBuffer) {
         guard case .greenScreen = configuration.captureMode else { return }
-        let luma = ARKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
-        let chroma = ARKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
+        let luma = SceneKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
+        let chroma = SceneKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
 
         middlePlaneNode?.geometry?.firstMaterial?.transparent.contents = luma
         middlePlaneNode?.geometry?.firstMaterial?.diffuse.contents = chroma

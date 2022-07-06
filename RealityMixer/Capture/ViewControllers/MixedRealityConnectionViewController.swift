@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftSocket
+import RealityMixerKit
 
 final class MixedRealityConnectionViewController: UIViewController {
 
