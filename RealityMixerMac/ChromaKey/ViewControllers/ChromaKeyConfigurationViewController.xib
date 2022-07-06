@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21179.7" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21179.7"/>
+        <plugIn identifier="com.apple.SceneKitIBPlugin" version="21179.7"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ChromaKeyConfigurationViewController" customModule="RealityMixerMac" customModuleProvider="target">
+            <connections>
+                <outlet property="sceneView" destination="RZF-F6-ZDo" id="YLq-dd-rsS"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ipz-y0-Ne4">
+                    <rect key="frame" x="20" y="20" width="440" height="20"/>
+                    <subviews>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="YKm-cv-1W2">
+                            <rect key="frame" x="0.0" y="0.0" width="440" height="20"/>
+                            <subviews>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zfQ-xl-F6l">
+                                    <rect key="frame" x="178" y="-7" width="85" height="32"/>
+                                    <buttonCell key="cell" type="push" title="Go back" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="S6y-DH-Qil">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="goBackAction:" target="-2" id="lrF-us-FPN"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="zfQ-xl-F6l" secondAttribute="bottom" id="Q4z-Fc-1ia"/>
+                                <constraint firstItem="zfQ-xl-F6l" firstAttribute="top" secondItem="YKm-cv-1W2" secondAttribute="top" id="k8Z-SQ-hMs"/>
+                                <constraint firstItem="zfQ-xl-F6l" firstAttribute="centerX" secondItem="YKm-cv-1W2" secondAttribute="centerX" id="lmd-Hf-kKO"/>
+                            </constraints>
+                        </customView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="YKm-cv-1W2" firstAttribute="leading" secondItem="ipz-y0-Ne4" secondAttribute="leading" id="X1E-CQ-gf2"/>
+                        <constraint firstAttribute="trailing" secondItem="YKm-cv-1W2" secondAttribute="trailing" id="pbA-on-vde"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+                <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="RZF-F6-ZDo">
+                    <rect key="frame" x="20" y="60" width="440" height="192"/>
+                </sceneView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ipz-y0-Ne4" secondAttribute="trailing" constant="20" id="Jmn-nj-iLr"/>
+                <constraint firstItem="RZF-F6-ZDo" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="LU9-Ph-74c"/>
+                <constraint firstItem="ipz-y0-Ne4" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="fVg-0P-Klu"/>
+                <constraint firstAttribute="trailing" secondItem="RZF-F6-ZDo" secondAttribute="trailing" constant="20" id="hgI-2l-rMF"/>
+                <constraint firstItem="ipz-y0-Ne4" firstAttribute="top" secondItem="RZF-F6-ZDo" secondAttribute="bottom" constant="20" id="qSJ-ts-SKH"/>
+                <constraint firstItem="RZF-F6-ZDo" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="rDp-tQ-PFM"/>
+                <constraint firstAttribute="bottom" secondItem="ipz-y0-Ne4" secondAttribute="bottom" constant="20" id="zWo-FH-BkA"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="134"/>
+        </customView>
+    </objects>
+</document>

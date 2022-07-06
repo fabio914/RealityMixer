@@ -19,6 +19,7 @@ protocol CameraSessionDelegate: AnyObject {
 
 final class CameraSession: NSObject {
 
+    let device: AVCaptureDevice
     private var captureSession: AVCaptureSession
     weak var delegate: CameraSessionDelegate?
 
@@ -31,6 +32,7 @@ final class CameraSession: NSObject {
         let captureSession = AVCaptureSession()
         self.captureSession = captureSession
         self.delegate = delegate
+        self.device = device
 
         super.init()
 

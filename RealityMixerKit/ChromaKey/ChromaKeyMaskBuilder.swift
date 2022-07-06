@@ -21,11 +21,11 @@ public final class ChromaKeyMaskBuilder {
 
     static func buildMask(
         for capturedImage: CVPixelBuffer,
-        size imageSize: CGSize,
         chromaConfiguration: ChromaKeyConfiguration
     ) -> CIImage? {
         guard let device = MTLCreateSystemDefaultDevice() else { return nil }
 
+        let imageSize = SceneKitHelpers.size(from: capturedImage)
         let renderer = SCNRenderer(device: device, options: nil)
 
         var cache: CVMetalTextureCache?
@@ -97,10 +97,9 @@ public final class ChromaKeyMaskBuilder {
 #if os(macOS)
     public static func buildMask(
         for capturedImage: CVPixelBuffer,
-        size imageSize: CGSize,
         chromaConfiguration: ChromaKeyConfiguration
     ) -> NSImage? {
-        let ciImage: CIImage? = buildMask(for: capturedImage, size: imageSize, chromaConfiguration: chromaConfiguration)
+        let ciImage: CIImage? = buildMask(for: capturedImage, chromaConfiguration: chromaConfiguration)
         return ciImage.flatMap(nsImage(from:))
     }
 
@@ -114,9 +113,7 @@ public final class ChromaKeyMaskBuilder {
 #elseif os(iOS)
     public static func buildMask(for frame: ARFrame, chromaConfiguration: ChromaKeyConfiguration) -> UIImage? {
         let capturedImage = frame.capturedImage
-        let imageSize = frame.camera.imageResolution
-
-        let ciImage = buildMask(for: capturedImage, size: imageSize, chromaConfiguration: chromaConfiguration)
+        let ciImage = buildMask(for: capturedImage, chromaConfiguration: chromaConfiguration)
         return ciImage.flatMap(uiImage(from:))
     }
 

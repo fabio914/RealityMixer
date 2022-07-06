@@ -36,6 +36,7 @@ enum ChildScreen {
     case mixedReality
     case about
     case testCamera
+    case chromaKey
 }
 
 struct MainNavigation: View {
@@ -62,6 +63,10 @@ struct MainNavigation: View {
                 Text("Test Camera")
             }
 
+            Button(action: { childScreen = .chromaKey }) {
+                Text("Configure Chroma Key")
+            }
+
             Button(action: { cameraSelection = nil }) {
                 Text("Change Camera")
             }
@@ -81,6 +86,15 @@ struct MainNavigation: View {
                     onNavigateBack: { childScreen = .menu }
                 )
             )
+        case .chromaKey:
+            if let cameraSelection = cameraSelection {
+                ChromaKeyConfigurationScreen(
+                    device: cameraSelection,
+                    onNavigateBack: { childScreen = .menu }
+                )
+            } else {
+                EmptyView()
+            }
         default:
             EmptyView()
         }

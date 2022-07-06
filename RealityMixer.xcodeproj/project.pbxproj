@@ -90,6 +90,10 @@
 		EFD65FE72875EA1C00344323 /* SceneKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FE62875EA1C00344323 /* SceneKitHelpers.swift */; };
 		EFD65FEA2875EE8E00344323 /* ChromaKeyMaskBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */; };
 		EFD65FEB2875EEC800344323 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39033EC256859A8004CB638 /* Shaders.swift */; };
+		EFD65FEF2876333300344323 /* ChromaKeyConfigurationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FEE2876333300344323 /* ChromaKeyConfigurationScreen.swift */; };
+		EFD65FF12876344500344323 /* ChromaKeyConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FF02876344500344323 /* ChromaKeyConfigurationViewModel.swift */; };
+		EFD65FF5287650EF00344323 /* ChromaKeyConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FF3287650EF00344323 /* ChromaKeyConfigurationViewController.swift */; };
+		EFD65FF6287650EF00344323 /* ChromaKeyConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFD65FF4287650EF00344323 /* ChromaKeyConfigurationViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -217,6 +221,10 @@
 		EFD65FDD2874FDA100344323 /* CameraTestScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestScreen.swift; sourceTree = "<group>"; };
 		EFD65FDF2874FE3400344323 /* CameraTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestViewModel.swift; sourceTree = "<group>"; };
 		EFD65FE62875EA1C00344323 /* SceneKitHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitHelpers.swift; sourceTree = "<group>"; };
+		EFD65FEE2876333300344323 /* ChromaKeyConfigurationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfigurationScreen.swift; sourceTree = "<group>"; };
+		EFD65FF02876344500344323 /* ChromaKeyConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfigurationViewModel.swift; sourceTree = "<group>"; };
+		EFD65FF3287650EF00344323 /* ChromaKeyConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfigurationViewController.swift; sourceTree = "<group>"; };
+		EFD65FF4287650EF00344323 /* ChromaKeyConfigurationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChromaKeyConfigurationViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -599,6 +607,9 @@
 		EFD65FE12875E3E000344323 /* ChromaKey */ = {
 			isa = PBXGroup;
 			children = (
+				EFD65FF2287650D100344323 /* ViewControllers */,
+				EFD65FEC2876331700344323 /* ViewModels */,
+				EFD65FED2876331D00344323 /* Screens */,
 			);
 			path = ChromaKey;
 			sourceTree = "<group>";
@@ -634,6 +645,31 @@
 				A39033EC256859A8004CB638 /* Shaders.swift */,
 			);
 			path = Shaders;
+			sourceTree = "<group>";
+		};
+		EFD65FEC2876331700344323 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EFD65FF02876344500344323 /* ChromaKeyConfigurationViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		EFD65FED2876331D00344323 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				EFD65FEE2876333300344323 /* ChromaKeyConfigurationScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		EFD65FF2287650D100344323 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				EFD65FF3287650EF00344323 /* ChromaKeyConfigurationViewController.swift */,
+				EFD65FF4287650EF00344323 /* ChromaKeyConfigurationViewController.xib */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -795,6 +831,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFC0E00A2874CD890066F6F3 /* RealityMixerMac.xcconfig in Resources */,
+				EFD65FF6287650EF00344323 /* ChromaKeyConfigurationViewController.xib in Resources */,
 				EFC0DFFE2874CA900066F6F3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -862,13 +899,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFD65FEF2876333300344323 /* ChromaKeyConfigurationScreen.swift in Sources */,
 				EFD65FE02874FE3400344323 /* CameraTestViewModel.swift in Sources */,
+				EFD65FF12876344500344323 /* ChromaKeyConfigurationViewModel.swift in Sources */,
 				EFD65FDC2874FAAA00344323 /* CameraSession.swift in Sources */,
 				EFD65FD92874F1A200344323 /* MainWindow.swift in Sources */,
 				EFD65FDE2874FDA100344323 /* CameraTestScreen.swift in Sources */,
 				EFC0E0152874DE230066F6F3 /* CameraSelectionViewModel.swift in Sources */,
 				EFC0DFFA2874CA900066F6F3 /* RealityMixerMacApp.swift in Sources */,
 				EFC0E0122874DDF60066F6F3 /* CameraSelectionScreen.swift in Sources */,
+				EFD65FF5287650EF00344323 /* ChromaKeyConfigurationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

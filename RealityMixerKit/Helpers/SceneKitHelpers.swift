@@ -85,4 +85,10 @@ public struct SceneKitHelpers {
 
         return texture
     }
+
+    public static func size(from capturedImage: CVPixelBuffer) -> CGSize {
+        let width = CVPixelBufferGetWidthOfPlane(capturedImage, 0)
+        let height = CVPixelBufferGetHeightOfPlane(capturedImage, 0)
+        return CGSize(width: CGFloat(width), height: CGFloat(height))
+    }
 }
