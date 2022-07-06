@@ -30,10 +30,19 @@ struct MainWindow: View {
     }
 }
 
+enum ChildScreen {
+    case menu
+    case calibration
+    case mixedReality
+    case about
+    case testCamera
+}
+
 struct MainNavigation: View {
     @Binding var cameraSelection: AVCaptureDevice?
+    @State var childScreen: ChildScreen = .menu
 
-    @ViewBuilder var content: some View {
+    @ViewBuilder var mainMenu: some View {
         VStack(spacing: 20) {
             Text("Camera: \(cameraSelection?.localizedName ?? "")")
 
@@ -49,7 +58,7 @@ struct MainNavigation: View {
                 Text("About")
             }
 
-            Button(action: {  }) {
+            Button(action: { childScreen = .testCamera }) {
                 Text("Test Camera")
             }
 
@@ -60,6 +69,20 @@ struct MainNavigation: View {
     }
 
     var body: some View {
-        content
+        switch childScreen {
+        case .menu:
+            mainMenu
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        case .testCamera:
+            CameraTestScreen(
+                viewModel: CameraTestViewModel(
+                    device: cameraSelection,
+                    onNavigateBack: { childScreen = .menu }
+                )
+            )
+        default:
+            EmptyView()
+        }
     }
 }

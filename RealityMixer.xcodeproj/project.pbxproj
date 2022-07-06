@@ -87,6 +87,9 @@
 		EFC0E0122874DDF60066F6F3 /* CameraSelectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0E0112874DDF60066F6F3 /* CameraSelectionScreen.swift */; };
 		EFC0E0152874DE230066F6F3 /* CameraSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0E0142874DE230066F6F3 /* CameraSelectionViewModel.swift */; };
 		EFD65FD92874F1A200344323 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FD82874F1A200344323 /* MainWindow.swift */; };
+		EFD65FDC2874FAAA00344323 /* CameraSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FDB2874FAAA00344323 /* CameraSession.swift */; };
+		EFD65FDE2874FDA100344323 /* CameraTestScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FDD2874FDA100344323 /* CameraTestScreen.swift */; };
+		EFD65FE02874FE3400344323 /* CameraTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FDF2874FE3400344323 /* CameraTestViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,6 +214,9 @@
 		EFC0E0112874DDF60066F6F3 /* CameraSelectionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSelectionScreen.swift; sourceTree = "<group>"; };
 		EFC0E0142874DE230066F6F3 /* CameraSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSelectionViewModel.swift; sourceTree = "<group>"; };
 		EFD65FD82874F1A200344323 /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
+		EFD65FDB2874FAAA00344323 /* CameraSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSession.swift; sourceTree = "<group>"; };
+		EFD65FDD2874FDA100344323 /* CameraTestScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestScreen.swift; sourceTree = "<group>"; };
+		EFD65FDF2874FE3400344323 /* CameraTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -536,6 +542,7 @@
 		EFC0DFF82874CA900066F6F3 /* RealityMixerMac */ = {
 			isa = PBXGroup;
 			children = (
+				EFD65FDA2874FAA100344323 /* Camera */,
 				EFC0E00F2874DDBE0066F6F3 /* Main */,
 				EFC0E0082874CB610066F6F3 /* Resources */,
 				EFC0DFF92874CA900066F6F3 /* RealityMixerMacApp.swift */,
@@ -567,6 +574,7 @@
 			children = (
 				EFC0E0112874DDF60066F6F3 /* CameraSelectionScreen.swift */,
 				EFD65FD82874F1A200344323 /* MainWindow.swift */,
+				EFD65FDD2874FDA100344323 /* CameraTestScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -575,8 +583,17 @@
 			isa = PBXGroup;
 			children = (
 				EFC0E0142874DE230066F6F3 /* CameraSelectionViewModel.swift */,
+				EFD65FDF2874FE3400344323 /* CameraTestViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		EFD65FDA2874FAA100344323 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				EFD65FDB2874FAAA00344323 /* CameraSession.swift */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -805,7 +822,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFD65FE02874FE3400344323 /* CameraTestViewModel.swift in Sources */,
+				EFD65FDC2874FAAA00344323 /* CameraSession.swift in Sources */,
 				EFD65FD92874F1A200344323 /* MainWindow.swift in Sources */,
+				EFD65FDE2874FDA100344323 /* CameraTestScreen.swift in Sources */,
 				EFC0E0152874DE230066F6F3 /* CameraSelectionViewModel.swift in Sources */,
 				EFC0DFFA2874CA900066F6F3 /* RealityMixerMacApp.swift in Sources */,
 				EFC0E0122874DDF60066F6F3 /* CameraSelectionScreen.swift in Sources */,
