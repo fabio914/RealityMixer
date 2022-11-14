@@ -248,6 +248,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
                 return
             }
 
+            // FIXME: Image is rotated!
             self.maskImage = ChromaKeyMaskBuilder.buildMask(for: currentFrame, chromaConfiguration: currentConfiguration())
         } else {
             self.maskImage = nil
