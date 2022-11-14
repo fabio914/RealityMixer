@@ -165,7 +165,21 @@ final class CalibrationViewController: UIViewController {
             saveButtonContainer.isHidden = true
             updateInfo("Step 3 of 4")
 
+            let viewPortSize = sceneView.bounds.size
+            let interfaceOrientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation ?? UIInterfaceOrientation.unknown
+            let transform = frame.displayTransform(for: interfaceOrientation, viewportSize: viewPortSize).inverted()
+            let ciImage = CIImage(cvImageBuffer: frame.capturedImage).transformed(by: transform)
+            let projectionMatrix = frame.camera.projectionMatrix(for: interfaceOrientation, viewportSize: viewPortSize, zNear: 0.001, zFar: 1000.0)
+
+            let context = CIContext(options: nil)
+            guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
+                return
+            }
+            let uiImage = UIImage(cgImage: cgImage)
+
             let viewController = ProjectionViewController(
+                uiImage: uiImage,
+                projectionMatrix: projectionMatrix,
                 scaleFactor: scaleFactor,
                 cameraOrigin: cameraOrigin,
                 rightControllerPosition: rightControllerPosition,

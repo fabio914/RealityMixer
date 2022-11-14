@@ -10,12 +10,10 @@ import ARKit
 
 struct CalibrationBuilder {
 
-    static func fov(from frame: ARFrame) -> (Float, Float) {
-        let projection = frame.camera.projectionMatrix
+    static func fov(projectionMatrix projection: simd_float4x4, imageResolution: CGSize) -> (Float, Float) {
         let yScale = projection[1,1]
         let yFov = 2 * atan(1/yScale)
 
-        let imageResolution = frame.camera.imageResolution
         let xFov = yFov * Float(imageResolution.width / imageResolution.height)
         return (xFov, yFov)
     }
@@ -61,10 +59,10 @@ struct CalibrationBuilder {
         rightControllerPosition: Vector3,
         rightControllerScreenCoordinates: CGPoint,
         centerPose: Pose,
-        frame: ARFrame
+        imageResolution: CGSize,
+        projectionMatrix: simd_float4x4
     ) -> (SCNMatrix4, CalibrationResult) {
-        let imageResolution = frame.camera.imageResolution
-        let (xFov, yFov) = fov(from: frame)
+        let (xFov, yFov) = fov(projectionMatrix: projectionMatrix, imageResolution: imageResolution)
 
         let anglePerVerticalPixel = yFov/Float(imageResolution.height)
         let anglePerHorizontalPixel = xFov/Float(imageResolution.width)
