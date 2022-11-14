@@ -129,9 +129,9 @@ final class MixedRealityViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
-    private func configureBackground(with frame: ARFrame) {
+    private func configureBackground(viewPortSize: CGSize, projectionMatrix: simd_float4x4) {
         if case .hidden = configuration.backgroundLayerOptions.visibility { return }
-        let backgroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(100.0, frame: frame)
+        let backgroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(100.0, viewPortSize: viewPortSize, projectionMatrix: projectionMatrix)
 
         // Flipping image
         if configuration.shouldFlipOutput {
@@ -162,11 +162,11 @@ final class MixedRealityViewController: UIViewController {
         self.backgroundNode = backgroundPlaneNode
     }
 
-    private func configureMiddle(with frame: ARFrame) {
+    private func configureMiddle(viewPortSize: CGSize, projectionMatrix: simd_float4x4) {
         guard case .greenScreen = configuration.captureMode,
             let chromaConfiguration = chromaConfiguration
         else { return }
-        let middlePlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.02, frame: frame)
+        let middlePlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.02, viewPortSize: viewPortSize, projectionMatrix: projectionMatrix)
 
         middlePlaneNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 
@@ -203,9 +203,9 @@ final class MixedRealityViewController: UIViewController {
         self.middlePlaneNode = middlePlaneNode
     }
 
-    private func configureForeground(with frame: ARFrame) {
+    private func configureForeground(viewPortSize: CGSize, projectionMatrix: simd_float4x4) {
         guard case .visible(let useMagentaAsTransparency) = configuration.foregroundLayerOptions.visibility else { return }
-        let foregroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.01, frame: frame)
+        let foregroundPlaneNode = ARKitHelpers.makePlaneNodeForDistance(0.01, viewPortSize: viewPortSize, projectionMatrix: projectionMatrix)
 
         // Flipping image
         if configuration.shouldFlipOutput {
@@ -344,11 +344,16 @@ extension MixedRealityViewController: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
 
         if first {
-            configureBackground(with: frame)
-            configureMiddle(with: frame)
-            configureForeground(with: frame)
+            let viewPortSize = sceneView.bounds.size
+            let interfaceOrientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation ?? UIInterfaceOrientation.unknown
+            let projectionMatrix = frame.camera.projectionMatrix(for: interfaceOrientation, viewportSize: viewPortSize, zNear: 0.001, zFar: 1000.0)
+
+            configureBackground(viewPortSize: viewPortSize, projectionMatrix: projectionMatrix)
+            configureMiddle(viewPortSize: viewPortSize, projectionMatrix: projectionMatrix)
+            configureForeground(viewPortSize: viewPortSize, projectionMatrix: projectionMatrix)
             first = false
         } else {
+            // TODO: Check this (this might need to be updated)
             cameraPoseSender?.didUpdate(frame: frame)
         }
 
