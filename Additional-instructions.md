@@ -21,3 +21,5 @@ Mixed Reality Capture is broken on the Quest 2/Pro after version 51 was released
 For example, paste the `mrc.xml` file inside `/sdcard/Android/data/com.beatgames.beatsaber/files` for Beat Saber.
 
 5. Disconnect the headset from your PC. Launch the game you want to record, and then start the Mixed Reality connection on Reality Mixer.
+
+**Unfortunately, you'll need to repeat these steps every time you change the callibration (i.e. every time you move your iPhone/iPad), and you'll need to copy this `mrc.xml` file to every game/app you want to record.**
