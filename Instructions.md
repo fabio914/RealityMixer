@@ -95,7 +95,7 @@ You might also need to calibrate again after you install a new VR application/ga
 
 # How to start the mixed reality capture? 
 
-**ATTENTION!** Mixed Reality Capture is broken on the Quest 2/Pro after version 51 was released (that uses Android 12). You'll need to follow additional steps with [SideQuest](https://sidequestvr.com/). You can read these steps [here](Additional-Instructions.md).
+**ATTENTION!** Mixed Reality Capture is broken on the Quest 2/Pro after version 51 was released (that uses Android 12). You'll need to follow additional steps with [SideQuest](https://sidequestvr.com/). You can read these steps [here](Additional-instructions.md).
 
  - On the main menu, select "Start Mixed Reality".
  

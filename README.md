@@ -32,7 +32,7 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
 
 You can find instructions and tutorials [on this page](Instructions.md).
 
-**ATTENTION!** Mixed Reality Capture is broken on the Quest 2/Pro after version 51 was released (that uses Android 12). You'll need to follow additional steps with [SideQuest](https://sidequestvr.com/). You can read these steps [here](Additional-Instructions.md)
+**ATTENTION!** Mixed Reality Capture is broken on the Quest 2/Pro after version 51 was released (that uses Android 12). You'll need to follow additional steps with [SideQuest](https://sidequestvr.com/). You can read these steps [here](Additional-instructions.md).
 
 ## Requirements
 
