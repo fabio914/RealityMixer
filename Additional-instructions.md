@@ -10,9 +10,15 @@ Mixed Reality Capture is broken on the Quest 2/Pro after version 51 was released
 
 <img src="Images/additional-instructions/2.png" width="300" />
 
-3. Create a new file in your computer with these contents and name it `mrc.xml`. 
+3. Navigate to `/sdcard/Android/data/com.oculus.MrcCameraCalibration/files` and copy the `mrc.xml` file to your computer.
 
-```
+<img src="Images/additional-instructions/3.png" width="300" />
+
+<img src="Images/additional-instructions/4.png" width="300" />
+
+If that file doesn't exist, copy the content below and paste it into a text file and then save it as `mrc.xml`:
+
+```xml
 <?xml version="1.0"?>
 <opencv_storage>
     <camera_id>1</camera_id>
@@ -66,7 +72,7 @@ Mixed Reality Capture is broken on the Quest 2/Pro after version 51 was released
 </opencv_storage>
 ```
 
-(This is assuming a resolution of 960x720. If this aspect ratio does not match that of your device, then the image will be off. Adjust accordingly.)
+This file is assuming a resolution of 960x720. If this aspect ratio does not match that of your device's camera, then the image will be off. Ideally, you would need to know the resolution and aspect ration of your device and adjust `image_width`, `image_height`, and `camera_matrix`. 
 
 4. Navigate to the `files` directory of the game you want to record and paste the `mrc.xml` file there.
 
@@ -82,8 +88,8 @@ The Mixed Reality Calibration app on the Quest receives a calibration file from 
 
 Apps that support Mixed Reality Capture will only accept a Mixed Reality Connection if they have a valid `mrc.xml` file in their folder. 
 
-If that's an old `mrc.xml` that no longer corresponds to the position of your iPhone/iPad then the calibration will be off. The `mrc.xml` we copied before certainly doesn't correspond to your current calibration.
+If that's an old `mrc.xml` that no longer corresponds to the position of your iPhone/iPad then the calibration will be off. 
 
-You can use the "Enable Moving Camera" option when starting a new Mixed Reality Connection to avoid copying a new `mrc.xml` file every time (even if you decide not to move the camera). This method updates the calibration on the fly (so it doesn't matter that the calibration inside the `mrc.xml` file isn't up to date, as long as this file is there). 
+You can use the "Enable Moving Camera" option when starting a new Mixed Reality Connection to avoid copying a new `mrc.xml` file every time (even if you decide not to move the camera). This method updates the calibration on the fly (so it doesn't matter that the calibration inside the `mrc.xml` file isn't up to date, as long as the game/app can read this file). 
 
 Notice that this method still requires completing a new calibration before starting the Mixed Reality connection, and you shouldn't move your device after calibrating and before starting the connection, or between mixed reality sessions.
