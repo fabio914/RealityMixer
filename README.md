@@ -32,6 +32,8 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
 
 You can find instructions and tutorials [on this page](Instructions.md).
 
+**ATTENTION!** Mixed Reality Capture is broken on the Quest 2/Pro after version 51 was released (that uses Android 12). You'll need to follow additional steps with [SideQuest](https://sidequestvr.com/). You can read these steps [here](Additional-Instructions.md)
+
 ## Requirements
 
  - Oculus Quest 1 or 2, or the Meta Quest Pro, with the [Oculus MRC Calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) version 1.7 installed.
