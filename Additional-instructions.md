@@ -1,6 +1,18 @@
 ## Additional Instructions
 
-Mixed Reality Capture is broken on the Quest 2/Pro after version 51 was released. You'll need to use Developer mode and [SideQuest](https://sidequestvr.com/setup-howto) to be able to copy the calibration file (`mrc.xml`) manually to the right place. This tutorial is assuming that you already have SideQuest and Developer mode setup correctly (follow [these instructions](https://sidequestvr.com/setup-howto) first if that's not the case).
+Mixed Reality Capture is broken on the Quest 2/Pro after version 51 was released. The regular [Mixed Reality Capture calibration app](https://www.oculus.com/experiences/quest/2532132800176262/) is no longer able to save the calibration.
+
+You have two options:
+
+ - Install [SoapyMan's calibration app](https://github.com/SoapyMan/MRCCameraCalibrationApp/releases/latest) with [SideQuest](https://sidequestvr.com/setup-howto) and use this app instead of the regular Mixed Reality Capture calibration app. This app will ask for the right permissions to save the calibration.
+
+**OR**
+
+ - Complete a calibration with the regular Mixed Reality Capture calibration app once and then follow the instructions below to copy and save the calibration file (`mrc.xml`) manually with [SideQuest](https://sidequestvr.com/setup-howto). After that, you should be able to calibrate again easily if you use the "Enable Moving Camera" option. 
+
+### Instructions
+
+This tutorial is assuming that you already have SideQuest and Developer mode setup correctly (follow [these instructions](https://sidequestvr.com/setup-howto) first if that's not the case).
 
 1. Connect your Quest 2/Pro to your PC and follow the next steps.
 
