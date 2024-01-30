@@ -10,6 +10,20 @@ Follow us on [Twitter](https://twitter.com/reality_mixer) for more updates!
 
 <a href="https://www.youtube.com/watch?v=KhoyKABFvzA"><img src="Images/video.jpg" width="400"/></a>
 
+## ATTENTION!
+
+Mixed Reality Capture is **broken** on the Quest 2/3/Pro after version 51 was released (that uses Android 12). The regular Mixed Reality Capture calibration **app is no longer able to save the calibration**!
+
+If you still want to try to use the app, make sure to use install [SoapyMan's calibration app](https://github.com/SoapyMan/MRCCameraCalibrationApp/releases/latest) with [SideQuest](https://sidequestvr.com/setup-howto) and use this app instead of the regular Mixed Reality Capture calibration app. This app will ask for the right permissions to save the calibration. Notice that most Quest apps no longer support Mixed Reality Capture.
+
+Access [this link](Additional-instructions.md) to read more about it.
+
+If you're a developer, and Mixed Reality Capture is no longer working with your Unity app, then make sure to add this to your Android manifest file:
+
+```xml
+<uses-native-library android:name="libOVRMrcLib.oculus.so" android:required="true" />
+```
+
 ## Features
 
  - Mixed Reality capture without green screen (using ARKit's person segmentation).
