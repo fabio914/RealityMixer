@@ -89,6 +89,14 @@ final class CalibrationConnectionViewController: UIViewController {
             guard let self = self else { return }
 
             // FIXME: Do this in a way that doesn't block the main thread
+                                                              
+                                                              
+            // Making Dummy Request to Apple Server to solve Chinese Device wireless permission issue
+            if let url = URL(string: "https://captive.apple.com") {
+                do {
+                    let contents = try String(contentsOf: url)
+                    print(contents)
+                }catch {}}
 
             let client = TCPClient(address: address, port: port)
 
