@@ -20,16 +20,17 @@ protocol ProjectionPickerViewControllerDelegate: AnyObject {
 
 final class ProjectionPickerViewController: UIViewController {
     weak var delegate: ProjectionPickerViewControllerDelegate?
+
+    private let image: UIImage
+    private let projectionMatrix: simd_float4x4
+
     private let scaleFactor: Double
     private let cameraOrigin: Vector3
     private let rightControllerPosition: Vector3
     private let frame: ARFrame
     private let lastPoseUpdate: PoseUpdate
 
-    private var image: UIImage {
-        UIImage(ciImage: CIImage(cvImageBuffer: frame.capturedImage))
-    }
-    
+
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var sceneOverlay: SCNView!
     @IBOutlet private weak var blueView: UIView!
@@ -55,12 +56,16 @@ final class ProjectionPickerViewController: UIViewController {
     private var first = true
     
     init(
+        uiImage: UIImage,
+        projectionMatrix: simd_float4x4,
         scaleFactor: Double,
         cameraOrigin: Vector3,
         rightControllerPosition: Vector3,
         frame: ARFrame,
         lastPoseUpdate: PoseUpdate
     ) {
+        self.image = uiImage
+        self.projectionMatrix = projectionMatrix
         self.scaleFactor = scaleFactor
         self.cameraOrigin = cameraOrigin
         self.rightControllerPosition = rightControllerPosition
@@ -100,20 +105,20 @@ final class ProjectionPickerViewController: UIViewController {
         let camera = SCNCamera()
         camera.zNear = 0.1
         camera.zFar = 100.0
-        let (xFov, yFov) = CalibrationBuilder.fov(from: frame)
+        let (xFov, yFov) = CalibrationBuilder.fov(projectionMatrix: projectionMatrix, imageResolution: image.size)
 
         let imageViewRatio = imageView.frame.size.width/imageView.frame.size.height
-        let imageRatio = frame.camera.imageResolution.width/frame.camera.imageResolution.height
+        let imageRatio = image.size.width/image.size.height
 
         if imageViewRatio > imageRatio {
-            let imageHeightInImageViewCoordinates = frame.camera.imageResolution.height * (imageView.frame.size.width/frame.camera.imageResolution.width)
+            let imageHeightInImageViewCoordinates = image.size.height * (imageView.frame.size.width/image.size.width)
             let distanceInImageViewCoordinates = (imageHeightInImageViewCoordinates * 0.5)/CGFloat(tan(yFov/2.0))
             let adjustedYFov = CGFloat(2.0 * atan2((imageView.frame.size.height * 0.5), distanceInImageViewCoordinates))
 
             camera.projectionDirection = .vertical
             camera.fieldOfView = (adjustedYFov * (180.0/CGFloat.pi))
         } else {
-            let imageWidthInImageViewCoordinates = frame.camera.imageResolution.width * (imageView.frame.size.height/frame.camera.imageResolution.height)
+            let imageWidthInImageViewCoordinates = image.size.width * (imageView.frame.size.height/image.size.height)
             let distanceInImageViewCoordinates = (imageWidthInImageViewCoordinates * 0.5)/CGFloat(tan(xFov/2.0))
             let adjustedXFov = CGFloat(2.0 * atan2((imageView.frame.size.width * 0.5), distanceInImageViewCoordinates))
 
@@ -189,7 +194,8 @@ final class ProjectionPickerViewController: UIViewController {
             rightControllerPosition: rightControllerPosition,
             rightControllerScreenCoordinates: pixelCoordinate(from: blueViewCenter),
             centerPose: lastPoseUpdate.trackingTransformRaw,
-            frame: frame
+            imageResolution: image.size,
+            projectionMatrix: projectionMatrix
         )
 
         mainNode?.transform = calibration.0

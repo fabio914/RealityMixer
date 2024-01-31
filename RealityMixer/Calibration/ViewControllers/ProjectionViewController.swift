@@ -26,6 +26,8 @@ final class ProjectionViewController: UIViewController {
     private var projectionPickerViewController: ProjectionPickerViewController
 
     init(
+        uiImage: UIImage,
+        projectionMatrix: simd_float4x4,
         scaleFactor: Double,
         cameraOrigin: Vector3,
         rightControllerPosition: Vector3,
@@ -34,6 +36,8 @@ final class ProjectionViewController: UIViewController {
         delegate: ProjectionViewControllerDelegate
     ) {
         self.projectionPickerViewController = ProjectionPickerViewController(
+            uiImage: uiImage,
+            projectionMatrix: projectionMatrix,
             scaleFactor: scaleFactor,
             cameraOrigin: cameraOrigin,
             rightControllerPosition: rightControllerPosition,

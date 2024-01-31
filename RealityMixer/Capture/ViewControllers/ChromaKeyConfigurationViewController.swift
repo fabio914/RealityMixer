@@ -109,9 +109,9 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         updateValueLabels()
     }
 
-    private func configureBackgroundPlane(with frame: ARFrame) {
+    private func configureBackgroundPlane(viewPortSize: CGSize, projectionMatrix: simd_float4x4) {
         let distance: Float = 100
-        let backgroundPlaneSize = ARKitHelpers.planeSizeForDistance(distance, frame: frame)
+        let backgroundPlaneSize = ARKitHelpers.planeSizeForDistance(distance, imageResolution: viewPortSize, projection: projectionMatrix)
         let backgroundPlaneNode = ARKitHelpers.makePlane(size: backgroundPlaneSize, distance: distance)
 
         let planeMaterial = backgroundPlaneNode.geometry?.firstMaterial
@@ -129,8 +129,8 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         self.backgroundPlaneNode = backgroundPlaneNode
     }
 
-    private func configurePlane(with frame: ARFrame) {
-        let planeNode = ARKitHelpers.makePlaneNodeForDistance(0.1, frame: frame)
+    private func configurePlane(viewPortSize: CGSize, projectionMatrix: simd_float4x4) {
+        let planeNode = ARKitHelpers.makePlaneNodeForDistance(0.1, viewPortSize: viewPortSize, projectionMatrix: projectionMatrix)
         planeNode.geometry?.firstMaterial?.lightingModel = .constant
         planeNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
         planeNode.geometry?.firstMaterial?.shaderModifiers = [.surface: Shaders.surfaceChromaKeyConfiguration()]
@@ -248,6 +248,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
                 return
             }
 
+            // FIXME: Image is rotated!
             self.maskImage = ChromaKeyMaskBuilder.buildMask(for: currentFrame, chromaConfiguration: currentConfiguration())
         } else {
             self.maskImage = nil
@@ -284,8 +285,12 @@ extension ChromaKeyConfigurationViewController: ARSessionDelegate {
 
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         if first {
-            configureBackgroundPlane(with: frame)
-            configurePlane(with: frame)
+            let viewPortSize = sceneView.bounds.size
+            let interfaceOrientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation ?? UIInterfaceOrientation.unknown
+            let projectionMatrix = frame.camera.projectionMatrix(for: interfaceOrientation, viewportSize: viewPortSize, zNear: 0.001, zFar: 1000.0)
+
+            configureBackgroundPlane(viewPortSize: viewPortSize, projectionMatrix: projectionMatrix)
+            configurePlane(viewPortSize: viewPortSize, projectionMatrix: projectionMatrix)
             didUpdateValues()
             first = false
         }
