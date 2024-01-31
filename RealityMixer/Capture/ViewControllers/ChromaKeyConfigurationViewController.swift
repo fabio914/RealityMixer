@@ -7,6 +7,7 @@
 
 import UIKit
 import ARKit
+import RealityMixerKit
 
 final class ChromaKeyConfigurationViewController: UIViewController {
 
@@ -85,7 +86,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
         sceneView.scene = scene
         sceneView.session.delegate = self
 
-        ARKitHelpers.create(textureCache: &textureCache, for: sceneView)
+        SceneKitHelpers.create(textureCache: &textureCache, for: sceneView)
     }
 
     private func configureSliders() {
@@ -112,7 +113,7 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     private func configureBackgroundPlane(with frame: ARFrame) {
         let distance: Float = 100
         let backgroundPlaneSize = ARKitHelpers.planeSizeForDistance(distance, frame: frame)
-        let backgroundPlaneNode = ARKitHelpers.makePlane(size: backgroundPlaneSize, distance: distance)
+        let backgroundPlaneNode = SceneKitHelpers.makePlane(size: backgroundPlaneSize, distance: distance)
 
         let planeMaterial = backgroundPlaneNode.geometry?.firstMaterial
         planeMaterial?.lightingModel = .constant
@@ -139,8 +140,8 @@ final class ChromaKeyConfigurationViewController: UIViewController {
     }
 
     func updatePlaneImage(with pixelBuffer: CVPixelBuffer) {
-        let luma = ARKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
-        let chroma = ARKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
+        let luma = SceneKitHelpers.texture(from: pixelBuffer, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
+        let chroma = SceneKitHelpers.texture(from: pixelBuffer, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
 
         planeNode?.geometry?.firstMaterial?.transparent.contents = luma
         planeNode?.geometry?.firstMaterial?.diffuse.contents = chroma

@@ -5,27 +5,31 @@
 //  Created by Fabio de Albuquerque Dela Antonio on 27/06/2021.
 //
 
-import UIKit
+#if os(iOS)
 import ARKit
+#elseif os(macOS)
+import AppKit
+#endif
+
 import SceneKit
 import CoreImage.CIFilterBuiltins
 
 // Consider replacing this with Metal (MTLComputeCommandEncoder)
 // to reduce the SceneKit overhead.
 
-final class ChromaKeyMaskBuilder {
+public final class ChromaKeyMaskBuilder {
 
-    static func buildMask(for frame: ARFrame, chromaConfiguration: ChromaKeyConfiguration) -> UIImage? {
-
-        let capturedImage = frame.capturedImage
-        let imageSize = frame.camera.imageResolution
-
+    static func buildMask(
+        for capturedImage: CVPixelBuffer,
+        chromaConfiguration: ChromaKeyConfiguration
+    ) -> CIImage? {
         guard let device = MTLCreateSystemDefaultDevice() else { return nil }
 
+        let imageSize = SceneKitHelpers.size(from: capturedImage)
         let renderer = SCNRenderer(device: device, options: nil)
 
         var cache: CVMetalTextureCache?
-        ARKitHelpers.create(textureCache: &cache, forDevice: device)
+        SceneKitHelpers.create(textureCache: &cache, forDevice: device)
 
         guard let textureCache = cache else { return nil }
 
@@ -47,7 +51,7 @@ final class ChromaKeyMaskBuilder {
             }
         }()
 
-        let planeNode = ARKitHelpers.makePlane(size: planeSize, distance: 1)
+        let planeNode = SceneKitHelpers.makePlane(size: planeSize, distance: 1)
 
         planeNode.geometry?.firstMaterial?.transparencyMode = .rgbZero
 
@@ -67,8 +71,8 @@ final class ChromaKeyMaskBuilder {
             forKey: "sensitivity"
         )
 
-        let luma = ARKitHelpers.texture(from: capturedImage, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
-        let chroma = ARKitHelpers.texture(from: capturedImage, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
+        let luma = SceneKitHelpers.texture(from: capturedImage, format: .r8Unorm, planeIndex: 0, textureCache: textureCache)
+        let chroma = SceneKitHelpers.texture(from: capturedImage, format: .rg8Unorm, planeIndex: 1, textureCache: textureCache)
 
         planeNode.geometry?.firstMaterial?.transparent.contents = luma
         planeNode.geometry?.firstMaterial?.diffuse.contents = chroma
@@ -77,12 +81,40 @@ final class ChromaKeyMaskBuilder {
         renderer.scene = scene
         let initialMask = renderer.snapshot(atTime: 0, with: imageSize, antialiasingMode: SCNAntialiasingMode.none)
 
-        // Eroding the white area
+#if os(macOS)
+        let ciImage = initialMask.ciImage()
+#elseif os(iOS)
         let ciImage = CIImage(image: initialMask)
+#endif
+
+        // Eroding the white area
         let filter = CIFilter.morphologyMinimum()
         filter.inputImage = ciImage
         filter.radius = 10
-        return filter.outputImage.flatMap(uiImage(from:))
+        return filter.outputImage
+    }
+
+#if os(macOS)
+    public static func buildMask(
+        for capturedImage: CVPixelBuffer,
+        chromaConfiguration: ChromaKeyConfiguration
+    ) -> NSImage? {
+        let ciImage: CIImage? = buildMask(for: capturedImage, chromaConfiguration: chromaConfiguration)
+        return ciImage.flatMap(nsImage(from:))
+    }
+
+    static func nsImage(from inputImage: CIImage) -> NSImage {
+        let rep = NSCIImageRep(ciImage: inputImage)
+        let nsImage = NSImage(size: rep.size)
+        nsImage.addRepresentation(rep)
+        return nsImage
+    }
+
+#elseif os(iOS)
+    public static func buildMask(for frame: ARFrame, chromaConfiguration: ChromaKeyConfiguration) -> UIImage? {
+        let capturedImage = frame.capturedImage
+        let ciImage = buildMask(for: capturedImage, chromaConfiguration: chromaConfiguration)
+        return ciImage.flatMap(uiImage(from:))
     }
 
     static func uiImage(from inputImage: CIImage) -> UIImage? {
@@ -94,4 +126,24 @@ final class ChromaKeyMaskBuilder {
 
         return UIImage(cgImage: cgImage)
     }
+#endif
 }
+
+
+#if os(macOS)
+
+private extension NSImage {
+
+    func ciImage() -> CIImage? {
+        guard let data = self.tiffRepresentation,
+            let bitmap = NSBitmapImageRep(data: data)
+        else {
+            return nil
+        }
+
+        let ci = CIImage(bitmapImageRep: bitmap)
+        return ci
+    }
+}
+
+#endif

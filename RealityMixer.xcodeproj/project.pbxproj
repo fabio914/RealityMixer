@@ -44,9 +44,6 @@
 		A328D8B4253C8C4000B90E62 /* MixedRealityConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328D8B3253C8C4000B90E62 /* MixedRealityConnectionViewController.swift */; };
 		A328D8B9253C8C4300B90E62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A328D8B8253C8C4300B90E62 /* Assets.xcassets */; };
 		A328D8BC253C8C4300B90E62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */; };
-		A328D960253C959500B90E62 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D95F253C958D00B90E62 /* libbz2.tbd */; };
-		A328D963253C95A000B90E62 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D962253C959B00B90E62 /* libz.tbd */; };
-		A328D966253C95AD00B90E62 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D965253C95A700B90E62 /* libiconv.tbd */; };
 		A328D969253C95B700B90E62 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D968253C95B700B90E62 /* VideoToolbox.framework */; };
 		A328D96B253C95BD00B90E62 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D96A253C95BD00B90E62 /* AudioToolbox.framework */; };
 		A328D96D253C95C300B90E62 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D96C253C95C200B90E62 /* CoreMedia.framework */; };
@@ -56,8 +53,6 @@
 		A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98D253CF2EE00B90E62 /* ARKit.framework */; };
 		A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A328D98F253CF2F400B90E62 /* SceneKit.framework */; };
 		A32A3D0226CB0A9A0093FAC5 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32A3D0126CB0A990093FAC5 /* AudioManager.swift */; };
-		A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */; };
-		A338B35D265AE1E300099827 /* ChromaKeyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */; };
 		A338B360265B250100099827 /* ChromaKeyConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B35E265B250100099827 /* ChromaKeyConfigurationViewController.swift */; };
 		A338B361265B250100099827 /* ChromaKeyConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A338B35F265B250100099827 /* ChromaKeyConfigurationViewController.xib */; };
 		A338B363265B25E500099827 /* ARKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B362265B25E500099827 /* ARKitHelpers.swift */; };
@@ -68,17 +63,48 @@
 		A3798AE125D9F6CA00B3BFBC /* CameraPoseSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */; };
 		A3837F6D263A239F0053951E /* next.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A3837F6B263A239F0053951E /* next.mp3 */; };
 		A3837F6E263A239F0053951E /* reset.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A3837F6C263A239F0053951E /* reset.mp3 */; };
-		A39033ED256859A8004CB638 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39033EC256859A8004CB638 /* Shaders.swift */; };
 		A3A50C0725F4945700413E01 /* SwiftlyAttributedStrings in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C0625F4945700413E01 /* SwiftlyAttributedStrings */; };
 		A3A50C0C25F57AB700413E01 /* ProjectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A50C0A25F57AB700413E01 /* ProjectionPickerViewController.swift */; };
 		A3A50C0D25F57AB700413E01 /* ProjectionPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3A50C0B25F57AB700413E01 /* ProjectionPickerViewController.xib */; };
 		A3A50C4125F5B3B100413E01 /* SwiftSocket in Frameworks */ = {isa = PBXBuildFile; productRef = A3A50C4025F5B3B100413E01 /* SwiftSocket */; };
-		A3EEFFBF26890AE300A0DC19 /* ChromaKeyMaskBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */; };
 		EF2C4C0D28739194001AA8DE /* CaptureFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2C4C0928739194001AA8DE /* CaptureFrame.swift */; };
 		EF2C4C0E28739194001AA8DE /* OculusCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2C4C0A28739194001AA8DE /* OculusCapture.swift */; };
 		EF2C4C0F28739194001AA8DE /* CapturePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2C4C0B28739194001AA8DE /* CapturePayload.swift */; };
 		EF2C4C1028739194001AA8DE /* VideoDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2C4C0C28739194001AA8DE /* VideoDecoder.swift */; };
+		EFC0DFDF2874C70E0066F6F3 /* RealityMixerKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EFC0DFDE2874C70E0066F6F3 /* RealityMixerKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EFC0DFE22874C70E0066F6F3 /* RealityMixerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFC0DFDC2874C70E0066F6F3 /* RealityMixerKit.framework */; };
+		EFC0DFE32874C70E0066F6F3 /* RealityMixerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EFC0DFDC2874C70E0066F6F3 /* RealityMixerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EFC0DFFA2874CA900066F6F3 /* RealityMixerMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0DFF92874CA900066F6F3 /* RealityMixerMacApp.swift */; };
+		EFC0DFFE2874CA900066F6F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFC0DFFD2874CA900066F6F3 /* Assets.xcassets */; };
+		EFC0E0062874CACF0066F6F3 /* RealityMixerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFC0DFDC2874C70E0066F6F3 /* RealityMixerKit.framework */; };
+		EFC0E00A2874CD890066F6F3 /* RealityMixerMac.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EFC0E0092874CD890066F6F3 /* RealityMixerMac.xcconfig */; };
+		EFC0E00C2874CFD60066F6F3 /* RealityMixerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EFC0DFDC2874C70E0066F6F3 /* RealityMixerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EFC0E0122874DDF60066F6F3 /* CameraSelectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0E0112874DDF60066F6F3 /* CameraSelectionScreen.swift */; };
+		EFC0E0152874DE230066F6F3 /* CameraSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC0E0142874DE230066F6F3 /* CameraSelectionViewModel.swift */; };
+		EFD65FD92874F1A200344323 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FD82874F1A200344323 /* MainWindow.swift */; };
+		EFD65FDC2874FAAA00344323 /* CameraSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FDB2874FAAA00344323 /* CameraSession.swift */; };
+		EFD65FDE2874FDA100344323 /* CameraTestScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FDD2874FDA100344323 /* CameraTestScreen.swift */; };
+		EFD65FE02874FE3400344323 /* CameraTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FDF2874FE3400344323 /* CameraTestViewModel.swift */; };
+		EFD65FE32875E56000344323 /* ChromaKeyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */; };
+		EFD65FE42875E56300344323 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */; };
+		EFD65FE72875EA1C00344323 /* SceneKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FE62875EA1C00344323 /* SceneKitHelpers.swift */; };
+		EFD65FEA2875EE8E00344323 /* ChromaKeyMaskBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */; };
+		EFD65FEB2875EEC800344323 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39033EC256859A8004CB638 /* Shaders.swift */; };
+		EFD65FEF2876333300344323 /* ChromaKeyConfigurationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FEE2876333300344323 /* ChromaKeyConfigurationScreen.swift */; };
+		EFD65FF12876344500344323 /* ChromaKeyConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FF02876344500344323 /* ChromaKeyConfigurationViewModel.swift */; };
+		EFD65FF5287650EF00344323 /* ChromaKeyConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD65FF3287650EF00344323 /* ChromaKeyConfigurationViewController.swift */; };
+		EFD65FF6287650EF00344323 /* ChromaKeyConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFD65FF4287650EF00344323 /* ChromaKeyConfigurationViewController.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EFC0DFE02874C70E0066F6F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A328D8A4253C8C4000B90E62 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EFC0DFDB2874C70E0066F6F3;
+			remoteInfo = RealityMixerKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		A36BAB3025F059B00006FDD8 /* Embed Frameworks */ = {
@@ -87,6 +113,18 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EFC0DFE32874C70E0066F6F3 /* RealityMixerKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EFC0E00B2874CFC70066F6F3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EFC0E00C2874CFD60066F6F3 /* RealityMixerKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,6 +207,24 @@
 		EF2C4C0A28739194001AA8DE /* OculusCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OculusCapture.swift; sourceTree = "<group>"; };
 		EF2C4C0B28739194001AA8DE /* CapturePayload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePayload.swift; sourceTree = "<group>"; };
 		EF2C4C0C28739194001AA8DE /* VideoDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDecoder.swift; sourceTree = "<group>"; };
+		EFC0DFDC2874C70E0066F6F3 /* RealityMixerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealityMixerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFC0DFDE2874C70E0066F6F3 /* RealityMixerKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealityMixerKit.h; sourceTree = "<group>"; };
+		EFC0DFF72874CA900066F6F3 /* RealityMixerMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealityMixerMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFC0DFF92874CA900066F6F3 /* RealityMixerMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealityMixerMacApp.swift; sourceTree = "<group>"; };
+		EFC0DFFD2874CA900066F6F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EFC0E0022874CA900066F6F3 /* RealityMixerMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RealityMixerMac.entitlements; sourceTree = "<group>"; };
+		EFC0E0092874CD890066F6F3 /* RealityMixerMac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = RealityMixerMac.xcconfig; sourceTree = "<group>"; };
+		EFC0E0112874DDF60066F6F3 /* CameraSelectionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSelectionScreen.swift; sourceTree = "<group>"; };
+		EFC0E0142874DE230066F6F3 /* CameraSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSelectionViewModel.swift; sourceTree = "<group>"; };
+		EFD65FD82874F1A200344323 /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
+		EFD65FDB2874FAAA00344323 /* CameraSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSession.swift; sourceTree = "<group>"; };
+		EFD65FDD2874FDA100344323 /* CameraTestScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestScreen.swift; sourceTree = "<group>"; };
+		EFD65FDF2874FE3400344323 /* CameraTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestViewModel.swift; sourceTree = "<group>"; };
+		EFD65FE62875EA1C00344323 /* SceneKitHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitHelpers.swift; sourceTree = "<group>"; };
+		EFD65FEE2876333300344323 /* ChromaKeyConfigurationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfigurationScreen.swift; sourceTree = "<group>"; };
+		EFD65FF02876344500344323 /* ChromaKeyConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfigurationViewModel.swift; sourceTree = "<group>"; };
+		EFD65FF3287650EF00344323 /* ChromaKeyConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyConfigurationViewController.swift; sourceTree = "<group>"; };
+		EFD65FF4287650EF00344323 /* ChromaKeyConfigurationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChromaKeyConfigurationViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,16 +232,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A328D960253C959500B90E62 /* libbz2.tbd in Frameworks */,
 				A3A50C0725F4945700413E01 /* SwiftlyAttributedStrings in Frameworks */,
 				A3A50C4125F5B3B100413E01 /* SwiftSocket in Frameworks */,
+				EFC0DFE22874C70E0066F6F3 /* RealityMixerKit.framework in Frameworks */,
 				A328D98E253CF2EE00B90E62 /* ARKit.framework in Frameworks */,
 				A328D990253CF2F400B90E62 /* SceneKit.framework in Frameworks */,
 				A328D96B253C95BD00B90E62 /* AudioToolbox.framework in Frameworks */,
 				A328D96D253C95C300B90E62 /* CoreMedia.framework in Frameworks */,
-				A328D966253C95AD00B90E62 /* libiconv.tbd in Frameworks */,
 				A328D969253C95B700B90E62 /* VideoToolbox.framework in Frameworks */,
-				A328D963253C95A000B90E62 /* libz.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EFC0DFD92874C70E0066F6F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EFC0DFF42874CA900066F6F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFC0E0062874CACF0066F6F3 /* RealityMixerKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,7 +275,6 @@
 				A3798AE025D9F6CA00B3BFBC /* CameraPoseSender.swift */,
 				A319DCB0264891CF00CDAE58 /* ARConfigurationFactory.swift */,
 				A338B362265B25E500099827 /* ARKitHelpers.swift */,
-				A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */,
 				A30B22E92693D9F2005EB78F /* CameraPermissionHelper.swift */,
 			);
 			path = Misc;
@@ -330,6 +398,8 @@
 				A32285B62558163B00FF3200 /* Instructions.md */,
 				A37850BC256C433C00C046FA /* Compatibility.md */,
 				A328D8AE253C8C4000B90E62 /* RealityMixer */,
+				EFC0DFDD2874C70E0066F6F3 /* RealityMixerKit */,
+				EFC0DFF82874CA900066F6F3 /* RealityMixerMac */,
 				A328D8AD253C8C4000B90E62 /* Products */,
 				A328D95E253C958D00B90E62 /* Frameworks */,
 			);
@@ -339,6 +409,8 @@
 			isa = PBXGroup;
 			children = (
 				A328D8AC253C8C4000B90E62 /* RealityMixer.app */,
+				EFC0DFDC2874C70E0066F6F3 /* RealityMixerKit.framework */,
+				EFC0DFF72874CA900066F6F3 /* RealityMixerMac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -399,8 +471,6 @@
 			children = (
 				A32226FA262C5229004629CC /* MixedRealityConfiguration.swift */,
 				A32226FB262C5229004629CC /* NetworkConfiguration.swift */,
-				A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */,
-				A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -449,7 +519,6 @@
 		A39033EB2568599B004CB638 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				A39033EC256859A8004CB638 /* Shaders.swift */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -465,7 +534,156 @@
 			path = MRC;
 			sourceTree = "<group>";
 		};
+		EFC0DFDD2874C70E0066F6F3 /* RealityMixerKit */ = {
+			isa = PBXGroup;
+			children = (
+				EFD65FE92875ED9600344323 /* Shaders */,
+				EFD65FE82875ED8200344323 /* ChromaKey */,
+				EFD65FE52875E9AB00344323 /* Helpers */,
+				EFD65FE22875E54C00344323 /* Configuration */,
+				EFC0DFDE2874C70E0066F6F3 /* RealityMixerKit.h */,
+			);
+			path = RealityMixerKit;
+			sourceTree = "<group>";
+		};
+		EFC0DFF82874CA900066F6F3 /* RealityMixerMac */ = {
+			isa = PBXGroup;
+			children = (
+				EFD65FE12875E3E000344323 /* ChromaKey */,
+				EFD65FDA2874FAA100344323 /* Camera */,
+				EFC0E00F2874DDBE0066F6F3 /* Main */,
+				EFC0E0082874CB610066F6F3 /* Resources */,
+				EFC0DFF92874CA900066F6F3 /* RealityMixerMacApp.swift */,
+				EFC0E0022874CA900066F6F3 /* RealityMixerMac.entitlements */,
+				EFC0E0092874CD890066F6F3 /* RealityMixerMac.xcconfig */,
+			);
+			path = RealityMixerMac;
+			sourceTree = "<group>";
+		};
+		EFC0E0082874CB610066F6F3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EFC0DFFD2874CA900066F6F3 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		EFC0E00F2874DDBE0066F6F3 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				EFC0E0132874DE150066F6F3 /* ViewModels */,
+				EFC0E0102874DDDB0066F6F3 /* Screens */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		EFC0E0102874DDDB0066F6F3 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				EFC0E0112874DDF60066F6F3 /* CameraSelectionScreen.swift */,
+				EFD65FD82874F1A200344323 /* MainWindow.swift */,
+				EFD65FDD2874FDA100344323 /* CameraTestScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		EFC0E0132874DE150066F6F3 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EFC0E0142874DE230066F6F3 /* CameraSelectionViewModel.swift */,
+				EFD65FDF2874FE3400344323 /* CameraTestViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		EFD65FDA2874FAA100344323 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				EFD65FDB2874FAAA00344323 /* CameraSession.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		EFD65FE12875E3E000344323 /* ChromaKey */ = {
+			isa = PBXGroup;
+			children = (
+				EFD65FF2287650D100344323 /* ViewControllers */,
+				EFD65FEC2876331700344323 /* ViewModels */,
+				EFD65FED2876331D00344323 /* Screens */,
+			);
+			path = ChromaKey;
+			sourceTree = "<group>";
+		};
+		EFD65FE22875E54C00344323 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				A338B359265ADFFE00099827 /* UserDefaultsStorage.swift */,
+				A338B35C265AE1E300099827 /* ChromaKeyConfiguration.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		EFD65FE52875E9AB00344323 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EFD65FE62875EA1C00344323 /* SceneKitHelpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EFD65FE82875ED8200344323 /* ChromaKey */ = {
+			isa = PBXGroup;
+			children = (
+				A3EEFFBE26890AE200A0DC19 /* ChromaKeyMaskBuilder.swift */,
+			);
+			path = ChromaKey;
+			sourceTree = "<group>";
+		};
+		EFD65FE92875ED9600344323 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				A39033EC256859A8004CB638 /* Shaders.swift */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
+		EFD65FEC2876331700344323 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EFD65FF02876344500344323 /* ChromaKeyConfigurationViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		EFD65FED2876331D00344323 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				EFD65FEE2876333300344323 /* ChromaKeyConfigurationScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		EFD65FF2287650D100344323 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				EFD65FF3287650EF00344323 /* ChromaKeyConfigurationViewController.swift */,
+				EFD65FF4287650EF00344323 /* ChromaKeyConfigurationViewController.xib */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		EFC0DFD72874C70E0066F6F3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFC0DFDF2874C70E0066F6F3 /* RealityMixerKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		A328D8AB253C8C4000B90E62 /* RealityMixer */ = {
@@ -480,6 +698,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EFC0DFE12874C70E0066F6F3 /* PBXTargetDependency */,
 			);
 			name = RealityMixer;
 			packageProductDependencies = (
@@ -490,18 +709,61 @@
 			productReference = A328D8AC253C8C4000B90E62 /* RealityMixer.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EFC0DFDB2874C70E0066F6F3 /* RealityMixerKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EFC0DFE62874C70E0066F6F3 /* Build configuration list for PBXNativeTarget "RealityMixerKit" */;
+			buildPhases = (
+				EFC0DFD72874C70E0066F6F3 /* Headers */,
+				EFC0DFD82874C70E0066F6F3 /* Sources */,
+				EFC0DFD92874C70E0066F6F3 /* Frameworks */,
+				EFC0DFDA2874C70E0066F6F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RealityMixerKit;
+			productName = RealityMixerKit;
+			productReference = EFC0DFDC2874C70E0066F6F3 /* RealityMixerKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EFC0DFF62874CA900066F6F3 /* RealityMixerMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EFC0E0032874CA900066F6F3 /* Build configuration list for PBXNativeTarget "RealityMixerMac" */;
+			buildPhases = (
+				EFC0DFF32874CA900066F6F3 /* Sources */,
+				EFC0DFF42874CA900066F6F3 /* Frameworks */,
+				EFC0DFF52874CA900066F6F3 /* Resources */,
+				EFC0E00B2874CFC70066F6F3 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RealityMixerMac;
+			productName = RealityMixerMac;
+			productReference = EFC0DFF72874CA900066F6F3 /* RealityMixerMac.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		A328D8A4253C8C4000B90E62 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					A328D8AB253C8C4000B90E62 = {
 						CreatedOnToolsVersion = 12.0;
 						LastSwiftMigration = 1200;
+					};
+					EFC0DFDB2874C70E0066F6F3 = {
+						CreatedOnToolsVersion = 14.0;
+						LastSwiftMigration = 1400;
+					};
+					EFC0DFF62874CA900066F6F3 = {
+						CreatedOnToolsVersion = 14.0;
 					};
 				};
 			};
@@ -523,6 +785,8 @@
 			projectRoot = "";
 			targets = (
 				A328D8AB253C8C4000B90E62 /* RealityMixer */,
+				EFC0DFDB2874C70E0066F6F3 /* RealityMixerKit */,
+				EFC0DFF62874CA900066F6F3 /* RealityMixerMac */,
 			);
 		};
 /* End PBXProject section */
@@ -555,6 +819,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EFC0DFDA2874C70E0066F6F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EFC0DFF52874CA900066F6F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFC0E00A2874CD890066F6F3 /* RealityMixerMac.xcconfig in Resources */,
+				EFD65FF6287650EF00344323 /* ChromaKeyConfigurationViewController.xib in Resources */,
+				EFC0DFFE2874CA900066F6F3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -574,18 +855,14 @@
 				EF2C4C0D28739194001AA8DE /* CaptureFrame.swift in Sources */,
 				A36C916526377A3000D64107 /* AvatarProtocol.swift in Sources */,
 				A319DCB1264891CF00CDAE58 /* ARConfigurationFactory.swift in Sources */,
-				A338B35A265ADFFE00099827 /* UserDefaultsStorage.swift in Sources */,
 				A324160F2554D4AD008D4B90 /* CalibrationBuilder.swift in Sources */,
-				A338B35D265AE1E300099827 /* ChromaKeyConfiguration.swift in Sources */,
 				A32416402555DBA9008D4B90 /* Double+ScientificString.swift in Sources */,
 				EF2C4C0E28739194001AA8DE /* OculusCapture.swift in Sources */,
 				A338B360265B250100099827 /* ChromaKeyConfigurationViewController.swift in Sources */,
 				A324162E2554E213008D4B90 /* OculusCalibration.swift in Sources */,
 				A32A3D0226CB0A9A0093FAC5 /* AudioManager.swift in Sources */,
 				A36C916726377C0900D64107 /* RobotAvatar.swift in Sources */,
-				A3EEFFBF26890AE300A0DC19 /* ChromaKeyMaskBuilder.swift in Sources */,
 				A324163D2554E520008D4B90 /* CGPoint+Extensions.swift in Sources */,
-				A39033ED256859A8004CB638 /* Shaders.swift in Sources */,
 				A3A50C0C25F57AB700413E01 /* ProjectionPickerViewController.swift in Sources */,
 				A32416022554D296008D4B90 /* Math.swift in Sources */,
 				A32416052554D2FE008D4B90 /* Parser.swift in Sources */,
@@ -606,7 +883,44 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EFC0DFD82874C70E0066F6F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFD65FE32875E56000344323 /* ChromaKeyConfiguration.swift in Sources */,
+				EFD65FEB2875EEC800344323 /* Shaders.swift in Sources */,
+				EFD65FE72875EA1C00344323 /* SceneKitHelpers.swift in Sources */,
+				EFD65FE42875E56300344323 /* UserDefaultsStorage.swift in Sources */,
+				EFD65FEA2875EE8E00344323 /* ChromaKeyMaskBuilder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EFC0DFF32874CA900066F6F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFD65FEF2876333300344323 /* ChromaKeyConfigurationScreen.swift in Sources */,
+				EFD65FE02874FE3400344323 /* CameraTestViewModel.swift in Sources */,
+				EFD65FF12876344500344323 /* ChromaKeyConfigurationViewModel.swift in Sources */,
+				EFD65FDC2874FAAA00344323 /* CameraSession.swift in Sources */,
+				EFD65FD92874F1A200344323 /* MainWindow.swift in Sources */,
+				EFD65FDE2874FDA100344323 /* CameraTestScreen.swift in Sources */,
+				EFC0E0152874DE230066F6F3 /* CameraSelectionViewModel.swift in Sources */,
+				EFC0DFFA2874CA900066F6F3 /* RealityMixerMacApp.swift in Sources */,
+				EFC0E0122874DDF60066F6F3 /* CameraSelectionScreen.swift in Sources */,
+				EFD65FF5287650EF00344323 /* ChromaKeyConfigurationViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EFC0DFE12874C70E0066F6F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EFC0DFDB2874C70E0066F6F3 /* RealityMixerKit */;
+			targetProxy = EFC0DFE02874C70E0066F6F3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A328D8BA253C8C4300B90E62 /* LaunchScreen.storyboard */ = {
@@ -740,6 +1054,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E1B214525678AF60084847C /* RealityMixer.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -767,6 +1082,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E1B214525678AF60084847C /* RealityMixer.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -789,6 +1105,147 @@
 			};
 			name = Release;
 		};
+		EFC0DFE42874C70E0066F6F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.RealityMixerKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		EFC0DFE52874C70E0066F6F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bluenose.RealityMixerKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		EFC0E0042874CA900066F6F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFC0E0092874CD890066F6F3 /* RealityMixerMac.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = RealityMixerMac/RealityMixerMac.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = ZTJ55TM37B;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access for Mixed Reality";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).RealityMixerMac";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		EFC0E0052874CA900066F6F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFC0E0092874CD890066F6F3 /* RealityMixerMac.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = RealityMixerMac/RealityMixerMac.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = ZTJ55TM37B;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access for Mixed Reality";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).RealityMixerMac";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -806,6 +1263,24 @@
 			buildConfigurations = (
 				A328D8C1253C8C4300B90E62 /* Debug */,
 				A328D8C2253C8C4300B90E62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EFC0DFE62874C70E0066F6F3 /* Build configuration list for PBXNativeTarget "RealityMixerKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EFC0DFE42874C70E0066F6F3 /* Debug */,
+				EFC0DFE52874C70E0066F6F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EFC0E0032874CA900066F6F3 /* Build configuration list for PBXNativeTarget "RealityMixerMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EFC0E0042874CA900066F6F3 /* Debug */,
+				EFC0E0052874CA900066F6F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

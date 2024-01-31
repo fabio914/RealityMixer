@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealityMixerKit
 
 struct MixedRealityConfiguration: Codable, Equatable {
 
