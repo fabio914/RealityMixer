@@ -22,13 +22,13 @@ extension CalibrationResult {
         <opencv_storage>
             <camera_id>1</camera_id>
             <camera_name>Reality Mixer Camera</camera_name>
-            <image_width>\(imageSize.width)</image_width>
-            <image_height>\(imageSize.height)</image_height>
+            <image_width>1920</image_width>
+            <image_height>1080</image_height>
             <camera_matrix type_id="opencv-matrix">
                 <rows>3</rows>
                 <cols>3</cols>
                 <dt>d</dt>
-                <data>\(camera.m11.scientific) \(camera.m21.scientific) \(camera.m31.scientific) \(camera.m12.scientific) \(camera.m22.scientific) \(camera.m32.scientific) \(camera.m13.scientific) \(camera.m23.scientific) \(camera.m33.scientific)</data>
+                <data>7.667418047615e+2 0e+0 9.6e+2 0e+0 7.667418047615e+2 5.4e+2 0e+0 0e+0 1e+0</data>
             </camera_matrix>
             <distortion_coefficients type_id="opencv-matrix">
                 <rows>8</rows>
