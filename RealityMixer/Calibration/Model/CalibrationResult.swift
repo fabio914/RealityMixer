@@ -20,7 +20,7 @@ extension CalibrationResult {
         """
         <?xml version="1.0"?>
         <opencv_storage>
-            <camera_id>1</camera_id>
+            <camera_id>\(UUID().uuidString)</camera_id>
             <camera_name>Reality Mixer Camera</camera_name>
             <image_width>\(imageSize.width)</image_width>
             <image_height>\(imageSize.height)</image_height>

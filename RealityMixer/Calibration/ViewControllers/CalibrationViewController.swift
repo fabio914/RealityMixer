@@ -308,6 +308,9 @@ extension CalibrationViewController: OculusCalibrationDelegate {
     }
 
     func oculusCalibration(_ oculusCalibration: OculusCalibration, didReceiveCalibrationXMLString xmlString: String) {
+        // Trying to erase any previous calibration
+        let data = CalibrationFrame(payloadType: PayloadType.clearCalibration.rawValue, data: Data()).toData()
+        _ = client.send(data: data)
     }
 }
 
